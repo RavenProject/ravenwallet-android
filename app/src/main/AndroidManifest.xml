@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.breadwallet">
+    package="com.ravencoin">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -55,7 +55,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.breadwallet"
+            android:authorities="com.ravencoin"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -87,10 +87,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:scheme="bitcoin"/>
+                <data android:scheme="raven"/>
                 <data android:scheme="bread"/>
-                <data android:scheme="bitcoincash"/>
-                <data android:scheme="bchtest"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
@@ -243,6 +241,8 @@
             android:enabled="true"
             android:exported="false"
             android:label="SyncReceiver"/>
+
+        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
     </application>
 
 </manifest>

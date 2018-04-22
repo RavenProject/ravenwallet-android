@@ -27,28 +27,29 @@
     <item name="warning_status_bar" type="color">#7f5225</item>
     <item name="camera_guideline" type="color">#50636363</item>
 
-    <item name="logo_gradient_start" type="color">#F8A445</item>
-    <item name="logo_gradient_end" type="color">#fc5394</item>
+    <item name="logo_gradient_start" type="color">#aa000000</item>
+    <item name="logo_gradient_end" type="color">#4a1d5c</item>
+    <item name="logo_gradient_dark" type="color">#3B004B</item>
 
-    <item name="finger_gradient_start" type="color">#9c7ee2</item>
-    <item name="finger_gradient_end" type="color">#7F52E6</item>
+    <item name="finger_gradient_start" type="color">#3B004B</item>
+    <item name="finger_gradient_end" type="color">#4a1d5c</item>
 
-    <item name="recover_gradient_start" type="color">#e5affc</item>
-    <item name="recover_gradient_end" type="color">#d17df5</item>
+    <item name="recover_gradient_start" type="color">#aa000000</item>
+    <item name="recover_gradient_end" type="color">#3B004B</item>
 
-    <item name="restore_gradient_start" type="color">#fabe7a</item>
-    <item name="restore_gradient_end" type="color">#F8A445</item>
+    <item name="restore_gradient_start" type="color">#aa000000</item>
+    <item name="restore_gradient_end" type="color">#3B004B</item>
 
     <item name="import_gradient_start" type="color">#76b0fd</item>
     <item name="import_gradient_end" type="color">#4C98FD</item>
 
-    <item name="write_phrase_gradient_start" type="color">#D9FD5394</item>
-    <item name="write_phrase_gradient_end" type="color">#FD5394</item>
+    <item name="write_phrase_gradient_start" type="color">#aa000000</item>
+    <item name="write_phrase_gradient_end" type="color">#4a1d5c</item>
 
     <item name="pin_pad_text" type="color">#A3A8AE</item>
     <item name="extra_light_blue_background" type="color">#F5F8FA</item>
 
-    <item name="button_primary_normal" type="color">#4C98FD</item>
+    <item name="button_primary_normal" type="color">#4a1d5c</item>
     <item name="button_secondary" type="color">#F5F8FA</item>
     <item name="button_secondary_text" type="color">#232426</item>
 
@@ -65,12 +66,14 @@
     //Currency screen
     <color name="currency_header_background">#f29500</color>
     <color name="currency_subheading_color">#F0E5D7</color>
+    <color name="currency_subheading_color_trans">#4DF0E5D7</color>
     <color name="currency_buttons_color">#ffac26</color>
 
     //Home screen
     <color name="total_assets_label_color">#788f9e</color>
     <color name="total_assets_usd_color">#546875</color>
     <color name="bitcoin_cash_row_color">#478559</color>
+    <color name="raven_row_color">#FFFF4444</color>
     <color name="admin_row_color">#e0e5e8</color>
     <color name="settings_chevron_right">#b3c0c8</color>
     <color name="transaction_amount_received_color">#4cbf2c</color>

@@ -7,7 +7,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">true</item>
         <item name="android:windowBackground">@color/white</item>
-        <item name="android:statusBarColor">@android:color/darker_gray</item>
+        <item name="android:statusBarColor">@color/extra_light_blue_background</item>
         <item name="android:actionBarStyle">@style/BreadActionBar</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
@@ -27,6 +27,35 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/dark_blue</item>
 
+    </style>
+
+
+    <style name="AppIntroButtonStyleCompat" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppIntroDefaultPadding">
+        <item name="android:paddingTop">@dimen/appIntroDefaultPaddingTop</item>
+        <item name="android:paddingLeft">@dimen/appIntroDefaultPaddingLeft</item>
+        <item name="android:paddingRight">@dimen/appIntroDefaultPaddingRight</item>
+        <item name="android:paddingBottom">@dimen/appIntroDefaultPaddingBottom</item>
+    </style>
+
+    <style name="AppIntroDefaultPadding.Intro1">
+        <item name="android:paddingBottom">@dimen/appIntroDefaultPaddingBottomIntro1</item>
+    </style>
+
+    <style name="AppIntroDefaultPadding.Intro2">
+        <item name="android:paddingBottom">@dimen/appIntroDefaultPaddingBottomIntro2</item>
+    </style>
+
+    <style name="AppIntroDefaultHeading" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/appIntroHeadingTextSize</item>
+    </style>
+
+    <style name="AppIntroDefaultText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

@@ -6,16 +6,16 @@ import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Base64;
 import android.util.Log;
 
-import com.breadwallet.core.BRCoreKey;
-import com.breadwallet.core.BRCoreMasterPubKey;
-import com.breadwallet.presenter.interfaces.BRAuthCompletion;
-import com.breadwallet.tools.manager.BRSharedPrefs;
-import com.breadwallet.tools.security.AuthManager;
-import com.breadwallet.tools.security.BRKeyStore;
-import com.breadwallet.tools.security.PostAuth;
-import com.breadwallet.tools.threads.executor.BRExecutor;
-import com.breadwallet.tools.util.BRConstants;
-import com.breadwallet.tools.util.Utils;
+import com.ravencoin.core.BRCoreKey;
+import com.ravencoin.core.BRCoreMasterPubKey;
+import com.ravencoin.presenter.interfaces.BRAuthCompletion;
+import com.ravencoin.tools.manager.BRSharedPrefs;
+import com.ravencoin.tools.security.AuthManager;
+import com.ravencoin.tools.security.BRKeyStore;
+import com.ravencoin.tools.security.PostAuth;
+import com.ravencoin.tools.threads.executor.BRExecutor;
+import com.ravencoin.tools.util.BRConstants;
+import com.ravencoin.tools.util.Utils;
 import com.platform.APIClient;
 import com.platform.middlewares.plugins.WalletPlugin;
 

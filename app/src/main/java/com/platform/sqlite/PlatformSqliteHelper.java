@@ -30,7 +30,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.breadwallet.tools.util.BRConstants;
+import com.ravencoin.tools.util.BRConstants;
 
 public class PlatformSqliteHelper extends SQLiteOpenHelper {
     private static final String TAG = PlatformSqliteHelper.class.getName();
@@ -38,7 +38,7 @@ public class PlatformSqliteHelper extends SQLiteOpenHelper {
     private static PlatformSqliteHelper instance;
 
     public static final String DATABASE_NAME = "platform.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     public static synchronized PlatformSqliteHelper getInstance(Context context) {
 

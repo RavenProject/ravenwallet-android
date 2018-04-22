@@ -12,14 +12,14 @@ import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.Log;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.R;
-import com.breadwallet.presenter.activities.camera.CameraActivity;
-import com.breadwallet.presenter.customviews.BRDialogView;
-import com.breadwallet.tools.animation.BRDialog;
-import com.breadwallet.tools.crypto.CryptoHelper;
-import com.breadwallet.tools.threads.executor.BRExecutor;
-import com.breadwallet.tools.util.BRConstants;
+import com.ravencoin.BreadApp;
+import com.ravencoin.R;
+import com.ravencoin.presenter.activities.camera.CameraActivity;
+import com.ravencoin.presenter.customviews.BRDialogView;
+import com.ravencoin.tools.animation.BRDialog;
+import com.ravencoin.tools.crypto.CryptoHelper;
+import com.ravencoin.tools.threads.executor.BRExecutor;
+import com.ravencoin.tools.util.BRConstants;
 import com.platform.BRHTTPHelper;
 import com.platform.interfaces.Plugin;
 

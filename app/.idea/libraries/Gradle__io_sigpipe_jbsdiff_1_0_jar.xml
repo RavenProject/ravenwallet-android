@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.sigpipe:jbsdiff:1.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.sigpipe/jbsdiff/1.0/ac84a9fc05d8a12ee104dba712a587e768040468/jbsdiff-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.sigpipe/jbsdiff/1.0/eacd499ba6789e44fb84af929040cbfb150089fa/jbsdiff-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

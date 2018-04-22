@@ -1,7 +1,7 @@
 ![ƀ](/images/icon.png) breadwallet for Android
 ----------------------------------
 
-[![Get it on Google Play](/images/icon-google-play.png)](https://play.google.com/store/apps/details?id=com.breadwallet)
+[![Get it on Google Play](/images/icon-google-play.png)](https://play.google.com/store/apps/details?id=com.ravencoin)
 
 ### bitcoin done right
 

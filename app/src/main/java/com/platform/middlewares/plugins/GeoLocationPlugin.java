@@ -9,10 +9,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.tools.manager.BRSharedPrefs;
-import com.breadwallet.tools.threads.executor.BRExecutor;
-import com.breadwallet.tools.util.BRConstants;
+import com.ravencoin.BreadApp;
+import com.ravencoin.tools.manager.BRSharedPrefs;
+import com.ravencoin.tools.threads.executor.BRExecutor;
+import com.ravencoin.tools.util.BRConstants;
 import com.platform.BRHTTPHelper;
 import com.platform.GeoLocationManager;
 import com.platform.interfaces.Plugin;

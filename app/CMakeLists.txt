@@ -27,92 +27,119 @@ add_library( # The name of the library.
              SHARED
 
              # Core files
-             src/main/jni/breadwallet-core/BRAddress.c
-             src/main/jni/breadwallet-core/BRAddress.h
-             src/main/jni/breadwallet-core/BRArray.h
-             src/main/jni/breadwallet-core/BRBase58.c
-             src/main/jni/breadwallet-core/BRBase58.h
-             src/main/jni/breadwallet-core/BRBIP32Sequence.c
-             src/main/jni/breadwallet-core/BRBIP32Sequence.h
-             src/main/jni/breadwallet-core/BRBIP38Key.c
-             src/main/jni/breadwallet-core/BRBIP38Key.h
-             src/main/jni/breadwallet-core/BRBIP39Mnemonic.c
-             src/main/jni/breadwallet-core/BRBIP39Mnemonic.h
-             src/main/jni/breadwallet-core/BRBIP39WordsEn.h
-             src/main/jni/breadwallet-core/BRBloomFilter.c
-             src/main/jni/breadwallet-core/BRBloomFilter.h
-             src/main/jni/breadwallet-core/BRCrypto.c
-             src/main/jni/breadwallet-core/BRCrypto.h
-             src/main/jni/breadwallet-core/BRInt.h
-             src/main/jni/breadwallet-core/BRKey.c
-             src/main/jni/breadwallet-core/BRKey.h
-             src/main/jni/breadwallet-core/BRMerkleBlock.c
-             src/main/jni/breadwallet-core/BRMerkleBlock.h
-             src/main/jni/breadwallet-core/BRPaymentProtocol.c
-             src/main/jni/breadwallet-core/BRPaymentProtocol.h
-             src/main/jni/breadwallet-core/BRPeer.c
-             src/main/jni/breadwallet-core/BRPeer.h
-             src/main/jni/breadwallet-core/BRPeerManager.c
-             src/main/jni/breadwallet-core/BRPeerManager.h
-             src/main/jni/breadwallet-core/BRSet.c
-             src/main/jni/breadwallet-core/BRSet.h
-             src/main/jni/breadwallet-core/BRTransaction.c
-             src/main/jni/breadwallet-core/BRTransaction.h
-             src/main/jni/breadwallet-core/BRWallet.c
-             src/main/jni/breadwallet-core/BRWallet.h
+             src/main/jni/core/BRAddress.c
+             src/main/jni/core/BRAddress.h
+             src/main/jni/core/BRArray.h
+             src/main/jni/core/BRBase58.c
+             src/main/jni/core/BRBase58.h
+             src/main/jni/core/BRBIP32Sequence.c
+             src/main/jni/core/BRBIP32Sequence.h
+             src/main/jni/core/BRBIP38Key.c
+             src/main/jni/core/BRBIP38Key.h
+             src/main/jni/core/BRBIP39Mnemonic.c
+             src/main/jni/core/BRBIP39Mnemonic.h
+             src/main/jni/core/BRBIP39WordsEn.h
+             src/main/jni/core/BRBloomFilter.c
+             src/main/jni/core/BRBloomFilter.h
+             src/main/jni/core/BRChainParams.h
+             src/main/jni/core/BRCrypto.c
+             src/main/jni/core/BRCrypto.h
+             src/main/jni/core/BRInt.h
+             src/main/jni/core/BRKey.c
+             src/main/jni/core/BRKey.h
+             src/main/jni/core/BRMerkleBlock.c
+             src/main/jni/core/BRMerkleBlock.h
+             src/main/jni/core/BRPaymentProtocol.c
+             src/main/jni/core/BRPaymentProtocol.h
+             src/main/jni/core/BRPeer.c
+             src/main/jni/core/BRPeer.h
+             src/main/jni/core/BRPeerManager.c
+             src/main/jni/core/BRPeerManager.h
+             src/main/jni/core/BRSet.c
+             src/main/jni/core/BRSet.h
+             src/main/jni/core/BRTransaction.c
+             src/main/jni/core/BRTransaction.h
+             src/main/jni/core/BRWallet.c
+             src/main/jni/core/BRWallet.h
 
-             # BCash files
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.c
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.h
-             src/main/jni/breadwallet-core/bcash/BRBCashParams.h
+            # X16r files
+			src/main/jni/core/crypto/blake.c
+			src/main/jni/core/crypto/bmw.c
+			src/main/jni/core/crypto/cubehash.c
+			src/main/jni/core/crypto/echo.c
+			src/main/jni/core/crypto/groestl.c
+			src/main/jni/core/crypto/jh.c
+			src/main/jni/core/crypto/keccak.c
+			src/main/jni/core/crypto/luffa.c
+			src/main/jni/core/crypto/shavite.c
+			src/main/jni/core/crypto/simd.c
+			src/main/jni/core/crypto/skein.c
+			src/main/jni/core/crypto/sph_blake.h
+			src/main/jni/core/crypto/sph_bmw.h
+			src/main/jni/core/crypto/sph_cubehash.h
+			src/main/jni/core/crypto/sph_echo.h
+			src/main/jni/core/crypto/sph_fugue.c
+			src/main/jni/core/crypto/sph_fugue.h
+			src/main/jni/core/crypto/sph_groestl.h
+			src/main/jni/core/crypto/sph_hamsi.c
+			src/main/jni/core/crypto/sph_hamsi.h
+			src/main/jni/core/crypto/sph_hamsi_helper.c
+			src/main/jni/core/crypto/sph_jh.h
+			src/main/jni/core/crypto/sph_keccak.h
+			src/main/jni/core/crypto/sph_luffa.h
+			src/main/jni/core/crypto/sph_sha2.c
+			src/main/jni/core/crypto/sph_sha2.h
+			src/main/jni/core/crypto/sph_sha512.c
+			src/main/jni/core/crypto/sph_shabal.c
+			src/main/jni/core/crypto/sph_shabal.h
+			src/main/jni/core/crypto/sph_shavite.h
+			src/main/jni/core/crypto/sph_simd.h
+			src/main/jni/core/crypto/sph_skein.h
+			src/main/jni/core/crypto/sph_types.h
+			src/main/jni/core/crypto/sph_whirlpool.c
+			src/main/jni/core/crypto/sph_whirlpool.h
 
              # Core JNI files
-             src/main/jni/breadwallet-core/Java/BRCoreJni.h
-             src/main/jni/breadwallet-core/Java/BRCoreJni.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreJniReference.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreJniReference.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreAddress.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreAddress.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreChainParams.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreChainParams.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePeer.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePeer.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreMasterPubKey.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreMasterPubKey.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreKey.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreKey.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreMerkleBlock.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreMerkleBlock.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePeerManager.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePeerManager.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreTransaction.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreTransaction.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreTransactionInput.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreTransactionInput.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreTransactionOutput.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreTransactionOutput.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePaymentProtocol.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePaymentProtocol.h
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreWallet.c
-             src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreWallet.h
-
-             # BCash files
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.c
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.h
-             src/main/jni/breadwallet-core/bcash/BRBCashParams.h
+             src/main/jni/BRCoreJni.h
+             src/main/jni/BRCoreJni.c
+             src/main/jni/com_ravencoin_core_BRCoreJniReference.c
+             src/main/jni/com_ravencoin_core_BRCoreJniReference.h
+             src/main/jni/com_ravencoin_core_BRCoreAddress.c
+             src/main/jni/com_ravencoin_core_BRCoreAddress.h
+             src/main/jni/com_ravencoin_core_BRCoreChainParams.c
+             src/main/jni/com_ravencoin_core_BRCoreChainParams.h
+             src/main/jni/com_ravencoin_core_BRCorePeer.c
+             src/main/jni/com_ravencoin_core_BRCorePeer.h
+             src/main/jni/com_ravencoin_core_BRCoreMasterPubKey.c
+             src/main/jni/com_ravencoin_core_BRCoreMasterPubKey.h
+             src/main/jni/com_ravencoin_core_BRCoreKey.h
+             src/main/jni/com_ravencoin_core_BRCoreKey.c
+             src/main/jni/com_ravencoin_core_BRCoreMerkleBlock.c
+             src/main/jni/com_ravencoin_core_BRCoreMerkleBlock.h
+             src/main/jni/com_ravencoin_core_BRCorePeerManager.c
+             src/main/jni/com_ravencoin_core_BRCorePeerManager.h
+             src/main/jni/com_ravencoin_core_BRCoreTransaction.c
+             src/main/jni/com_ravencoin_core_BRCoreTransaction.h
+             src/main/jni/com_ravencoin_core_BRCoreTransactionInput.c
+             src/main/jni/com_ravencoin_core_BRCoreTransactionInput.h
+             src/main/jni/com_ravencoin_core_BRCoreTransactionOutput.c
+             src/main/jni/com_ravencoin_core_BRCoreTransactionOutput.h
+             src/main/jni/com_ravencoin_core_BRCorePaymentProtocol.c
+             src/main/jni/com_ravencoin_core_BRCorePaymentProtocol.h
+             src/main/jni/com_ravencoin_core_BRCoreWallet.c
+             src/main/jni/com_ravencoin_core_BRCoreWallet.h
 
              # Bech32 files
-             src/main/jni/breadwallet-core/BRBech32.c
-             src/main/jni/breadwallet-core/BRBech32.h
+             #src/main/jni/core/BRBech32.c
+             #src/main/jni/core/BRBech32.h
 
              )
 
-include_directories(src/main/jni/breadwallet-core/bcash)
-include_directories(src/main/jni/breadwallet-core/Java)
-include_directories(src/main/jni/breadwallet-core/)
-include_directories(src/main/jni/breadwallet-core/secp256k1/include)
-include_directories(src/main/jni/breadwallet-core/secp256k1/src)
-include_directories(src/main/jni/breadwallet-core/secp256k1)
+include_directories(src/main/jni/)
+include_directories(src/main/jni/core/)
+include_directories(src/main/jni/core/secp256k1/include)
+include_directories(src/main/jni/core/secp256k1/src)
+include_directories(src/main/jni/core/secp256k1)
 
 include_directories(src/main/secp/secp256k1/include/)
 include_directories(src/main/secp/secp256k1/src/)

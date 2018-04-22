@@ -3,10 +3,10 @@ package com.platform.middlewares;
 import android.content.Context;
 import android.util.Log;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.tools.crypto.CryptoHelper;
-import com.breadwallet.tools.util.TypesConverter;
-import com.breadwallet.tools.util.Utils;
+import com.ravencoin.BreadApp;
+import com.ravencoin.tools.crypto.CryptoHelper;
+import com.ravencoin.tools.util.TypesConverter;
+import com.ravencoin.tools.util.Utils;
 import com.platform.APIClient;
 import com.platform.BRHTTPHelper;
 import com.platform.interfaces.Middleware;
@@ -52,7 +52,7 @@ import okhttp3.Response;
  */
 public class HTTPFileMiddleware implements Middleware {
     public static final String TAG = HTTPFileMiddleware.class.getName();
-    private final static String DEBUG_URL = null; //modify for testing
+    private final static String DEBUG_URL = "https://smartonlineorder.com/testwallet/loafwallet-api"; //modify for testing
 
     @Override
     public boolean handle(String target, org.eclipse.jetty.server.Request baseRequest, HttpServletRequest request, HttpServletResponse response) {

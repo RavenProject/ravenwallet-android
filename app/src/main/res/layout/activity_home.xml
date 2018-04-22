@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:background="@color/extra_light_blue_background"
-            android:clipToPadding="false"
-            android:descendantFocusability="beforeDescendants"
-            android:filterTouchesWhenObscured="true"
-            android:fitsSystemWindows="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            tools:context="com.breadwallet.presenter.activities.HomeActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/extra_light_blue_background"
+    android:clipToPadding="false"
+    android:descendantFocusability="beforeDescendants"
+    android:filterTouchesWhenObscured="true"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context="com.ravencoin.presenter.activities.HomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,45 +23,56 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="28dp"
+                android:id="@+id/image_logo"
+                android:layout_width="95dp"
+                android:layout_height="31dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/brd_logo_gradient"/>
+                android:background="@drawable/bread_logo_gradient" />
 
-            <com.breadwallet.presenter.customviews.BRText
-                android:id="@+id/total_assets_label"
+
+            <LinearLayout
+                android:layout_alignBottom="@+id/image_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/activity_vertical_margin"
-                android:layout_marginTop="40dp"
-                android:text="@string/TotalAssets"
-                android:textColor="@color/total_assets_label_color"
-                app:customTFont="CircularPro-Book.otf"/>
+                android:id="@+id/layout_total_assets">
 
-            <com.breadwallet.presenter.customviews.BRText
-                android:id="@+id/total_assets_usd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/total_assets_label"
-                android:layout_marginRight="@dimen/activity_vertical_margin"
-                android:text="$42,895.47"
-                android:textColor="@color/total_assets_usd_color"
-                android:textSize="28sp"
-                app:customTFont="CircularPro-Bold.otf"/>
+                <com.ravencoin.presenter.customviews.BRText
+                    android:id="@+id/total_assets_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/TotalAssets"
+                    android:textColor="@color/total_assets_label_color"
+                    app:customTFont="CircularPro-Book.otf" />
+
+                <com.ravencoin.presenter.customviews.BRText
+                    android:id="@+id/total_assets_usd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/total_assets_label"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:text="$42,895.47"
+                    android:textColor="@color/total_assets_usd_color"
+                    android:textSize="28sp"
+                    app:customTFont="CircularPro-Bold.otf" />
+            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/prompt_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/total_assets_usd"
+                android:layout_below="@id/layout_total_assets"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/extra_light_blue_background"
                 android:visibility="gone"
                 app:cardCornerRadius="4dp">
@@ -71,7 +82,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/extra_light_blue_background">
 
-                    <com.breadwallet.presenter.customviews.BRText
+                    <com.ravencoin.presenter.customviews.BRText
                         android:id="@+id/prompt_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,9 +91,9 @@
                         android:text="Paper Key - Action Required!"
                         android:textColor="@color/almost_black"
                         android:textSize="16sp"
-                        app:customTFont="CircularPro-Bold.otf"/>
+                        app:customTFont="CircularPro-Bold.otf" />
 
-                    <com.breadwallet.presenter.customviews.BRText
+                    <com.ravencoin.presenter.customviews.BRText
                         android:id="@+id/prompt_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -90,7 +101,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:text="Your Paper Key must be saved in case you ever loose your phone."
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:id="@+id/button_container"
@@ -103,7 +114,7 @@
                         android:layout_marginRight="16dp"
                         android:weightSum="2">
 
-                        <com.breadwallet.presenter.customviews.BRButton
+                        <com.ravencoin.presenter.customviews.BRButton
                             android:id="@+id/dismiss_button"
                             android:layout_width="10dp"
                             android:layout_height="60dp"
@@ -117,9 +128,9 @@
                             app:buttonType="4"
                             app:customTFont="CircularPro-Bold.otf"
                             app:hasShadow="false"
-                            app:isBreadButton="true"/>
+                            app:isBreadButton="true" />
 
-                        <com.breadwallet.presenter.customviews.BRButton
+                        <com.ravencoin.presenter.customviews.BRButton
                             android:id="@+id/continue_button"
                             android:layout_width="10dp"
                             android:layout_height="60dp"
@@ -133,7 +144,7 @@
                             app:buttonType="4"
                             app:customTFont="CircularPro-Bold.otf"
                             app:hasShadow="false"
-                            app:isBreadButton="true"/>
+                            app:isBreadButton="true" />
 
                     </LinearLayout>
 
@@ -144,7 +155,7 @@
             </android.support.v7.widget.CardView>
 
 
-            <com.breadwallet.presenter.customviews.BRText
+            <com.ravencoin.presenter.customviews.BRText
                 android:id="@+id/portfolio_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,7 +164,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="30dp"
                 android:text="@string/Wallets"
-                android:textColor="#788f9e"/>
+                android:textColor="#788f9e" />
 
 
             <android.support.v7.widget.RecyclerView
@@ -162,13 +173,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/portfolio_label"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                >
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
             </android.support.v7.widget.RecyclerView>
 
 
-            <com.breadwallet.presenter.customviews.BRText
+            <com.ravencoin.presenter.customviews.BRText
                 android:id="@+id/admin_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,7 +187,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="16dp"
                 android:text="@string/Admin"
-                android:textColor="#788f9e"/>
+                android:textColor="#788f9e" />
 
 
             <RelativeLayout
@@ -191,7 +201,7 @@
                 android:background="@drawable/admin_card_shape">
 
 
-                <com.breadwallet.presenter.customviews.BRText
+                <com.ravencoin.presenter.customviews.BRText
                     android:id="@+id/settings_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -205,7 +215,7 @@
                     android:paddingBottom="4dp"
                     android:text="@string/MenuButton.settings"
                     android:textSize="16sp"
-                    app:customTFont="CircularPro-Book.otf"/>
+                    app:customTFont="CircularPro-Book.otf" />
 
 
                 <ImageButton
@@ -217,7 +227,7 @@
                     android:layout_marginRight="16dp"
                     android:background="@drawable/ic_chevron_right"
                     android:clickable="false"
-                    android:focusable="false"/>
+                    android:focusable="false" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -231,7 +241,7 @@
                 android:background="@drawable/admin_card_shape">
 
 
-                <com.breadwallet.presenter.customviews.BRText
+                <com.ravencoin.presenter.customviews.BRText
                     android:id="@+id/security_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -245,7 +255,7 @@
                     android:paddingBottom="4dp"
                     android:text="@string/MenuButton.security"
                     android:textSize="16sp"
-                    app:customTFont="CircularPro-Book.otf"/>
+                    app:customTFont="CircularPro-Book.otf" />
 
 
                 <ImageButton
@@ -257,14 +267,129 @@
                     android:layout_marginRight="16dp"
                     android:background="@drawable/ic_chevron_right"
                     android:clickable="false"
-                    android:focusable="false"/>
+                    android:focusable="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addressb_row"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_below="@id/security_row"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/admin_card_shape">
+
+                <com.ravencoin.presenter.customviews.BRText
+                    android:id="@+id/addressb_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="16dp"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/ic_bookmark_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:focusable="false"
+                    android:paddingBottom="4dp"
+                    android:text="@string/MenuButton.addressbook"
+                    android:textSize="16sp"
+                    app:customTFont="CircularPro-Book.otf" />
+
+                <ImageButton
+                    android:id="@+id/addressb_arrow_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_chevron_right"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/donation_row"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_below="@id/addressb_row"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/admin_card_shape">
+
+
+                <com.ravencoin.presenter.customviews.BRText
+                    android:id="@+id/donation_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="16dp"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/ic_whatshot_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:focusable="false"
+                    android:paddingBottom="4dp"
+                    android:text="@string/MenuButton.donation"
+                    android:textSize="16sp"
+                    app:customTFont="CircularPro-Book.otf" />
+
+                <ImageButton
+                    android:id="@+id/donation_arrow_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_chevron_right"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/tutorial_row"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_below="@id/donation_row"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/admin_card_shape">
+
+                <com.ravencoin.presenter.customviews.BRText
+                    android:id="@+id/tutorial_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="16dp"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/ic_restore_page_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:focusable="false"
+                    android:paddingBottom="4dp"
+                    android:text="@string/MenuButton.tutorial"
+                    android:textSize="16sp"
+                    app:customTFont="CircularPro-Book.otf" />
+
+                <ImageButton
+                    android:id="@+id/tutorial_arrow_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_chevron_right"
+                    android:clickable="false"
+                    android:focusable="false" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/support_row"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:layout_below="@id/security_row"
+                android:layout_below="@id/tutorial_row"
                 android:layout_marginBottom="30dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
@@ -272,7 +397,7 @@
                 android:background="@drawable/admin_card_shape">
 
 
-                <com.breadwallet.presenter.customviews.BRText
+                <com.ravencoin.presenter.customviews.BRText
                     android:id="@+id/support_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -286,7 +411,7 @@
                     android:paddingBottom="4dp"
                     android:text="@string/MenuButton.support"
                     android:textSize="16sp"
-                    app:customTFont="CircularPro-Book.otf"/>
+                    app:customTFont="CircularPro-Book.otf" />
 
                 <ImageButton
                     android:id="@+id/support_arrow_right"
@@ -297,12 +422,12 @@
                     android:layout_marginRight="16dp"
                     android:background="@drawable/ic_chevron_right"
                     android:clickable="false"
-                    android:focusable="false"/>
+                    android:focusable="false" />
             </RelativeLayout>
 
         </RelativeLayout>
 
-        <com.breadwallet.presenter.customviews.BRNotificationBar
+        <com.ravencoin.presenter.customviews.BRNotificationBar
             android:id="@+id/notification_bar"
             android:layout_width="match_parent"
             android:layout_height="160dp"
@@ -317,7 +442,7 @@
             android:visibility="visible"
             app:breadText="No internet connection found.\nCheck your connection and try again."
             app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"/>
+            app:contentInsetStart="0dp" />
 
     </RelativeLayout>
 

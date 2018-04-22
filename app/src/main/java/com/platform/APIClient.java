@@ -7,17 +7,17 @@ import android.net.Uri;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.core.BRCoreKey;
-import com.breadwallet.presenter.activities.util.ActivityUTILS;
-import com.breadwallet.tools.crypto.Base58;
-import com.breadwallet.tools.manager.BRApiManager;
-import com.breadwallet.tools.manager.BRReportsManager;
-import com.breadwallet.tools.manager.BRSharedPrefs;
-import com.breadwallet.tools.crypto.CryptoHelper;
-import com.breadwallet.tools.security.BRKeyStore;
-import com.breadwallet.tools.threads.executor.BRExecutor;
-import com.breadwallet.tools.util.Utils;
+import com.ravencoin.BreadApp;
+import com.ravencoin.core.BRCoreKey;
+import com.ravencoin.presenter.activities.util.ActivityUTILS;
+import com.ravencoin.tools.crypto.Base58;
+import com.ravencoin.tools.manager.BRApiManager;
+import com.ravencoin.tools.manager.BRReportsManager;
+import com.ravencoin.tools.manager.BRSharedPrefs;
+import com.ravencoin.tools.crypto.CryptoHelper;
+import com.ravencoin.tools.security.BRKeyStore;
+import com.ravencoin.tools.threads.executor.BRExecutor;
+import com.ravencoin.tools.util.Utils;
 import com.platform.kvstore.RemoteKVStore;
 import com.platform.kvstore.ReplicatedKVStore;
 
@@ -60,7 +60,7 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSink;
 
-import static com.breadwallet.tools.util.BRCompressor.gZipExtract;
+import static com.ravencoin.tools.util.BRCompressor.gZipExtract;
 
 
 /**
@@ -188,37 +188,6 @@ public class APIClient {
             if (response != null) response.close();
         }
         return 0;
-    }
-
-    //only for testing
-    public Response buyBitcoinMe() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        if (ctx == null) ctx = BreadApp.getBreadContext();
-        if (ctx == null) return null;
-        String strUtl = BASE_URL + ME;
-        Request request = new Request.Builder()
-                .url(strUtl)
-                .get()
-                .build();
-        String response = null;
-        Response res = null;
-        try {
-            res = sendRequest(request, true, 0);
-            response = res.body().string();
-            if (response.isEmpty()) {
-                res.close();
-                res = sendRequest(request, true, 0);
-                response = res.body().string();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (response == null) throw new NullPointerException();
-
-        return res;
     }
 
     public String getToken() {

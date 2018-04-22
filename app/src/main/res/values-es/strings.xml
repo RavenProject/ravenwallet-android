@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <!-- App name -->
-  <string name="About.appName.android">BRD</string>
+  <string name="About.appName.android">RVN</string>
   <!-- About screen blog label -->
   <string name="About.blog">Blog</string>
   <!-- About screen footer -->
@@ -29,7 +29,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">Error</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Hay un problema con el almacén de claves de tu sistema operativo Android. Ponte en contacto con support@breadwallet.com.</string>
+  <string name="Alert.keystore.generic.android">Hay un problema con el almacén de claves de tu sistema operativo Android. Ponte en contacto con support@ravencoin.org.</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Tus datos codificados en Bread fueron anulados recientemente debido a que no estaba habilitada tu pantalla de bloqueo de Android.</string>
   <!-- Keystore error title -->
@@ -265,7 +265,7 @@
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">Estado de la conexión del nodo</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">Nodos Bitcoin</string>
+  <string name="RvnNodeSelector.title">Nodos Bitcoin</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Solicitud de pago incorrecta</string>
   <!-- Error opening payment protocol file message -->

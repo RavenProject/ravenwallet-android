@@ -3,15 +3,15 @@ package com.platform.middlewares.plugins;
 import android.app.Activity;
 import android.util.Log;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.presenter.interfaces.BRAuthCompletion;
-import com.breadwallet.tools.manager.BREventManager;
-import com.breadwallet.tools.manager.BRSharedPrefs;
-import com.breadwallet.tools.security.AuthManager;
-import com.breadwallet.tools.threads.executor.BRExecutor;
-import com.breadwallet.tools.util.BRConstants;
-import com.breadwallet.tools.util.Utils;
-import com.breadwallet.wallet.WalletsMaster;
+import com.ravencoin.BreadApp;
+import com.ravencoin.presenter.interfaces.BRAuthCompletion;
+import com.ravencoin.tools.manager.BREventManager;
+import com.ravencoin.tools.manager.BRSharedPrefs;
+import com.ravencoin.tools.security.AuthManager;
+import com.ravencoin.tools.threads.executor.BRExecutor;
+import com.ravencoin.tools.util.BRConstants;
+import com.ravencoin.tools.util.Utils;
+import com.ravencoin.wallet.WalletsMaster;
 import com.platform.BRHTTPHelper;
 import com.platform.interfaces.Plugin;
 import com.platform.tools.BRBitId;
@@ -80,10 +80,10 @@ public class WalletPlugin implements Plugin {
                 jsonResp.put("no_wallet", wm.noWalletForPlatform(app));
 
                 /**the current receive address*/
-                jsonResp.put("receive_address", BRSharedPrefs.getReceiveAddress(app, "BTC"));
+                jsonResp.put("receive_address", BRSharedPrefs.getReceiveAddress(app, "RVN"));
 
                 /**how digits after the decimal point. 2 = bits 8 = btc 6 = mbtc*/
-                jsonResp.put("btc_denomiation_digits", BRSharedPrefs.getCryptoDenomination(app, wm.getCurrentWallet(app).getIso(app)) == BRConstants.CURRENT_UNIT_BITCOINS ? 8 : 2);
+                jsonResp.put("btc_denomiation_digits", BRSharedPrefs.getCryptoDenomination(app, wm.getCurrentWallet(app).getIso(app)) == BRConstants.CURRENT_UNIT_RAVENS ? 8 : 2);
 
                 /**the users native fiat currency as an ISO 4217 code. Should be uppercased */
                 jsonResp.put("local_currency_code", Currency.getInstance(Locale.getDefault()).getCurrencyCode().toUpperCase());

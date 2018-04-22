@@ -12,19 +12,17 @@
     <RelativeLayout
         android:id="@+id/dialog_header"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:background="@drawable/bch_dialog_gradient"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/brd_logo"
-            android:background="@drawable/brd_logo_white_svg"
+            android:background="@drawable/brd_logo_white"
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:layout_width="38dp"
-            android:layout_height="14dp" />
-
-
+            android:layout_width="120.0dp"
+            android:layout_height="40.0dp" />
 
     </RelativeLayout>
 
@@ -39,7 +37,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_header" />
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
         android:id="@+id/dialog_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -56,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/dialog_header" />
 
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
         android:id="@+id/dialog_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -86,7 +84,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_text">
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.ravencoin.presenter.customviews.BRButton
             android:id="@+id/neg_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +98,7 @@
             app:hasShadow="false"
             app:isBreadButton="true" />
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.ravencoin.presenter.customviews.BRButton
             android:id="@+id/pos_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +107,7 @@
             android:layout_weight="1.0"
             android:background="@android:color/transparent"
             android:textColor="@color/white"
-            app:buttonType="4"
+            app:buttonType="1"
             app:customTFont="CircularPro-Bold.otf"
             app:hasShadow="false"
             app:isBreadButton="true" />

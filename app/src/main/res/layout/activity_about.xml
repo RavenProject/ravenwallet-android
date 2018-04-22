@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/extra_light_blue_background"
-    tools:context="com.breadwallet.presenter.activities.SetPinActivity">
+    tools:context="com.ravencoin.presenter.activities.SetPinActivity">
 
     <View
         android:id="@+id/view3"
@@ -22,7 +22,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"/>
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +34,36 @@
         app:customTFont="CircularPro-Bold.otf"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/divider8"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/extra_light_gray"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/policy_text"/>
+
+    <View
+        android:id="@+id/divider7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/extra_light_gray"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView26"/>
 
     <View
         android:id="@+id/divider1"
@@ -48,7 +78,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/policy_text"/>
+        app:layout_constraintBottom_toTopOf="@+id/textView25"/>
 
     <View
         android:id="@+id/view4"
@@ -66,6 +96,7 @@
         android:layout_marginEnd="16dp"/>
 
     <View
+        android:visibility="gone"
         android:id="@+id/view5"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -79,7 +110,22 @@
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <com.breadwallet.presenter.customviews.BRText
+    <View
+        android:visibility="gone"
+        android:id="@+id/view6"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/extra_light_gray"
+        app:layout_constraintBottom_toTopOf="@+id/textView22"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <com.ravencoin.presenter.customviews.BRText
         app:customTFont="CircularPro-Book.otf"
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
@@ -90,7 +136,8 @@
         app:layout_constraintBottom_toTopOf="@+id/view4"
         app:layout_constraintLeft_toLeftOf="@+id/divider1"/>
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
+        android:visibility="gone"
         app:customTFont="CircularPro-Book.otf"
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
@@ -112,6 +159,7 @@
         android:src="@drawable/ic_share"/>
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/blog_share_button"
         android:layout_width="16dp"
         android:layout_height="16dp"
@@ -123,7 +171,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView24"
         android:src="@drawable/ic_share"/>
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
         app:customTFont="CircularPro-Book.otf"
         android:id="@+id/policy_text"
         android:layout_width="wrap_content"
@@ -141,7 +189,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/info_text"/>
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
         app:customTFont="CircularPro-Book.otf"
         android:id="@+id/info_text"
         android:layout_width="wrap_content"
@@ -156,7 +204,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"/>
 
-    <com.breadwallet.presenter.customviews.BRText
+    <com.ravencoin.presenter.customviews.BRText
         app:customTFont="CircularPro-Book.otf"
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
@@ -174,6 +222,46 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView21"
         app:layout_constraintRight_toRightOf="@+id/divider1"
         app:layout_constraintTop_toTopOf="@+id/textView21"
+        android:src="@drawable/ic_share"/>
+
+    <com.ravencoin.presenter.customviews.BRText
+        app:customTFont="CircularPro-Book.otf"
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/About.wiki"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider7"
+        app:layout_constraintLeft_toLeftOf="@+id/divider7"/>
+
+    <ImageView
+        android:id="@+id/wiki_share_button"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView25"
+        app:layout_constraintRight_toRightOf="@+id/divider7"
+        app:layout_constraintTop_toTopOf="@+id/textView25"
+        android:src="@drawable/ic_share"/>
+
+    <com.ravencoin.presenter.customviews.BRText
+        app:customTFont="CircularPro-Book.otf"
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/About.site"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider8"
+        app:layout_constraintLeft_toLeftOf="@+id/divider8"/>
+
+    <ImageView
+        android:id="@+id/site_share_button"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView26"
+        app:layout_constraintRight_toRightOf="@+id/divider8"
+        app:layout_constraintTop_toTopOf="@+id/textView26"
         android:src="@drawable/ic_share"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -97,6 +98,24 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
 
         holder.mParent.setBackground(drawable);
 
+        LineGraphSeries<DataPoint> series = getDataPointLineGraphSeries();
+
+//        // custom paint to make a dotted line
+//        Paint paint = new Paint();
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeWidth(10);
+//        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+//        series2.setCustomPaint(paint);
+
+        holder.mGraph.removeAllSeries();
+        holder.mGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        holder.mGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        holder.mGraph.getGridLabelRenderer().setGridColor(Color.TRANSPARENT);
+        holder.mGraph.addSeries(series);
+    }
+
+    @NonNull
+    private LineGraphSeries<DataPoint> getDataPointLineGraphSeries() {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
@@ -147,18 +166,7 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         series.setAnimated(true);
         series.setDrawBackground(true);
         series.setBackgroundColor(mContext.getColor(R.color.currency_subheading_color_trans));
-
-//        // custom paint to make a dotted line
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setStrokeWidth(10);
-//        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-//        series2.setCustomPaint(paint);
-        holder.mGraph.removeAllSeries();
-        holder.mGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-        holder.mGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        holder.mGraph.getGridLabelRenderer().setGridColor(Color.TRANSPARENT);
-        holder.mGraph.addSeries(series);
+        return series;
     }
 
     public void stopObserving() {

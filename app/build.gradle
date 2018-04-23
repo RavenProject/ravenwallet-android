@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion = 27
@@ -52,7 +51,7 @@ android {
     flavorDimensions "mode"
 
     productFlavors {
-        brd {
+        rvn {
             applicationId = "com.ravencoin"
             dimension "mode"
             resValue "string", "app_name", "RVN Wallet"
@@ -69,10 +68,10 @@ android {
             }
         }
 
-        brdTestnet {
+        rvnTestnet {
             applicationId = "com.raventestnet"
             dimension "mode"
-            resValue "string", "app_name", "BRD-testnet"
+            resValue "string", "app_name", "RVN-testnet"
             buildConfigField "boolean", "BITCOIN_TESTNET", "true"
 
             externalNativeBuild {

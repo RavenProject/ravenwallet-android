@@ -83,36 +83,38 @@
         app:customTFont="CircularPro-Book.otf" />
 
     <LinearLayout
-        android:id="@+id/layout_graph"
+        android:layout_below="@id/wallet_balance_currency"
+        android:id="@+id/layout_divider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/wallet_balance_currency"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center">
 
         <com.ravencoin.presenter.customviews.BRText
-            android:id="@+id/txt_graph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="16sp"
             android:text="RVN Lifetime"
             android:textColor="@color/currency_subheading_color"
             android:textSize="12sp"
-            app:customTFont="CircularPro-Bold.otf" />
+            app:customTFont="CircularPro-Book.otf" />
 
         <View
-            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignBaseline="@+id/txt_graph"
             android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/txt_graph"
-            android:background="@color/currency_subheading_color" />
+            android:background="@color/currency_subheading_color"
+            app:layout_constraintBottom_toTopOf="@+id/policy_text"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </LinearLayout>
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="150dip"
-        android:layout_below="@id/layout_graph" />
+        android:layout_below="@id/layout_divider" />
 </RelativeLayout>

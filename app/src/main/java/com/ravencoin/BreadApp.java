@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.tools.listeners.SyncReceiver;
 import com.ravencoin.tools.manager.InternetManager;
@@ -81,7 +82,11 @@ public class BreadApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Fabric.with(this, new Crashlytics());
+        // Set up Crashlytics, disabled for debug builds
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+        Fabric.with(this, crashlyticsKit);
 
         mContext = this;
 

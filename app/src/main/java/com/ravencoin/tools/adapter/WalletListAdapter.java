@@ -16,9 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCorePeer;
 import com.ravencoin.presenter.customviews.BRText;
@@ -98,75 +95,6 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
 
         holder.mParent.setBackground(drawable);
 
-        LineGraphSeries<DataPoint> series = getDataPointLineGraphSeries();
-
-//        // custom paint to make a dotted line
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setStrokeWidth(10);
-//        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-//        series2.setCustomPaint(paint);
-
-        holder.mGraph.removeAllSeries();
-        holder.mGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-        holder.mGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        holder.mGraph.getGridLabelRenderer().setGridColor(Color.TRANSPARENT);
-        holder.mGraph.addSeries(series);
-    }
-
-    @NonNull
-    private LineGraphSeries<DataPoint> getDataPointLineGraphSeries() {
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6),
-                new DataPoint(5, 5),
-                new DataPoint(6, 10),
-                new DataPoint(7, 8),
-                new DataPoint(8, 7),
-                new DataPoint(9, 15),
-                new DataPoint(10, 6),
-                new DataPoint(11, 3),
-                new DataPoint(12, 5),
-                new DataPoint(13, 4),
-                new DataPoint(14, 6),
-                new DataPoint(15, 5),
-                new DataPoint(16, 10),
-                new DataPoint(17, 8),
-                new DataPoint(18, 7),
-                new DataPoint(19, 15),
-                new DataPoint(20, 10),
-                new DataPoint(21, 10),
-                new DataPoint(22, 11),
-                new DataPoint(23, 19),
-                new DataPoint(24, 6),
-                new DataPoint(25, 5),
-                new DataPoint(26, 10),
-                new DataPoint(27, 8),
-                new DataPoint(28, 7),
-                new DataPoint(29, 15),
-                new DataPoint(30, 1),
-                new DataPoint(31, 5),
-                new DataPoint(32, 3),
-                new DataPoint(33, 2),
-                new DataPoint(34, 6),
-                new DataPoint(35, 5),
-                new DataPoint(36, 10),
-                new DataPoint(37, 8),
-                new DataPoint(38, 7),
-                new DataPoint(39, 15),
-                new DataPoint(40, 19)});
-        // styling series
-        series.setColor(mContext.getColor(R.color.currency_subheading_color));
-        series.setDrawDataPoints(false);
-        series.setDataPointsRadius(6);
-        series.setThickness(6);
-        series.setAnimated(true);
-        series.setDrawBackground(true);
-        series.setBackgroundColor(mContext.getColor(R.color.currency_subheading_color_trans));
-        return series;
     }
 
     public void stopObserving() {
@@ -291,7 +219,6 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         public RelativeLayout mParent;
         public BRText mSyncingLabel;
         public ProgressBar mSyncingProgressBar;
-        public GraphView mGraph;
 
 
         public WalletItemViewHolder(View view) {
@@ -304,7 +231,6 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
             mParent = view.findViewById(R.id.wallet_card);
             mSyncingLabel = view.findViewById(R.id.syncing_label);
             mSyncingProgressBar = view.findViewById(R.id.sync_progress);
-            mGraph = view.findViewById(R.id.graph);
         }
     }
 

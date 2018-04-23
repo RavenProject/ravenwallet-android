@@ -61,9 +61,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
     private RelativeLayout mSettings;
     private RelativeLayout mSecurity;
     private RelativeLayout mSupport;
-    private RelativeLayout mDonation;
-    private RelativeLayout mTutorial;
-    private RelativeLayout mAdressBook;
     private PromptManager.PromptItem mCurrentPrompt;
     public BRNotificationBar mNotificationBar;
 
@@ -98,8 +95,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         mSettings = findViewById(R.id.settings_row);
         mSecurity = findViewById(R.id.security_row);
         mSupport = findViewById(R.id.support_row);
-        mDonation = findViewById(R.id.donation_row);
-        mTutorial = findViewById(R.id.tutorial_row);
         mNotificationBar = findViewById(R.id.notification_bar);
 
         mPromptCard = findViewById(R.id.prompt_card);
@@ -148,20 +143,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             }
         });
         mSupport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(HomeActivity.this, null);
-            }
-        });
-        mDonation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(HomeActivity.this, null);
-            }
-        });
-        mTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;

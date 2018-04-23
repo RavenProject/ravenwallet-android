@@ -205,26 +205,6 @@ public class SettingsActivity extends BRActivity {
             }
         }, false));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_connectivity), "", null, true));
-        items.add(new BRSettingsItem(getString(R.string.Settings_syncOver), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, UnlinkActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
-        }, false));
-
-        items.add(new BRSettingsItem(getString(R.string.Settings_notification), "", null, true));
-        items.add(new BRSettingsItem(getString(R.string.Settings_statusbar), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, UnlinkActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
-        }, false));
-
         items.add(new BRSettingsItem(getString(R.string.Settings_currencySettings), "", null, true));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_raven), "", new View.OnClickListener() {

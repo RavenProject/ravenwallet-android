@@ -92,7 +92,7 @@ public class SyncManager {
 
         private BaseWalletManager mCurrentWallet;
         private OnProgressUpdate mListener;
-        private static final int DELAY_MILLIS = 500;
+        private static final int DELAY_MILLIS = 50; // was 500
         private Context mApp;
 
         public SyncProgressTask(Context app, BaseWalletManager currentWallet, OnProgressUpdate listener) {

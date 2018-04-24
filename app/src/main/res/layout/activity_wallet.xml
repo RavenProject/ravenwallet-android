@@ -332,6 +332,4 @@
             app:isBreadButton="true" />
 
     </LinearLayout>
-
-
 </RelativeLayout>

@@ -3,9 +3,9 @@
 
 [![Get it on Google Play](/images/icon-google-play.png)](https://play.google.com/store/apps/details?id=com.ravencoin)
 
-### a completely standalone bitcoin wallet
+### a completely standalone Ravencoin wallet
 
-Unlike many other wallets, This wallet is a real standalone bitcoin client. There is no server to get hacked or go down, so you can always access your money. Using [SPV](https://en.bitcoin.it/wiki/Thin_Client_Security#Header-Only_Clients) mode, This wallet connects directly to the bitcoin network with the fast performance you need on a mobile device.
+Unlike many other wallets, This wallet is a real standalone Ravencoin client. There is no server to get hacked or go down, so you can always access your money. Using [SPV](https://en.bitcoin.it/wiki/Thin_Client_Security#Header-Only_Clients) mode, This wallet connects directly to the Ravencoin network with the fast performance you need on a mobile device.
 
 ### the next step in wallet security
 

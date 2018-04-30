@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion = 27
@@ -9,7 +10,7 @@ android {
         applicationId = 'com.ravencoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 4
+        versionCode 8
         versionName "1"
         multiDexEnabled true
 
@@ -150,12 +151,15 @@ repositories {
     mavenCentral()
     google()
 }
-
 dependencies {
     implementation 'commons-io:commons-io:2.4'
     implementation 'org.eclipse.jetty:jetty-webapp:9.2.19.v20160908'
-    implementation 'org.eclipse.jetty.websocket:websocket-server:9.2.19.v20160908'
     implementation 'org.eclipse.jetty:jetty-continuation:9.2.19.v20160908'
+    implementation 'org.eclipse.jetty.websocket:websocket-server:9.2.19.v20160908'
+//    implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.10.RC1'
+//    implementation group: 'org.eclipse.jetty', name: 'jetty-continuation', version: '9.4.10.RC1'
+//    implementation group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.4.10.RC1'
+
     implementation 'org.slf4j:slf4j-api:1.7.22'
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'
@@ -163,11 +167,13 @@ dependencies {
     implementation 'com.android.support:support-v13:27.1.0'
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.android.support:cardview-v7:27.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+//    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
 //    implementation 'com.google.firebase:firebase-core:11.8.0'
 //    implementation 'com.google.firebase:firebase-crash:11.8.0'
     implementation 'com.google.firebase:firebase-core:12.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+
     implementation 'io.sigpipe:jbsdiff:1.0'
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -177,5 +183,6 @@ dependencies {
     implementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'tools.fastlane:screengrab:1.1.0'
 }
+
 
 apply plugin: 'com.google.gms.google-services'

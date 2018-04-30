@@ -52,7 +52,8 @@ import okhttp3.Response;
  */
 public class HTTPFileMiddleware implements Middleware {
     public static final String TAG = HTTPFileMiddleware.class.getName();
-    private final static String DEBUG_URL = "https://smartonlineorder.com/testwallet/loafwallet-api"; //modify for testing
+//    private final static String DEBUG_URL = "api.ravenwallet.org"; //modify for testing
+    private final static String DEBUG_URL = "api.breadwallet.com"; //modify for testing
 
     @Override
     public boolean handle(String target, org.eclipse.jetty.server.Request baseRequest, HttpServletRequest request, HttpServletResponse response) {

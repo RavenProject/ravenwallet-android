@@ -58,6 +58,7 @@
                 tools:layout_editor_absoluteY="81dp"/>
 
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/faq_button"
                 android:layout_width="@dimen/faq_dimen"
                 android:layout_height="@dimen/faq_dimen"

@@ -57,6 +57,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/title"/>
 
                 <ImageButton
+                    android:visibility="gone"
                     android:id="@+id/faq_button"
                     android:layout_width="@dimen/faq_dimen"
                     android:layout_height="@dimen/faq_dimen"

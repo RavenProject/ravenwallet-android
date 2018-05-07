@@ -9,7 +9,7 @@ Unlike many other wallets, This wallet is a real standalone Ravencoin client. Th
 
 ### the next step in wallet security
 
-This wallet is designed to protect you from malware, browser security holes, *even physical theft*. With AES hardware encryption, app sandboxing, and verified boot, it represents a significant security advance over web and desktop wallets.
+This wallet is designed to protect you from malware, browser security holes. With AES hardware encryption, app sandboxing, and verified boot, it represents a significant security advance over web and desktop wallets.
 
 ### beautiful simplicity
 

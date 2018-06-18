@@ -10,7 +10,7 @@ android {
         applicationId = 'com.ravencoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 8
+        versionCode 10
         versionName "1"
         multiDexEnabled true
 

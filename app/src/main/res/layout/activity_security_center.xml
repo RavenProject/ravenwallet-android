@@ -11,7 +11,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@color/logo_gradient_end"
+        android:background="@drawable/restore_gradient"
         android:orientation="vertical">
 
 

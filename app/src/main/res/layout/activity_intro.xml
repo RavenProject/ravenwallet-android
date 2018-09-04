@@ -7,7 +7,7 @@
     android:id="@+id/intro_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@drawable/bread_gradient"
     android:orientation="vertical"
     tools:context=".presenter.activities.intro.IntroActivity">
     <!--android:&lt;!&ndash;&ndash;&gt;background="@drawable/bread_gradient"-->
@@ -35,7 +35,7 @@
         android:text="@string/MenuViewController.createButton"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:buttonType="1"
+        app:buttonType="2"
         app:isBreadButton="true"
         app:layout_constraintBottom_toTopOf="@+id/button_recover_wallet"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -53,7 +53,7 @@
         android:text="@string/RecoverWallet.header"
         android:textColor="@color/button_secondary_text"
         android:textSize="18sp"
-        app:buttonType="1"
+        app:buttonType="3"
         app:isBreadButton="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

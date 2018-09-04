@@ -178,7 +178,7 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
 //            BRSharedPrefs.putBchDialogShown(HomeActivity.this, true);
 //        }
 
-        mPromptDismiss.setColor(Color.parseColor("#b3c0c8"));
+        mPromptDismiss.setColor(Color.parseColor("#5667a5"));
         mPromptDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +186,7 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             }
         });
 
-        mPromptContinue.setColor(Color.parseColor("#4b77f3"));
+        mPromptContinue.setColor(Color.parseColor("#f16726"));
         mPromptContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

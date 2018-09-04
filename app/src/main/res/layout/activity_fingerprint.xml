@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_alignParentTop="true"
-        android:background="@color/logo_gradient_end"
+        android:background="@color/primaryColor"
         android:orientation="vertical">
 
         <RelativeLayout

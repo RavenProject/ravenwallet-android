@@ -104,7 +104,7 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
 
     private static String ISO = "RVN";
 
-    private static final String mName = "Raven";
+    private static final String mName = "Ravencoin";
     public static final String RVN_SCHEME = "raven";
 
 
@@ -175,7 +175,7 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
             WalletsMaster.getInstance(app).updateFixedPeer(app, this);
 //        balanceListeners = new ArrayList<>();
 
-            uiConfig = new WalletUiConfiguration("#4a1d5c", true, true, false);
+            uiConfig = new WalletUiConfiguration("#2e3e80", true, true, false);
 
         } finally {
             isInitiatingWallet = false;

@@ -1,0 +1,73 @@
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'CURVE_B'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_context_clone'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_context_create'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_context_destroy'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_context_randomize'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_context_set_error_callback'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_context_set_illegal_callback'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_privkey_negate'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_privkey_tweak_add'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_privkey_tweak_mul'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_combine'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_create'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_negate'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_parse'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_serialize'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_tweak_add'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_pubkey_tweak_mul'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ec_seckey_verify'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_recover'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_recoverable_signature_convert'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_recoverable_signature_parse_compact'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_recoverable_signature_serialize_compact'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_sign'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_sign_recoverable'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_signature_normalize'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_signature_parse_compact'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_signature_parse_der'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_signature_serialize_compact'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_signature_serialize_der'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_ecdsa_verify'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_nonce_function_default'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_nonce_function_rfc6979'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_scratch_space_create'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRKey.c.o: multiple definition of 'secp256k1_scratch_space_destroy'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRKey.c.o: previous definition here
+ error: CMakeFiles/core.dir/src/main/jni/breadwallet-core/raven/BRRPeer.c.o: multiple definition of 'BRPeerSendGetheaders'
+ CMakeFiles/core.dir/src/main/jni/breadwallet-core/BRPeer.c.o: previous definition here
+clang.exe: error: linker command failed with exit code 1 (use -v to see invocation)
+ninja: build stopped: subcommand failed.
+

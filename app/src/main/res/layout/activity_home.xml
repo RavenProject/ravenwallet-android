@@ -24,17 +24,16 @@
 
             <ImageView
                 android:id="@+id/image_logo"
-                android:layout_width="95dp"
-                android:layout_height="31dp"
-                android:layout_alignParentStart="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="60dp"
+                android:layout_marginStart="16.0dp"
+                android:layout_marginEnd="16.0dp"
                 android:background="@drawable/bread_logo_gradient" />
 
-
             <LinearLayout
-                android:layout_alignBottom="@+id/image_logo"
+                android:layout_below="@+id/image_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -49,6 +48,7 @@
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginTop="40dp"
                     android:text="@string/TotalAssets"
+                    android:textSize="26.0sp"
                     android:textColor="@color/total_assets_label_color"
                     app:customTFont="CircularPro-Book.otf" />
 
@@ -121,13 +121,11 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
-                            android:background="@color/light_gray"
+                            android:elevation="8dp"
                             android:text="Dismiss"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            app:buttonType="4"
-                            app:customTFont="CircularPro-Bold.otf"
-                            app:hasShadow="false"
+                            app:buttonType="1"
                             app:isBreadButton="true" />
 
                         <com.ravencoin.presenter.customviews.BRButton
@@ -137,14 +135,28 @@
                             android:layout_alignParentBottom="true"
                             android:layout_toRightOf="@id/dismiss_button"
                             android:layout_weight="1"
-                            android:background="@color/dark_blue"
+                            android:elevation="8dp"
                             android:text="Continue"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            app:buttonType="4"
-                            app:customTFont="CircularPro-Bold.otf"
-                            app:hasShadow="false"
+                            app:buttonType="2"
                             app:isBreadButton="true" />
+
+                        <!--<com.ravencoin.presenter.customviews.BRButton-->
+                            <!--android:id="@+id/button_submit"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="@dimen/big_button_height"-->
+                            <!--android:layout_marginBottom="32dp"-->
+                            <!--android:layout_marginEnd="@dimen/bread_margin"-->
+                            <!--android:layout_marginStart="@dimen/bread_margin"-->
+                            <!--android:layout_marginTop="32dp"-->
+                            <!--android:elevation="8dp"-->
+                            <!--android:padding="10dp"-->
+                            <!--android:text="@string/Button.submit"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="18sp"-->
+                            <!--app:buttonType="1"-->
+                            <!--app:isBreadButton="true"/>-->
 
                     </LinearLayout>
 

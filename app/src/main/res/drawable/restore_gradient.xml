@@ -2,9 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
        android:shape="rectangle">
     <gradient
-        android:endColor="@color/restore_gradient_end"
+        android:endColor="@color/gradientEnd"
         android:gradientRadius="200dp"
-        android:startColor="@color/restore_gradient_start"
-        android:type="radial"
+        android:startColor="@color/gradientStart"
         android:useLevel="false"/>
 </shape>

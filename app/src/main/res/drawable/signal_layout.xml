@@ -7,8 +7,8 @@
         android:topRightRadius="10dp"/>
     <gradient
         android:angle="45"
-        android:endColor="@color/logo_gradient_end"
-        android:startColor="@color/logo_gradient_start"
+        android:endColor="@color/gradientEnd"
+        android:startColor="@color/gradientStart"
         android:type="linear"/>
     <padding
         android:left="10dp"

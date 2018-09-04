@@ -4,6 +4,6 @@
         android:radius="4dp"
         />
 
-    <solid android:color="@color/bitcoin_cash_row_color"/>
+    <solid android:color="@color/primaryColor"/>
 
 </shape>

@@ -36,7 +36,7 @@
                 android:id="@+id/bread_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:background="@color/currency_header_background"
+                android:background="@color/primaryColor"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:contentInsetLeft="0dp"
@@ -260,7 +260,6 @@
         android:layout_height="1.0px"
         android:layout_above="@id/bottom_toolbar_layout1"
         android:background="@color/light_gray" />
-
 
     <LinearLayout
         android:id="@+id/bottom_toolbar_layout1"

@@ -184,7 +184,7 @@ public class IntroActivity extends BRActivity implements Serializable {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(app, R.color.logo_gradient_dark));
+        window.setStatusBarColor(ContextCompat.getColor(app, R.color.primaryColor));
 
         final int lFlags = window.getDecorView().getSystemUiVisibility();
         // update the SystemUiVisibility depending on whether we want a Light or Dark theme.

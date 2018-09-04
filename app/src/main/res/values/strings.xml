@@ -746,9 +746,9 @@
   <string name="CurrencyBuy">Buy</string>
   <string name="CurrencySend">Send</string>
   <string name="CurrencyReceive">Receive</string>
-  <string name="TotalAssets">total assets</string>
+  <string name="TotalAssets">Total Assets</string>
   <string name="Portfolio">Portfolio</string>
-  <string name="Wallets">Wallets</string>
+  <string name="Wallets">Wallet</string>
   <string name="Admin">Admin</string>
 
   <string name="Dialog.Home">Home</string>

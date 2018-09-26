@@ -5,7 +5,7 @@
     android:id="@+id/activity_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@drawable/bread_gradient"
     tools:context="com.ravencoin.presenter.activities.LoginActivity">
 
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
-        android:src="@drawable/raven_logo_bird"
+        android:src="@drawable/ic_real_raven"
         android:textColor="@color/white"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/brkeyboard"

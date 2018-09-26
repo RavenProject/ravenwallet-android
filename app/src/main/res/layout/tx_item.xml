@@ -7,6 +7,7 @@
 
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/item_image"
         android:layout_width="70.0dp"
         android:layout_height="70.0dp"
@@ -23,7 +24,8 @@
         android:layout_toRightOf="@+id/item_image"
         android:paddingTop="7.0dp"
         android:text="Received"
-        android:textColor="@color/logo_gradient_dark"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/primaryColor"
         android:textSize="18sp"
         android:textStyle="bold"
         app:customTFont="CircularPro-Book.otf" />
@@ -35,6 +37,7 @@
         android:layout_below="@id/tx_action"
         android:layout_toRightOf="@+id/item_image"
         android:text="Dec 2"
+        android:layout_marginLeft="20dp"
         android:textColor="@color/total_assets_usd_color"
         android:textSize="15sp"
         app:customTFont="CircularPro-Book.otf" />

@@ -13,7 +13,7 @@
         android:id="@+id/dialog_header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/bch_dialog_gradient"
+        android:background="@drawable/gradient_blue"
         android:orientation="vertical">
 
         <ImageButton

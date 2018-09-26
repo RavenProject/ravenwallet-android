@@ -235,6 +235,7 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".presenter.activities.settings.SupportWebViewActivity" />
 
         <service
             android:name=".tools.listeners.SyncReceiver"

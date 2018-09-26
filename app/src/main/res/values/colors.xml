@@ -39,9 +39,8 @@
     <item name="warning_status_bar" type="color">#7f5225</item>
     <item name="camera_guideline" type="color">#50636363</item>
 
-    <item name="logo_gradient_start" type="color">#aa000000</item>
+    <item name="logo_gradient_start" type="color">#3B004B</item>
     <item name="logo_gradient_end" type="color">#4a1d5c</item>
-    <item name="logo_gradient_dark" type="color">#3B004B</item>
 
     <item name="import_gradient_start" type="color">#76b0fd</item>
     <item name="import_gradient_end" type="color">#4C98FD</item>

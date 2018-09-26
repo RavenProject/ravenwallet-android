@@ -70,7 +70,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:background="@drawable/import_gradient"
+        android:background="@drawable/gradient_blue"
         app:layout_constraintBaseline_toBaselineOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -23,12 +23,9 @@ import android.widget.TextView;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.settings.SecurityCenterActivity;
 import com.ravencoin.presenter.activities.settings.SettingsActivity;
-import com.ravencoin.presenter.activities.settings.WebViewActivity;
 import com.ravencoin.presenter.entities.BRMenuItem;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SlideDetector;
-import com.platform.APIClient;
-import com.platform.HTTPServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,19 +88,6 @@ public class FragmentMenu extends Fragment {
         close = (ImageButton) rootView.findViewById(R.id.close_button);
 
         itemList = new ArrayList<>();
-        boolean buyBitcoinEnabled = APIClient.getInstance(getActivity()).isFeatureEnabled(APIClient.FeatureFlags.BUY_BITCOIN.toString());
-        if (buyBitcoinEnabled)
-            itemList.add(new BRMenuItem(getString(R.string.MenuButton_buy), R.drawable.buy_bitcoin, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                    intent.putExtra("url", HTTPServer.URL_BUY);
-                    Activity app = getActivity();
-                    app.startActivity(intent);
-                    app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-
-                }
-            }));
         itemList.add(new BRMenuItem(getString(R.string.MenuButton_security), R.drawable.ic_shield, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

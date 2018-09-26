@@ -24,13 +24,14 @@
 
             <ImageView
                 android:id="@+id/image_logo"
+                android:scaleType="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
                 android:layout_marginStart="16.0dp"
                 android:layout_marginEnd="16.0dp"
-                android:background="@drawable/bread_logo_gradient" />
+                android:background="@drawable/ic_raven_coin_title" />
 
             <LinearLayout
                 android:layout_below="@+id/image_logo"
@@ -46,9 +47,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="16.0dp"
                     android:text="@string/TotalAssets"
-                    android:textSize="26.0sp"
+                    android:textSize="22.0sp"
                     android:textColor="@color/total_assets_label_color"
                     app:customTFont="CircularPro-Book.otf" />
 
@@ -57,11 +58,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
                     android:layout_below="@id/total_assets_label"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:text="$42,895.47"
                     android:textColor="@color/total_assets_usd_color"
-                    android:textSize="28sp"
+                    android:textSize="22sp"
                     app:customTFont="CircularPro-Bold.otf" />
             </LinearLayout>
 

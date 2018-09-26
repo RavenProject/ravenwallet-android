@@ -10,8 +10,8 @@ android {
         applicationId = 'com.ravencoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 10
-        versionName "1"
+        versionCode 12
+        versionName "1.01"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
@@ -24,7 +24,7 @@ android {
         }
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=gnustl_static'
+                arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static'
 //                cppFlags "-std=c++11"
             }
         }

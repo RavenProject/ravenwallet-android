@@ -34,6 +34,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.platform.HTTPServer;
+import com.platform.middlewares.plugins.LinkPlugin;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.presenter.activities.util.BRActivity;
@@ -42,8 +44,6 @@ import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.BRDialog;
 import com.ravencoin.tools.util.Utils;
-import com.platform.HTTPServer;
-import com.platform.middlewares.plugins.LinkPlugin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,13 +57,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Deprecated
-public class WebViewActivity extends BRActivity {
-    private static final String TAG = WebViewActivity.class.getName();
+public class SupportWebViewActivity extends BRActivity {
+    private static final String TAG = SupportWebViewActivity.class.getName();
     WebView webView;
     String theUrl;
     public static boolean appVisible = false;
-    private static WebViewActivity app;
+    private static SupportWebViewActivity app;
     private String onCloseUrl;
 
     private static final int REQUEST_CHOOSE_IMAGE = 1;
@@ -76,7 +75,7 @@ public class WebViewActivity extends BRActivity {
     private ValueCallback<Uri[]> mFilePathCallback;
     private String mCameraPhotoPath;
 
-    public static WebViewActivity getApp() {
+    public static SupportWebViewActivity getApp() {
         return app;
     }
 
@@ -100,7 +99,7 @@ public class WebViewActivity extends BRActivity {
 
         webView = findViewById(R.id.web_view);
         webView.setBackgroundColor(0);
-        webView.setWebChromeClient(new BRWebChromeClient());
+//        webView.setWebChromeClient(new BRWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -154,9 +153,8 @@ public class WebViewActivity extends BRActivity {
 
         theUrl = getIntent().getStringExtra("url");
         String json = getIntent().getStringExtra("json");
-        webView.loadUrl("https://ravencoin.org/");
+        webView.loadUrl("https://ravenwallet.org/support");
 
-//        if (json == null) {
 //            if (!setupServerMode(theUrl)) {
 //                webView.loadUrl(theUrl);
 //
@@ -173,11 +171,6 @@ public class WebViewActivity extends BRActivity {
 //            webView.loadUrl(theUrl);
 //            if (articleId != null && !articleId.isEmpty())
 //                navigate(articleId);
-//        } else {
-//            request(webView, json);
-//
-//        }
-
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -465,7 +458,7 @@ public class WebViewActivity extends BRActivity {
         PackageManager packageManager = getPackageManager();
 
         // collect all camera intents
-        Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
 
         for (ResolveInfo res : listCam) {
@@ -548,7 +541,7 @@ public class WebViewActivity extends BRActivity {
 
             } else if (mCameraPhotoPath != null) {
                 results = new Uri[]{Uri.parse(mCameraPhotoPath)};
-                Toast.makeText(WebViewActivity.this, "Error getting selected image!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SupportWebViewActivity.this, "Error getting selected image!", Toast.LENGTH_SHORT).show();
             }
 
             mFilePathCallback.onReceiveValue(results);
@@ -619,7 +612,7 @@ public class WebViewActivity extends BRActivity {
 
     private File createImageFile() throws IOException {
 
-        ActivityCompat.requestPermissions(WebViewActivity.this,
+        ActivityCompat.requestPermissions(SupportWebViewActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         // Create an image file name
@@ -659,7 +652,7 @@ public class WebViewActivity extends BRActivity {
                 } else {
 
 
-                    Toast.makeText(WebViewActivity.this, "Please allow CAMERA permission in order to upload your image.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SupportWebViewActivity.this, "Please allow CAMERA permission in order to upload your image.", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }

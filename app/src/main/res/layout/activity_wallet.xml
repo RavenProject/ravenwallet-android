@@ -33,10 +33,10 @@
 
             <android.support.v7.widget.Toolbar
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/bread_bar"
+                android:id="@+id/wallet_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:background="@color/primaryColor"
+                android:background="@drawable/gradient_blue"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:contentInsetLeft="0dp"
@@ -65,12 +65,12 @@
 
                     <ImageView
                         android:id="@+id/currency_image"
-                        android:layout_width="80dp"
-                        android:layout_height="28dp"
+                        android:layout_width="269dp"
+                        android:layout_height="26dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/brd_logo_white"
+                        android:background="@drawable/ic_raven_coin_title_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -196,7 +196,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="108dp"
-                        android:layout_marginEnd="28dp"
+                        android:layout_marginEnd="15dp"
                         android:background="@drawable/ic_search_white_24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -208,24 +208,26 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <com.ravencoin.presenter.customviews.BRSearchBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.ravencoin.presenter.customviews.BRSearchBar
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:background="@drawable/bread_gradient"
+                android:background="@drawable/gradient_blue"
                 android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp" />
 
-            <com.ravencoin.presenter.customviews.BRNotificationBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.ravencoin.presenter.customviews.BRNotificationBar
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/notification_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:background="@drawable/bread_gradient"
+                android:background="@drawable/gradient_blue"
                 android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
                 android:visibility="visible"

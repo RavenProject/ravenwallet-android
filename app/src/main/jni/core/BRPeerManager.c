@@ -28,6 +28,7 @@
 #include "BRArray.h"
 #include "BRInt.h"
 #include "BRChainParams.h"
+#include "BRMerkleBlock.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <inttypes.h>
@@ -91,10 +92,11 @@ static const struct {
         { 334656, "0000000000017b8112fb5e67c807d2962c98cef80ef3ed9c2d9503dfef219b3e", 1535026940, 0x1b069a70 },
         { 338778, "000000000003198106731cb28fc24e9ace995a37709b026b25dfa905aea54517", 1535599185, 0x1b07cf3a },
         { 341086, "000000000001c72e3613de62be33974f69993bf16f10d117d14321afa4259a0e", 1535734416, 0x1b0203f4 },
+        { 342719, "0000000000007746a534115a723c8aaefaad1dd0df61a1890855603bb2ef827d", 1535832293, 0x1b02088e }
 };
 
 static const char *dns_seeds[] = {
-        "seed-raven.ravencoin.org.", "seed-raven.bitactivate.com."
+        "seed-raven.ravencoin.com.", "seed-raven.ravencoin.org.", "seed-raven.bitactivate.com."
 };
 
 #endif
@@ -1169,16 +1171,18 @@ _BRPeerManagerVerifyBlock(BRPeerManager *manager, BRMerkleBlock *block, BRMerkle
     int r = 1;
 
     // check if we hit a difficulty transition, and find previous transition time
-    if ((block->height % BLOCK_DIFFICULTY_INTERVAL) == 0) {
+//    if ((block->height % BLOCK_DIFFICULTY_INTERVAL) == 0) {
+    if ((block->height % (block->height < DGW_START_BLOCK ? BLOCK_DIFFICULTY_INTERVAL : DGW_BLOCK_DIFFICULTY_INTERVAL)) == 0) {
         BRMerkleBlock *b = block;
         UInt256 prevBlock;
 
-        for (uint32_t i = 0; b && i < BLOCK_DIFFICULTY_INTERVAL; i++) {
+//        for (uint32_t i = 0; b && i < BLOCK_DIFFICULTY_INTERVAL; i++) {
+        for (uint32_t i = 0; b && i < (block->height < DGW_START_BLOCK ? BLOCK_DIFFICULTY_INTERVAL : DGW_BLOCK_DIFFICULTY_INTERVAL); i++) {
             b = BRSetGet(manager->blocks, &b->prevBlock);
         }
 
         if (!b) {
-            peer_log(peer, "missing previous difficulty tansition time, can't verify blockHash: %s",
+            peer_log(peer, "missing previous difficulty transition time, can't verify blockHash: %s",
                      u256_hex_encode(block->blockHash));
             r = 0;
         } else {
@@ -1190,7 +1194,8 @@ _BRPeerManagerVerifyBlock(BRPeerManager *manager, BRMerkleBlock *block, BRMerkle
             b = BRSetGet(manager->blocks, &prevBlock);
             if (b) prevBlock = b->prevBlock;
 
-            if (b && (b->height % BLOCK_DIFFICULTY_INTERVAL) != 0) {
+//            if (b && (b->height % BLOCK_DIFFICULTY_INTERVAL) != 0) {
+            if (b && (b->height % (block->height < DGW_START_BLOCK ? BLOCK_DIFFICULTY_INTERVAL : DGW_BLOCK_DIFFICULTY_INTERVAL)) != 0) {
                 BRSetRemove(manager->blocks, b);
                 BRMerkleBlockFree(b);
             }
@@ -1198,7 +1203,7 @@ _BRPeerManagerVerifyBlock(BRPeerManager *manager, BRMerkleBlock *block, BRMerkle
     }
 
     // verify block difficulty
-    if (r && !BRMerkleBlockVerifyDifficulty(block, prev, transitionTime)) {
+    if (r && !BRMerkleBlockVerifyDifficulty(block, prev, manager->blocks)) {
         peer_log(peer, "relayed block with invalid difficulty target %x, blockHash: %s",
                  block->target,
                  u256_hex_encode(block->blockHash));

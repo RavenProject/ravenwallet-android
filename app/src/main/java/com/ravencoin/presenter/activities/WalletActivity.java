@@ -1,6 +1,7 @@
 package com.ravencoin.presenter.activities;
 
 import android.animation.LayoutTransition;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.usage.UsageStats;
@@ -8,6 +9,7 @@ import android.app.usage.UsageStatsManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -35,10 +37,8 @@ import android.widget.ViewFlipper;
 
 import com.ravencoin.R;
 import com.ravencoin.core.BRCorePeer;
-import com.ravencoin.presenter.activities.settings.WebViewActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.customviews.BRButton;
-import com.ravencoin.presenter.customviews.BRDialogView;
 import com.ravencoin.presenter.customviews.BRNotificationBar;
 import com.ravencoin.presenter.customviews.BRSearchBar;
 import com.ravencoin.presenter.customviews.BRText;
@@ -51,7 +51,6 @@ import com.ravencoin.tools.manager.SyncManager;
 import com.ravencoin.tools.manager.TxManager;
 import com.ravencoin.tools.sqlite.CurrencyDataSource;
 import com.ravencoin.tools.threads.executor.BRExecutor;
-import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
@@ -120,7 +119,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
         mCurrencyPriceUsd = findViewById(R.id.currency_usd_price);
         mBalancePrimary = findViewById(R.id.balance_primary);
         mBalanceSecondary = findViewById(R.id.balance_secondary);
-        mToolbar = findViewById(R.id.bread_bar);
+        mToolbar = findViewById(R.id.wallet_bar);
         mBackButton = findViewById(R.id.back_icon);
         mSendButton = findViewById(R.id.send_button);
         mReceiveButton = findViewById(R.id.receive_button);
@@ -260,21 +259,6 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             return;
         }
 
-        if (wallet.getUiConfiguration().buyVisible) {
-            mBuyButton.setHasShadow(false);
-            mBuyButton.setVisibility(View.VISIBLE);
-            mBuyButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(WalletActivity.this, WebViewActivity.class);
-                    intent.putExtra("url", HTTPServer.URL_BUY);
-                    Activity app = WalletActivity.this;
-                    app.startActivity(intent);
-                    app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-                }
-            });
-
-        } else {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     Utils.getPixelsFromDps(this, 65), 1.5f
@@ -294,7 +278,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             mReceiveButton.setLayoutParams(param2);
             mBuyButton.setVisibility(View.GONE);
 
-        }
+
 
 
 //        String fiatIso = BRSharedPrefs.getPreferredFiatIso(this);
@@ -371,13 +355,8 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
 
                 // Check if it matches our package name
                 if (processName.equals(packageName)) return true;
-
-
             }
-
-
         }
-
 
         // Use the UsageStats API for sdk versions greater than Lollipop
         else {
@@ -395,16 +374,9 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
                     if (currentPackageName.equals(packageName)) {
                         return true;
                     }
-
-
                 }
-
-
             }
-
         }
-
-
         return false;
     }
 
@@ -510,6 +482,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
                 }, toolBarConstraintLayout.getLayoutTransition().getDuration(LayoutTransition.CHANGE_APPEARING));
     }
 
+    @Deprecated
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void changeStatusBarColor() {
         Window window = app.getWindow();
@@ -528,13 +501,31 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
         window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setStatusBarGradiant(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            Drawable background = activity.getResources().getDrawable(R.drawable.regular_blue);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
+
+            final int lFlags = window.getDecorView().getSystemUiVisibility();
+            // update the SystemUiVisibility depending on whether we want a Light or Dark theme.
+            window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
+
+            window.setBackgroundDrawable(background);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
         app = this;
 
-        changeStatusBarColor();
+//        changeStatusBarColor();
+        setStatusBarGradiant(app);
 
         WalletsMaster.getInstance(app).initWallets(app);
 

@@ -1,6 +1,9 @@
 package com.ravencoin.presenter.activities.intro;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -12,10 +15,8 @@ import android.widget.Button;
 
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.InputWordsActivity;
-import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.tools.animation.BRAnimator;
-import com.ravencoin.tools.animation.SpringAnimator;
 
 public class RecoverActivity extends BRActivity {
     private Button nextButton;
@@ -44,6 +45,7 @@ public class RecoverActivity extends BRActivity {
         });
     }
 
+    @Deprecated
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void changeStatusBarColor() {
         Window window = app.getWindow();
@@ -55,11 +57,28 @@ public class RecoverActivity extends BRActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(app, R.color.logo_gradient_dark));
+        window.setStatusBarColor(ContextCompat.getColor(app, R.color.primaryColor));
 
         final int lFlags = window.getDecorView().getSystemUiVisibility();
         // update the SystemUiVisibility depending on whether we want a Light or Dark theme.
         window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setStatusBarGradiant(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            Drawable background = activity.getResources().getDrawable(R.drawable.gradient_blue);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
+
+            final int lFlags = window.getDecorView().getSystemUiVisibility();
+            // update the SystemUiVisibility depending on whether we want a Light or Dark theme.
+            window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
+
+            window.setBackgroundDrawable(background);
+        }
     }
 
     @Override
@@ -68,7 +87,8 @@ public class RecoverActivity extends BRActivity {
         appVisible = true;
         app = this;
 
-        changeStatusBarColor();
+//        changeStatusBarColor();
+        setStatusBarGradiant(app);
     }
 
     @Override

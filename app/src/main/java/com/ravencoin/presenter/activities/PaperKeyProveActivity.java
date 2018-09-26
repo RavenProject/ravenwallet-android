@@ -1,5 +1,9 @@
 package com.ravencoin.presenter.activities;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -11,6 +15,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -160,9 +165,24 @@ public class PaperKeyProveActivity extends BRActivity {
             BRReportsManager.reportBug(new IllegalArgumentException("Paper Key error, please contact support at breadwallet.com"), false);
         } else {
             randomWordsSetUp(wordArray);
-
         }
+    }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setStatusBarGradiant(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            Drawable background = activity.getResources().getDrawable(R.drawable.regular_blue);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
+
+            final int lFlags = window.getDecorView().getSystemUiVisibility();
+            // update the SystemUiVisibility depending on whether we want a Light or Dark theme.
+            window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
+
+            window.setBackgroundDrawable(background);
+        }
     }
 
     @Override
@@ -170,6 +190,8 @@ public class PaperKeyProveActivity extends BRActivity {
         super.onResume();
         appVisible = true;
         app = this;
+
+        setStatusBarGradiant(app);
     }
 
     @Override

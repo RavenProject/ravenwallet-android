@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_alignParentTop="true"
-        android:background="@color/primaryColor"
+        android:background="@drawable/gradient_blue"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -91,7 +91,7 @@
         android:layout_alignBottom="@+id/enable_label"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/bread_toggle"
+        android:background="@color/primaryColor"
         android:textColor="@color/white" />
 
     <View

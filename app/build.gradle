@@ -3,7 +3,7 @@ apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion = 27
-    buildToolsVersion = '27.0.3'
+    buildToolsVersion = '28.0.2'
 
     defaultConfig {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
@@ -171,8 +171,8 @@ dependencies {
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
 //    implementation 'com.google.firebase:firebase-core:11.8.0'
 //    implementation 'com.google.firebase:firebase-crash:11.8.0'
-    implementation 'com.google.firebase:firebase-core:12.0.1'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 
     implementation 'io.sigpipe:jbsdiff:1.0'
     implementation 'com.google.zxing:core:3.3.0'

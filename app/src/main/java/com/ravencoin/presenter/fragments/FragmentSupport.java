@@ -125,7 +125,8 @@ public class FragmentSupport extends Fragment {
         webSettings.setJavaScriptEnabled(true);
 
         if (articleId != null && !articleId.isEmpty())
-            theUrl = theUrl + "/article?slug=" + articleId;
+//            theUrl = theUrl + "/article?slug=" + articleId;
+            theUrl = theUrl + "/" + articleId;
 
         Log.d(TAG, "onCreate: theUrl: " + theUrl + ", articleId: " + articleId);
         webView.loadUrl(theUrl);

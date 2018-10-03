@@ -89,31 +89,51 @@ public class BRConstants {
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     public static final boolean WAL = true;
 
-    /**
-     * Support Center article ids.
-     */
-    public static final String displayCurrency = "display-currency";
-    public static final String recoverWallet = "recover-wallet";
-    public static final String reScan = "re-scan";
-    public static final String securityCenter = "security-center";
-    public static final String paperKey = "paper-key";
-    public static final String enableFingerprint = "enable-fingerprint-authentication";
-    public static final String fingerprintSpendingLimit = "fingerprint-spending-limit";
-    public static final String transactionDetails = "transaction-details";
-//    public static final String manageWallet = "manage-wallet";
-    public static final String receive = "receive-bitcoin";
-    public static final String requestAmount = "request-amount";
-    public static final String send = "send-bitcoin";
-    public static final String walletDisabled = "wallet-disabled";
-    public static final String resetPinWithPaperKey = "reset-pin-paper-key";
-    public static final String setPin = "set-pin";
-    public static final String importWallet = "import-wallet";
-    public static final String writePhrase = "write-phrase";
-//    public static final String confirmPhrase = "confirm-phrase";
-    public static final String startView = "start-view";
-    public static final String wipeWallet = "wipe-wallet";
+//    /**
+//     * Support Center article ids.
+//     */
+//    public static final String displayCurrency = "display-currency";
+//    public static final String recoverWallet = "recover-wallet";
+//    public static final String reScan = "re-scan";
+//    public static final String securityCenter = "security-center";
+//    public static final String paperKey = "paper-key";
+//    public static final String enableFingerprint = "enable-fingerprint-authentication";
+//    public static final String fingerprintSpendingLimit = "fingerprint-spending-limit";
+//    public static final String transactionDetails = "transaction-details";
+////    public static final String manageWallet = "manage-wallet";
+//    public static final String receive = "receive-bitcoin";
+//    public static final String requestAmount = "request-amount";
+//    public static final String walletDisabled = "wallet-disabled";
+//    public static final String resetPinWithPaperKey = "reset-pin-paper-key";
+//    public static final String setPin = "set-pin";
+//    public static final String importWallet = "import-wallet";
+//    public static final String writePhrase = "write-phrase";
+////    public static final String confirmPhrase = "confirm-phrase";
+//    public static final String startView = "start-view";
+//    public static final String wipeWallet = "wipe-wallet";
     public static final String loopBug = "android-loop-bug";
 
+    public static final String displayCurrency = "app-settings/raven-currency.html";
+    public static final String recoverWallet = "app-settings/previous-wallet.html";
+    public static final String reScan = "app-settings/sync.html";
+    public static final String securityCenter = "security";
+    public static final String paperKey = "security/paper-key.html";
+    public static final String enableFingerprint = "security/fingerprint.html";
+    public static final String fingerprintSpendingLimit = "fingerprint-spending-limit";
+    public static final String transactionDetails = "send-receive/rvn-transaction.html";
+    public static final String manageWallet = "app-settings";
+    public static final String receive = "send-receive";
+    public static final String send = "send-receive";
+    public static final String requestAmount = "send-receive/request-amount.html";
+    public static final String walletDisabled = "wallet-disabled";
+    public static final String resetPinWithPaperKey = "reset-pin-paper-key";
+    public static final String setPin = "security/pin.html";
+    public static final String importWallet = "Miscellaneous/import-paper.html";
+    public static final String writePhrase = "security/down-paper-key.html";
+    public static final String confirmPhrase = "security/confirm-key.html";
+    public static final String startView = "start-view";
+    public static final String wipeWallet = "app-settings/wipe-wallet.html";
+            
     private BRConstants() {
     }
 

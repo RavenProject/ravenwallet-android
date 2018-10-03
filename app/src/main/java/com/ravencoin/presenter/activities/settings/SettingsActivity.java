@@ -220,7 +220,7 @@ public class SettingsActivity extends BRActivity {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_other), "", null, true));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_shareData), "ON", new View.OnClickListener() {
+        items.add(new BRSettingsItem(getString(R.string.Settings_shareData), BRSharedPrefs.getShareData(this) ? "ON" : "OFF", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, ShareDataActivity.class);

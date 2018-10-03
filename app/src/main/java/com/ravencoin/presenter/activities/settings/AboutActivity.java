@@ -90,7 +90,7 @@ public class AboutActivity extends BRActivity {
         site.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ravencoin.org"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ravencoin.com"));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
@@ -98,7 +98,7 @@ public class AboutActivity extends BRActivity {
         privacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ravenwallet.github.io/help/index.html#privacy"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ravenwallet.org/support/privacy.html"));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }

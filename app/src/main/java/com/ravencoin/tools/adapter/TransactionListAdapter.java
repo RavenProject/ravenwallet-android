@@ -264,9 +264,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             holder.transactionDate.setVisibility(View.GONE);
             holder.transactionProgress.setProgress(progress);
 
-            RelativeLayout.LayoutParams detailParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            RelativeLayout.LayoutParams detailParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             detailParams.addRule(RelativeLayout.RIGHT_OF, holder.transactionProgress.getId());
-            detailParams.addRule(RelativeLayout.ALIGN_BOTTOM, holder.transactionProgress.getId());
+//            detailParams.addRule(RelativeLayout.ALIGN_BOTTOM, holder.transactionProgress.getId());
             detailParams.setMargins(Utils.getPixelsFromDps(mContext, 16), Utils.getPixelsFromDps(mContext, 36), 0, 0);
             holder.transactionDetail.setLayoutParams(detailParams);
 

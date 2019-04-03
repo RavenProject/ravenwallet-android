@@ -1,7 +1,7 @@
 package com.ravencoin.wallet.abstracts;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 2/16/18.
  * Copyright (c) 2018 breadwallet LLC

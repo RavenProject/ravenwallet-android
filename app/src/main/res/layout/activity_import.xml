@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intro_recover"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/extra_light_blue_background"
@@ -66,6 +65,29 @@
         app:layout_constraintLeft_toLeftOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/icon_delete_cirlce_grey"
+        app:layout_constraintLeft_toLeftOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <com.ravencoin.presenter.customviews.BRText
+        android:id="@+id/textView15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:lineSpacingMultiplier="1.3"
+        android:text="@string/Import.warning2"
+        android:textColor="@color/red_text"
+        android:textSize="@dimen/paragraph"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/imageView8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
@@ -112,7 +134,6 @@
             tools:layout_editor_absoluteY="81dp"/>
 
         <ImageView
-            android:id="@+id/imageView9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/textView2"

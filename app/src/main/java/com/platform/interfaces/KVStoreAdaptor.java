@@ -5,7 +5,7 @@ import com.platform.kvstore.CompletionObject;
 import static android.R.attr.value;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/13/16.
  * Copyright (c) 2016 breadwallet LLC

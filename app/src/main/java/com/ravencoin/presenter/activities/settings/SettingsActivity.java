@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,12 @@ import android.widget.TextView;
 
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.CurrencySettingsActivity;
+import com.ravencoin.presenter.activities.ManageAssetsActivity;
 import com.ravencoin.presenter.activities.UpdatePinActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.entities.BRSettingsItem;
 import com.ravencoin.presenter.interfaces.BRAuthCompletion;
+import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.security.AuthManager;
 
@@ -99,15 +102,15 @@ public class SettingsActivity extends BRActivity {
                     ImageButton chevronRight = v.findViewById(R.id.chevron_right);
                     leaveArrow.setVisibility(View.VISIBLE);
                     chevronRight.setVisibility(View.INVISIBLE);
-                } else if (position == 9) {
+                }
+                /*else if (position == 9) {
                     boolean shareData = BRSharedPrefs.getShareData(SettingsActivity.this);
                     if (shareData) {
                         addon.setText("ON");
                     } else {
                         addon.setText("OFF");
-
                     }
-                }
+                }*/
 
                 v.setOnClickListener(item.listener);
 
@@ -207,11 +210,35 @@ public class SettingsActivity extends BRActivity {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_currencySettings), "", null, true));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_raven), "", new View.OnClickListener() {
+        items.add(new BRSettingsItem(getString(R.string.Settings_redeem_private_key), "", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, CurrencySettingsActivity.class);
-                BRSharedPrefs.putCurrentWalletIso(app, "RVN"); //change the current wallet to the one they enter settings to
+                if (!BRAnimator.isClickAllowed()) return;
+                Intent intent = new Intent(SettingsActivity.this, ImportActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+        }, false));
+
+        items.add(new BRSettingsItem(getString(R.string.Settings_rescan_blockchain), "", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!BRAnimator.isClickAllowed()) return;
+                Log.d("CurrencySettings", "Rescan tapped!");
+
+                Intent intent = new Intent(SettingsActivity.this, SyncBlockchainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+        }, false));
+
+
+        items.add(new BRSettingsItem(getString(R.string.assets), "", null, true));
+
+        items.add(new BRSettingsItem(getString(R.string.manage_assets), "", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, ManageAssetsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
@@ -261,11 +288,6 @@ public class SettingsActivity extends BRActivity {
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         }, false));
-
-
-
-
-
     }
 
     @Override

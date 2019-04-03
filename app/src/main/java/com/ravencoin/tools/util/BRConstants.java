@@ -1,10 +1,13 @@
 package com.ravencoin.tools.util;
 
+import android.support.test.espresso.core.internal.deps.guava.collect.Lists;
+
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 2/16/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -33,7 +36,7 @@ public class BRConstants {
     /**
      * Native library name
      */
-    public static final String NATIVE_LIB_NAME =  "core";
+    public static final String NATIVE_LIB_NAME = "core";
 
     /**
      * Permissions
@@ -59,13 +62,17 @@ public class BRConstants {
      */
     public static final int SCANNER_REQUEST = 201;
     public static final int REQUEST_IMAGE_CAPTURE = 203;
+    public static final int ADDRESS_SCANNER_REQUEST = 204;
+    public static final int IPFS_HASH_SCANNER_REQUEST = 205;
+    public static final int SELECT_FROM_ADDRESS_BOOK_REQUEST = 206;
 
     public static final String CANARY_STRING = "canary";
-//    public static final String FIRST_ADDRESS = "firstAddress";
+    //    public static final String FIRST_ADDRESS = "firstAddress";
 //    public static final String SECURE_TIME_PREFS = "secureTime";
 //    public static final String FEE_KB_PREFS = "feeKb";
 //    public static final String ECONOMY_FEE_KB_PREFS = "EconomyFeeKb";
     public static final String LITTLE_CIRCLE = "\u2022";
+    public static final String OWNER_SUFFIX = "!";
     public static String SUPPORT_EMAIL = "support@ravencoin.org";
 
     public static final int ONE_RAVEN = 1000000;
@@ -89,7 +96,16 @@ public class BRConstants {
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     public static final boolean WAL = true;
 
-//    /**
+    public static final long MAX_ASSET_QUANTITY = 21000000 * 1000L;
+    public static final int MAX_ASSET_NAME_LENGTH = 30;
+    public static final int MAX_ADDRESS_NAME_LENGTH = 30;
+    public static final double SATOSHIS = 100000000;
+    public static final long CREATION_FEE = 500L;
+    public static final long REISSUE_FEE = 100L;
+    public static final long SUB_FEE = 100L;
+    public static final long UNIQUE_FEE = 5L;
+    public static final long CONFIRMS_COUNT = 5L;
+    //    /**
 //     * Support Center article ids.
 //     */
 //    public static final String displayCurrency = "display-currency";
@@ -133,7 +149,23 @@ public class BRConstants {
     public static final String confirmPhrase = "security/confirm-key.html";
     public static final String startView = "start-view";
     public static final String wipeWallet = "app-settings/wipe-wallet.html";
-            
+
+    public static final List<String> STR_ISSUE_ASSET_BURN_ADDESSES =
+            Lists.newArrayList("RXissueAssetXXXXXXXXXXXXXXXXXhhZGt",
+                    "n1issueAssetXXXXXXXXXXXXXXXXWdnemQ");
+    public static final List<String> STR_REISSUE_ASSET_BURN_ADDESSES =
+            Lists.newArrayList("RXReissueAssetXXXXXXXXXXXXXXVEFAWu",
+                    "n1ReissueAssetXXXXXXXXXXXXXXWG9NLd");
+    public static final List<String> STR_REISSUE_SUB_ASSET_BURN_ADDESSES =
+            Lists.newArrayList("RXissueSubAssetXXXXXXXXXXXXXWcwhwL",
+                    "n1issueSubAssetXXXXXXXXXXXXXbNiH6v");
+    public static final List<String> STR_UNIQUE_ASSET_BURN_ADDESSES =
+            Lists.newArrayList("RXissueUniqueAssetXXXXXXXXXXWEAe58",
+                    "n1issueUniqueAssetXXXXXXXXXXS4695i");
+    public static final List<String> STR_BURN_ASSET_ADDESSES =
+            Lists.newArrayList("RXBurnXXXXXXXXXXXXXXXXXXXXXXWUo9FV",
+                    "n1BurnXXXXXXXXXXXXXXXXXXXXXXU1qejP");
+
     private BRConstants() {
     }
 

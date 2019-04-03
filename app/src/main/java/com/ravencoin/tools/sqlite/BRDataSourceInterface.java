@@ -3,7 +3,7 @@ package com.ravencoin.tools.sqlite;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/24/17.
  * Copyright (c) 2017 breadwallet LLC

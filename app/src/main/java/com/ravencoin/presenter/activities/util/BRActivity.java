@@ -6,26 +6,32 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.platform.HTTPServer;
+import com.platform.tools.BRBitId;
+import com.platform.addressBook.AddressBookItem;
+import com.ravencoin.RavenApp;
+import com.ravencoin.R;
 import com.ravencoin.presenter.activities.DisabledActivity;
+import com.ravencoin.presenter.activities.WalletActivity;
 import com.ravencoin.presenter.activities.intro.IntroActivity;
 import com.ravencoin.presenter.activities.intro.RecoverActivity;
 import com.ravencoin.presenter.activities.intro.WriteDownActivity;
+import com.ravencoin.presenter.fragments.BaseAddressAndIpfsHashValidation;
+import com.ravencoin.presenter.fragments.BaseAddressValidation;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.manager.BRApiManager;
 import com.ravencoin.tools.manager.InternetManager;
 import com.ravencoin.tools.security.AuthManager;
 import com.ravencoin.tools.security.BRKeyStore;
-import com.ravencoin.wallet.wallets.util.CryptoUriParser;
 import com.ravencoin.tools.security.PostAuth;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.BRConstants;
+import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
-import com.platform.HTTPServer;
-import com.platform.tools.BRBitId;
+import com.ravencoin.wallet.wallets.util.CryptoUriParser;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/23/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -65,15 +71,15 @@ public class BRActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        BreadApp.activityCounter.decrementAndGet();
-        BreadApp.onStop(this);
+        RavenApp.activityCounter.decrementAndGet();
+        RavenApp.onStop(this);
     }
 
     @Override
     protected void onResume() {
         init(this);
         super.onResume();
-        BreadApp.backgroundedTime = 0;
+        RavenApp.backgroundedTime = 0;
 
     }
 
@@ -187,7 +193,73 @@ public class BRActivity extends Activity {
                                 Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                         }
                     });
+                }
+                break;
 
+            case BRConstants.ADDRESS_SCANNER_REQUEST:
+                if (resultCode == Activity.RESULT_OK) {
+                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            String result = data.getStringExtra("result");
+                            final String address = Utils.retrieveAddressChunk(result);
+                            if (address != null) {
+                                final BaseAddressValidation fragment = (BaseAddressValidation)
+                                        getFragmentManager().
+                                                findFragmentById(android.R.id.content);
+                                if (!fragment.isAddressValid(address)) {
+                                    fragment.sayInvalidClipboardData();
+                                } else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            fragment.setAddress(address);
+                                        }
+                                    });
+                                }
+                            } else {
+                                Log.e(TAG, "onActivityResult: not RavenCoin address");
+                            }
+                        }
+                    });
+                }
+                break;
+
+            case BRConstants.IPFS_HASH_SCANNER_REQUEST:
+                if (resultCode == Activity.RESULT_OK) {
+                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            final String ipfsHash = data.getStringExtra("result");
+                            if (ipfsHash != null) {
+                                final BaseAddressAndIpfsHashValidation fragment = (BaseAddressAndIpfsHashValidation)
+                                        getFragmentManager().
+                                                findFragmentById(android.R.id.content);
+                                if (!fragment.isIPFSHashValid(ipfsHash)) {
+                                    fragment.sayInvalidIPFSHash();
+                                } else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            fragment.setIPFSHash(ipfsHash);
+                                        }
+                                    });
+                                }
+                            } else {
+                                Log.e(TAG, "onActivityResult: not RavenCoin address");
+                            }
+                        }
+                    });
                 }
                 break;
 
@@ -208,6 +280,39 @@ public class BRActivity extends Activity {
                 }
                 break;
 
+            case BRConstants.SELECT_FROM_ADDRESS_BOOK_REQUEST:
+                if (resultCode == Activity.RESULT_OK) {
+                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            final AddressBookItem address = data.getParcelableExtra("result");
+                            if (address != null) {
+                                final BaseAddressValidation fragment = (BaseAddressValidation)
+                                        getFragmentManager().
+                                                findFragmentById(android.R.id.content);
+                                if (!fragment.isAddressValid(address.getAddress())) {
+                                    fragment.sayInvalidClipboardData();
+                                } else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            fragment.setAddress(address.getAddress());
+                                        }
+                                    });
+                                }
+                            } else {
+                                Log.e(TAG, "onActivityResult: not RavenCoin address");
+                            }
+                        }
+                    });
+                }
+                break;
+
         }
     }
 
@@ -222,8 +327,8 @@ public class BRActivity extends Activity {
             if (AuthManager.getInstance().isWalletDisabled(app))
                 AuthManager.getInstance().setWalletDisabled(app);
 
-        BreadApp.activityCounter.incrementAndGet();
-        BreadApp.setBreadContext(app);
+        RavenApp.activityCounter.incrementAndGet();
+        RavenApp.setBreadContext(app);
 
         if (!HTTPServer.isStarted())
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
@@ -239,15 +344,24 @@ public class BRActivity extends Activity {
 
     private void lockIfNeeded(Activity app) {
         //lock wallet if 3 minutes passed
-        if (BreadApp.backgroundedTime != 0
-                && ((System.currentTimeMillis() - BreadApp.backgroundedTime) >= 180 * 1000)
+        if (RavenApp.backgroundedTime != 0
+                && ((System.currentTimeMillis() - RavenApp.backgroundedTime) >= 180 * 1000)
                 && !(app instanceof DisabledActivity)) {
             if (!BRKeyStore.getPinCode(app).isEmpty()) {
-                Log.e(TAG, "lockIfNeeded: " + BreadApp.backgroundedTime);
+                Log.e(TAG, "lockIfNeeded: " + RavenApp.backgroundedTime);
                 BRAnimator.startBreadActivity(app, true);
             }
         }
 
+    }
+
+    protected void finalizeIntent(Intent intent) {
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        startActivity(intent);
+        if (isDestroyed()) finish();
+        Activity app = WalletActivity.getApp();
+        if (app != null && !app.isDestroyed()) app.finish();
     }
 
 }

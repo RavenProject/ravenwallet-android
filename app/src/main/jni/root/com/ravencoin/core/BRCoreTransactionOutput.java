@@ -1,5 +1,5 @@
 /*
- * BreadWallet
+ * RavenWallet
  *
  * Created by Ed Gamble <ed@breadwallet.com> on 1/31/18.
  * Copyright (c) 2018 breadwallet LLC

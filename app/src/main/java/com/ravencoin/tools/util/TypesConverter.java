@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 9/28/15.
  * Copyright (c) 2016 breadwallet LLC

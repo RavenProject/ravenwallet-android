@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/3/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -104,9 +104,9 @@ public class PaperKeyTests {
         return cleanList;
     }
 
-    private boolean isValid(String phrase, List<String> words) {
+    /*private boolean isValid(String phrase, List<String> words) {
 
         return WalletsMaster.getInstance().validateRecoveryPhrase((String[]) words.toArray(), phrase);
-    }
+    }*/
 
 }

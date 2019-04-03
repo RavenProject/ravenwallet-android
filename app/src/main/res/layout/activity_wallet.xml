@@ -31,16 +31,15 @@
             tools:context="com.ravencoin.presenter.activities.CurrencyActivity">
 
 
-            <android.support.v7.widget.Toolbar
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/wallet_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:background="@drawable/gradient_blue"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
+                android:contentInsetLeft="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp">
 
@@ -65,11 +64,13 @@
 
                     <ImageView
                         android:id="@+id/currency_image"
-                        android:layout_width="269dp"
+                        android:layout_width="@dimen/width_ic_raven_white"
                         android:layout_height="26dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:background="@drawable/ic_raven_coin_title_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -77,13 +78,13 @@
 
                     <ImageButton
                         android:id="@+id/back_icon"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/ic_chevron_left_white_24dp"
-                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_chevron_left_white_24dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/currency_image" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.ravencoin.presenter.customviews.BRText
                         android:id="@+id/currency_usd_price"
@@ -102,8 +103,8 @@
                         android:id="@+id/balance_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="54dp"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="54dp"
                         android:text="@string/CurrencyBalance"
                         android:textColor="@color/trans_white"
                         android:textSize="14sp"
@@ -113,7 +114,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintRight_toRightOf="parent" />
 
-                    <com.ravencoin.presenter.customviews.BRText
+              <!--      <com.ravencoin.presenter.customviews.BRText
                         android:id="@+id/syncing_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -133,8 +134,8 @@
                         android:layout_width="30dp"
                         android:layout_height="3dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="62dp"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="62dp"
                         android:indeterminate="false"
                         android:keepScreenOn="true"
                         android:max="100"
@@ -144,7 +145,7 @@
                         android:progressTint="#ffffff"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
-
+-->
 
                     <com.ravencoin.presenter.customviews.BRText
                         android:id="@+id/balance_primary"
@@ -165,9 +166,9 @@
                         android:id="@+id/swap"
                         android:layout_width="14dp"
                         android:layout_height="14dp"
-                        android:layout_marginBottom="23dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
+                        android:layout_marginBottom="23dp"
                         android:background="@drawable/ic_swap_horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/balance_primary"
@@ -177,10 +178,10 @@
                         android:id="@+id/balance_secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="28dp"
-                        android:paddingBottom="20dp"
+                        android:layout_marginEnd="8dp"
                         android:paddingTop="18dp"
+                        android:paddingBottom="20dp"
                         android:text="1.56739 BTC"
                         android:textColor="@color/trans_white"
                         android:textSize="16sp"
@@ -195,32 +196,33 @@
                         android:id="@+id/search_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="108dp"
-                        android:layout_marginEnd="15dp"
-                        android:background="@drawable/ic_search_white_24dp"
+                        android:background="@android:color/transparent"
+                        android:paddingStart="20dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:paddingEnd="5dp"
+                        android:src="@drawable/ic_search_white_24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/currency_image" />
-
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
                 </android.support.constraint.ConstraintLayout>
 
 
             </android.support.v7.widget.Toolbar>
 
-            <com.ravencoin.presenter.customviews.BRSearchBar
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.ravencoin.presenter.customviews.BRSearchBar xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:background="@drawable/gradient_blue"
-                android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
+                android:contentInsetLeft="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp" />
 
-            <com.ravencoin.presenter.customviews.BRNotificationBar
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.ravencoin.presenter.customviews.BRNotificationBar xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/notification_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
@@ -228,8 +230,8 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
                 android:background="@drawable/gradient_blue"
-                android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
+                android:contentInsetLeft="0dp"
                 android:visibility="visible"
                 app:breadText="No internet connection found.\nCheck your connection and try again."
                 app:contentInsetLeft="0dp"
@@ -240,8 +242,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/recycler_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_toolbar_layout1"
@@ -249,13 +250,31 @@
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/progress_layout"
+            layout="@layout/syncing_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tx_list"
+            android:layout_below="@+id/progress_layout"
+            android:visibility="visible"
+            tools:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false" />
 
-    </LinearLayout>
+        <ImageView
+              android:id="@+id/empty_list"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:layout_gravity="center"
+              android:src="@drawable/empty_list_tx"
+              android:visibility="visible" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -280,10 +299,10 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="22dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="@color/currency_buttons_color"
             android:text="@string/CurrencySend"
@@ -300,9 +319,9 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="22dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="@color/currency_buttons_color"
             android:text="@string/CurrencyReceive"
@@ -318,9 +337,9 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="22dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="@color/currency_buttons_color"
             android:paddingTop="3dp"

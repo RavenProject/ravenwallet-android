@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.settings.WebViewActivity;
 import com.ravencoin.tools.manager.BRReportsManager;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/2/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -55,7 +55,7 @@ public class LinkPlugin implements Plugin {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
             String url = request.getParameter("url");
 
-            Context app = BreadApp.getBreadContext();
+            Context app = RavenApp.getBreadContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);
@@ -72,7 +72,7 @@ public class LinkPlugin implements Plugin {
             return BRHTTPHelper.handleSuccess(204, null, baseRequest, response, null);
         } else if (target.startsWith("/_open_maps")) {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
-            Context app = BreadApp.getBreadContext();
+            Context app = RavenApp.getBreadContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);
@@ -88,7 +88,7 @@ public class LinkPlugin implements Plugin {
             app.startActivity(Intent.createChooser(intent, "Select an application"));
             return BRHTTPHelper.handleSuccess(204, null, baseRequest, response, null);
         } else if (target.startsWith("/_browser")) {
-            Context app = BreadApp.getBreadContext();
+            Context app = RavenApp.getBreadContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);

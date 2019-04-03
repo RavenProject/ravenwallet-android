@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCoreAddress;
 import com.ravencoin.core.BRCorePaymentProtocolRequest;
@@ -36,7 +36,7 @@ import java.util.Locale;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 5/9/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -71,7 +71,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
     //params[0] = uri, params[1] = label
     @Override
     protected String doInBackground(String... params) {
-        app = (Activity) BreadApp.getBreadContext();
+        app = (Activity) RavenApp.getBreadContext();
         InputStream in;
         try {
             Log.e(TAG, "the uri: " + params[0]);

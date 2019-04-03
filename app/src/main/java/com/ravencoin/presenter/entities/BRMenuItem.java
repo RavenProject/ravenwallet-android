@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import android.view.View;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/13/17.
  * Copyright (c) 2017 breadwallet LLC

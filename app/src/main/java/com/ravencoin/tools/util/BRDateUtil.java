@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 6/8/17.
  * Copyright (c) 2017 breadwallet LLC

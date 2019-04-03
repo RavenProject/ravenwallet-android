@@ -239,15 +239,6 @@ public class InputWordsActivity extends BRActivity {
 
     }
 
-    private void finalizeIntent(Intent intent) {
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        startActivity(intent);
-        if (!InputWordsActivity.this.isDestroyed()) finish();
-        Activity app = WalletActivity.getApp();
-        if (app != null && !app.isDestroyed()) app.finish();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.BuildConfig;
 import com.ravencoin.R;
 import com.ravencoin.presenter.customviews.BRButton;
@@ -43,7 +44,7 @@ import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/29/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -85,6 +86,7 @@ public class FragmentReceive extends Fragment {
     private BRLinearLayoutWithCaret copiedLayout;
     private boolean shareButtonsShown = false;
     private boolean isReceive;
+    private boolean isSpecialAddress;
     private ImageButton close;
     private Handler copyCloseHandler = new Handler();
     private BRKeyboard keyboard;
@@ -97,22 +99,22 @@ public class FragmentReceive extends Fragment {
         // properly.
 
         View rootView = inflater.inflate(R.layout.fragment_receive, container, false);
-        mTitle = (TextView) rootView.findViewById(R.id.title);
-        mAddress = (TextView) rootView.findViewById(R.id.address_text);
-        mQrImage = (ImageView) rootView.findViewById(R.id.qr_image);
-        backgroundLayout = (LinearLayout) rootView.findViewById(R.id.background_layout);
-        signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
-        shareButton = (BRButton) rootView.findViewById(R.id.share_button);
-        shareEmail = (Button) rootView.findViewById(R.id.share_email);
-        shareTextMessage = (Button) rootView.findViewById(R.id.share_text);
-        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.share_buttons_layout);
-        copiedLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.copied_layout);
-        requestButton = (Button) rootView.findViewById(R.id.request_button);
-        keyboard = (BRKeyboard) rootView.findViewById(R.id.keyboard);
+        mTitle = rootView.findViewById(R.id.title);
+        mAddress = rootView.findViewById(R.id.address_text);
+        mQrImage = rootView.findViewById(R.id.qr_image);
+        backgroundLayout = rootView.findViewById(R.id.background_layout);
+        signalLayout = rootView.findViewById(R.id.signal_layout);
+        shareButton = rootView.findViewById(R.id.share_button);
+        shareEmail = rootView.findViewById(R.id.share_email);
+        shareTextMessage = rootView.findViewById(R.id.share_text);
+        shareButtonsLayout = rootView.findViewById(R.id.share_buttons_layout);
+        copiedLayout = rootView.findViewById(R.id.copied_layout);
+        requestButton = rootView.findViewById(R.id.request_button);
+        keyboard = rootView.findViewById(R.id.keyboard);
         keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
         keyboard.setBRKeyboardColor(R.color.white);
         separator = rootView.findViewById(R.id.separator);
-        close = (ImageButton) rootView.findViewById(R.id.close_button);
+        close = rootView.findViewById(R.id.close_button);
         separator2 = rootView.findViewById(R.id.separator2);
         separator2.setVisibility(View.GONE);
         setListeners();
@@ -124,7 +126,7 @@ public class FragmentReceive extends Fragment {
             }
         });
 
-        ImageButton faq = (ImageButton) rootView.findViewById(R.id.faq_button);
+        ImageButton faq = rootView.findViewById(R.id.faq_button);
 
         faq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +279,10 @@ public class FragmentReceive extends Fragment {
             signalLayout.removeView(requestButton);
             mTitle.setText(getString(R.string.UnlockScreen_myAddress));
         }
-
+        if (!TextUtils.isEmpty(extras.getString("address"))) {
+            isSpecialAddress = true;
+            mReceiveAddress = extras.getString("address");
+        }
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
@@ -288,16 +293,19 @@ public class FragmentReceive extends Fragment {
     }
 
     private void updateQr() {
-        final Context ctx = getContext() == null ? BreadApp.getBreadContext() : (Activity) getContext();
+        final Context ctx = getContext() == null ? RavenApp.getBreadContext() : (Activity) getContext();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                WalletsMaster.getInstance(ctx).getCurrentWallet(ctx).refreshAddress(ctx);
+
                 final BaseWalletManager wallet = WalletsMaster.getInstance(ctx).getCurrentWallet(ctx);
                 BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                     @Override
                     public void run() {
-                        mReceiveAddress = BRSharedPrefs.getReceiveAddress(ctx, wallet.getIso(ctx));
+                        if (!isSpecialAddress || TextUtils.isEmpty(mReceiveAddress)) {
+                            WalletsMaster.getInstance(ctx).getCurrentWallet(ctx).refreshAddress(ctx);
+                            mReceiveAddress = BRSharedPrefs.getReceiveAddress(ctx, wallet.getIso(ctx));
+                        }
                         String decorated = wallet.decorateAddress(ctx, mReceiveAddress);
                         mAddress.setText(decorated);
                         Uri uri = CryptoUriParser.createCryptoUrl(ctx, wallet, decorated, 0, null, null, null);
@@ -306,6 +314,7 @@ public class FragmentReceive extends Fragment {
                             throw new RuntimeException("failed to generate qr image for address");
                     }
                 });
+
             }
         });
 
@@ -315,7 +324,7 @@ public class FragmentReceive extends Fragment {
         Activity app = getActivity();
         BRClipboardManager.putClipboard(app, mAddress.getText().toString());
         //copy the legacy for testing purposes (testnet faucet money receiving)
-        if (Utils.isEmulatorOrDebug(app) && BuildConfig.BITCOIN_TESTNET)
+        if (Utils.isEmulatorOrDebug(app) && BuildConfig.TESTNET)
             BRClipboardManager.putClipboard(app, WalletsMaster.getInstance(app).getCurrentWallet(app).undecorateAddress(app, mAddress.getText().toString()));
 
         showCopiedLayout(true);

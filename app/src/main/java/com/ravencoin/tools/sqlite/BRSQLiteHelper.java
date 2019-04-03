@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 9/25/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -52,7 +52,7 @@ public class BRSQLiteHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    public static final String DATABASE_NAME = "breadwallet.db";
+    public static final String DATABASE_NAME = "ravenwallet.db";
     private static final int DATABASE_VERSION = 15;
 
     /**

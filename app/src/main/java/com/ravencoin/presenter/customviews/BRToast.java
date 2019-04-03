@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/20/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -50,10 +50,10 @@ public class BRToast {
 
     public static void showCustomToast(Context app, String message, int yOffSet, int duration, int layoutDrawable) {
         if (app == null) return;
-        if (!(app instanceof Activity)) app = BreadApp.getBreadContext();
+        if (!(app instanceof Activity)) app = RavenApp.getBreadContext();
         if (app == null) return;
         if (toast == null) toast = new Toast(app);
-        if (BreadApp.isAppInBackground(app)) return;
+        if (RavenApp.isAppInBackground(app)) return;
 
         if (customToastAvailable || !oldMessage.equals(message)) {
             oldMessage = message;

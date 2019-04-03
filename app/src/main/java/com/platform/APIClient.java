@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.core.BRCoreKey;
 import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.tools.crypto.Base58;
@@ -64,7 +64,7 @@ import static com.ravencoin.tools.util.BRCompressor.gZipExtract;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 9/29/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -95,7 +95,7 @@ public class APIClient {
     private static final String PROTO = "https";
 
     // convenience getter for the API endpoint
-    public static String BASE_URL = PROTO + "://" + BreadApp.HOST;
+    public static String BASE_URL = PROTO + "://" + RavenApp.HOST;
     //feePerKb url
     private static final String FEE_PER_KB_URL = "/v1/fee-per-kb";
     //token
@@ -194,7 +194,7 @@ public class APIClient {
         if (ActivityUTILS.isMainThread()) {
             throw new NetworkOnMainThreadException();
         }
-        if (ctx == null) ctx = BreadApp.getBreadContext();
+        if (ctx == null) ctx = RavenApp.getBreadContext();
         if (ctx == null) return null;
         try {
             String strUtl = BASE_URL + TOKEN;
@@ -281,7 +281,7 @@ public class APIClient {
             throw new RuntimeException("network on main thread");
         }
 
-        Map<String, String> headers = BreadApp.getBreadHeaders();
+        Map<String, String> headers = RavenApp.getBreadHeaders();
 
         Iterator it = headers.entrySet().iterator();
 
@@ -323,7 +323,7 @@ public class APIClient {
                 Uri newUri = Uri.parse(newLocation);
                 if (newUri == null) {
                     Log.e(TAG, "sendRequest: redirect uri is null");
-                } else if (!newUri.getHost().equalsIgnoreCase(BreadApp.HOST) || !newUri.getScheme().equalsIgnoreCase(PROTO)) {
+                } else if (!newUri.getHost().equalsIgnoreCase(RavenApp.HOST) || !newUri.getScheme().equalsIgnoreCase(PROTO)) {
                     Log.e(TAG, "sendRequest: WARNING: redirect is NOT safe: " + newLocation);
                 } else {
                     Log.w(TAG, "redirecting: " + request.url() + " >>> " + newLocation);
@@ -593,7 +593,7 @@ public class APIClient {
     }
 
     public boolean tryExtractTar() {
-        Context app = BreadApp.getBreadContext();
+        Context app = RavenApp.getBreadContext();
         if (app == null) {
             Log.e(TAG, "tryExtractTar: failed to extract, app is null");
             return false;

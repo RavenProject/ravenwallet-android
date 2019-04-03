@@ -1178,4 +1178,3 @@ Java_com_ravencoin_core_BRCorePaymentProtocolEncryptedMessage_disposeNative
             (BRPaymentProtocolEncryptedMessage *) getJNIReference(env, thisObject);
     if (NULL != message) BRPaymentProtocolEncryptedMessageFree(message);
 }
-

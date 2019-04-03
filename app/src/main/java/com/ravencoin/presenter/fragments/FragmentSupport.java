@@ -40,7 +40,7 @@ import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/29/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -209,7 +209,7 @@ public class FragmentSupport extends Fragment {
 
 //        Todo needs to be added in a way that it gets removed onPause or Destroy so it doesn't
         //affect HomeActivity UI colors 
-//        setStatusBarGradiant(getActivity());
+//        setStatusBarGradient(getActivity());
     }
 
     @Override

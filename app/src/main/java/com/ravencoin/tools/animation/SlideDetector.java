@@ -12,7 +12,7 @@ import android.view.animation.OvershootInterpolator;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/9/17.
  * Copyright (c) 2017 breadwallet LLC

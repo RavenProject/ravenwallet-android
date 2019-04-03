@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 5/19/16.
  * Copyright (c) 2016 breadwallet LLC

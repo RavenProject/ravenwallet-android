@@ -34,7 +34,7 @@ import java.util.Map;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 10/19/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -179,7 +179,7 @@ public class CryptoUriParser {
             if (keyValue[0].trim().equals("amount")) {
                 try {
                     BigDecimal bigDecimal = new BigDecimal(keyValue[1].trim());
-                    obj.amount = bigDecimal.multiply(new BigDecimal("100000000")); //tODO removed 00
+                    obj.amount = bigDecimal.multiply(new BigDecimal("100000000")); //TODO removed 00
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
@@ -218,7 +218,7 @@ public class CryptoUriParser {
 
             switch (host) {
                 case "scanqr":
-                    BRAnimator.openScanner((Activity) app, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openAddressScanner((Activity) app, BRConstants.SCANNER_REQUEST);
                     break;
                 case "addressList":
                     //todo implement
@@ -278,7 +278,7 @@ public class CryptoUriParser {
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    BRAnimator.showSendFragment(app, requestObject);
+                    BRAnimator.showSendFragment(app, requestObject, false, null);
                 }
             });
         } else {

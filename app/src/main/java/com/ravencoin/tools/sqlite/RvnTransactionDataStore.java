@@ -1,7 +1,7 @@
 package com.ravencoin.tools.sqlite;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 9/25/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -108,7 +108,6 @@ public class RvnTransactionDataStore implements BRDataSourceInterface {
     public void deleteAllTransactions(Context app, String iso) {
         try {
             database = openDatabase();
-
             database.delete(BRSQLiteHelper.TX_TABLE_NAME, BRSQLiteHelper.TX_ISO + "=?", new String[]{iso.toUpperCase()});
         } finally {
             closeDatabase();

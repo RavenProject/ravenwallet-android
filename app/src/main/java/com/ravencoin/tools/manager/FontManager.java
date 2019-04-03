@@ -7,7 +7,7 @@ import android.widget.TextView;
 import java.util.Hashtable;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/3/17.
  * Copyright (c) 2017 breadwallet LLC

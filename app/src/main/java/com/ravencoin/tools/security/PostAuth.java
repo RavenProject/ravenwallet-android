@@ -7,16 +7,21 @@ import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
+import com.platform.entities.TxMetaData;
+import com.platform.tools.BRBitId;
+import com.platform.tools.KVStoreManager;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCoreKey;
 import com.ravencoin.core.BRCoreMasterPubKey;
 import com.ravencoin.core.BRCoreTransaction;
-import com.ravencoin.presenter.activities.SetPinActivity;
 import com.ravencoin.presenter.activities.PaperKeyActivity;
 import com.ravencoin.presenter.activities.PaperKeyProveActivity;
+import com.ravencoin.presenter.activities.SetPinActivity;
+import com.ravencoin.presenter.activities.TermsAndConditionsActivity;
 import com.ravencoin.presenter.activities.intro.WriteDownActivity;
 import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.presenter.entities.CryptoRequest;
+import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.BRDialog;
 import com.ravencoin.tools.manager.BRReportsManager;
 import com.ravencoin.tools.manager.BRSharedPrefs;
@@ -26,15 +31,14 @@ import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
-import com.platform.entities.TxMetaData;
-import com.platform.tools.BRBitId;
-import com.platform.tools.KVStoreManager;
 
 import java.util.Arrays;
 
+import static com.ravencoin.presenter.activities.ReEnterPinActivity.IS_CREATE_WALLET;
+
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 4/14/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -67,6 +71,8 @@ public class PostAuth {
 
     private BRCoreTransaction mPaymentProtocolTx;
     private static PostAuth instance;
+
+    public static final String SHOW_TERMS_AND_CONDITIONS_EXTRA_KEY = "show.terms.and.conditions.extra.key";
 
     private PostAuth() {
     }
@@ -176,6 +182,7 @@ public class PostAuth {
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                     Intent intent = new Intent(app, SetPinActivity.class);
                     intent.putExtra("noPin", true);
+                    intent.putExtra(IS_CREATE_WALLET, false);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     app.startActivity(intent);
                     if (!app.isDestroyed()) app.finish();

@@ -3,7 +3,7 @@ package com.ravencoin.tools.exceptions;
 import java.security.GeneralSecurityException;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 11/16/15.
  * Copyright (c) 2016 breadwallet LLC

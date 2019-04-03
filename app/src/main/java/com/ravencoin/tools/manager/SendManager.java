@@ -34,7 +34,7 @@ import java.math.BigDecimal;
 import java.util.Locale;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 2/20/18.
  * Copyright (c) 2018 breadwallet LLC

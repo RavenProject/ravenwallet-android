@@ -1,6 +1,7 @@
 package com.ravencoin.wallet.abstracts;
 
 import android.content.Context;
+import android.support.annotation.WorkerThread;
 
 import com.ravencoin.core.BRCoreAddress;
 import com.ravencoin.core.BRCoreMerkleBlock;
@@ -17,7 +18,7 @@ import java.util.List;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 1/22/18.
  * Copyright (c) 2018 breadwallet LLC
@@ -65,6 +66,8 @@ public interface BaseWalletManager {
     void addTxStatusUpdatedListener(OnTxStatusUpdatedListener list);
 
     void addSyncListeners(SyncListener list);
+
+    void removeSyncListener(SyncListener listener);
 
     void addTxListModifiedListener(OnTxListModified list);
 
@@ -209,5 +212,15 @@ public interface BaseWalletManager {
      */
     BigDecimal getSmallestCryptoForFiat(Context app, BigDecimal amount);
 
+    //get confirmation number
+    @WorkerThread
+    long getRelayCount(byte[] txHash);
 
+    //get the syncing progress
+    @WorkerThread
+    double getSyncProgress(long startHeight);
+    //get the connection status 0 - Disconnected, 1 - Connecting, 2 - Connected, 3 - Unknown
+
+    @WorkerThread
+    double getConnectStatus();
 }

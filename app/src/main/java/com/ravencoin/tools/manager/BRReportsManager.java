@@ -8,7 +8,7 @@ import com.crashlytics.android.Crashlytics;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/17/17.
  * Copyright (c) 2017 breadwallet LLC

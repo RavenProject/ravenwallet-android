@@ -12,7 +12,7 @@ import com.ravencoin.presenter.activities.WalletActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/8/17.
  * Copyright (c) 2017 breadwallet LLC

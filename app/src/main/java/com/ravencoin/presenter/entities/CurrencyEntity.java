@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 8/18/15.
  * Copyright (c) 2016 breadwallet LLC

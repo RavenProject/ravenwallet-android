@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/11/17.
  * Copyright (c) 2017 breadwallet LLC

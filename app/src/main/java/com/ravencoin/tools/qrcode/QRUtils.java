@@ -30,7 +30,7 @@ import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/10/17.
  * Copyright (c) 2017 breadwallet LLC

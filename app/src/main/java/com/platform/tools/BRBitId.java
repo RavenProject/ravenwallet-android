@@ -43,7 +43,7 @@ import okhttp3.Response;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 1/25/17.
  * Copyright (c) 2017 breadwallet LLC

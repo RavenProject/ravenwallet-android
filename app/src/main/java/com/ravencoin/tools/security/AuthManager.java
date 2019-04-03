@@ -27,7 +27,7 @@ import com.ravencoin.wallet.abstracts.BaseWalletManager;
 import java.util.concurrent.TimeUnit;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 8/20/15.
  * Copyright (c) 2016 breadwallet LLC

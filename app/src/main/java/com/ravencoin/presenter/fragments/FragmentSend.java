@@ -1,7 +1,9 @@
 package com.ravencoin.presenter.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +13,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -20,6 +23,8 @@ import android.view.ViewTreeObserver;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,40 +32,42 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.ravencoin.BuildConfig;
+import com.platform.addressBook.AddressBookItem;
+import com.platform.addressBook.AddressBookRepository;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCoreAddress;
 import com.ravencoin.core.BRCoreTransaction;
+import com.ravencoin.presenter.activities.AddressBookActivity;
 import com.ravencoin.presenter.customviews.BRButton;
 import com.ravencoin.presenter.customviews.BRDialogView;
 import com.ravencoin.presenter.customviews.BRKeyboard;
 import com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret;
 import com.ravencoin.presenter.customviews.BRText;
+import com.ravencoin.presenter.customviews.ContactButton;
+import com.ravencoin.presenter.customviews.PasteButton;
+import com.ravencoin.presenter.customviews.ScanButton;
 import com.ravencoin.presenter.entities.CryptoRequest;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.BRDialog;
 import com.ravencoin.tools.animation.SlideDetector;
 import com.ravencoin.tools.animation.SpringAnimator;
-import com.ravencoin.tools.manager.BRClipboardManager;
 import com.ravencoin.tools.manager.BRReportsManager;
 import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.manager.SendManager;
-import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
-import com.ravencoin.wallet.wallets.util.CryptoUriParser;
 
 import java.math.BigDecimal;
 
-import static com.ravencoin.wallet.wallets.util.CryptoUriParser.parseRequest;
 import static com.platform.HTTPServer.URL_SUPPORT;
+import static com.ravencoin.presenter.activities.AddressBookActivity.PICK_ADDRESS_VIEW_EXTRAS_KEY;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/29/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -84,14 +91,13 @@ import static com.platform.HTTPServer.URL_SUPPORT;
  * THE SOFTWARE.
  */
 
-public class FragmentSend extends Fragment {
+public class FragmentSend extends BaseAddressValidation {
     private static final String TAG = FragmentSend.class.getName();
     public ScrollView backgroundLayout;
     public LinearLayout signalLayout;
     private BRKeyboard keyboard;
-    private EditText addressEdit;
-    private Button scan;
-    private Button paste;
+    private ScanButton scan;
+    private PasteButton paste;
     private Button send;
     private EditText commentEdit;
     private StringBuilder amountBuilder;
@@ -114,6 +120,7 @@ public class FragmentSend extends Fragment {
     private BRText feeDescription;
     private BRText warningText;
     private boolean amountLabelOn = true;
+    private ContactButton importContactButton;
 
     private static String savedMemo;
     private static String savedIso;
@@ -121,35 +128,87 @@ public class FragmentSend extends Fragment {
 
     private boolean ignoreCleanup;
 
+    private BRText addressLabel;
+    private CheckBox addAddressCheckBox;
+
+    private final static String OPEN_FROM_ADDRESS_BOOK_EXTRA_KEY = "open.from.address.book.extra.key";
+    private final static String ADDRESS_BOOK_EXTRA_KEY = "address.book.extra.key";
+
+    private boolean isFromAddressBook;
+
+    public static FragmentSend newInstance(boolean isFromAddressBook, AddressBookItem address) {
+        FragmentSend fragment = new FragmentSend();
+
+        Bundle args = new Bundle();
+        args.putBoolean(OPEN_FROM_ADDRESS_BOOK_EXTRA_KEY, isFromAddressBook);
+        args.putParcelable(ADDRESS_BOOK_EXTRA_KEY, address);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_send, container, false);
-        backgroundLayout = (ScrollView) rootView.findViewById(R.id.background_layout);
-        signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
-        keyboard = (BRKeyboard) rootView.findViewById(R.id.keyboard);
+        backgroundLayout = rootView.findViewById(R.id.background_layout);
+        signalLayout = rootView.findViewById(R.id.signal_layout);
+        keyboard = rootView.findViewById(R.id.keyboard);
         keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
         keyboard.setBRKeyboardColor(R.color.white);
-        isoText = (TextView) rootView.findViewById(R.id.iso_text);
-        addressEdit = (EditText) rootView.findViewById(R.id.address_edit);
-        scan = (Button) rootView.findViewById(R.id.scan);
-        paste = (Button) rootView.findViewById(R.id.paste_button);
-        send = (Button) rootView.findViewById(R.id.send_button);
-        commentEdit = (EditText) rootView.findViewById(R.id.comment_edit);
-        amountEdit = (EditText) rootView.findViewById(R.id.amount_edit);
-        balanceText = (TextView) rootView.findViewById(R.id.balance_text);
-        feeText = (TextView) rootView.findViewById(R.id.fee_text);
-        edit = (ImageView) rootView.findViewById(R.id.edit);
-        isoButton = (Button) rootView.findViewById(R.id.iso_button);
-        keyboardLayout = (LinearLayout) rootView.findViewById(R.id.keyboard_layout);
-        amountLayout = (ConstraintLayout) rootView.findViewById(R.id.amount_layout);
-        feeLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.fee_buttons_layout);
-        feeDescription = (BRText) rootView.findViewById(R.id.fee_description);
-        warningText = (BRText) rootView.findViewById(R.id.warning_text);
+        isoText = rootView.findViewById(R.id.iso_text);
+        addressEditText = rootView.findViewById(R.id.address_edit);
+        scan = rootView.findViewById(R.id.scan_button);
+        paste = rootView.findViewById(R.id.paste_button);
+        send = rootView.findViewById(R.id.send_button);
+        commentEdit = rootView.findViewById(R.id.comment_edit);
+        amountEdit = rootView.findViewById(R.id.amount_edit);
+        balanceText = rootView.findViewById(R.id.balance_text);
+        feeText = rootView.findViewById(R.id.fee_text);
+        edit = rootView.findViewById(R.id.edit);
+        isoButton = rootView.findViewById(R.id.iso_button);
+        keyboardLayout = rootView.findViewById(R.id.keyboard_layout);
+        amountLayout = rootView.findViewById(R.id.amount_layout);
+        feeLayout = rootView.findViewById(R.id.fee_buttons_layout);
+        feeDescription = rootView.findViewById(R.id.fee_description);
+        warningText = rootView.findViewById(R.id.warning_text);
+        importContactButton = rootView.findViewById(R.id.import_contact);
 
-        regular = (BRButton) rootView.findViewById(R.id.left_button);
-        economy = (BRButton) rootView.findViewById(R.id.right_button);
-        close = (ImageButton) rootView.findViewById(R.id.close_button);
+        isFromAddressBook = getArguments().getBoolean(OPEN_FROM_ADDRESS_BOOK_EXTRA_KEY, false);
+        if (isFromAddressBook) {
+            // Hiding the Address Book layout section
+            rootView.findViewById(R.id.address_book_layout).setVisibility(View.GONE);
+            rootView.findViewById(R.id.separator5).setVisibility(View.GONE);
+
+            // Hiding the scan, paste and import contact buttons
+            scan.setVisibility(View.GONE);
+            paste.setVisibility(View.GONE);
+            importContactButton.setVisibility(View.GONE);
+
+            // Get the Address then set it accordingly
+            AddressBookItem address = getArguments().getParcelable(ADDRESS_BOOK_EXTRA_KEY);
+            if (address != null && address.getAddress() != null) {
+                addressEditText.setText(address.getAddress());
+                addressEditText.setEnabled(false);
+            }
+        } else {
+            addressLabel = rootView.findViewById(R.id.add_address_label);
+            addAddressCheckBox = rootView.findViewById(R.id.add_address_checkbox);
+            addAddressCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        createDialogForSettingAddressLabel(getActivity());
+                    } else {
+                        addressLabel.setText(getString(R.string.add_to_address_book));
+                    }
+                }
+            });
+        }
+
+        regular = rootView.findViewById(R.id.left_button);
+        economy = rootView.findViewById(R.id.right_button);
+        close = rootView.findViewById(R.id.close_button);
         BaseWalletManager wm = WalletsMaster.getInstance(getActivity()).getCurrentWallet(getActivity());
         selectedIso = BRSharedPrefs.isCryptoPreferred(getActivity()) ? wm.getIso(getActivity()) : BRSharedPrefs.getPreferredFiatIso(getContext());
 
@@ -179,7 +238,7 @@ public class FragmentSend extends Fragment {
         });
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout);
 
-        ImageButton faq = (ImageButton) rootView.findViewById(R.id.faq_button);
+        ImageButton faq = rootView.findViewById(R.id.faq_button);
 
         faq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,6 +259,35 @@ public class FragmentSend extends Fragment {
         signalLayout.setLayoutTransition(BRAnimator.getDefaultTransition());
 
         return rootView;
+    }
+
+    private void createDialogForSettingAddressLabel(Context context) {
+        final View addressLabelView = LayoutInflater.from(context).inflate(R.layout.dialog_add_address_label, null);
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("Add Address Label")
+                .setView(addressLabelView)
+                .setCancelable(false)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText addressLabelEditText = addressLabelView.findViewById(R.id.address_label);
+                        String text = addressLabelEditText.getText().toString().trim();
+                        if (!text.isEmpty()) {
+                            addressLabel.setText(text);
+                        } else {
+                            addAddressCheckBox.setChecked(false);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        addAddressCheckBox.setChecked(false);
+                    }
+                })
+                .create();
+        dialog.show();
     }
 
     private void setListeners() {
@@ -281,103 +369,8 @@ public class FragmentSend extends Fragment {
 
         paste.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                String theUrl = BRClipboardManager.getClipboard(getActivity());
-                if (Utils.isNullOrEmpty(theUrl)) {
-                    sayClipboardEmpty();
-                    return;
-                }
-
-                final BaseWalletManager wm = WalletsMaster.getInstance(getActivity()).getCurrentWallet(getActivity());
-
-
-                if (Utils.isEmulatorOrDebug(getActivity()) && BuildConfig.BITCOIN_TESTNET) {
-                    theUrl = wm.decorateAddress(getActivity(), theUrl);
-                }
-
-                CryptoRequest obj = parseRequest(getActivity(), theUrl);
-
-                if (obj == null || Utils.isNullOrEmpty(obj.address)) {
-                    sayInvalidClipboardData();
-                    return;
-                }
-
-                if (obj.iso != null && !obj.iso.equalsIgnoreCase(wm.getIso(getActivity()))) {
-                    sayInvalidAddress(); //invalid if the screen is Bitcoin and scanning BitcoinCash for instance
-                    return;
-                }
-
-                final BRCoreAddress address = new BRCoreAddress(obj.address);
-
-
-                if (address.isValid()) {
-                    final Activity app = getActivity();
-                    if (app == null) {
-                        Log.e(TAG, "paste onClick: app is null");
-                        return;
-                    }
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (wm.getWallet().containsAddress(address)) {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BRDialog.showCustomDialog(getActivity(), "", getResources().getString(R.string.Send_containsAddress), getResources().getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                            }
-                                        }, null, null, 0);
-                                        BRClipboardManager.putClipboard(getActivity(), "");
-                                    }
-                                });
-
-                            } else if (wm.getWallet().addressIsUsed(address)) {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        String walletIso = wm.getIso(getActivity());
-                                        String firstLine = "";
-
-                                        if (walletIso.equalsIgnoreCase("RVN")) {
-                                            firstLine = getString(R.string.Sendrvn_UsedAddress_firstLine);
-                                        } /*else if (walletIso.equalsIgnoreCase("BCH")) {
-                                            firstLine = getString(R.string.Sendbch_UsedAddress_firstLine);
-                                        }*/
-                                        BRDialog.showCustomDialog(getActivity(), firstLine, getString(R.string.Send_UsedAddress_secondLIne), "Ignore", "Cancel", new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                                addressEdit.setText(wm.decorateAddress(getActivity(), address.stringify()));
-                                            }
-                                        }, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                            }
-                                        }, null, 0);
-                                    }
-                                });
-
-                            } else {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.e(TAG, "run: " + wm.getIso(getActivity()));
-                                        addressEdit.setText(wm.decorateAddress(getActivity(), address.stringify()));
-
-                                    }
-                                });
-                            }
-                        }
-                    });
-
-                } else {
-                    sayInvalidClipboardData();
-                }
-
+            public void onClick(View view) {
+                postAddressPasted(addressEditText);
             }
         });
 
@@ -400,7 +393,7 @@ public class FragmentSend extends Fragment {
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
                 saveMetaData();
-                BRAnimator.openScanner(getActivity(), BRConstants.SCANNER_REQUEST);
+                BRAnimator.openAddressScanner(getActivity(), BRConstants.SCANNER_REQUEST);
 
             }
         });
@@ -418,7 +411,7 @@ public class FragmentSend extends Fragment {
                     return;
                 }
                 boolean allFilled = true;
-                String rawAddress = addressEdit.getText().toString();
+                String rawAddress = addressEditText.getText().toString();
                 String amountStr = amountBuilder.toString();
                 String comment = commentEdit.getText().toString();
 
@@ -428,11 +421,13 @@ public class FragmentSend extends Fragment {
                 boolean isIsoCrypto = master.isIsoCrypto(getActivity(), selectedIso);
 
                 BigDecimal cryptoAmount = isIsoCrypto ? wallet.getSmallestCryptoForCrypto(getActivity(), rawAmount) : wallet.getSmallestCryptoForFiat(getActivity(), rawAmount);
-                CryptoRequest req = CryptoUriParser.parseRequest(getActivity(), rawAddress);
-                if (req == null || Utils.isNullOrEmpty(req.address)) {
+
+                // Checking the Address validity
+                if (!isAddressValid(rawAddress)) {
                     sayInvalidClipboardData();
                     return;
                 }
+
                 BRCoreAddress address = new BRCoreAddress(req.address);
                 Activity app = getActivity();
                 if (!address.isValid()) {
@@ -449,6 +444,7 @@ public class FragmentSend extends Fragment {
                 if (cryptoAmount.doubleValue() <= 0) {
                     allFilled = false;
                     SpringAnimator.failShakeAnimation(getActivity(), amountEdit);
+                    return;
                 }
                 if (cryptoAmount.longValue() > wallet.getCachedBalance(getActivity())) {
                     allFilled = false;
@@ -470,6 +466,12 @@ public class FragmentSend extends Fragment {
                 if (allFilled) {
                     CryptoRequest item = new CryptoRequest(tx, null, false, comment, req.address, cryptoAmount);
                     SendManager.sendTransaction(getActivity(), item, wallet);
+
+                    // Check if Address is bookmarked to save it
+                    if (!isFromAddressBook && addAddressCheckBox.isChecked()) {
+                        AddressBookRepository repository = AddressBookRepository.getInstance(getActivity());
+                        repository.insertAddress(new AddressBookItem(addressLabel.getText().toString(), rawAddress));
+                    }
                 }
             }
         });
@@ -492,7 +494,7 @@ public class FragmentSend extends Fragment {
         });
 
 
-        addressEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        addressEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE) || (actionId == EditorInfo.IME_ACTION_NEXT)) {
                     Utils.hideKeyboard(getActivity());
@@ -527,8 +529,16 @@ public class FragmentSend extends Fragment {
                 setButton(false);
             }
         });
-//        updateText();
 
+        importContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddressBookActivity.class);
+                intent.putExtra(PICK_ADDRESS_VIEW_EXTRAS_KEY, true);
+                getActivity().startActivityForResult(intent, BRConstants.SELECT_FROM_ADDRESS_BOOK_REQUEST);
+                getActivity().overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+            }
+        });
     }
 
     private void showKeyboard(boolean b) {
@@ -545,46 +555,6 @@ public class FragmentSend extends Fragment {
                 signalLayout.removeView(keyboardLayout);
 
         }
-    }
-
-    private void sayClipboardEmpty() {
-        BRDialog.showCustomDialog(getActivity(), "", getResources().getString(R.string.Send_emptyPasteboard), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismiss();
-            }
-        }, null, null, 0);
-        BRClipboardManager.putClipboard(getActivity(), "");
-    }
-
-    private void sayInvalidClipboardData() {
-        BRDialog.showCustomDialog(getActivity(), "", getResources().getString(R.string.Send_invalidAddressTitle), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismiss();
-            }
-        }, null, null, 0);
-        BRClipboardManager.putClipboard(getActivity(), "");
-    }
-
-    private void saySomethingWentWrong() {
-        BRDialog.showCustomDialog(getActivity(), "", "Something went wrong.", getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismiss();
-            }
-        }, null, null, 0);
-        BRClipboardManager.putClipboard(getActivity(), "");
-    }
-
-    private void sayInvalidAddress() {
-        BRDialog.showCustomDialog(getActivity(), "", getResources().getString(R.string.Send_invalidAddressMessage), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismiss();
-            }
-        }, null, null, 0);
-        BRClipboardManager.putClipboard(getActivity(), "");
     }
 
     @Override
@@ -613,19 +583,21 @@ public class FragmentSend extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        BRAnimator.animateBackgroundDim(backgroundLayout, true);
-        BRAnimator.animateSignalSlide(signalLayout, true, new BRAnimator.OnSlideAnimationEnd() {
-            @Override
-            public void onAnimationEnd() {
-                if (getActivity() != null) {
-                    try {
-                        getActivity().getFragmentManager().popBackStack();
-                    } catch (Exception ignored) {
+        if (isRemoving()) {
+            BRAnimator.animateBackgroundDim(backgroundLayout, true);
+            BRAnimator.animateSignalSlide(signalLayout, true, new BRAnimator.OnSlideAnimationEnd() {
+                @Override
+                public void onAnimationEnd() {
+                    if (getActivity() != null) {
+                        try {
+                            getActivity().getFragmentManager().popBackStack();
+                        } catch (Exception ignored) {
 
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -725,7 +697,7 @@ public class FragmentSend extends Fragment {
         if (cryptoAmount.longValue() <= 0) {
             fee = 0;
         } else {
-            String addrString = addressEdit.getText().toString();
+            String addrString = addressEditText.getText().toString();
             BRCoreAddress coreAddress = null;
             if (!Utils.isNullOrEmpty(addrString)) {
                 coreAddress = new BRCoreAddress(addrString);
@@ -787,8 +759,8 @@ public class FragmentSend extends Fragment {
                     return;
                 }
                 BaseWalletManager wm = WalletsMaster.getInstance(app).getCurrentWallet(app);
-                if (obj.address != null && addressEdit != null) {
-                    addressEdit.setText(wm.decorateAddress(getActivity(), obj.address.trim()));
+                if (obj.address != null && addressEditText != null) {
+                    addressEditText.setText(wm.decorateAddress(getActivity(), obj.address.trim()));
                 }
                 if (obj.message != null && commentEdit != null) {
                     commentEdit.setText(obj.message);

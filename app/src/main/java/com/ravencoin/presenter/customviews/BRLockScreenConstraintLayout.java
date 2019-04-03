@@ -14,7 +14,7 @@ import android.view.View;
 import com.ravencoin.R;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 2/24/17.
  * Copyright (c) 2017 breadwallet LLC

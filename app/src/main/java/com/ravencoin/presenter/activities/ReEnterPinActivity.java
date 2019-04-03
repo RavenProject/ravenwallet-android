@@ -1,7 +1,9 @@
 package com.ravencoin.presenter.activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -9,15 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ravencoin.R;
+import com.ravencoin.presenter.activities.intro.WriteDownActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.customviews.BRKeyboard;
 import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
+import com.ravencoin.presenter.newTutorial.TutorialActivity;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SpringAnimator;
 import com.ravencoin.tools.security.AuthManager;
 import com.ravencoin.tools.security.PostAuth;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.Utils;
+
+import static com.ravencoin.tools.security.PostAuth.SHOW_TERMS_AND_CONDITIONS_EXTRA_KEY;
 
 public class ReEnterPinActivity extends BRActivity {
     private static final String TAG = ReEnterPinActivity.class.getName();
@@ -37,6 +43,7 @@ public class ReEnterPinActivity extends BRActivity {
     private LinearLayout pinLayout;
     public static boolean appVisible = false;
     private static ReEnterPinActivity app;
+    public static final String IS_CREATE_WALLET = "isCreateWallet";
 
     public static ReEnterPinActivity getApp() {
         return app;
@@ -47,10 +54,10 @@ public class ReEnterPinActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_template);
 
-        keyboard = (BRKeyboard) findViewById(R.id.brkeyboard);
-        pinLayout = (LinearLayout) findViewById(R.id.pinLayout);
+        keyboard = findViewById(R.id.brkeyboard);
+        pinLayout = findViewById(R.id.pinLayout);
 
-        ImageButton faq = (ImageButton) findViewById(R.id.faq_button);
+        ImageButton faq = findViewById(R.id.faq_button);
 
         faq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +67,7 @@ public class ReEnterPinActivity extends BRActivity {
             }
         });
 
-        title = (TextView) findViewById(R.id.title);
+        title = findViewById(R.id.title);
         title.setText(getString(R.string.UpdatePin_createTitleConfirm));
         firstPIN = getIntent().getExtras().getString("pin");
         if (Utils.isNullOrEmpty(firstPIN)) {
@@ -169,13 +176,26 @@ public class ReEnterPinActivity extends BRActivity {
             }, 200);
             AuthManager.getInstance().setPinCode(pin.toString(), this);
             if (getIntent().getBooleanExtra("noPin", false)) {
-                BRAnimator.startBreadActivity(this, false);
+                if (getIntent().getBooleanExtra(IS_CREATE_WALLET, false)) {
+                    PostAuth.getInstance().onCreateWalletAuth(ReEnterPinActivity.this, true);
+                } else
+                    BRAnimator.startBreadActivity(this, false);
+                //PostAuth.getInstance().onPhraseCheckAuth(ReEnterPinActivity.this, false);
+           /*     if (getIntent().getBooleanExtra(SHOW_TERMS_AND_CONDITIONS_EXTRA_KEY, false)) {
+                    Intent intent = new Intent(ReEnterPinActivity.this, TermsAndConditionsActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+                    finish();
+                } else {
+                    BRAnimator.startBreadActivity(this, false);
+                }*/
             } else {
                 BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_createInstruction), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
                     @Override
                     public void onComplete() {
-                        PostAuth.getInstance().onCreateWalletAuth(ReEnterPinActivity.this, false);
-
+                        PostAuth.getInstance().onCreateWalletAuth(ReEnterPinActivity.this, true);
+              //          Intent intent = new Intent(ReEnterPinActivity.this, WriteDownActivity.class);
+                //        startActivity(intent);
                     }
                 });
             }
@@ -187,10 +207,5 @@ public class ReEnterPinActivity extends BRActivity {
             SpringAnimator.failShakeAnimation(this, pinLayout);
             pin = new StringBuilder();
         }
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }

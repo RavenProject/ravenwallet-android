@@ -3,18 +3,17 @@ package com.ravencoin.tools.manager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-
-import com.ravencoin.wallet.WalletsMaster;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 7/14/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -41,13 +40,13 @@ import java.util.List;
 public class InternetManager extends BroadcastReceiver {
 
     private static final String TAG = InternetManager.class.getName();
-    public static List<ConnectionReceiverListener> connectionReceiverListeners;
+    public static List<ConnectionReceiverListener> mConnectionReceiverListeners;
 
     private static InternetManager instance;
     public static final int MY_BACKGROUND_JOB = 0;
 
     private InternetManager() {
-        connectionReceiverListeners = new ArrayList<>();
+        mConnectionReceiverListeners = new ArrayList<>();
 
     }
 
@@ -59,8 +58,8 @@ public class InternetManager extends BroadcastReceiver {
     }
 
     public static void addConnectionListener(ConnectionReceiverListener listener) {
-        if (!connectionReceiverListeners.contains(listener))
-            connectionReceiverListeners.add(listener);
+        if (!mConnectionReceiverListeners.contains(listener))
+            mConnectionReceiverListeners.add(listener);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class InternetManager extends BroadcastReceiver {
             }
 
             BREventManager.getInstance().pushEvent(connected ? "reachability.isReachble" : "reachability.isNotReachable");
-            for (ConnectionReceiverListener listener : connectionReceiverListeners) {
+            for (ConnectionReceiverListener listener : mConnectionReceiverListeners) {
                 listener.onConnectionChanged(connected);
             }
             Log.e(TAG, "onReceive: " + connected);
@@ -98,4 +97,21 @@ public class InternetManager extends BroadcastReceiver {
         void onConnectionChanged(boolean isConnected);
     }
 
+    public static void registerConnectionReceiver(Context context, ConnectionReceiverListener connectionReceiverListener) {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        context.getApplicationContext().registerReceiver(InternetManager.getInstance(), intentFilter);
+
+        addConnectionListener(connectionReceiverListener);
+    }
+
+    public static void unregisterConnectionReceiver(Context context, ConnectionReceiverListener connectionReceiverListener) {
+        removeConnectionListener(connectionReceiverListener);
+        context.getApplicationContext().unregisterReceiver(InternetManager.getInstance());
+    }
+
+    private static void removeConnectionListener(ConnectionReceiverListener listener) {
+        if (mConnectionReceiverListeners.contains(listener)) {
+            mConnectionReceiverListeners.remove(listener);
+        }
+    }
 }

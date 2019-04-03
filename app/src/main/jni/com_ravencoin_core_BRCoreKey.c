@@ -317,7 +317,7 @@ Java_com_ravencoin_core_BRCoreKey_encryptNative
 
     uint8_t out[16 + dataSize];
 
-    size_t outSize = BRChacha20Poly1305AEADEncrypt(out, sizeof(out), key,
+    size_t outSize = Chacha20Poly1305AEADEncrypt(out, sizeof(out), key,
                                                    (uint8_t *) nonce,
                                                    (uint8_t *) data,
                                                    (size_t) dataSize,
@@ -351,7 +351,7 @@ Java_com_ravencoin_core_BRCoreKey_decryptNative
 
     uint8_t out[dataSize];
 
-    size_t outSize = BRChacha20Poly1305AEADDecrypt(out, sizeof(out), key,
+    size_t outSize = Chacha20Poly1305AEADDecrypt(out, sizeof(out), key,
                                                    (uint8_t *) nonce,
                                                    (uint8_t *) data,
                                                    (size_t) (dataSize),
@@ -378,7 +378,7 @@ Java_com_ravencoin_core_BRCoreKey_address
         (JNIEnv *env, jobject thisObject) {
     BRKey *key = (BRKey *) getJNIReference(env, thisObject);
 
-    BRAddress address = BR_ADDRESS_NONE;
+    BRAddress address = ADDRESS_NONE;
     BRKeyAddress (key, address.s, sizeof(address));
     assert(address.s[0] != '\0');
 
@@ -428,7 +428,7 @@ Java_com_ravencoin_core_BRCoreKey_encodeSHA256
     size_t      messageLen = (size_t) (*env)->GetStringLength (env, messageString);
     const void *message    = (*env)->GetStringUTFChars (env, messageString, 0);
 
-    BRSHA256 (md, message, messageLen);
+    SHA256 (md, message, messageLen);
 
     jbyteArray result = (*env)->NewByteArray (env, 32);
     (*env)->SetByteArrayRegion (env, result, 0, 32, (const jbyte *) md);

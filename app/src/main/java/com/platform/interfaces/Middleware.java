@@ -7,7 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/18/16.
  * Copyright (c) 2016 breadwallet LLC

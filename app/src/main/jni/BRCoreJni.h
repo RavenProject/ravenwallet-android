@@ -58,4 +58,8 @@ extern void
 transactionOutputCopy (BRTxOutput *target,
                        const BRTxOutput *source);
 
+extern void
+transactionAssetCopy (BRAsset *target,
+                       const BRAsset *source);
+
 #endif //COREJNI_BRCOREJVM_H

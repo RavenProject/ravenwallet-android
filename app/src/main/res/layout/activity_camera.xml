@@ -22,7 +22,6 @@
         android:layout_alignParentTop="true"/>
 
     <FrameLayout
-        android:id="@+id/control"
         android:layout_width="match_parent"
         android:layout_height="112dp"
         android:layout_alignParentBottom="true"

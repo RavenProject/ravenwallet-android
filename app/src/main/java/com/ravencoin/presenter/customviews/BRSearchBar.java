@@ -17,7 +17,7 @@ import com.ravencoin.tools.manager.TxManager;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/8/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -115,7 +115,7 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
     }
 
     private void setListeners() {
-        searchEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        /*searchEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
@@ -125,7 +125,7 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
                     }
                 }
             }
-        });
+        });*/
 
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -157,7 +157,10 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
         searchEdit.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    onShow(false);
+                   // onShow(false);
+                    InputMethodManager keyboard = (InputMethodManager)
+                            getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
                     return true;
                 }
                 return false;

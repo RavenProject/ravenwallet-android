@@ -23,6 +23,7 @@ import com.ravencoin.R;
 import com.ravencoin.presenter.activities.HomeActivity;
 import com.ravencoin.presenter.activities.SetPinActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
+import com.ravencoin.presenter.newTutorial.TutorialActivity;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.manager.BRReportsManager;
 import com.ravencoin.tools.security.BRKeyStore;
@@ -39,7 +40,7 @@ import java.io.Serializable;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 8/4/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -90,7 +91,8 @@ public class IntroActivity extends BRActivity implements Serializable {
         recoverWalletButton = (Button) findViewById(R.id.button_recover_wallet);
         splashScreen = findViewById(R.id.splash_screen);
         setListeners();
-        updateBundles();
+        //TODO uncomment
+        //updateBundles();
 //        SyncManager.getInstance().updateAlarms(this);
         faq = (ImageButton) findViewById(R.id.faq_button);
 
@@ -141,7 +143,7 @@ public class IntroActivity extends BRActivity implements Serializable {
                 Thread.currentThread().setName("updateBundle");
                 final long startTime = System.currentTimeMillis();
                 APIClient apiClient = APIClient.getInstance(IntroActivity.this);
-                apiClient.updateBundle();
+              apiClient.updateBundle();
                 long endTime = System.currentTimeMillis();
                 Log.d(TAG, "updateBundle DONE in " + (endTime - startTime) + "ms");
             }
@@ -155,7 +157,7 @@ public class IntroActivity extends BRActivity implements Serializable {
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
                 HomeActivity bApp = HomeActivity.getApp();
-                Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
+                Intent intent = new Intent(IntroActivity.this, TutorialActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 if (bApp != null) bApp.finish();
@@ -241,7 +243,6 @@ public class IntroActivity extends BRActivity implements Serializable {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
     }
 
 }

@@ -18,7 +18,7 @@ import static android.widget.Adapter.IGNORE_ITEM_VIEW_TYPE;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 7/27/15.
  * Copyright (c) 2016 breadwallet LLC

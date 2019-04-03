@@ -105,16 +105,16 @@ public class SpendLimitActivity extends BRActivity {
                 result = new BigDecimal(0);
                 break;
             case 1:
-                result = new BigDecimal(ONE_RAVEN / 100);
+                result = new BigDecimal(100 * ONE_RAVEN);
                 break;
             case 2:
-                result = new BigDecimal(ONE_RAVEN / 10);
+                result = new BigDecimal(1000 * ONE_RAVEN);
                 break;
             case 3:
-                result = new BigDecimal(ONE_RAVEN);
+                result = new BigDecimal(10000 * ONE_RAVEN);
                 break;
             case 4:
-                result = new BigDecimal(ONE_RAVEN * 10);
+                result = new BigDecimal(ONE_RAVEN);
                 break;
 
             default:

@@ -22,6 +22,7 @@
 #include <jni.h>
 #include <BRTransaction.h>
 #include <assert.h>
+#include <core/BRTransaction.h>
 #include "BRCoreJni.h"
 
 static JavaVM *jvm = NULL;
@@ -85,6 +86,21 @@ transactionOutputCopy (BRTxOutput *target,
 
     target->script = NULL;
     BRTxOutputSetScript(target, source->script, source->scriptLen);
+}
+
+extern void
+transactionAssetCopy (BRAsset *target,
+                       const BRAsset *source) {
+    assert (target != NULL);
+    assert (source != NULL);
+    *target = *source;
+
+    /*target->hasIPFS = source->hasIPFS;
+    target->type = source->type;
+    target->reissuable = source->reissuable;
+    target->amount = source->amount;
+    target->unit = source->unit;
+    target->name = source->name;*/
 }
 
 

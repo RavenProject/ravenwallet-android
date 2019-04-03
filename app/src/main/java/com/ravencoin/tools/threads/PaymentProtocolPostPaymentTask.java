@@ -5,7 +5,7 @@
 //import android.util.Log;
 //import android.widget.Toast;
 //
-//import com.breadwallet.BreadApp;
+//import com.breadwallet.RavenApp;
 //import com.breadwallet.R;
 //import com.breadwallet.presenter.activities.util.BRActivity;
 //import com.breadwallet.presenter.customviews.BRToast;
@@ -20,7 +20,7 @@
 //
 //
 ///**
-// * BreadWallet
+// * RavenWallet
 // * <p/>
 // * Created by Mihail Gutan <mihail@breadwallet.com> on 5/9/16.
 // * Copyright (c) 2016 breadwallet LLC
@@ -98,7 +98,7 @@
 ////            PostAuth.getInstance().setTmpPaymentRequest(paymentRequest);
 ////            PostAuth.getInstance().onPaymentProtocolRequest(app,false);
 //        } catch (Exception e) {
-//            Context app = BreadApp.getBreadContext();
+//            Context app = RavenApp.getBreadContext();
 //            if (e instanceof java.net.UnknownHostException) {
 //                if (app != null) {
 //                    pendingErrorMessages.put(TITLE, app.getString(R.string.Alert_error));
@@ -119,7 +119,7 @@
 ////                if (app != null) {
 ////                    pendingErrorMessages.put(TITLE, app.getString(R.string.JailbreakWarnings_title));
 ////                    pendingErrorMessages.put(MESSAGE, app.getString(R.string.could_not_transmit_payment));
-//////                    if (!((BreadApp) app.getApplication()).hasInternetAccess())
+//////                    if (!((RavenApp) app.getApplication()).hasInternetAccess())
 //////                        BreadDialog.
 //////                                showCustomDialog(app,app.getString(R.string.could_not_make_payment), app.getString(R.string.not_connected_network), app.getString(R.string.ok));
 ////
@@ -143,7 +143,7 @@
 //    }
 //
 //    public static void handleMessage() {
-//        Context app = BreadApp.getBreadContext();
+//        Context app = RavenApp.getBreadContext();
 //        if (app != null && message != null) {
 //            if (!message.isEmpty()) {
 //                BRToast.

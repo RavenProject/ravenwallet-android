@@ -1,84 +1,128 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wallet_card"
     android:layout_width="match_parent"
-    android:layout_height="84dp"
+    android:layout_height="wrap_content"
     android:layout_below="@id/portfolio_label"
     android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/crypto_card_shape">
+    app:cardBackgroundColor="@color/primaryColor"
+    app:cardCornerRadius="40dp"
+    app:cardPreventCornerOverlap="true">
     <!-- Height was 84-->
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/wallet_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16sp"
-        android:layout_marginTop="16sp"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:customTFont="CircularPro-Bold.otf" />
+    <RelativeLayout
+        android:id="@+id/layout_wallet_info"
+        android:layout_width="match_parent"
+        android:layout_height="284dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/wallet_trade_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wallet_name"
-        android:layout_marginLeft="16sp"
-        android:textColor="@color/currency_subheading_color"
-        android:textSize="16sp"
-        app:customTFont="CircularPro-Book.otf" />
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/wallet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginTop="16sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Bold.otf"
+            tools:text="Ravencoin" />
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/wallet_balance_usd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="16sp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16sp"
-        android:text="$12.00"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:customTFont="CircularPro-Bold.otf" />
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/wallet_trade_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wallet_name"
+            android:layout_marginLeft="16sp"
+            android:textColor="@color/currency_subheading_color"
+            android:textSize="16sp"
+            app:customTFont="CircularPro-Book.otf" />
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/syncing_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/wallet_balance_usd"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="4dp"
-        android:text="Syncing"
-        android:textColor="#88ffffff"
-        android:textSize="10sp"
-        app:customTFont="CircularPro-Bold.otf" />
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/wallet_balance_usd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Bold.otf"
+            tools:text="$12.00" />
 
-    <ProgressBar
-        android:id="@+id/sync_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="30dp"
-        android:layout_height="3dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/wallet_balance_usd"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:indeterminate="false"
-        android:keepScreenOn="true"
-        android:max="100"
-        android:progress="0"
-        android:progressBackgroundTint="#88ffffff"
-        android:progressDrawable="@drawable/wallet_sync_progress_bar"
-        android:progressTint="#ffffff" />
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/syncing_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wallet_balance_usd"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@id/sync_progress"
+            android:text="Syncing"
+            android:textColor="#88ffffff"
+            android:textSize="10sp"
+            app:customTFont="CircularPro-Bold.otf" />
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/wallet_balance_currency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/wallet_balance_usd"
-        android:layout_marginRight="16sp"
-        android:textColor="@color/currency_subheading_color"
-        android:textSize="16sp"
-        app:customTFont="CircularPro-Book.otf" />
-</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/sync_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_below="@id/wallet_balance_usd"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:indeterminate="true"
+            android:keepScreenOn="true"
+            android:max="100"
+            android:progress="0"
+            android:progressBackgroundTint="#88ffffff"
+            android:progressDrawable="@drawable/wallet_sync_progress_bar"
+            android:progressTint="#ffffff" />
+
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/wallet_balance_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wallet_balance_usd"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16sp"
+            android:textColor="@color/currency_subheading_color"
+            android:textSize="16sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16sp"
+            android:src="@drawable/ic_arrow_right" />
+
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/lbl_bitterex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sync_progress"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:padding="10dp"
+            android:text="@string/chart_title"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="visible"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.platform.chart.widget.ChartView
+            android:id="@+id/chart_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/lbl_bitterex"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

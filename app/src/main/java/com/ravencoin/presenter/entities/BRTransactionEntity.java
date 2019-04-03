@@ -2,7 +2,7 @@ package com.ravencoin.presenter.entities;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 9/23/15.
  * Copyright (c) 2016 breadwallet LLC

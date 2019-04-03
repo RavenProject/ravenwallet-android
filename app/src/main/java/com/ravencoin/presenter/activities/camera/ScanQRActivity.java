@@ -15,17 +15,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.platform.tools.BRBitId;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.tools.animation.SpringAnimator;
 import com.ravencoin.tools.qrcode.QRCodeReaderView;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.wallets.util.CryptoUriParser;
-import com.platform.tools.BRBitId;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/29/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -63,6 +63,9 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
 
     private QRCodeReaderView qrCodeReaderView;
 
+    public final static String SCANNING_IPFS_HASH_EXTRA_KEY = "scanning.ipfs.hash.extra.key";
+    private boolean isScanningIPFSHash;
+
     public static ScanQRActivity getApp() {
         return app;
     }
@@ -72,8 +75,12 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
 
-        cameraGuide = (ImageView) findViewById(R.id.scan_guide);
-        descriptionText = (TextView) findViewById(R.id.description_text);
+        if (getIntent().getExtras() != null) {
+            isScanningIPFSHash = getIntent().getExtras().getBoolean(SCANNING_IPFS_HASH_EXTRA_KEY, false);
+        }
+
+        cameraGuide = findViewById(R.id.scan_guide);
+        descriptionText = findViewById(R.id.description_text);
 
         task = new UIUpdateTask();
         task.start();
@@ -178,6 +185,24 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
         handlingCode = true;
         if (CryptoUriParser.isCryptoUrl(this, text) || BRBitId.isBitId(text)) {
             Log.e(TAG, "onQRCodeRead: isCrypto");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        cameraGuide.setImageResource(R.drawable.cameraguide);
+                        descriptionText.setText("");
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result", text);
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
+                    } finally {
+                        handlingCode = false;
+                    }
+
+                }
+            });
+        } else if (isScanningIPFSHash) {
+            Log.e(TAG, "onQRCodeRead: IPFS Hash");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

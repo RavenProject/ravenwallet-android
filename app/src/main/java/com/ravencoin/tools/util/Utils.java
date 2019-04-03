@@ -6,11 +6,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.hardware.fingerprint.FingerprintManager;
-import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.ravencoin.presenter.activities.intro.IntroActivity;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -31,7 +29,7 @@ import static android.content.Context.FINGERPRINT_SERVICE;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/21/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -218,4 +216,12 @@ public class Utils {
         return result.reverse().toString();
     }
 
+    @Nullable
+    public static String retrieveAddressChunk(String scanResult) {
+        String[] splitResult = scanResult.split(":");
+        if (splitResult.length > 1) {
+            return splitResult[1];
+        }
+        return null;
+    }
 }

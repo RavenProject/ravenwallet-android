@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.WalletActivity;
+import com.ravencoin.presenter.customviews.BRButton;
 import com.ravencoin.presenter.entities.TxUiHolder;
 import com.ravencoin.tools.adapter.TransactionListAdapter;
 import com.ravencoin.tools.animation.BRAnimator;
@@ -23,7 +25,7 @@ import java.util.List;
 
 
 /**
- * BreadWalletP
+ * RavenWalletP
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 7/19/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -51,6 +53,7 @@ public class TxManager {
     private static final String TAG = TxManager.class.getName();
     private static TxManager instance;
     private RecyclerView txList;
+    private ImageView emptyView;
     public TransactionListAdapter adapter;
 
     public static TxManager getInstance() {
@@ -60,6 +63,7 @@ public class TxManager {
 
     public void init(final WalletActivity app) {
         txList = app.findViewById(R.id.tx_list);
+        emptyView = app.findViewById(R.id.empty_list);
         txList.setLayoutManager(new CustomLinearLayoutManager(app));
         txList.addOnItemTouchListener(new RecyclerItemClickListener(app,
                 txList, new RecyclerItemClickListener.OnItemClickListener() {
@@ -98,7 +102,6 @@ public class TxManager {
             return;
         }
         final List<TxUiHolder> items = wallet.getTxUiHolders();
-
         long took = (System.currentTimeMillis() - start);
         if (took > 500)
             Log.e(TAG, "updateTxList: took: " + took);
@@ -106,13 +109,19 @@ public class TxManager {
             ((Activity) app).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.setItems(items);
-                    txList.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    if (items != null && !items.isEmpty()) {
+                        adapter.setItems(items);
+                        //txList.setAdapter(adapter);
+                        txList.setVisibility(View.VISIBLE);
+                        emptyView.setVisibility(View.GONE);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        txList.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
-
     }
 
     private class CustomLinearLayoutManager extends LinearLayoutManager {

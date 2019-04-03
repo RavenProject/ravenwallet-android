@@ -15,7 +15,7 @@ import com.ravencoin.presenter.customviews.BRButton;
 import com.ravencoin.tools.animation.BRAnimator;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/29/15.
  * Copyright (c) 2016 breadwallet LLC

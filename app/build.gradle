@@ -1,17 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 android {
     compileSdkVersion = 27
-    buildToolsVersion = '28.0.2'
+    buildToolsVersion = '28.0.3'
 
     defaultConfig {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         applicationId = 'com.ravencoin'
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 27
-        versionCode 12
-        versionName "1.01"
+        versionCode 25
+        versionName "1.013"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
@@ -24,8 +27,7 @@ android {
         }
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static'
-//                cppFlags "-std=c++11"
+                arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static', "-DANDROID_STL=c++_shared"
             }
         }
     }
@@ -56,31 +58,31 @@ android {
             applicationId = "com.ravencoin"
             dimension "mode"
             resValue "string", "app_name", "RVN Wallet"
-            buildConfigField "boolean", "BITCOIN_TESTNET", "false"
+            buildConfigField "boolean", "TESTNET", "false"
 
             externalNativeBuild {
                 cmake {
                     // When you specify a version of CMake, as shown below,
                     // the Android plugin searches for its binary within your
                     // PATH environmental variable.
-                    cFlags "-DBITCOIN_TESTNET=0"
+                    cFlags "-DTESTNET=0"
                     targets "core"
                 }
             }
         }
 
         rvnTestnet {
-            applicationId = "com.raventestnet"
+            applicationId = "com.ravencoin"
             dimension "mode"
             resValue "string", "app_name", "RVN-testnet"
-            buildConfigField "boolean", "BITCOIN_TESTNET", "true"
+            buildConfigField "boolean", "TESTNET", "true"
 
             externalNativeBuild {
                 cmake {
                     // When you specify a version of CMake, as shown below,
                     // the Android plugin searches for its binary within your
                     // PATH environmental variable.
-                    cFlags "-DBITCOIN_TESTNET=1"
+                    cFlags "-DTESTNET=1"
                     targets "core"
                 }
             }
@@ -137,11 +139,6 @@ task copyResDirectoryToClasses(type: Copy) {
     into "${buildDir}/intermediates/classes/test/debug/res"
 }
 
-gradle.projectsEvaluated {
-    assembleRvnDebug.dependsOn(copyResDirectoryToClasses)
-}
-
-
 //def gitUpdateModules() {
 //    ['sh', '-c', 'git submodule foreach git pull origin master'].execute().text.trim()
 //    getLogger().debug("gitUpdateModules done!")
@@ -152,36 +149,37 @@ repositories {
     google()
 }
 dependencies {
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
     implementation 'commons-io:commons-io:2.4'
     implementation 'org.eclipse.jetty:jetty-webapp:9.2.19.v20160908'
     implementation 'org.eclipse.jetty:jetty-continuation:9.2.19.v20160908'
     implementation 'org.eclipse.jetty.websocket:websocket-server:9.2.19.v20160908'
-//    implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.10.RC1'
-//    implementation group: 'org.eclipse.jetty', name: 'jetty-continuation', version: '9.4.10.RC1'
-//    implementation group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.4.10.RC1'
 
     implementation 'org.slf4j:slf4j-api:1.7.22'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
-    implementation 'com.android.support:gridlayout-v7:27.1.0'
-    implementation 'com.android.support:support-v13:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
-    implementation 'com.android.support:cardview-v7:27.1.0'
-//    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:gridlayout-v7:27.1.1'
+    implementation 'com.android.support:support-v13:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
-//    implementation 'com.google.firebase:firebase-core:11.8.0'
-//    implementation 'com.google.firebase:firebase-crash:11.8.0'
-    implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
+        transitive = true;
+    }
     implementation 'io.sigpipe:jbsdiff:1.0'
     implementation 'com.google.zxing:core:3.3.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support.test:runner:1.0.1'
-    implementation 'com.android.support.test:rules:1.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support.test:runner:1.0.2'
+    implementation 'com.android.support.test:rules:1.0.2'
     implementation 'junit:junit:4.12'
-    implementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'tools.fastlane:screengrab:1.1.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.2'
+
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.12'
 }
 
 

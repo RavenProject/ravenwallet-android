@@ -11,7 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.tools.manager.BRReportsManager;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.Utils;
@@ -27,7 +27,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 1/12/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -67,7 +67,7 @@ public class GeoLocationManager {
     public void getOneTimeGeoLocation(Continuation cont, Request req) {
         this.continuation = cont;
         this.baseRequest = req;
-        final Context app = BreadApp.getBreadContext();
+        final Context app = RavenApp.getBreadContext();
         if (app == null)
             return;
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
@@ -95,7 +95,7 @@ public class GeoLocationManager {
     public void startGeoSocket(Session sess) {
         session = sess;
 
-        final Context app = BreadApp.getBreadContext();
+        final Context app = RavenApp.getBreadContext();
         if (app == null)
             return;
         final LocationManager locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
@@ -116,7 +116,7 @@ public class GeoLocationManager {
     }
 
     public void stopGeoSocket() {
-        final Context app = BreadApp.getBreadContext();
+        final Context app = RavenApp.getBreadContext();
         if (app == null)
             return;
         final LocationManager locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
@@ -213,7 +213,7 @@ public class GeoLocationManager {
                         } finally {
 
                             processing = false;
-                            Context app = BreadApp.getBreadContext();
+                            Context app = RavenApp.getBreadContext();
                             if (app == null || ActivityCompat.checkSelfPermission(app, Manifest.permission.ACCESS_FINE_LOCATION)
                                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(app,
                                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

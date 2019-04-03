@@ -9,7 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.BRConstants;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/2/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -96,7 +96,7 @@ public class GeoLocationPlugin implements Plugin {
     public boolean handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         if (target.startsWith("/_permissions/geo")) {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
-            Context app =  BreadApp.getBreadContext();
+            Context app =  RavenApp.getBreadContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);
@@ -175,7 +175,7 @@ public class GeoLocationPlugin implements Plugin {
             // "description" = "a string representation of this object"
             // "timestamp" = "ISO-8601 timestamp of when this location was generated"
             // "horizontal_accuracy" = double
-            Context app =  BreadApp.getBreadContext();
+            Context app =  RavenApp.getBreadContext();
             if (app == null) {                    Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);
             }

@@ -230,7 +230,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_containsTransactionHash
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
 
     UInt256 *hash = (UInt256 *) (*env)->GetByteArrayElements (env, hashByteArray, JNI_FALSE);
-    return (jboolean) BRMerkleBlockContainsTxHash (block, *hash);
+    return (jboolean) MerkleBlockContainsTxHash (block, *hash);
 }
 
 /*

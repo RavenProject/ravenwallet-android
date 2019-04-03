@@ -8,7 +8,7 @@ import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.wallet.WalletsMaster;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 9/19/17.
  * Copyright (c) 2017 breadwallet LLC

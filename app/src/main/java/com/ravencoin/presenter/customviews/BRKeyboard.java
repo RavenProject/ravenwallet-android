@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 2/22/17.
  * Copyright (c) 2017 breadwallet LLC

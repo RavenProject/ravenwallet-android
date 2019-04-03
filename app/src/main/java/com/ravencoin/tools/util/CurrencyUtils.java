@@ -13,7 +13,7 @@ import java.util.Currency;
 import java.util.Locale;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/28/16.
  * Copyright (c) 2016 breadwallet LLC

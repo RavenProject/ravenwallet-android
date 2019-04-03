@@ -26,7 +26,7 @@ import com.ravencoin.tools.manager.FontManager;
 import com.ravencoin.tools.util.Utils;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/3/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -204,7 +204,7 @@ public class BRButton extends Button {
     @Override
     protected void onDraw(Canvas canvas) {
         if (isBreadButton) {
-            if(hasShadow) {
+            if (hasShadow) {
                 shadowRect.set(5, height / 4, width - 5, (int) (height * shadowOffSet));
                 canvas.drawBitmap(shadow, null, shadowRect, null);
 
@@ -220,12 +220,12 @@ public class BRButton extends Button {
 
     }
 
-    public void setHasShadow(boolean hasShadow){
+    public void setHasShadow(boolean hasShadow) {
         this.hasShadow = hasShadow;
         invalidate();
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         bPaint.setColor(color);
 
         invalidate();
@@ -260,6 +260,16 @@ public class BRButton extends Button {
             setTextColor(getContext().getColor(R.color.white));
             bPaint.setColor(getContext().getColor(R.color.tetriaryColor));
             bPaint.setStyle(Paint.Style.FILL);
+        } else if (type == 5) {
+            bPaintStroke.setColor(getContext().getColor(R.color.menu_asset_disabled_color));
+            bPaintStroke.setStyle(Paint.Style.STROKE);
+            bPaintStroke.setStrokeWidth(Utils.getPixelsFromDps(getContext(), 1));
+            setTextColor(getContext().getColor(R.color.white));
+            bPaint.setColor(getContext().getColor(R.color.menu_asset_disabled_color));
+            bPaint.setStyle(Paint.Style.FILL);
+        } else if (type == 6) {
+            bPaint.setColor(getContext().getColor(R.color.red));
+            setTextColor(getContext().getColor(R.color.white));
         }
         invalidate();
     }

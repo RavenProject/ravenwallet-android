@@ -2,6 +2,7 @@ package com.ravencoin.presenter.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -33,7 +34,6 @@ public class PaperKeyActivity extends BRActivity {
     private ViewPager wordViewPager;
     private Button nextButton;
     private Button previousButton;
-    private LinearLayout buttonsLayout;
     private TextView itemIndexText;
     private SparseArray<String> wordMap;
     public static boolean appVisible = false;
@@ -69,11 +69,10 @@ public class PaperKeyActivity extends BRActivity {
             }
         });
 
-        nextButton = (Button) findViewById(R.id.send_button);
-        previousButton = (Button) findViewById(R.id.button_previous);
-        close = (ImageButton) findViewById(R.id.close_button);
-        itemIndexText = (TextView) findViewById(R.id.item_index_text);
-        buttonsLayout = (LinearLayout) findViewById(R.id.buttons_layout);
+        nextButton = findViewById(R.id.send_button);
+        previousButton = findViewById(R.id.button_previous);
+        close = findViewById(R.id.close_button);
+        itemIndexText = findViewById(R.id.item_index_text);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +85,9 @@ public class PaperKeyActivity extends BRActivity {
             @Override
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.startBreadActivity(PaperKeyActivity.this, false);
+               // Intent intent = new Intent(PaperKeyActivity.this, TermsAndConditionsActivity.class);
+               // startActivity(intent);
+               // overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
                 if (!isDestroyed()) finish();
             }
         });
@@ -204,9 +205,5 @@ public class PaperKeyActivity extends BRActivity {
             return words == null ? 0 : words.length;
         }
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }

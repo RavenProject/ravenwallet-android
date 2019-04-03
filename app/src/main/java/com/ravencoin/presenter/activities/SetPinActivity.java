@@ -15,6 +15,9 @@ import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.util.BRConstants;
 
+import static com.ravencoin.presenter.activities.ReEnterPinActivity.IS_CREATE_WALLET;
+import static com.ravencoin.tools.security.PostAuth.SHOW_TERMS_AND_CONDITIONS_EXTRA_KEY;
+
 public class SetPinActivity extends BRActivity {
     private static final String TAG = SetPinActivity.class.getName();
     private BRKeyboard keyboard;
@@ -43,9 +46,9 @@ public class SetPinActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_template);
 
-        keyboard = (BRKeyboard) findViewById(R.id.brkeyboard);
-        title = (TextView) findViewById(R.id.title);
-        faq = (ImageButton) findViewById(R.id.faq_button);
+        keyboard = findViewById(R.id.brkeyboard);
+        title = findViewById(R.id.title);
+        faq = findViewById(R.id.faq_button);
 
         faq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +148,7 @@ public class SetPinActivity extends BRActivity {
                     Intent intent = new Intent(SetPinActivity.this, ReEnterPinActivity.class);
                     intent.putExtra("pin", pin.toString());
                     intent.putExtra("noPin", getIntent().getBooleanExtra("noPin", false));
+                    intent.putExtra(IS_CREATE_WALLET, getIntent().getBooleanExtra(IS_CREATE_WALLET, false));
                     startActivity(intent);
                     overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                     pin = new StringBuilder("");
@@ -154,9 +158,5 @@ public class SetPinActivity extends BRActivity {
 
         }
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }

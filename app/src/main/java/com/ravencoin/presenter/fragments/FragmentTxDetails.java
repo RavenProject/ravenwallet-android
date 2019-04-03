@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ravencoin.R;
+import com.ravencoin.core.BRCoreAddress;
+import com.ravencoin.core.MyTransactionAsset;
 import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.presenter.entities.CurrencyEntity;
 import com.ravencoin.presenter.entities.TxUiHolder;
@@ -58,10 +61,11 @@ public class FragmentTxDetails extends DialogFragment {
     private BRText mTransactionId;
     private BRText mShowHide;
     private BRText mAmountWhenSent;
-    private BRText mAmountNow;
+    private BRText mAmountNow,labelWhenSent, labelAmountNow;
 
     private ImageButton mCloseButton;
-    private RelativeLayout mDetailsContainer;
+    private RelativeLayout mDetailsContainer, layoutMemo, layoutStartingBalance,
+            layoutEndingBalance, layoutExchangeRate;
 
     boolean mDetailsShowing = false;
 
@@ -101,6 +105,12 @@ public class FragmentTxDetails extends DialogFragment {
         mShowHide = rootView.findViewById(R.id.show_hide_details);
         mDetailsContainer = rootView.findViewById(R.id.details_container);
         mCloseButton = rootView.findViewById(R.id.close_button);
+        layoutMemo = rootView.findViewById(R.id.layout_memo);
+        layoutStartingBalance = rootView.findViewById(R.id.layout_starting_balance);
+        layoutEndingBalance = rootView.findViewById(R.id.layout_ending_balance);
+        layoutExchangeRate = rootView.findViewById(R.id.layout_exchange_rate);
+        labelWhenSent = rootView.findViewById(R.id.label_when_sent);
+        labelAmountNow = rootView.findViewById(R.id.label_now);
 
         mCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +154,6 @@ public class FragmentTxDetails extends DialogFragment {
         BaseWalletManager walletManager = WalletsMaster.getInstance(getActivity()).getCurrentWallet(getActivity());
         // Set mTransction fields
         if (mTransaction != null) {
-
             boolean sent = mTransaction.getSent() > 0;
             String amountWhenSent;
             String amountNow;
@@ -193,8 +202,9 @@ public class FragmentTxDetails extends DialogFragment {
 
             mTxAction.setText(sent ? "Sent" : "Received");
             mToFrom.setText(sent ? "To " : "Via ");
+            String toAddress = getToAddress(walletManager, mTransaction.getTo());
 
-            mToFromAddress.setText(walletManager.decorateAddress(getActivity(), mTransaction.getTo()[0])); //showing only the destination address
+            mToFromAddress.setText(walletManager.decorateAddress(getActivity(), toAddress)); //showing only the destination address
 
             // Allow the to/from address to be copyable
             mToFromAddress.setOnClickListener(new View.OnClickListener() {
@@ -283,7 +293,28 @@ public class FragmentTxDetails extends DialogFragment {
 
             // Set the transaction block number
             mConfirmedInBlock.setText(String.valueOf(mTransaction.getBlockHeight()));
-
+            if (mTransaction.getAsset() != null) {
+                MyTransactionAsset mAsset = mTransaction.getAsset();
+                String amount;
+                if (mAsset.getName().endsWith("!"))
+                    amount = mAsset.getName();
+                else {
+                    double assetAmount = walletManager.getCryptoForSmallestCrypto(getContext(),
+                            new BigDecimal(mAsset.getAmount())).doubleValue();
+                    amount = com.platform.assets.Utils.formatAssetAmount(assetAmount, mAsset.getUnit()) + " " + mAsset.getName();
+                }
+                mTxAmount.setText(amount);
+                layoutMemo.setVisibility(View.GONE);
+                layoutStartingBalance.setVisibility(View.GONE);
+                layoutEndingBalance.setVisibility(View.GONE);
+                layoutExchangeRate.setVisibility(View.GONE);
+                mDetailsContainer.setVisibility(View.VISIBLE);
+                mShowHide.setVisibility(View.GONE);
+                mAmountWhenSent.setVisibility(View.GONE);
+                mAmountNow.setVisibility(View.GONE);
+                labelWhenSent.setVisibility(View.GONE);
+                labelAmountNow.setVisibility(View.GONE);
+            }
         } else {
 
             Toast.makeText(getContext(), "Error getting transaction data", Toast.LENGTH_SHORT).show();
@@ -296,5 +327,21 @@ public class FragmentTxDetails extends DialogFragment {
     public void onResume() {
         super.onResume();
 
+    }
+
+    @Nullable
+    private String getToAddress(BaseWalletManager wallet, String[] tos) {
+        String toAddress = "";
+        if (tos != null)
+            for (String to : tos) {
+                boolean isMyAddress = wallet.getWallet().containsAddress(new BRCoreAddress(to));
+                if (!isMyAddress) {
+                    toAddress = to;
+                    break;
+                }
+            }
+        if (TextUtils.isEmpty(toAddress) && tos != null)
+            toAddress = tos[0];
+        return toAddress;
     }
 }

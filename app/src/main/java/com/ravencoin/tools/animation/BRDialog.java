@@ -12,7 +12,7 @@ import com.ravencoin.presenter.customviews.BRDialogView;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/15/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -64,6 +64,35 @@ public class BRDialog {
                 dialog.setNegListener(negListener);
                 dialog.setDismissListener(dismissListener);
                 dialog.setIconRes(iconRes);
+                if (!((Activity) app).isDestroyed())
+                    dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+            }
+        });
+
+    }
+
+    public static void showCustomDialog(@NonNull final Context app, @NonNull final String title, @NonNull final String message,
+                                        @NonNull final String posButton, final String negButton, final BRDialogView.BROnClickListener posListener,
+                                        final BRDialogView.BROnClickListener negListener, final DialogInterface.OnDismissListener dismissListener, final int iconRes, final boolean showRedButton) {
+        if (((Activity) app).isDestroyed()) {
+            Log.e(TAG, "showCustomDialog: FAILED, context is destroyed");
+            return;
+        }
+
+        BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
+            @Override
+            public void run() {
+                dialog = new BRDialogView();
+                dialog.setTitle(title);
+                dialog.setMessage(message);
+                dialog.setPosButton(posButton);
+                dialog.setNegButton(negButton);
+                dialog.setPosListener(posListener);
+                dialog.setNegListener(negListener);
+                dialog.setDismissListener(dismissListener);
+                dialog.setIconRes(iconRes);
+                if (showRedButton)
+                    dialog.setConfirmColorRed(R.color.red_text);
                 if (!((Activity) app).isDestroyed())
                     dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
             }

@@ -1,4 +1,4 @@
-package com.ravencoin.tools.manager;
+/*package com.ravencoin.tools.manager;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -15,7 +15,7 @@ import com.crashlytics.android.Crashlytics;
 import java.util.concurrent.TimeUnit;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 9/19/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+/*
 public class SyncManager {
 
     private static final String TAG = SyncManager.class.getName();
@@ -91,7 +92,7 @@ public class SyncManager {
     class SyncProgressTask extends Thread {
 
         private BaseWalletManager mCurrentWallet;
-        private OnProgressUpdate mListener;
+  //      private OnProgressUpdate mListener;
         private static final int DELAY_MILLIS = 500;
         private Context mApp;
 
@@ -136,10 +137,11 @@ public class SyncManager {
         }
     }
 
-    public interface OnProgressUpdate {
+//    public interface OnProgressUpdate {
         //get the progressUpdate and return true if you want to continue or false if it's done syncing
-        boolean onProgressUpdated(double progress);
-    }
+  //      boolean onProgressUpdated(double progress);
+    //}
 }
 
 
+*/

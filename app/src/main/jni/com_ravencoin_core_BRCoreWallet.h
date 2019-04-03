@@ -13,7 +13,7 @@ extern "C" {
  * Signature: ([Lcom/ravencoin/core/BRCoreTransaction;Lcom/ravencoin/core/BRCoreMasterPubKey;)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_createJniCoreWallet
-  (JNIEnv *, jclass, jobjectArray, jobject);
+        (JNIEnv *, jclass, jobjectArray, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -21,7 +21,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_createJniCoreWallet
  * Signature: (Lcom/ravencoin/core/BRCoreWallet/Listener;)V
  */
 JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_installListener
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_installListener
  * Signature: ()Lcom/ravencoin/core/BRCoreAddress;
  */
 JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_getReceiveAddress
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -37,7 +37,7 @@ JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_getReceiveAddress
  * Signature: ()[Lcom/ravencoin/core/BRCoreAddress;
  */
 JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreWallet_getAllAddresses
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -45,7 +45,7 @@ JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreWallet_getAllAddres
  * Signature: (Lcom/ravencoin/core/BRCoreAddress;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_containsAddress
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -53,7 +53,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_containsAddress
  * Signature: (Lcom/ravencoin/core/BRCoreAddress;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_addressIsUsed
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -61,7 +61,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_addressIsUsed
  * Signature: ()[Lcom/ravencoin/core/BRCoreTransaction;
  */
 JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreWallet_jniGetTransactions
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -69,7 +69,7 @@ JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreWallet_jniGetTransa
  * Signature: (J)[Lcom/ravencoin/core/BRCoreTransaction;
  */
 JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionsConfirmedBefore
-  (JNIEnv *, jobject, jlong);
+        (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -77,7 +77,7 @@ JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransacti
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getBalance
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -85,7 +85,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getBalance
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTotalSent
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -93,7 +93,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTotalSent
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTotalReceived
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -101,7 +101,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTotalReceived
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getFeePerKb
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -109,7 +109,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getFeePerKb
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_setFeePerKb
-  (JNIEnv *, jobject, jlong);
+        (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -117,7 +117,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_setFeePerKb
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getMaxFeePerKb
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -125,7 +125,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getMaxFeePerKb
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getDefaultFeePerKb
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -133,15 +133,66 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getDefaultFeePerKb
  * Signature: (JLcom/ravencoin/core/BRCoreAddress;)Lcom/ravencoin/core/BRCoreTransaction;
  */
 JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_createTransaction
-  (JNIEnv *, jobject, jlong, jobject);
+        (JNIEnv *, jobject, jlong, jobject);
 
+//JNIEXPORT jboolean JNICALL
+//Java_com_ravencoin_core_BRCoreWallet_isAssetNameValid(JNIEnv *env, jobject instance,
+//                                                      jobject jPeerManager, jobject jListener,
+//                                                      jstring assetName_,
+//                                                      jint assetNameLen);
+
+JNIEXPORT void JNICALL
+Java_com_ravencoin_core_BRCoreWallet_isAssetNameValid(JNIEnv *env, jobject instance,
+                                                      jobject peerManager, /*jobject listener,*/
+                                                      jstring assetName_, jint assetNameLen,
+                                                      jobject checkAssetNameListener);
+/*
+ * Class:     com_ravencoin_core_BRCoreWallet
+ * Method:    createAssetTransaction
+ * Signature: ([Lcom/ravencoin/core/BRCoreTransactionOutput;)Lcom/ravencoin/core/BRCoreTransaction;
+ */
+
+JNIEXPORT jobject JNICALL
+Java_com_ravencoin_core_BRCoreWallet_createAssetTransaction(JNIEnv *env, jobject instance,
+                                                            jlong amount,
+                                                            jobject addressObject,
+                                                            jobject assetObject);
+
+JNIEXPORT jobject JNICALL
+Java_com_ravencoin_core_BRCoreWallet_createSubAssetTransaction(JNIEnv *env, jobject instance,
+                                                               jlong amount,
+                                                               jobject addressObject,
+                                                               jobject assetObject,
+                                                               jobject rootAssetObject);
+
+JNIEXPORT jobject JNICALL
+Java_com_ravencoin_core_BRCoreWallet_createUniqueAssetTransaction(JNIEnv *env, jobject instance,
+                                                                  jlong amount,
+                                                                  jobject addressObject,
+                                                                  jobject assetObject,
+                                                                  jobject rootAssetObject);
+
+JNIEXPORT jobject JNICALL
+Java_com_ravencoin_core_BRCoreWallet_burnAsset(JNIEnv *env, jobject instance, jobject assetObject);
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_ravencoin_core_BRCoreWallet_decomposeTransaction(JNIEnv *env, jobject instance,
+                                                          jobject tx);
+
+JNIEXPORT jobject JNICALL
+Java_com_ravencoin_core_BRCoreWallet_transferAsset(JNIEnv *env, jobject instance, jdouble amount,
+                                                   jstring address_, jobject assetObject);
+
+JNIEXPORT jobject JNICALL
+Java_com_ravencoin_core_BRCoreWallet_transferOwnerShipAsset(JNIEnv *env, jobject instance, jdouble amount,
+                                                            jstring address_, jobject assetObject);
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
  * Method:    createTransactionForOutputs
  * Signature: ([Lcom/ravencoin/core/BRCoreTransactionOutput;)Lcom/ravencoin/core/BRCoreTransaction;
  */
 JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_createTransactionForOutputs
-  (JNIEnv *, jobject, jobjectArray);
+        (JNIEnv *, jobject, jobjectArray);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -149,7 +200,7 @@ JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_createTransaction
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;I[B)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_signTransaction
-  (JNIEnv *, jobject, jobject, jint, jbyteArray);
+        (JNIEnv *, jobject, jobject, jint, jbyteArray);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -157,7 +208,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_signTransaction
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_containsTransaction
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -165,7 +216,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_containsTransact
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_jniRegisterTransaction
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -173,7 +224,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_jniRegisterTrans
  * Signature: ([B)V
  */
 JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_removeTransaction
-  (JNIEnv *, jobject, jbyteArray);
+        (JNIEnv *, jobject, jbyteArray);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -181,7 +232,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_removeTransaction
  * Signature: ([[BJJ)V
  */
 JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_updateTransactions
-  (JNIEnv *, jobject, jobjectArray, jlong, jlong);
+        (JNIEnv *, jobject, jobjectArray, jlong, jlong);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -189,7 +240,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_updateTransactions
  * Signature: ([B)Lcom/ravencoin/core/BRCoreTransaction;
  */
 JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_jniTransactionForHash
-  (JNIEnv *, jobject, jbyteArray);
+        (JNIEnv *, jobject, jbyteArray);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -197,7 +248,7 @@ JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreWallet_jniTransactionFor
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_transactionIsValid
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -205,7 +256,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_transactionIsVal
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_transactionIsPending
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -213,7 +264,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_transactionIsPen
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_transactionIsVerified
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -221,7 +272,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreWallet_transactionIsVer
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionFee
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -229,7 +280,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionFee
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionAmountSent
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -237,7 +288,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionAmoun
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionAmountReceived
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -245,7 +296,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getTransactionAmoun
  * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getBalanceAfterTransaction
-  (JNIEnv *, jobject, jobject);
+        (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -253,7 +304,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getBalanceAfterTran
  * Signature: (J)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getFeeForTransactionSize
-  (JNIEnv *, jobject, jlong);
+        (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -261,7 +312,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getFeeForTransactio
  * Signature: (J)J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getFeeForTransactionAmount
-  (JNIEnv *, jobject, jlong);
+        (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -269,7 +320,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getFeeForTransactio
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getMinOutputAmount
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -277,7 +328,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getMinOutputAmount
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getMaxOutputAmount
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -285,7 +336,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreWallet_getMaxOutputAmount
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_disposeNative
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_ravencoin_core_BRCoreWallet
@@ -293,7 +344,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_disposeNative
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreWallet_initializeNative
-  (JNIEnv *, jclass);
+        (JNIEnv *, jclass);
 
 #ifdef __cplusplus
 }

@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.presenter.entities.CurrencyEntity;
 import com.ravencoin.tools.sqlite.CurrencyDataSource;
@@ -36,7 +36,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 7/22/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -132,7 +132,7 @@ public class BRApiManager {
                         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                             @Override
                             public void run() {
-                                if (BreadApp.isAppInBackground(context)) {
+                                if (RavenApp.isAppInBackground(context)) {
                                     Log.e(TAG, "doInBackground: Stopping timer, no activity on.");
                                     stopTimerTask();
                                 }
@@ -227,7 +227,8 @@ public class BRApiManager {
 
     public static JSONArray multiFiatCurrency(Activity app) {
 
-        String jsonString = urlGET(app, "https://bitpay.com/rates");
+        //String jsonString = urlGET(app, "https://bitpay.com/rates");
+        String jsonString = urlGET(app, "https://www.hidemyass-freeproxy.com/proxy/fr-fr/aHR0cHM6Ly9iaXRwYXkuY29tL2FwaS9yYXRlcw");
 
         JSONArray jsonArray = null;
         if (jsonString == null) return null;
@@ -254,7 +255,7 @@ public class BRApiManager {
             Log.e(TAG, "urlGET: network on main thread");
             throw new RuntimeException("network on main thread");
         }
-        Map<String, String> headers = BreadApp.getBreadHeaders();
+        Map<String, String> headers = RavenApp.getBreadHeaders();
 
         Request.Builder builder = new Request.Builder()
                 .url(myURL)

@@ -6,6 +6,7 @@ import android.util.Log;
 
 
 import com.ravencoin.tools.util.BRConstants;
+import com.ravencoin.wallet.wallets.raven.RvnWalletManager;
 
 import org.json.JSONArray;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/13/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -46,6 +47,7 @@ public class BRSharedPrefs {
 
     public static List<OnIsoChangedListener> isoChangedListeners = new ArrayList<>();
     public static final String PREFS_NAME = "MyPrefsFile";
+    private static final String CURRENT_WALLET_CURRENCY_CODE = "currentWalletIso";
 
     public interface OnIsoChangedListener {
         void onIsoChanged(String iso);
@@ -91,10 +93,21 @@ public class BRSharedPrefs {
 
     }
 
+    public static boolean getExpertMode(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean("expertMode", false);
+    }
+
+    public static void putExpertMode(Context context, boolean check) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("expertMode", check);
+        editor.apply();
+    }
+
     public static boolean getPhraseWroteDown(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean("phraseWritten", false);
-
     }
 
     public static void putPhraseWroteDown(Context context, boolean check) {
@@ -268,7 +281,7 @@ public class BRSharedPrefs {
     //if the user prefers all in crypto units, not fiat currencies
     public static boolean isCryptoPreferred(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean("priceInCrypto", false);
+        return prefs.getBoolean("priceInCrypto", true);
     }
 
     //if the user prefers all in crypto units, not fiat currencies
@@ -307,7 +320,7 @@ public class BRSharedPrefs {
 //        Log.d(TAG, "getCurrentWalletIso() Activity -> " + activity.getClass().getSimpleName());
         SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 //        Log.d(TAG, "Getting current wallet ISO -> " + prefs.getString("currentWalletIso", "RVN"));
-        return prefs.getString("currentWalletIso", "RVN");
+        return prefs.getString(CURRENT_WALLET_CURRENCY_CODE, "RVN");
     }
 
     public static void putCurrentWalletIso(Context activity, String iso) {
@@ -315,7 +328,7 @@ public class BRSharedPrefs {
         if (iso == null) throw new NullPointerException("cannot be null");
         SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("currentWalletIso", iso);
+        editor.putString(CURRENT_WALLET_CURRENCY_CODE, iso);
         editor.apply();
     }
 

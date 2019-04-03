@@ -21,7 +21,7 @@ import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.util.Utils;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/29/15.
  * Copyright (c) 2016 breadwallet LLC

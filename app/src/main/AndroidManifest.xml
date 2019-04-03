@@ -12,18 +12,14 @@
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.BIND_JOB_SERVICE"/>
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions"/>
 
-    <!-- Allows unlocking your device and activating its screen so UI tests can succeed -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-    <!-- Allows changing locales -->
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
 
     <uses-feature
         android:name="android.hardware.location.gps"
@@ -42,7 +38,7 @@
         android:required="false"/>
 
     <application
-        android:name=".BreadApp"
+        android:name=".RavenApp"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -128,7 +124,13 @@
         <activity
             android:name=".presenter.activities.LoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <!--<intent-filter android:autoVerify="true">-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
 
         <activity
             android:name=".presenter.activities.settings.SettingsActivity"
@@ -158,6 +160,14 @@
             android:name=".presenter.activities.settings.SecurityCenterActivity"
             android:launchMode="singleTask"
 
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presenter.activities.AddressBookActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presenter.activities.settings.UserAddressesActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.activities.settings.ShareDataActivity"
@@ -227,16 +237,34 @@
         <activity
             android:name=".presenter.activities.HomeActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.activities.CurrencySettingsActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
 
-        </activity>
         <activity android:name=".presenter.activities.settings.SupportWebViewActivity" />
 
+        <activity
+            android:name=".presenter.activities.ManageAssetsActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".presenter.activities.TermsAndConditionsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".presenter.newTutorial.TutorialActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" />
+        <service
+            android:name=".tools.services.SyncService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
             android:name=".tools.listeners.SyncReceiver"
             android:enabled="true"
@@ -244,6 +272,7 @@
             android:label="SyncReceiver"/>
 
         <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+        <meta-data android:name="io.fabric.ApiKey" android:value="dbf6fef7bb2fb1c0c7ce1def9fb3db9e942fedf2" />
     </application>
 
 </manifest>

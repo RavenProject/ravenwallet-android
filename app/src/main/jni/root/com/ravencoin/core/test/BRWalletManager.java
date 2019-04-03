@@ -1,5 +1,5 @@
 /*
- * BreadWallet
+ * RavenWallet
  *
  * Created by Ed Gamble <ed@breadwallet.com> on 1/22/18.
  * Copyright (c) 2018 breadwallet LLC
@@ -650,7 +650,7 @@ public class BRWalletManager extends BRCoreWalletManager {
         byte[] inScript = addr.getPubKeyScript();      // from rando
         byte[] outScript = recvAddr.getPubKeyScript();  // to me
 
-        System.out.println("        One SATOSHI");
+        System.out.println("        One SATOSHIS");
 
         tx = new BRCoreTransaction();
         tx.addInput(
@@ -704,7 +704,7 @@ public class BRWalletManager extends BRCoreWalletManager {
         tx.setTimestamp (1);
         asserting (tx.isSigned());
 
-        System.out.println("            Init w/ One SATOSHI");
+        System.out.println("            Init w/ One SATOSHIS");
 
         w = new BRCoreWallet(new BRCoreTransaction[] { tx }, mpk, walletListener);
         asserting (SATOSHIS == w.getBalance());
@@ -712,13 +712,13 @@ public class BRWalletManager extends BRCoreWalletManager {
 
         byte[] txHash = tx.getHash();
 
-        System.out.println("            Can't send Two SATOSHI");
+        System.out.println("            Can't send Two SATOSHIS");
         // unsigned
         tx = w.createTransaction(2*SATOSHIS, addr);
         asserting (null == tx);
 
         //
-        System.out.println("            Can send half SATOSHI");
+        System.out.println("            Can send half SATOSHIS");
         asserting (w.getFeeForTransactionAmount(SATOSHIS/2) >= 1000);
         tx = w.createTransaction(SATOSHIS/2, addr);
         asserting (null != tx);
@@ -768,7 +768,7 @@ public class BRWalletManager extends BRCoreWalletManager {
 
         w.signTransaction(tx, 0, phrase);
         asserting (tx.isSigned());
-        System.out.println("            Can send half SATOSHI");
+        System.out.println("            Can send half SATOSHIS");
 
 
         //
@@ -817,7 +817,7 @@ public class BRWalletManager extends BRCoreWalletManager {
         byte[] inScript = addr.getPubKeyScript();      // from rando
         byte[] outScript = recvAddr.getPubKeyScript();  // to me
 
-        System.out.println("        One SATOSHI");
+        System.out.println("        One SATOSHIS");
 
         BRCoreTransaction tx = new BRCoreTransaction();
         tx.addInput(
@@ -903,7 +903,6 @@ public class BRWalletManager extends BRCoreWalletManager {
             @Override
             public void onTxDeleted(String hash, int notifyUser, int recommendRescan) {
                 System.out.println(String.format("            tx deleted: %s", hash));
-
             }
         };
     }

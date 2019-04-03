@@ -1,10 +1,12 @@
 package com.ravencoin.presenter.entities;
 
 
+import com.platform.assets.Asset;
 import com.platform.entities.TxMetaData;
+import com.ravencoin.core.MyTransactionAsset;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 1/13/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -44,13 +46,14 @@ public class TxUiHolder {
     private boolean isValid;
     private int txSize;
     public TxMetaData metaData;
+    private MyTransactionAsset asset;
 
     private TxUiHolder() {
     }
 
     public TxUiHolder(long timeStamp, int blockHeight, byte[] hash, String txReversed, long sent,
                       long received, long fee, String to[], String from[],
-                      long balanceAfterTx, int txSize, long amount, boolean isValid) {
+                      long balanceAfterTx, int txSize, long amount, boolean isValid, MyTransactionAsset asset) {
         this.timeStamp = timeStamp;
         this.blockHeight = blockHeight;
         this.txReversed = txReversed;
@@ -64,6 +67,7 @@ public class TxUiHolder {
         this.amount = amount;
         this.isValid = isValid;
         this.txSize = txSize;
+        this.asset = asset;
     }
 
     public int getBlockHeight() {
@@ -122,4 +126,7 @@ public class TxUiHolder {
         return isValid;
     }
 
+    public MyTransactionAsset getAsset() {
+        return asset;
+    }
 }

@@ -20,10 +20,12 @@
 //  THE SOFTWARE.
 
 #include <BRTransaction.h>
+#include <BRAssets.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <malloc.h>
 #include <BRInt.h>
+#include <core/BRTransaction.h>
 #include "BRCoreJni.h"
 #include "com_ravencoin_core_BRCoreTransaction.h"
 
@@ -35,6 +37,9 @@ jmethodID transactionInputConstructor;
 
 jclass transactionOutputClass;
 jmethodID transactionOutputConstructor;
+
+jclass transactionAssetClass;
+jmethodID transactionAssetConstructor;
 
 static char *JNI_TRANSACTION_IS_REGISTERED_NAME = "isRegistered";
 static char *JNI_TRANSACTION_IS_REGISTERED_TYPE = "Z";
@@ -119,6 +124,30 @@ JNIEXPORT jobjectArray JNICALL Java_com_ravencoin_core_BRCoreTransaction_getOutp
     }
 
     return outputs;
+}
+
+/*
+ * Class:     com_ravencoin_core_BRCoreTransaction
+ * Method:    getAsset
+ * Signature: ()[Lcom/ravencoin/core/BRCoreTransactionAsset;
+ */
+JNIEXPORT jobject JNICALL Java_com_ravencoin_core_BRCoreTransaction_getAsset
+        (JNIEnv *env, jobject thisObject) {
+    BRTransaction *transaction = (BRTransaction *) getJNIReference (env, thisObject);
+    if(transaction->asset == NULL) return NULL ;
+    const char* assetType = GetAssetScriptType(transaction->asset->type);
+    jstring assetTypeToString = (*env)->NewStringUTF(env, assetType);
+    jstring assetName = (*env)->NewStringUTF(env, transaction->asset->name);
+    jstring assetIPFSHash = (*env)->NewStringUTF(env, transaction->asset->IPFSHash);
+    jdouble assetAmount = transaction->asset->amount;
+    jint assetUnits = transaction->asset->unit;
+    jint isReissuable = transaction->asset->reissuable;
+    jint hasIPFS = transaction->asset->hasIPFS;
+
+    jobject asset = (*env)->NewObject (env, transactionAssetClass, transactionAssetConstructor,
+                                       assetTypeToString, assetName, assetAmount, assetUnits, isReissuable, hasIPFS, assetIPFSHash);
+
+    return asset;
 }
 
 
@@ -287,7 +316,7 @@ Java_com_ravencoin_core_BRCoreTransaction_isSigned
  * Signature: ([Lcom/ravencoin/core/BRCoreKey;I)V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransaction_sign__Lcom_ravencoin_core_BRCoreKey_3_093_2I
+Java_com_ravencoin_core_BRCoreTransaction_sign
         (JNIEnv *env, jobject thisObject, jobjectArray keyObjectArray, jint forkId) {
     BRTransaction *transaction = (BRTransaction *) getJNIReference (env, thisObject);
 
@@ -300,7 +329,7 @@ Java_com_ravencoin_core_BRCoreTransaction_sign__Lcom_ravencoin_core_BRCoreKey_3_
 
         (*env)->DeleteLocalRef (env, keyObject);
     }
-    BRTransactionSign(transaction, forkId, keys, keyCount);
+    BRTransactionSign(transaction,  keys, keyCount);
 
     if (NULL == keys) free (keys);
     return;
@@ -377,6 +406,13 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransaction_initializeNativ
 
     transactionOutputConstructor = (*env)->GetMethodID(env, transactionOutputClass, "<init>", "(J)V");
     assert (NULL != transactionOutputConstructor);
+
+    transactionAssetClass = (*env)->FindClass(env, "com/ravencoin/core/MyTransactionAsset");
+    assert(NULL != transactionAssetClass);
+    transactionAssetClass = (*env)->NewGlobalRef (env, transactionAssetClass);
+
+    transactionAssetConstructor = (*env)->GetMethodID(env, transactionAssetClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;DIIILjava/lang/String;)V");
+    assert (NULL != transactionAssetConstructor);
 }
 
 /*
@@ -428,6 +464,8 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransaction_createJniCoreT
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransaction_createJniCoreTransactionEmpty
-        (JNIEnv *env, jclass thisClass) {
-    return (jlong) BRTransactionNew();
+        (JNIEnv *env, jclass thisClass,jint count) {
+    return (jlong) BRTransactionNew((size_t) count);
 }
+
+

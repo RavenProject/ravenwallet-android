@@ -1,5 +1,5 @@
 /*
- * BreadWallet
+ * RavenWallet
  *
  * Created by Ed Gamble <ed@breadwallet.com> on 1/22/18.
  * Copyright (c) 2018 breadwallet LLC
@@ -51,7 +51,7 @@ public class BRCoreTransaction extends BRCoreJniReference {
     }
 
     public BRCoreTransaction () {
-        this (createJniCoreTransactionEmpty());
+        this (createJniCoreTransactionEmpty(1));
     }
 
     protected BRCoreTransaction (long jniReferenceAddress) {
@@ -108,6 +108,16 @@ public class BRCoreTransaction extends BRCoreJniReference {
             addresses[i] = outputs[i].getAddress();
 
         return addresses;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public native MyTransactionAsset getAsset();
+
+    public boolean hasAsset() {
+        return getAsset() != null;
     }
 
     /**
@@ -229,5 +239,5 @@ public class BRCoreTransaction extends BRCoreJniReference {
 
     private static native long createJniCoreTransactionSerialized (byte[] buffer);
 
-    private static native long createJniCoreTransactionEmpty ();
+    private static native long createJniCoreTransactionEmpty (int count);
 }

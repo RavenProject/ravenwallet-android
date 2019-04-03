@@ -1,7 +1,7 @@
 package com.ravencoin.wallet.wallets.configs;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 1/25/18.
  * Copyright (c) 2018 breadwallet LLC
@@ -28,13 +28,10 @@ public class WalletUiConfiguration {
     public String colorHex;
     public boolean sendVisible;
     public boolean receiveVisible;
-    public boolean buyVisible;
 
-    public WalletUiConfiguration(String colorHex, boolean sendVisible, boolean receiveVisible, boolean buyVisible) {
+    public WalletUiConfiguration(String colorHex, boolean sendVisible, boolean receiveVisible) {
         this.colorHex = colorHex;
         this.sendVisible = sendVisible;
         this.receiveVisible = receiveVisible;
-        this.buyVisible = buyVisible;
-
     }
 }

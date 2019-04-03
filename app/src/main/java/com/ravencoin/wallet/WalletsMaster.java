@@ -1,15 +1,17 @@
 package com.ravencoin.wallet;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCoreKey;
 import com.ravencoin.core.BRCoreMasterPubKey;
@@ -35,8 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.ACTIVITY_SERVICE;
+
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 12/10/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -258,7 +262,7 @@ public class WalletsMaster {
 
     public void initLastWallet(Context app) {
         if (app == null) {
-            app = BreadApp.getBreadContext();
+            app = RavenApp.getBreadContext();
             if (app == null) {
                 Log.e(TAG, "initLastWallet: FAILED, app is null");
                 return;

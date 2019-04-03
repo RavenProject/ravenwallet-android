@@ -1,32 +1,49 @@
 package com.ravencoin.tools.adapter;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.platform.chart.model.RVNToBTCData;
+import com.platform.chart.widget.ChartModel;
+import com.platform.chart.widget.ChartView;
+import com.platform.chart.widget.SeriesElement;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCorePeer;
+import com.ravencoin.presenter.activities.HomeActivity;
+import com.ravencoin.presenter.activities.WalletActivity;
 import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.tools.manager.BRSharedPrefs;
-import com.ravencoin.tools.manager.SyncManager;
+import com.ravencoin.tools.services.SyncService;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -37,19 +54,24 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
 
     public static final String TAG = WalletListAdapter.class.getName();
 
-    private final Context mContext;
+    private final HomeActivity mContext;
     private ArrayList<WalletItem> mWalletItems;
     private WalletItem mCurrentWalletSyncing;
-    private SyncManager mSyncManager;
+ //   private SyncManager mSyncManager;
     private boolean mObserverIsStarting;
+    private boolean chartLoaded;
+    private String CHART_URL = "https://international.bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
+    private SyncNotificationBroadcastReceiver mSyncNotificationBroadcastReceiver;
 
 
-    public WalletListAdapter(Context context, ArrayList<BaseWalletManager> walletList) {
+    public WalletListAdapter(HomeActivity context, ArrayList<BaseWalletManager> walletList) {
         this.mContext = context;
         mWalletItems = new ArrayList<>();
         for (BaseWalletManager w : walletList) {
             this.mWalletItems.add(new WalletItem(w));
         }
+        mSyncNotificationBroadcastReceiver = new SyncNotificationBroadcastReceiver();
+
     }
 
     @Override
@@ -66,14 +88,14 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
     }
 
     @Override
-    public void onBindViewHolder(final WalletItemViewHolder holder, int position) {
+    public void onBindViewHolder(final WalletItemViewHolder holder, final int position) {
 
         WalletItem item = mWalletItems.get(position);
         final BaseWalletManager wallet = item.walletManager;
         String name = wallet.getName(mContext);
-        String exchangeRate     = CurrencyUtils.getFormattedAmount(mContext, BRSharedPrefs.getPreferredFiatIso(mContext), wallet.getFiatExchangeRate(mContext));
-        String fiatBalance      = CurrencyUtils.getFormattedAmount(mContext, BRSharedPrefs.getPreferredFiatIso(mContext), wallet.getFiatBalance(mContext));
-        String cryptoBalance    = CurrencyUtils.getFormattedAmount(mContext, wallet.getIso(mContext), new BigDecimal(wallet.getCachedBalance(mContext)));
+        String exchangeRate = CurrencyUtils.getFormattedAmount(mContext, BRSharedPrefs.getPreferredFiatIso(mContext), wallet.getFiatExchangeRate(mContext));
+        String fiatBalance = CurrencyUtils.getFormattedAmount(mContext, BRSharedPrefs.getPreferredFiatIso(mContext), wallet.getFiatBalance(mContext));
+        String cryptoBalance = CurrencyUtils.getFormattedAmount(mContext, wallet.getIso(mContext), new BigDecimal(wallet.getCachedBalance(mContext)));
 
         final String iso = wallet.getIso(mContext);
 
@@ -85,26 +107,42 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         holder.mWalletBalanceUSD.setText(fiatBalance);
         holder.mWalletBalanceCurrency.setText(cryptoBalance);
         holder.mSyncingProgressBar.setVisibility(item.mShowSyncing ? View.VISIBLE : View.INVISIBLE);
-        holder.mSyncingProgressBar.setProgress(item.mProgress);
-        holder.mSyncingLabel.setVisibility(item.mShowSyncingLabel ? View.VISIBLE : View.INVISIBLE);
-        holder.mSyncingLabel.setText(String.format("%s %d%%", item.mLabelText, item.mProgress));
-        holder.mWalletBalanceCurrency.setVisibility(item.mShowBalance ? View.VISIBLE : View.INVISIBLE);
-
+        holder.mSyncingProgressBar.setProgress(item.mShowSyncing ? View.VISIBLE : View.INVISIBLE);
+        holder.mSyncingLabel.setVisibility(item.mShowSyncing ? View.VISIBLE : View.INVISIBLE);
+        holder.mSyncingLabel.setText(item.mLabelText);
+        holder.mWalletBalanceCurrency.setVisibility(!item.mShowSyncing ? View.VISIBLE : View.INVISIBLE);
         Drawable drawable = mContext.getResources().getDrawable(R.drawable.crypto_card_shape, null);
         ((GradientDrawable) drawable).setColor(Color.parseColor(wallet.getUiConfiguration().colorHex));
-
         holder.mParent.setBackground(drawable);
+        holder.mChart.setBackgroundColor(mContext.getColor(R.color.primaryColor));
+        holder.mChart.setBackground(drawable);
+        holder.mChart.setLayerType(WebView.LAYER_TYPE_NONE,null);
+        if (!chartLoaded)
+            getRVNValueHistory(holder.mChart);
+        holder.mWalletInfos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (position >= mAdapter.getItemCount() || position < 0) return;
+                BRSharedPrefs.putCurrentWalletIso(mContext, getItemAt(position).getIso(mContext));
+//                Log.d("HomeActivity", "Saving current wallet ISO as " + mAdapter.getItemAt(position).getIso(HomeActivity.this));
 
+                Intent newIntent = new Intent(mContext, WalletActivity.class);
+                mContext.startActivity(newIntent);
+                mContext.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                chartLoaded = false;
+            }
+        });
     }
 
     public void stopObserving() {
-        if (mSyncManager != null)
-            mSyncManager.stopSyncing();
+        SyncService.unregisterSyncNotificationBroadcastReceiver(mContext.getApplicationContext(),
+                mSyncNotificationBroadcastReceiver);
     }
 
     public void startObserving() {
         if (mObserverIsStarting) return;
         mObserverIsStarting = true;
+        SyncService.registerSyncNotificationBroadcastReceiver(mContext.getApplicationContext(), mSyncNotificationBroadcastReceiver);
 
         BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
             @Override
@@ -118,26 +156,18 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
                             @Override
                             public void run() {
                                 for (WalletItem item : mWalletItems) {
-
-                                    item.updateData(false, false, true, 100, "Done");
+                                    item.updateData(false);
                                     notifyDataSetChanged();
-
                                 }
                             }
                         });
 
                         return;
                     }
-
+                    String walletIso = mCurrentWalletSyncing.walletManager.getIso(mContext);
                     Log.e(TAG, "startObserving: connecting: " + mCurrentWalletSyncing.walletManager.getIso(mContext));
                     mCurrentWalletSyncing.walletManager.connectWallet(mContext);
-                    mSyncManager = SyncManager.getInstance();
-                    mSyncManager.startSyncing(mContext, mCurrentWalletSyncing.walletManager, new SyncManager.OnProgressUpdate() {
-                        @Override
-                        public boolean onProgressUpdated(double progress) {
-                            return updateUi(mCurrentWalletSyncing, progress);
-                        }
-                    });
+                    SyncService.startService(mContext, walletIso);
                 } finally {
                     mObserverIsStarting = false;
                 }
@@ -153,28 +183,15 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
             Log.e(TAG, "run: should not happen but ok, ignore it.");
             return false;
         }
-        if (syncProgress > 0.0 && syncProgress < 1.0) {
-            int progress = (int) (syncProgress * 100);
-//            Log.d(TAG, "ISO: " + currentWallet.walletManager.getIso(mContext) + " (" + progress + "%)");
+        if (syncProgress > SyncService.PROGRESS_START && syncProgress < SyncService.PROGRESS_FINISH) {
+            StringBuffer labelText = new StringBuffer(mContext.getString(R.string.SyncingView_syncing));
+            labelText.append(' ')
+                    .append(NumberFormat.getPercentInstance().format(syncProgress));
 
-            mCurrentWalletSyncing.updateData(true, true, false, progress, "Syncing");
-            notifyDataSetChanged();
-        }
-
-        // HAS NOT STARTED SYNCING
-        else if (syncProgress == 0.0) {
-//            Log.d(TAG, "ISO: " + currentWallet.walletManager.getIso(mContext) + " (0%)");
-            mCurrentWalletSyncing.updateData(false, true, false, 0, "Waiting to Sync");
-            notifyDataSetChanged();
-        }
-
-        // FINISHED SYNCING
-        else if (syncProgress == 1.0) {
-//            Log.d(TAG, "ISO: " + currentWallet.walletManager.getIso(mContext) + " (100%)");
-
+            mCurrentWalletSyncing.updateData(true, labelText.toString());
+        } else if (syncProgress == SyncService.PROGRESS_FINISH) {
             //Done should not be seen but if it is because of a bug or something, then let if be a decent explanation
-            mCurrentWalletSyncing.updateData(false, false, true, 100, "Done");
-            notifyDataSetChanged();
+            mCurrentWalletSyncing.updateData(false);
 
             //start from beginning
             startObserving();
@@ -216,10 +233,12 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         public BRText mTradePrice;
         public BRText mWalletBalanceUSD;
         public BRText mWalletBalanceCurrency;
-        public RelativeLayout mParent;
+        public CardView mParent;
+        public RelativeLayout mWalletInfos;
         public BRText mSyncingLabel;
         public ProgressBar mSyncingProgressBar;
-
+        public BRText lblBitterex;
+        public ChartView mChart;
 
         public WalletItemViewHolder(View view) {
             super(view);
@@ -229,29 +248,112 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
             mWalletBalanceUSD = view.findViewById(R.id.wallet_balance_usd);
             mWalletBalanceCurrency = view.findViewById(R.id.wallet_balance_currency);
             mParent = view.findViewById(R.id.wallet_card);
+            mWalletInfos = view.findViewById(R.id.layout_wallet_info);
             mSyncingLabel = view.findViewById(R.id.syncing_label);
             mSyncingProgressBar = view.findViewById(R.id.sync_progress);
+            lblBitterex = view.findViewById(R.id.lbl_bitterex);
+            mChart = view.findViewById(R.id.chart_view);
         }
     }
 
     private class WalletItem {
         public BaseWalletManager walletManager;
         private boolean mShowSyncing = true;
-        private boolean mShowSyncingLabel = true;
-        private boolean mShowBalance = false;
-        private int mProgress; //1 - 100%
+        //private boolean mShowSyncingLabel = true;
+       // private boolean mShowBalance = false;
+        //private int mProgress; //1 - 100%
         private String mLabelText = "Waiting to Sync";
 
         public WalletItem(BaseWalletManager walletManager) {
             this.walletManager = walletManager;
         }
 
-        public void updateData(boolean showSyncing, boolean showSyncingLabel, boolean showBalance, int progress, String labelText) {
+        public void updateData(boolean showSyncProgress) {
+            updateData(showSyncProgress, null);
+        }
+        public void updateData(boolean showSyncing, String labelText) {
             mShowSyncing = showSyncing;
-            mShowSyncingLabel = showSyncingLabel;
-            mShowBalance = showBalance;
-            mProgress = progress;
-            mLabelText = labelText;
+        //    mShowSyncingLabel = showSyncingLabel;
+        //    mShowBalance = showBalance;
+          //  mProgress = progress;
+            if (labelText != null) {
+                mLabelText = labelText;
+            }
         }
     }
+
+    private void getRVNValueHistory(final ChartView chartView) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, CHART_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        RVNToBTCData data = new Gson().fromJson(response, RVNToBTCData.class);
+
+                        // Set the data on the chart view
+                        setChartData(chartView, data);
+                        chartLoaded = true;
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error", error.toString());
+                chartView.setVisibility(View.GONE);
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void setChartData(ChartView chartView, RVNToBTCData data) {
+        ChartModel chartModel = new ChartModel()
+                .chartType(ChartModel.ChartType.AreaSpline)
+                .backgroundColor("#2e3e80")
+                .dataLabelEnabled(false)
+                .yAxisGridLineWidth(0)
+                .borderRadius(5)
+                .series(new SeriesElement[]{
+                        new SeriesElement().name("RVN")
+                                .data(
+                                        data.toObjectArray()
+                                ).lineWidth(1.0f)
+                                .step(true)
+                });
+        chartView.aa_drawChartWithChartModel(chartModel);
+        chartView.setVisibility(View.VISIBLE);
+    }
+    /**
+     * The {@link SyncNotificationBroadcastReceiver} is responsible for receiving updates from the
+     * {@link SyncService} and updating the UI accordingly.
+     */
+    private class SyncNotificationBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SyncService.ACTION_SYNC_PROGRESS_UPDATE.equals(intent.getAction())) {
+                String intentWalletIso = intent.getStringExtra(SyncService.EXTRA_WALLET_CURRENCY_CODE);
+                double progress = intent.getDoubleExtra(SyncService.EXTRA_PROGRESS, SyncService.PROGRESS_NOT_DEFINED);
+
+                if (mCurrentWalletSyncing == null) {
+                    Log.e(TAG, "SyncNotificationBroadcastReceiver.onReceive: mCurrentWalletSyncing is null. Wallet:" + intentWalletIso + " Progress:" + progress + " Ignored");
+                    return;
+                }
+
+                String currentWalletCurrencyCode = mCurrentWalletSyncing.walletManager.getIso(mContext);
+                if (currentWalletCurrencyCode.equals(intentWalletIso)) {
+                    if (progress >= SyncService.PROGRESS_START) {
+                        updateUi(mCurrentWalletSyncing, progress);
+                    } else {
+                        Log.e(TAG, "SyncNotificationBroadcastReceiver.onReceive: Progress not set:" + progress);
+                    }
+                } else {
+                    Log.e(TAG, "SyncNotificationBroadcastReceiver.onReceive: Wrong wallet. Expected:" + currentWalletCurrencyCode + " Actual:" + intentWalletIso + " Progress:" + progress);
+                }
+            }
+        }
+    }
+
 }

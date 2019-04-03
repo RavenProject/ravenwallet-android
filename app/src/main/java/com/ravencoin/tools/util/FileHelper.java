@@ -5,7 +5,7 @@ import android.util.Log;
 import java.io.File;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 9/22/17.
  * Copyright (c) 2017 breadwallet LLC

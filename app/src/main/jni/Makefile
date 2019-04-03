@@ -17,6 +17,7 @@ JNI_SRCS=com_ravencoin_core_BRCoreAddress.c \
 	com_ravencoin_core_BRCoreTransaction.c \
 	com_ravencoin_core_BRCoreTransactionInput.c \
 	com_ravencoin_core_BRCoreTransactionOutput.c \
+	com_ravencoin_core_BRCoreTransactionAsset.c \
 	com_ravencoin_core_BRCoreWallet.c \
 	BRCoreJni.c
 
@@ -42,6 +43,8 @@ JAVA_SRCS=root/com/ravencoin/core/BRCoreAddress.java \
 	root/com/ravencoin/core/BRCoreTransaction.java \
 	root/com/ravencoin/core/BRCoreTransactionInput.java \
 	root/com/ravencoin/core/BRCoreTransactionOutput.java \
+	root/com/ravencoin/core/BRCoreTransactionAsset.java \
+	root/com/ravencoin/core/MyTransactionAsset.java \
 	root/com/ravencoin/core/BRCoreWallet.java \
 	root/com/ravencoin/core/BRCoreWalletManager.java \
 	root/com/ravencoin/core/test/BRWalletManager.java

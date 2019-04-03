@@ -23,7 +23,7 @@ import static com.ravencoin.tools.manager.PromptManager.PromptItem.SHARE_DATA;
 import static com.ravencoin.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 7/18/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -161,6 +161,7 @@ public class PromptManager {
                         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                             @Override
                             public void run() {
+                                BRSharedPrefs.putShareDataDismissed(app, true);
                                 Intent intent = new Intent(app, ShareDataActivity.class);
                                 app.startActivity(intent);
                                 app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);

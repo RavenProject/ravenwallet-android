@@ -3,7 +3,7 @@ package com.platform.middlewares;
 import android.content.Context;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.tools.crypto.CryptoHelper;
 import com.ravencoin.tools.util.TypesConverter;
 import com.ravencoin.tools.util.Utils;
@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/17/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -62,7 +62,7 @@ public class HTTPFileMiddleware implements Middleware {
         if (target.equals("/favicon.ico")) {
             return BRHTTPHelper.handleSuccess(200, null, baseRequest, response, null);
         }
-        Context app = BreadApp.getBreadContext();
+        Context app = RavenApp.getBreadContext();
         if (app == null) {
             Log.e(TAG, "handle: app is null!");
             return true;

@@ -27,7 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.camera.ScanQRActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
@@ -45,13 +45,11 @@ import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
-import com.platform.APIClient;
 
 
 import java.util.List;
 
 import static com.ravencoin.R.color.white;
-import static com.ravencoin.tools.util.BRConstants.PLATFORM_ON;
 import static com.ravencoin.tools.util.BRConstants.SCANNER_REQUEST;
 
 public class LoginActivity extends BRActivity {
@@ -100,14 +98,14 @@ public class LoginActivity extends BRActivity {
 
         if (BRKeyStore.getPinCode(this).length() == 4) pinLimit = 4;
 
-        keyboard = (BRKeyboard) findViewById(R.id.brkeyboard);
-        pinLayout = (LinearLayout) findViewById(R.id.pinLayout);
-        fingerPrint = (ImageButton) findViewById(R.id.fingerprint_icon);
+        keyboard = findViewById(R.id.brkeyboard);
+        pinLayout = findViewById(R.id.pinLayout);
+        fingerPrint = findViewById(R.id.fingerprint_icon);
 
-        unlockedImage = (ImageView) findViewById(R.id.unlocked_image);
-        unlockedText = (TextView) findViewById(R.id.unlocked_text);
-        enterPinLabel = (TextView) findViewById(R.id.enter_pin_label);
-        offlineButtonsLayout = (LinearLayout) findViewById(R.id.buttons_layout);
+        unlockedImage = findViewById(R.id.unlocked_image);
+        unlockedText = findViewById(R.id.unlocked_text);
+        enterPinLabel = findViewById(R.id.enter_pin_label);
+        offlineButtonsLayout = findViewById(R.id.buttons_layout);
 
         dot1 = findViewById(R.id.dot1);
         dot2 = findViewById(R.id.dot2);
@@ -129,8 +127,8 @@ public class LoginActivity extends BRActivity {
         keyboard.setCustomButtonBackgroundColor(10, getColor(android.R.color.transparent));
         keyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
 
-        leftButton = (Button) findViewById(R.id.left_button);
-        rightButton = (Button) findViewById(R.id.right_button);
+        leftButton = findViewById(R.id.left_button);
+        rightButton = findViewById(R.id.right_button);
 
         setUpOfflineButtons();
 
@@ -138,7 +136,7 @@ public class LoginActivity extends BRActivity {
             @Override
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showReceiveFragment(LoginActivity.this, false);
+                BRAnimator.showReceiveFragment(LoginActivity.this, false,null);
 //                chooseWordsSize(true);
             }
         });
@@ -211,7 +209,7 @@ public class LoginActivity extends BRActivity {
             }
         }, 500);
 
-        BreadApp.addOnBackgroundedListener(new BreadApp.OnAppBackgrounded() {
+        RavenApp.addOnBackgroundedListener(new RavenApp.OnAppBackgrounded() {
             @Override
             public void onBackgrounded() {
                 //disconnect all wallets on backgrounded
@@ -276,8 +274,9 @@ public class LoginActivity extends BRActivity {
                 WalletsMaster.getInstance(LoginActivity.this).initLastWallet(LoginActivity.this);
             }
         });
-        if (PLATFORM_ON)
-            APIClient.getInstance(this).updatePlatform();
+        //TODO uncomment
+     //   if (PLATFORM_ON)
+     //       APIClient.getInstance(this).updatePlatform();
 
 //        changeStatusBarColor(app);
         setStatusBarGradiant(app);
@@ -331,7 +330,7 @@ public class LoginActivity extends BRActivity {
     }
 
     private void unlockWallet() {
-        pin = new StringBuilder("");
+        pin = new StringBuilder();
         offlineButtonsLayout.animate().translationY(-600).setInterpolator(new AccelerateInterpolator());
         pinLayout.animate().translationY(-2000).setInterpolator(new AccelerateInterpolator());
         enterPinLabel.animate().translationY(-1800).setInterpolator(new AccelerateInterpolator());
@@ -358,7 +357,7 @@ public class LoginActivity extends BRActivity {
 
     private void showFailedToUnlock() {
         SpringAnimator.failShakeAnimation(LoginActivity.this, pinLayout);
-        pin = new StringBuilder("");
+        pin = new StringBuilder();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -411,7 +410,7 @@ public class LoginActivity extends BRActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openAddressScanner(this, BRConstants.SCANNER_REQUEST);
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 

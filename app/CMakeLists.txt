@@ -61,6 +61,10 @@ add_library( # The name of the library.
              src/main/jni/core/BRTransaction.h
              src/main/jni/core/BRWallet.c
              src/main/jni/core/BRWallet.h
+             src/main/jni/core/BRAssets.c
+             src/main/jni/core/BRAssets.h
+             src/main/jni/core/BRScript.c
+             src/main/jni/core/BRScript.h
 
             # X16r files
 			src/main/jni/core/crypto/blake.c
@@ -128,6 +132,8 @@ add_library( # The name of the library.
              src/main/jni/com_ravencoin_core_BRCorePaymentProtocol.h
              src/main/jni/com_ravencoin_core_BRCoreWallet.c
              src/main/jni/com_ravencoin_core_BRCoreWallet.h
+             src/main/jni/com_ravencoin_core_BRCoreTransactionAsset.c
+             src/main/jni/com_ravencoin_core_BRCoreTransactionAsset.h
 
              # Bech32 files
              #src/main/jni/core/BRBech32.c
@@ -140,6 +146,7 @@ include_directories(src/main/jni/core/)
 include_directories(src/main/jni/core/secp256k1/include)
 include_directories(src/main/jni/core/secp256k1/src)
 include_directories(src/main/jni/core/secp256k1)
+include_directories(/System/Library/Frameworks/JavaVM.framework/Headers)
 
 include_directories(src/main/secp/secp256k1/include/)
 include_directories(src/main/secp/secp256k1/src/)

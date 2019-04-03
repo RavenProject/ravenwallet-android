@@ -5,7 +5,7 @@ import com.platform.sqlite.KVItem;
 import java.util.List;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/13/16.
  * Copyright (c) 2016 breadwallet LLC

@@ -1,7 +1,7 @@
 package com.platform.kvstore;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 9/25/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -32,7 +32,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.core.BRCoreKey;
 import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.threads.executor.BRExecutor;
@@ -854,7 +854,7 @@ public class ReplicatedKVStore {
             Log.e(TAG, "encrypt: data is null");
             return null;
         }
-        if (app == null) app = BreadApp.getBreadContext();
+        if (app == null) app = RavenApp.getBreadContext();
         if (app == null) {
             Log.e(TAG, "encrypt: app is null");
             return null;
@@ -894,7 +894,7 @@ public class ReplicatedKVStore {
             Log.e(TAG, "decrypt: failed to decrypt: " + (data == null ? null : data.length));
             return null;
         }
-        if (app == null) app = BreadApp.getBreadContext();
+        if (app == null) app = RavenApp.getBreadContext();
         if (app == null) return null;
         if (tempAuthKey == null)
             retrieveAuthKey(app);

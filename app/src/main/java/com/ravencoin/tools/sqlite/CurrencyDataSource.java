@@ -1,7 +1,7 @@
 package com.ravencoin.tools.sqlite;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 9/25/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -109,7 +109,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
     public void deleteAllCurrencies(Context app, String iso) {
         try {
             database = openDatabase();
-            database.delete(BRSQLiteHelper.CURRENCY_TABLE_NAME, BRSQLiteHelper.CURRENCY_ISO + " = ?", new String[]{iso.toUpperCase()});
+            int count = database.delete(BRSQLiteHelper.CURRENCY_TABLE_NAME, BRSQLiteHelper.CURRENCY_ISO + " = ?", new String[]{iso.toUpperCase()});
             for (OnDataChanged list : onDataChangedListeners) if (list != null) list.onChanged();
         } finally {
             closeDatabase();

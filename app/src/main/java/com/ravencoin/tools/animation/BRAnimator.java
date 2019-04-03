@@ -17,12 +17,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
+import com.platform.addressBook.AddressBookItem;
+import com.platform.assets.Asset;
+import com.platform.assets.AssetType;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.HomeActivity;
 import com.ravencoin.presenter.activities.LoginActivity;
@@ -32,21 +36,37 @@ import com.ravencoin.presenter.activities.intro.IntroActivity;
 import com.ravencoin.presenter.customviews.BRDialogView;
 import com.ravencoin.presenter.entities.CryptoRequest;
 import com.ravencoin.presenter.entities.TxUiHolder;
+import com.ravencoin.presenter.fragments.BurnFragmentListener;
+import com.ravencoin.presenter.fragments.FragmentAddAddress;
+import com.ravencoin.presenter.fragments.FragmentAssetMenu;
+import com.ravencoin.presenter.fragments.FragmentBurnAsset;
+import com.ravencoin.presenter.fragments.FragmentConfirmation;
+import com.ravencoin.presenter.fragments.FragmentCreateAsset;
+import com.ravencoin.presenter.fragments.FragmentData;
 import com.ravencoin.presenter.fragments.FragmentGreetings;
+import com.ravencoin.presenter.fragments.FragmentIPFS;
+import com.ravencoin.presenter.fragments.FragmentIssueSubAsset;
+import com.ravencoin.presenter.fragments.FragmentIssueUniqueAsset;
+import com.ravencoin.presenter.fragments.FragmentManageAsset;
 import com.ravencoin.presenter.fragments.FragmentMenu;
-import com.ravencoin.presenter.fragments.FragmentSignal;
 import com.ravencoin.presenter.fragments.FragmentReceive;
 import com.ravencoin.presenter.fragments.FragmentRequestAmount;
 import com.ravencoin.presenter.fragments.FragmentSend;
+import com.ravencoin.presenter.fragments.FragmentSignal;
 import com.ravencoin.presenter.fragments.FragmentSupport;
+import com.ravencoin.presenter.fragments.FragmentTransferAsset;
+import com.ravencoin.presenter.fragments.FragmentTxCreated;
 import com.ravencoin.presenter.fragments.FragmentTxDetails;
 import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
+import com.ravencoin.presenter.interfaces.ConfirmationListener;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.BRConstants;
 
+import javax.annotation.Nullable;
+
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 7/13/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -111,9 +131,9 @@ public class BRAnimator {
         try {
             SLIDE_ANIMATION_DURATION = 0;
             if (tag.equalsIgnoreCase(FragmentSend.class.getName())) {
-                showSendFragment(app, null);
+                showSendFragment(app, null, false, null);
             } else if (tag.equalsIgnoreCase(FragmentReceive.class.getName())) {
-                showReceiveFragment(app, true);
+                showReceiveFragment(app, true,null);
             } else if (tag.equalsIgnoreCase(FragmentRequestAmount.class.getName())) {
                 showRequestFragment(app);
             } else if (tag.equalsIgnoreCase(FragmentMenu.class.getName())) {
@@ -132,7 +152,7 @@ public class BRAnimator {
         }
     }
 
-    public static void showSendFragment(Activity app, final CryptoRequest request) {
+    public static void showSendFragment(Activity app, final CryptoRequest request, boolean isFromAddressBook, @Nullable AddressBookItem address) {
         if (app == null) {
             Log.e(TAG, "showSendFragment: app is null");
             return;
@@ -143,7 +163,7 @@ public class BRAnimator {
             return;
         }
         try {
-            fragmentSend = new FragmentSend();
+            fragmentSend = FragmentSend.newInstance(isFromAddressBook, address);
             if (request != null && !request.address.isEmpty()) {
                 fragmentSend.setCryptoObject(request);
             }
@@ -155,6 +175,118 @@ public class BRAnimator {
 
         }
 
+    }
+
+    public static void showAddressAddingFragment(Activity app) {
+        if (app == null) {
+            Log.e(TAG, "showAddressAddingFragment: app is null");
+            return;
+        }
+        FragmentAddAddress fragmentAddAddress = (FragmentAddAddress) app.getFragmentManager().findFragmentByTag(FragmentAddAddress.class.getName());
+        if (fragmentAddAddress != null && fragmentAddAddress.isAdded()) return;
+
+        fragmentAddAddress = FragmentAddAddress.newInstance();
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentAddAddress, FragmentAddAddress.class.getName())
+                .addToBackStack(FragmentAddAddress.class.getName()).commit();
+    }
+
+    public static void showAssetMenuFragment(Activity app, Asset asset) {
+        if (app == null) {
+            Log.e(TAG, "showAddressAddingFragment: app is null");
+            return;
+        }
+        FragmentAssetMenu fragmentAssetMenu = (FragmentAssetMenu) app.getFragmentManager().findFragmentByTag(FragmentAssetMenu.class.getName());
+        if (fragmentAssetMenu != null && fragmentAssetMenu.isAdded()) return;
+
+        fragmentAssetMenu = FragmentAssetMenu.newInstance(asset);
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentAssetMenu, FragmentAssetMenu.class.getName())
+                .addToBackStack(FragmentAssetMenu.class.getName()).commit();
+    }
+
+    public static void showAssetTransferFragment(Activity app, Asset asset) {
+        if (app == null) {
+            Log.e(TAG, "showAssetTransferFragment: app is null");
+            return;
+        }
+        FragmentTransferAsset fragmentTransferAsset = (FragmentTransferAsset) app.getFragmentManager().findFragmentByTag(FragmentTransferAsset.class.getName());
+        if (fragmentTransferAsset != null && fragmentTransferAsset.isAdded()) return;
+
+        fragmentTransferAsset = FragmentTransferAsset.newInstance(asset);
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentTransferAsset, FragmentTransferAsset.class.getName())
+                .addToBackStack(FragmentTransferAsset.class.getName()).commit();
+    }
+
+    public static void showAssetCreationFragment(Activity app) {
+        if (app == null) {
+            Log.e(TAG, "showAssetCreationFragment: app is null");
+            return;
+        }
+        FragmentCreateAsset fragmentCreateAsset = (FragmentCreateAsset) app.getFragmentManager().findFragmentByTag(FragmentCreateAsset.class.getName());
+        if (fragmentCreateAsset != null && fragmentCreateAsset.isAdded()) return;
+
+        fragmentCreateAsset = FragmentCreateAsset.newInstance();
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentCreateAsset, FragmentCreateAsset.class.getName())
+                .addToBackStack(FragmentCreateAsset.class.getName()).commit();
+    }
+
+    public static void showIssueSubAssetFragment(Activity app, Asset asset) {
+        if (app == null) {
+            Log.e(TAG, "showIssueSubAssetFragment: app is null");
+            return;
+        }
+        FragmentIssueSubAsset fragmentIssueSubAsset = (FragmentIssueSubAsset) app.getFragmentManager().findFragmentByTag(FragmentIssueSubAsset.class.getName());
+        if (fragmentIssueSubAsset != null && fragmentIssueSubAsset.isAdded()) return;
+
+        fragmentIssueSubAsset = FragmentIssueSubAsset.newInstance(asset);
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentIssueSubAsset, FragmentIssueSubAsset.class.getName())
+                .addToBackStack(FragmentIssueSubAsset.class.getName()).commit();
+    }
+
+    public static void showIssueUniqueAssetFragment(Activity app, Asset asset) {
+        if (app == null) {
+            Log.e(TAG, "showIssueUniqueAssetFragment: app is null");
+            return;
+        }
+        FragmentIssueUniqueAsset fragmentIssueUniqueAsset = (FragmentIssueUniqueAsset) app.getFragmentManager().findFragmentByTag(FragmentIssueUniqueAsset.class.getName());
+        if (fragmentIssueUniqueAsset != null && fragmentIssueUniqueAsset.isAdded()) return;
+
+        fragmentIssueUniqueAsset = FragmentIssueUniqueAsset.newInstance(asset);
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentIssueUniqueAsset, FragmentIssueUniqueAsset.class.getName())
+                .addToBackStack(FragmentIssueUniqueAsset.class.getName()).commit();
+    }
+
+    public static void showAssetManagingFragment(Activity app, Asset asset) {
+        if (app == null) {
+            Log.e(TAG, "showAssetManagingFragment: app is null");
+            return;
+        }
+        FragmentManageAsset fragmentManageAsset = (FragmentManageAsset) app.getFragmentManager().findFragmentByTag(FragmentManageAsset.class.getName());
+        if (fragmentManageAsset != null && fragmentManageAsset.isAdded()) return;
+
+        fragmentManageAsset = FragmentManageAsset.newInstance(asset);
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentManageAsset, FragmentManageAsset.class.getName())
+                .addToBackStack(FragmentManageAsset.class.getName()).commit();
     }
 
     public static void showSupportFragment(Activity app, String articleId) {
@@ -184,6 +316,24 @@ public class BRAnimator {
 
         }
 
+    }
+
+    public static void showIPFSFragment(Activity app, String IPFSHash) {
+        if (app == null) {
+            Log.e(TAG, "showSupportFragment: app is null");
+            return;
+        }
+        FragmentIPFS fragmentIPFS = (FragmentIPFS) app.getFragmentManager().findFragmentByTag(FragmentIPFS.class.getName());
+        if (fragmentIPFS != null && fragmentIPFS.isAdded()) {
+            app.getFragmentManager().popBackStack();
+            return;
+        }
+        fragmentIPFS = FragmentIPFS.newInstance(IPFSHash);
+
+        app.getFragmentManager().beginTransaction()
+                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                .add(android.R.id.content, fragmentIPFS, FragmentIPFS.class.getName())
+                .addToBackStack(FragmentSend.class.getName()).commit();
     }
 
     public static void popBackStackTillEntry(Activity app, int entryIndex) {
@@ -228,11 +378,11 @@ public class BRAnimator {
 //
 //    }
 
-    public static void showTransactionDetails(Activity app, TxUiHolder item, int position){
+    public static void showTransactionDetails(Activity app, TxUiHolder item, int position) {
 
         FragmentTxDetails txDetails = (FragmentTxDetails) app.getFragmentManager().findFragmentByTag(FragmentTxDetails.class.getName());
 
-        if(txDetails != null && txDetails.isAdded()){
+        if (txDetails != null && txDetails.isAdded()) {
             Log.e(TAG, "showTransactionDetails: Already showing");
 
             return;
@@ -244,7 +394,7 @@ public class BRAnimator {
 
     }
 
-    public static void openScanner(Activity app, int requestID) {
+    public static void openAddressScanner(Activity app, int requestID) {
         try {
             if (app == null) return;
 
@@ -276,7 +426,41 @@ public class BRAnimator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public static void openIPFSHashScanner(Activity app, int requestID) {
+        try {
+            if (app == null) return;
+
+            // Check if the camera permission is granted
+            if (ContextCompat.checkSelfPermission(app,
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(app,
+                        Manifest.permission.CAMERA)) {
+                    BRDialog.showCustomDialog(app, app.getString(R.string.Send_cameraUnavailabeTitle_android), app.getString(R.string.Send_cameraUnavailabeMessage_android), app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+                        @Override
+                        public void onClick(BRDialogView brDialogView) {
+                            brDialogView.dismiss();
+                        }
+                    }, null, null, 0);
+                } else {
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(app,
+                            new String[]{Manifest.permission.CAMERA},
+                            BRConstants.CAMERA_REQUEST_ID);
+                }
+            } else {
+                // Permission is granted, open camera
+                Intent intent = new Intent(app, ScanQRActivity.class);
+                intent.putExtra(ScanQRActivity.SCANNING_IPFS_HASH_EXTRA_KEY, true);
+                app.startActivityForResult(intent, requestID);
+                app.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static LayoutTransition getDefaultTransition() {
@@ -320,7 +504,7 @@ public class BRAnimator {
     }
 
     //isReceive tells the Animator that the Receive fragment is requested, not My Address
-    public static void showReceiveFragment(Activity app, boolean isReceive) {
+    public static void showReceiveFragment(Activity app, boolean isReceive, String address) {
         if (app == null) {
             Log.e(TAG, "showReceiveFragment: app is null");
             return;
@@ -331,6 +515,8 @@ public class BRAnimator {
         fragmentReceive = new FragmentReceive();
         Bundle args = new Bundle();
         args.putBoolean("receive", isReceive);
+        if (!TextUtils.isEmpty(address))
+            args.putString("address", address);
         fragmentReceive.setArguments(args);
 
         app.getFragmentManager().beginTransaction()
@@ -444,6 +630,75 @@ public class BRAnimator {
         anim.start();
     }
 
+    public static void showDataFragment(Activity app, Asset asset) {
+        if (app == null || asset == null) {
+            Log.e(TAG, "showDataFragment: app or asset is null");
+            return;
+        }
+        FragmentData fragmentData = (FragmentData) app.getFragmentManager().findFragmentByTag(FragmentData.class.getName());
+        if (fragmentData != null && fragmentData.isAdded())
+            return;
+        fragmentData = new FragmentData();
+        Bundle args = new Bundle();
+        args.putParcelable("asset", asset);
+        fragmentData.setArguments(args);
+        fragmentData.show(app.getFragmentManager(), FragmentData.class.getName());
+    }
+
+    public static void showConfirmationFragment(Activity app, Asset asset, AssetType assetType, String address, ConfirmationListener listener) {
+        if (app == null || asset == null) {
+            Log.e(TAG, "showDataFragment: app or asset is null");
+            return;
+        }
+        FragmentConfirmation fragment = (FragmentConfirmation) app.getFragmentManager()
+                .findFragmentByTag(FragmentConfirmation.class.getName());
+        if (fragment != null && fragment.isAdded())
+            return;
+        fragment = new FragmentConfirmation();
+        Bundle args = new Bundle();
+        args.putParcelable("asset", asset);
+        if (!TextUtils.isEmpty(address))
+            args.putString("address", address);
+        if (assetType != null)
+            args.putSerializable("type", assetType);
+        fragment.setArguments(args);
+        fragment.setConfirmationListener(listener);
+        fragment.show(app.getFragmentManager(), FragmentConfirmation.class.getName());
+    }
+
+    public static void showTxCreatedFragment(Activity app, String txHash) {
+        if (app == null || txHash == null) {
+            Log.e(TAG, "showDataFragment: app or asset is null");
+            return;
+        }
+        FragmentTxCreated fragment = (FragmentTxCreated) app.getFragmentManager()
+                .findFragmentByTag(FragmentTxCreated.class.getName());
+        if (fragment != null && fragment.isAdded())
+            return;
+        fragment = new FragmentTxCreated();
+        Bundle args = new Bundle();
+        args.putString("tx_hash", txHash);
+        fragment.setArguments(args);
+        fragment.show(app.getFragmentManager(), FragmentTxCreated.class.getName());
+    }
+
+    public static void showBurnAssetFragment(Activity app, Asset asset, BurnFragmentListener listener) {
+        if (app == null || asset == null) {
+            Log.e(TAG, "showBurnAssetFragment: app or asset is null");
+            return;
+        }
+        FragmentBurnAsset fragmentBurnAsset = (FragmentBurnAsset) app.getFragmentManager().findFragmentByTag(FragmentBurnAsset.class.getName());
+        if (fragmentBurnAsset != null && fragmentBurnAsset.isAdded())
+            return;
+
+        fragmentBurnAsset = new FragmentBurnAsset();
+        fragmentBurnAsset.setListner(listener);
+        Bundle args = new Bundle();
+        args.putParcelable("asset", asset);
+        fragmentBurnAsset.setArguments(args);
+        fragmentBurnAsset.show(app.getFragmentManager(), FragmentBurnAsset.class.getName());
+
+    }
 
     public interface OnSlideAnimationEnd {
         void onAnimationEnd();

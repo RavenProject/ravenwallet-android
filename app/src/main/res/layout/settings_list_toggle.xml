@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:filterTouchesWhenObscured="true"
+    android:orientation="horizontal">
+
+    <com.ravencoin.presenter.customviews.BRText
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="@dimen/sub_header"
+        android:textColor="@color/total_assets_usd_color"
+        tools:text="Expert mode"/>
+
+    <com.ravencoin.presenter.customviews.BRText
+        app:customTFont="CircularPro-Medium.otf"
+        android:id="@+id/item_addon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textSize="@dimen/sub_header"
+        android:visibility="gone"
+        android:text="$USD"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="28dp"
+        android:textColor="@color/total_assets_label_color"
+        />
+
+    <android.support.v7.widget.SwitchCompat
+        android:layout_alignParentRight="true"
+        android:checked="false"
+        android:id="@+id/toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:theme="@style/SCBSwitch" />
+    <ImageButton
+        android:id="@+id/chevron_right"
+        android:background="@drawable/chevron_right_light"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/arrow_leave"
+        android:background="@drawable/arrow_leave"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="4dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.ravencoin.presenter.activities.intro;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.ravencoin.R;
-import com.ravencoin.presenter.activities.util.ActivityUTILS;
+import com.ravencoin.presenter.activities.HomeActivity;
+import com.ravencoin.presenter.activities.TermsAndConditionsActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.interfaces.BRAuthCompletion;
 import com.ravencoin.tools.animation.BRAnimator;
@@ -37,15 +39,15 @@ public class WriteDownActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_down);
 
-        writeButton = (Button) findViewById(R.id.button_write_down);
-        close = (ImageButton) findViewById(R.id.close_button);
+        writeButton = findViewById(R.id.button_write_down);
+        close = findViewById(R.id.close_button);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 close();
             }
         });
-        ImageButton faq = (ImageButton) findViewById(R.id.faq_button);
+        ImageButton faq = findViewById(R.id.faq_button);
         faq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,14 +116,11 @@ public class WriteDownActivity extends BRActivity {
 
     private void close() {
         Log.e(TAG, "close: ");
-        BRAnimator.startBreadActivity(this, false);
-        overridePendingTransition(R.anim.fade_up, R.anim.exit_to_bottom);
-        if (!isDestroyed()) finish();
-        //additional code
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+       startActivity(intent);
+       overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+        if (!isDestroyed())
+            finish();
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
-
 }

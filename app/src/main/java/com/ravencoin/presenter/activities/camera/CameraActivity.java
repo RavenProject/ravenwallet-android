@@ -42,7 +42,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.tools.threads.executor.BRExecutor;
@@ -60,7 +60,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/29/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -895,7 +895,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                CameraPlugin.handleCameraImageTaken(BreadApp.getBreadContext(), bytes);
+                                CameraPlugin.handleCameraImageTaken(RavenApp.getBreadContext(), bytes);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

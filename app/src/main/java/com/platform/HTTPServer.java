@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.Utils;
 import com.platform.interfaces.Middleware;
@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/17/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -153,7 +153,7 @@ public class HTTPServer {
 
     private static boolean dispatch(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         Log.d(TAG, "TRYING TO HANDLE: " + target + " (" + request.getMethod() + ")");
-        final Context app = BreadApp.getBreadContext();
+        final Context app = RavenApp.getBreadContext();
         boolean result = false;
         if (target.equalsIgnoreCase("/_close")) {
             if (app != null) {

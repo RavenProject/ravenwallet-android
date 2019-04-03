@@ -3,25 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
-
-
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/item_image"
-        android:layout_width="70.0dp"
-        android:layout_height="70.0dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
-        android:padding="13.0dp"
-        android:src="@drawable/wallet_item_image" />
 
     <com.ravencoin.presenter.customviews.BRText
         android:id="@+id/tx_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/item_image"
-        android:layout_toRightOf="@+id/item_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:paddingTop="7.0dp"
         android:text="Received"
         android:layout_marginLeft="20dp"
@@ -35,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tx_action"
-        android:layout_toRightOf="@+id/item_image"
+        android:layout_alignParentLeft="true"
         android:text="Dec 2"
         android:layout_marginLeft="20dp"
         android:textColor="@color/total_assets_usd_color"
@@ -69,7 +59,7 @@
         android:layout_alignBottom="@id/tx_action"
         android:layout_alignParentRight="true"
         android:layout_marginRight="12dp"
-        android:text="-$839.30"
+        tools:text="-$839.30"
         android:textSize="16sp"
         app:customTFont="CircularPro-Bold.otf" />
 
@@ -78,16 +68,14 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="40dp"
         android:layout_height="5dp"
-        android:layout_below="@id/item_image"
-        android:layout_alignLeft="@id/item_image"
         android:layout_marginLeft="15dp"
         android:layout_centerVertical="true"
         android:indeterminate="false"
         android:max="100"
         android:progress="0"
         android:progressBackgroundTint="#552196f3"
-        android:progressDrawable="@drawable/wallet_sync_progress_bar"
         android:progressTint="#4b77f3"
+        tools:visibility="visible"
         android:visibility="invisible" />
 
     <Button

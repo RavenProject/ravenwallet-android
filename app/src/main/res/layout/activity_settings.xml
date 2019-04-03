@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
     android:background="@color/extra_light_blue_background"
     android:layout_height="match_parent"
@@ -28,7 +27,6 @@
 
 
             <com.ravencoin.presenter.customviews.BRText
-                android:id="@+id/nav_label"
                 android:text="Home"
                 app:customTFont="CircularPro-Bold.otf"
                 android:textSize="16sp"

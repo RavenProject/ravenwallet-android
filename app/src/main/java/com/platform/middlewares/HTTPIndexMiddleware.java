@@ -1,13 +1,11 @@
 package com.platform.middlewares;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.ravencoin.BreadApp;
+import com.ravencoin.RavenApp;
 import com.platform.APIClient;
 import com.platform.BRHTTPHelper;
-import com.platform.HTTPServer;
 import com.platform.interfaces.Middleware;
 
 import junit.framework.Assert;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/19/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -51,7 +49,7 @@ public class HTTPIndexMiddleware implements Middleware {
     @Override
     public boolean handle(String target, org.eclipse.jetty.server.Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
-        Context app = BreadApp.getBreadContext();
+        Context app = RavenApp.getBreadContext();
         if (app == null) {
             Log.e(TAG, "handle: app is null!");
             return true;

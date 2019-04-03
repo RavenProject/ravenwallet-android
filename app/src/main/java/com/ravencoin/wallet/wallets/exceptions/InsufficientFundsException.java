@@ -1,7 +1,7 @@
 package com.ravencoin.wallet.wallets.exceptions;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 1/30/18.
  * Copyright (c) 2018 breadwallet LLC

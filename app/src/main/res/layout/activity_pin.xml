@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bread_gradient"
@@ -42,39 +41,33 @@
         app:layout_constraintVertical_bias="0.75">
 
         <View
+            style="@style/ViewPinStyle"
             android:id="@+id/dot1"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
             android:background="@drawable/ic_pin_dot_white" />
 
         <View
             android:id="@+id/dot2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_white" />
 
         <View
             android:id="@+id/dot3"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_white" />
 
         <View
             android:id="@+id/dot4"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_white" />
 
         <View
             android:id="@+id/dot5"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_white" />
 
         <View
             android:id="@+id/dot6"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_white" />
     </LinearLayout>
 

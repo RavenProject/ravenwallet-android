@@ -2,8 +2,11 @@ package com.ravencoin.tools.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.platform.assets.BurnType;
 import com.ravencoin.R;
+import com.ravencoin.core.BRCoreAddress;
+import com.ravencoin.core.MyTransactionAsset;
 import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.presenter.entities.TxUiHolder;
 import com.ravencoin.tools.manager.BRSharedPrefs;
@@ -30,9 +36,28 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.platform.assets.BurnType.GLOBAL_BURN;
+import static com.platform.assets.BurnType.ISSUE_ASSET;
+import static com.platform.assets.BurnType.REISSUE;
+import static com.platform.assets.BurnType.SUB;
+import static com.platform.assets.BurnType.UNDEFINE;
+import static com.platform.assets.BurnType.UNIQUE;
+import static com.ravencoin.tools.util.BRConstants.CONFIRMS_COUNT;
+import static com.ravencoin.tools.util.BRConstants.CREATION_FEE;
+import static com.ravencoin.tools.util.BRConstants.REISSUE_FEE;
+import static com.ravencoin.tools.util.BRConstants.SATOSHIS;
+import static com.ravencoin.tools.util.BRConstants.STR_BURN_ASSET_ADDESSES;
+import static com.ravencoin.tools.util.BRConstants.STR_ISSUE_ASSET_BURN_ADDESSES;
+import static com.ravencoin.tools.util.BRConstants.STR_REISSUE_ASSET_BURN_ADDESSES;
+import static com.ravencoin.tools.util.BRConstants.STR_REISSUE_SUB_ASSET_BURN_ADDESSES;
+import static com.ravencoin.tools.util.BRConstants.STR_UNIQUE_ASSET_BURN_ADDESSES;
+import static com.ravencoin.tools.util.BRConstants.SUB_FEE;
+import static com.ravencoin.tools.util.BRConstants.UNIQUE_FEE;
+import static com.ravencoin.tools.util.BRConstants.receive;
+
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 7/27/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -83,6 +108,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public void setItems(List<TxUiHolder> items) {
+        //this.backUpFeed = items!= null?items:new ArrayList<TxUiHolder>();
         init(items);
     }
 
@@ -90,9 +116,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (items == null) items = new ArrayList<>();
         if (itemFeed == null) itemFeed = new ArrayList<>();
         if (backUpFeed == null) backUpFeed = new ArrayList<>();
-        this.itemFeed = items;
+        //if (itemFeed.isEmpty())
+            this.itemFeed = items;
         this.backUpFeed = items;
-
     }
 
     public void updateData() {
@@ -107,7 +133,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     item = newItems.get(i);
                     item.metaData = KVStoreManager.getInstance().getTxMetaData(mContext, item.getTxHash());
                     item.txReversed = Utils.reverseHex(Utils.bytesToHex(item.getTxHash()));
-
                 }
                 backUpFeed = newItems;
                 String log = String.format("newItems: %d, took: %d", newItems.size(), (System.currentTimeMillis() - s));
@@ -179,16 +204,18 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         // If this transaction failed, show the "FAILED" indicator in the cell
         if (!item.isValid())
             showTransactionFailed(convertView, item, received);
-
-        BigDecimal cryptoAmount = new BigDecimal(item.getAmount());
-        Log.e(TAG, "setTexts: crypto:" + cryptoAmount);
-        boolean isCryptoPreferred = BRSharedPrefs.isCryptoPreferred(mContext);
-        String preferredIso = isCryptoPreferred ? wallet.getIso(mContext) : BRSharedPrefs.getPreferredFiatIso(mContext);
-
-        BigDecimal amount = isCryptoPreferred ? cryptoAmount : wallet.getFiatForSmallestCrypto(mContext, cryptoAmount, null);
-        Log.e(TAG, "setTexts: amount:" + amount);
-
-        convertView.transactionAmount.setText(CurrencyUtils.getFormattedAmount(mContext, preferredIso, amount));
+        if (item.getAsset() == null) {
+            BigDecimal cryptoAmount = new BigDecimal(item.getAmount());
+            Log.e(TAG, "setTexts: crypto:" + cryptoAmount);
+            boolean isCryptoPreferred = BRSharedPrefs.isCryptoPreferred(mContext);
+            String preferredIso = isCryptoPreferred ? wallet.getIso(mContext) : BRSharedPrefs.getPreferredFiatIso(mContext);
+            BigDecimal amount = isCryptoPreferred ? cryptoAmount : wallet.getFiatForSmallestCrypto(mContext, cryptoAmount, null);
+            Log.e(TAG, "setTexts: amount:" + amount);
+            convertView.transactionAmount.setText(CurrencyUtils.getFormattedAmount(mContext, preferredIso, amount));
+        } else {
+            String assetTxt = getAssetInfo(wallet, item.getAsset());
+            convertView.transactionAmount.setText(assetTxt);
+        }
 
         int blockHeight = item.getBlockHeight();
         int confirms = blockHeight == Integer.MAX_VALUE ? 0 : BRSharedPrefs.getLastBlockHeight(mContext, wallet.getIso(mContext)) - blockHeight + 1;
@@ -221,31 +248,61 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 break;
             case 2:
-
                 showTransactionProgress(convertView, 40);
                 break;
             case 3:
-
                 showTransactionProgress(convertView, 60);
                 break;
             case 4:
-
                 showTransactionProgress(convertView, 80);
                 break;
             case 5:
-
                 //showTransactionProgress(convertView, 100);
                 break;
         }
 
         Log.d(TAG, "Level -> " + level);
-
-        if (level > 4) {
-            convertView.transactionDetail.setText(!commentString.isEmpty() ? commentString : (!received ? "sent to " : "received via ") + wallet.decorateAddress(mContext, item.getTo()[0]));
+        String toAddress = getToAddress(wallet, item.getTo());
+        boolean isInProgress = level <= CONFIRMS_COUNT;
+        if (received) {
+            String status = isInProgress ? "receiving via " : "received via ";
+            convertView.transactionDetail.setText(!commentString.isEmpty() ?
+                    commentString : status + wallet.decorateAddress(mContext, toAddress));
         } else {
-            convertView.transactionDetail.setText(!commentString.isEmpty() ? commentString : (!received ? "sending to " : "receiving via ") + wallet.decorateAddress(mContext, item.getTo()[0]));
-
+            String[] addresses = item.getTo();
+            long amount = item.getAmount();
+            boolean isBurn = true;
+            BurnType burnType = getBurnType(addresses, amount);
+            String txDetails;
+            String status = isInProgress ? "(Burning) " : "(Burnt)";
+            switch (burnType) {
+                case UNDEFINE:
+                default:
+                    isBurn = false;
+                    txDetails = !commentString.isEmpty() ? commentString : (!isInProgress ? "sent to " : "sending to ") + wallet.decorateAddress(mContext, toAddress);
+                    break;
+                case ISSUE_ASSET:
+                    txDetails = "Asset creation fee " + status;
+                    break;
+                case REISSUE:
+                    txDetails = "Reissue Asset fee " + status;
+                    break;
+                case SUB:
+                    txDetails = "Sub Asset fee " + status;
+                    break;
+                case UNIQUE:
+                    txDetails = "Unique Asset fee " + status;
+                    break;
+                case GLOBAL_BURN:
+                    txDetails = "Asset " + status;
+                    break;
+            }
+            convertView.transactionDetail.setText(txDetails);
+            if (isBurn) {
+                convertView.transactionDetail.setTextColor(mContext.getResources().getColor(R.color.viewfinder_laser, null));
+            }
         }
+
 
         //if it's 0 we use the current time.
         long timeStamp = item.getTimeStamp() == 0 ? System.currentTimeMillis() : item.getTimeStamp() * 1000;
@@ -254,6 +311,64 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         convertView.transactionDate.setText(shortDate);
 
+    }
+
+    @Nullable
+    private String getToAddress(BaseWalletManager wallet, String[] tos) {
+        String toAddress = "";
+        if (tos != null)
+            for (String to : tos) {
+                boolean isMyAddress = wallet.getWallet().containsAddress(new BRCoreAddress(to));
+                if (!isMyAddress) {
+                    toAddress = to;
+                    break;
+                }
+            }
+        if (TextUtils.isEmpty(toAddress) && tos != null)
+            toAddress = tos[0];
+        return toAddress;
+    }
+
+    private BurnType getBurnType(String[] addresses, long txAmount) {
+        long amount = Math.abs(txAmount);
+        if (addresses == null || addresses.length <= 0)
+            return UNDEFINE;
+        if (amount == CREATION_FEE * SATOSHIS) {
+            for (String address : addresses)
+                if (STR_ISSUE_ASSET_BURN_ADDESSES.contains(address))
+                    return ISSUE_ASSET;
+        }
+        if (amount == REISSUE_FEE * SATOSHIS)
+            for (String address : addresses)
+                if (STR_REISSUE_ASSET_BURN_ADDESSES.contains(address))
+                    return REISSUE;
+
+        if (amount == SUB_FEE * SATOSHIS)
+            for (String address : addresses)
+                if (STR_REISSUE_SUB_ASSET_BURN_ADDESSES.contains(address))
+                    return SUB;
+
+        if (amount == UNIQUE_FEE * SATOSHIS)
+            for (String address : addresses)
+                if (STR_UNIQUE_ASSET_BURN_ADDESSES.contains(address))
+                    return UNIQUE;
+        for (String address : addresses)
+            if (STR_BURN_ASSET_ADDESSES.contains(address))
+                return GLOBAL_BURN;
+        return UNDEFINE;
+    }
+
+    @NonNull
+    private String getAssetInfo(BaseWalletManager wallet, MyTransactionAsset mAsset) {
+        if (mAsset != null) {
+            if (mAsset.getName().endsWith("!"))
+                return mAsset.getName();
+            else {
+                double assetAmount = wallet.getCryptoForSmallestCrypto(mContext, new BigDecimal(mAsset.getAmount())).doubleValue();
+                return com.platform.assets.Utils.formatAssetAmount(assetAmount, mAsset.getUnit()) + " " + mAsset.getName();
+            }
+        }
+        return "";
     }
 
     private void showTransactionProgress(TxHolder holder, int progress) {
@@ -312,8 +427,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private void filter(final String query, final boolean[] switches) {
         long start = System.currentTimeMillis();
         String lowerQuery = query.toLowerCase().trim();
-        if (Utils.isNullOrEmpty(lowerQuery) && !switches[0] && !switches[1] && !switches[2] && !switches[3])
-            return;
+       /* if (Utils.isNullOrEmpty(lowerQuery) && !switches[0] && !switches[1] && !switches[2] && !switches[3])
+           return;*/
         int switchesON = 0;
         for (boolean i : switches) if (i) switchesON++;
 
@@ -322,39 +437,42 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         for (int i = 0; i < backUpFeed.size(); i++) {
             item = backUpFeed.get(i);
             boolean matchesHash = item.getTxHashHexReversed() != null && item.getTxHashHexReversed().contains(lowerQuery);
-            boolean matchesAddress = item.getFrom()[0].contains(lowerQuery) || item.getTo()[0].contains(lowerQuery);
+            boolean matchesAddress = (item.getFrom() != null && item.getFrom().length > 0 && item.getFrom()[0].contains(lowerQuery))
+                    || (item.getTo() != null && item.getTo().length > 0 && item.getTo()[0].contains(lowerQuery));
             boolean matchesMemo = item.metaData != null && item.metaData.comment != null && item.metaData.comment.toLowerCase().contains(lowerQuery);
-            if (matchesHash || matchesAddress || matchesMemo) {
+            boolean matchesAssetName = item.getAsset() != null && item.getAsset().getName() != null && item.getAsset().getName().toLowerCase().contains(lowerQuery);
+            if (matchesHash || matchesAddress || matchesMemo || matchesAssetName) {
                 if (switchesON == 0) {
                     filteredList.add(item);
                 } else {
                     boolean willAdd = true;
-                    //filter by sent and this is received
-                    if (switches[0] && (item.getAmount() <= 0)) {
-                        willAdd = false;
-                    }
-                    //filter by received and this is sent
-                    if (switches[1] && (item.getAmount() > 0)) {
-                        willAdd = false;
-                    }
                     BaseWalletManager wallet = WalletsMaster.getInstance(mContext).getCurrentWallet(mContext);
 
                     int confirms = item.getBlockHeight() ==
                             Integer.MAX_VALUE ? 0
                             : BRSharedPrefs.getLastBlockHeight(mContext, wallet.getIso(mContext)) - item.getBlockHeight() + 1;
-                    //complete
-                    if (switches[2] && confirms >= 6) {
+                    //pending
+                    if (switches[2] && confirms >= CONFIRMS_COUNT) {
                         willAdd = false;
                     }
 
-                    //pending
-                    if (switches[3] && confirms < 6) {
+                    //complete
+                    if (switches[3] && confirms < CONFIRMS_COUNT) {
+                        willAdd = false;
+                    }
+
+                    boolean received = item.getSent() == 0;
+                    //filter by sent and this is received
+                    if (switches[0] && received) {
+                        willAdd = false;
+                    }
+                    //filter by received and this is sent
+                    if (switches[1] && !received) {
                         willAdd = false;
                     }
 
                     if (willAdd) filteredList.add(item);
                 }
-
             }
 
         }

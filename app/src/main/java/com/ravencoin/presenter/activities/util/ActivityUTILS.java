@@ -23,7 +23,7 @@ import static android.content.Context.ACTIVITY_SERVICE;
 
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 4/27/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -93,7 +93,7 @@ public class ActivityUTILS {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void changeStatusBarColor(Activity app) {
+    public static void changeStatusBarColor(Activity app, int colorId) {
         Window window = app.getWindow();
 
         // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -103,7 +103,7 @@ public class ActivityUTILS {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(app, R.color.extra_light_blue_background));
+        window.setStatusBarColor(ContextCompat.getColor(app, colorId));
 
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }

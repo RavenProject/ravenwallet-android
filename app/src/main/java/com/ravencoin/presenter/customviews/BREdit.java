@@ -12,7 +12,7 @@ import com.ravencoin.tools.manager.FontManager;
 import com.ravencoin.tools.util.Utils;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 5/3/17.
  * Copyright (c) 2017 breadwallet LLC

@@ -8,7 +8,7 @@ import android.content.Context;
 import android.net.Uri;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 7/14/15.
  * Copyright (c) 2016 breadwallet LLC

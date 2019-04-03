@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ravencoin.R;
@@ -26,7 +29,7 @@ import com.ravencoin.tools.manager.BRReportsManager;
 import com.ravencoin.tools.util.Utils;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 3/15/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -57,20 +60,20 @@ public class BRDialogView extends DialogFragment {
     private String message = "";
     private String posButton = "";
     private String negButton = "";
+    private int colorId =-1;
     private BRDialogView.BROnClickListener posListener;
     private BRDialogView.BROnClickListener negListener;
     private BRDialogView.BROnClickListener helpListener;
     private DialogInterface.OnDismissListener dismissListener;
     private int iconRes = 0;
-    private BRButton negativeButton;
-    private BRButton positiveButton;
+    private BRButton negativeButton, positiveButton;
     private LinearLayout buttonsLayout;
     private ImageButton helpButton;
 
     //provide the way to have clickable span in the message
     private SpannableString spanMessage;
 
-    private ConstraintLayout mainLayout;
+    private RelativeLayout mainLayout;
     private boolean showHelpIcon;
 
     @Override
@@ -81,20 +84,24 @@ public class BRDialogView extends DialogFragment {
         View view = inflater.inflate(R.layout.bread_alert_dialog, null);
         TextView titleText = (TextView) view.findViewById(R.id.dialog_title);
         TextView messageText = (TextView) view.findViewById(R.id.dialog_text);
-        BRButton positiveButton = view.findViewById(R.id.pos_button);
+        positiveButton = view.findViewById(R.id.pos_button);
         negativeButton = view.findViewById(R.id.neg_button);
 //        ImageView icon = (ImageView) view.findViewById(R.id.dialog_icon);
-        mainLayout = (ConstraintLayout) view.findViewById(R.id.main_layout);
+        mainLayout = (RelativeLayout) view.findViewById(R.id.main_layout);
         buttonsLayout = (LinearLayout) view.findViewById(R.id.linearLayout3);
         helpButton = view.findViewById(R.id.help_icon);
 
 
         // Resize the title text if it is greater than 4 lines
-        titleText.setText(title);
-        if (titleText.getLineCount() > 4) {
-            titleText.setTextSize(16);
+        if (TextUtils.isEmpty(title))
+            titleText.setVisibility(View.GONE);
+        else {
+            titleText.setVisibility(View.VISIBLE);
+            titleText.setText(title);
+            if (titleText.getLineCount() > 4) {
+                titleText.setTextSize(16);
+            }
         }
-
 
         // Resize the message text if it is greater than 4 lines
         messageText.setText(message);
@@ -106,17 +113,26 @@ public class BRDialogView extends DialogFragment {
             messageText.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
-        positiveButton.setColor(Color.parseColor("#4b77f3"));
-        positiveButton.setHasShadow(false);
-        positiveButton.setText(posButton);
-        positiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                if (posListener != null)
-                    posListener.onClick(BRDialogView.this);
-            }
-        });
+        if (TextUtils.isEmpty(posButton)) {
+            positiveButton.setVisibility(View.GONE);
+        } else {
+            positiveButton.setVisibility(View.VISIBLE);
+            positiveButton.setColor(Color.parseColor("#4b77f3"));
+            positiveButton.setHasShadow(false);
+            positiveButton.setText(posButton);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!BRAnimator.isClickAllowed()) return;
+                    if (posListener != null)
+                        posListener.onClick(BRDialogView.this);
+                }
+            });
+        }
+
+        if(colorId>=0)
+            positiveButton.setTextColor(getResources().getColor(colorId));
+
         if (Utils.isNullOrEmpty(negButton)) {
             Log.e(TAG, "onCreateDialog: removing negative button");
             buttonsLayout.removeView(negativeButton);
@@ -128,17 +144,21 @@ public class BRDialogView extends DialogFragment {
             positiveButton.setLayoutParams(params);
         }
 
-        negativeButton.setColor(Color.parseColor("#b3c0c8"));
-        negativeButton.setHasShadow(false);
-        negativeButton.setText(negButton);
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                if (negListener != null)
-                    negListener.onClick(BRDialogView.this);
-            }
-        });
+        if (TextUtils.isEmpty(negButton)) {
+            negativeButton.setVisibility(View.GONE);
+        } else {
+            negativeButton.setColor(Color.parseColor("#b3c0c8"));
+            negativeButton.setHasShadow(false);
+            negativeButton.setText(negButton);
+            negativeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!BRAnimator.isClickAllowed()) return;
+                    if (negListener != null)
+                        negListener.onClick(BRDialogView.this);
+                }
+            });
+        }
 //        if (iconRes != 0)
 //            icon.setImageResource(iconRes);
 
@@ -226,6 +246,10 @@ public class BRDialogView extends DialogFragment {
 
     public void setIconRes(int iconRes) {
         this.iconRes = iconRes;
+    }
+
+    public void setConfirmColorRed(int colorId) {
+        this.colorId =colorId;
     }
 
     public static interface BROnClickListener {

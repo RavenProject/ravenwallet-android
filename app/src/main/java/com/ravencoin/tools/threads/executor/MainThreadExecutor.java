@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Executor;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 10/25/17.
  * Copyright (c) 2017 breadwallet LLC

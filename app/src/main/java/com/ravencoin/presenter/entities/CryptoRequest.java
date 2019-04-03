@@ -11,7 +11,7 @@ import com.ravencoin.wallet.abstracts.BaseWalletManager;
 import java.math.BigDecimal;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 11/20/15.
  * Copyright (c) 2016 breadwallet LLC
@@ -73,10 +73,10 @@ public class CryptoRequest {
 
 
     public boolean isSmallerThanMin(Context app, BaseWalletManager walletManager) {
-        long minAmount = walletManager.getWallet().getMinOutputAmount();
-        long amount = Math.abs(walletManager.getWallet().getTransactionAmount(tx));
-        Log.e(TAG, "isSmallerThanMin: " + amount);
-        return amount < minAmount;
+        BigDecimal minAmount = BigDecimal.valueOf(walletManager.getWallet().getMinOutputAmount());
+        BigDecimal absAmount = this.amount.abs(); //Math.abs(walletManager.getWallet().getTransactionAmount(tx));
+        Log.e(TAG, "isSmallerThanMin: " + absAmount);
+        return minAmount != null && absAmount.compareTo(minAmount) < 0;
     }
 
     public boolean isLargerThanBalance(Context app, BaseWalletManager walletManager) {

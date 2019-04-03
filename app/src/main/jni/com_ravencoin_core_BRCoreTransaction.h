@@ -207,7 +207,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransaction_createJniCoreT
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransaction_createJniCoreTransactionEmpty
-  (JNIEnv *, jclass);
+        (JNIEnv *env, jclass thisClass,jint count);
 
 #ifdef __cplusplus
 }

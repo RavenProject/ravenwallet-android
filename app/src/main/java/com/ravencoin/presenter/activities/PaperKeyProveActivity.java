@@ -2,6 +2,7 @@ package com.ravencoin.presenter.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ravencoin.R;
-import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.customviews.BRDialogView;
 import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
@@ -34,8 +33,9 @@ import com.ravencoin.tools.animation.SpringAnimator;
 import com.ravencoin.tools.manager.BRReportsManager;
 import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.security.SmartValidator;
-import com.ravencoin.tools.util.Utils;
 import com.ravencoin.tools.util.Bip39Reader;
+import com.ravencoin.tools.util.Utils;
+
 import java.util.Locale;
 import java.util.Random;
 
@@ -66,14 +66,14 @@ public class PaperKeyProveActivity extends BRActivity {
         setContentView(R.layout.activity_paper_key_prove);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
-        submit = (Button) findViewById(R.id.button_submit);
-        wordEditFirst = (EditText) findViewById(R.id.word_edittext_first);
-        wordEditSecond = (EditText) findViewById(R.id.word_edittext_second);
-        wordTextFirst = (TextView) findViewById(R.id.word_number_first);
-        wordTextSecond = (TextView) findViewById(R.id.word_number_second);
+        submit = findViewById(R.id.button_submit);
+        wordEditFirst = findViewById(R.id.word_edittext_first);
+        wordEditSecond = findViewById(R.id.word_edittext_second);
+        wordTextFirst = findViewById(R.id.word_number_first);
+        wordTextSecond = findViewById(R.id.word_number_second);
 
-        checkMark1 = (ImageView) findViewById(R.id.check_mark_1);
-        checkMark2 = (ImageView) findViewById(R.id.check_mark_2);
+        checkMark1 = findViewById(R.id.check_mark_1);
+        checkMark2 = findViewById(R.id.check_mark_2);
 
 //        wordEditFirst.setOnFocusChangeListener(new FocusListener());
 //        wordEditSecond.setOnFocusChangeListener(new FocusListener());
@@ -81,7 +81,7 @@ public class PaperKeyProveActivity extends BRActivity {
         wordEditFirst.addTextChangedListener(new BRTextWatcher());
         wordEditSecond.addTextChangedListener(new BRTextWatcher());
 
-        constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
+        constraintLayout = findViewById(R.id.constraintLayout);
         resetConstraintSet.clone(constraintLayout);
         applyConstraintSet.clone(constraintLayout);
 
@@ -124,8 +124,9 @@ public class PaperKeyProveActivity extends BRActivity {
                     BRAnimator.showBreadSignal(PaperKeyProveActivity.this, getString(R.string.Alerts_paperKeySet), getString(R.string.Alerts_paperKeySetSubheader), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
                         @Override
                         public void onComplete() {
-                            BRAnimator.startBreadActivity(PaperKeyProveActivity.this, false);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                            Intent intent = new Intent(PaperKeyProveActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
                             finishAffinity();
                         }
                     });
@@ -231,10 +232,6 @@ public class PaperKeyProveActivity extends BRActivity {
             String edit = Bip39Reader.cleanWord(wordEditSecond.getText().toString());
             return SmartValidator.isWordValid(PaperKeyProveActivity.this, edit) && edit.equalsIgnoreCase(sparseArrayWords.get(sparseArrayWords.keyAt(1)));
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 
 //    private class FocusListener implements View.OnFocusChangeListener {

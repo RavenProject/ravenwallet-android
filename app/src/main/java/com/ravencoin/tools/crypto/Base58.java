@@ -1,7 +1,7 @@
 package com.ravencoin.tools.crypto;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/28/16.
  * Copyright (c) 2016 breadwallet LLC

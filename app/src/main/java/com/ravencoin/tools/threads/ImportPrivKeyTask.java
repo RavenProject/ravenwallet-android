@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ravencoin.BreadApp;
 import com.ravencoin.R;
 import com.ravencoin.core.BRCoreAddress;
 import com.ravencoin.core.BRCoreKey;
@@ -41,7 +40,7 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan <mihail@breadwallet.com> on 6/2/16.
  * Copyright (c) 2016 breadwallet LLC
@@ -111,7 +110,8 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
         String decoratedAddress = wm.decorateAddress(app, tmpAddress);
 
         //automatically uses testnet if x-testnet is true
-        String fullUrl = String.format("https://%s/q/addr/%s/utxo?currency=%s", BreadApp.HOST, decoratedAddress, iso);
+//        String fullUrl = String.format("https://%s/q/addr/%s/utxo?currency=%s", RavenApp.HOST, decoratedAddress, iso);
+        String fullUrl = String.format("https://ravencoin.network/api/addr/%s/utxo", decoratedAddress);
         mTransaction = createSweepingTx(app, fullUrl);
         if (mTransaction == null) {
             app.runOnUiThread(new Runnable() {

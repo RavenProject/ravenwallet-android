@@ -2,12 +2,10 @@ package com.ravencoin.presenter.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,22 +18,15 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.platform.assets.Asset;
-import com.platform.assets.AssetType;
 import com.ravencoin.R;
-import com.ravencoin.core.BRCoreTransaction;
 import com.ravencoin.core.BRCoreTransactionAsset;
 import com.ravencoin.core.BRCoreWallet;
 import com.ravencoin.presenter.customviews.BRButton;
 import com.ravencoin.presenter.customviews.BRDialogView;
-import com.ravencoin.presenter.interfaces.BRAuthCompletion;
 import com.ravencoin.presenter.interfaces.WalletManagerListener;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.BRDialog;
-import com.ravencoin.tools.manager.BRClipboardManager;
 import com.ravencoin.tools.manager.BRSharedPrefs;
-import com.ravencoin.tools.security.BRKeyStore;
-import com.ravencoin.tools.util.BRConstants;
-import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
 import com.ravencoin.wallet.wallets.raven.RvnWalletManager;
@@ -43,7 +34,6 @@ import com.ravencoin.wallet.wallets.raven.RvnWalletManager;
 import java.math.BigDecimal;
 
 import static com.platform.assets.AssetType.BURN;
-import static com.platform.assets.AssetType.TRANSFER;
 import static com.ravencoin.tools.animation.BRAnimator.animateBackgroundDim;
 import static com.ravencoin.tools.animation.BRAnimator.animateSignalSlide;
 

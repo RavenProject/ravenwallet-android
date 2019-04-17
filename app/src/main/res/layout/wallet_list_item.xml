@@ -7,7 +7,7 @@
     android:layout_below="@id/portfolio_label"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     app:cardBackgroundColor="@color/primaryColor"
-    app:cardCornerRadius="40dp"
+    app:cardCornerRadius="10.0dp"
     app:cardPreventCornerOverlap="true">
     <!-- Height was 84-->
 
@@ -120,7 +120,7 @@
             android:layout_height="150dp"
             android:layout_below="@+id/lbl_bitterex"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible" />
 
     </RelativeLayout>

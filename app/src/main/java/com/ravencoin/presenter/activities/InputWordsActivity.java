@@ -118,19 +118,19 @@ public class InputWordsActivity extends BRActivity {
         word10 = (EditText) findViewById(R.id.word10);
         word11 = (EditText) findViewById(R.id.word11);
         word12 = (EditText) findViewById(R.id.word12);
-
-        word1.setOnFocusChangeListener(new FocusListener());
-        word2.setOnFocusChangeListener(new FocusListener());
-        word3.setOnFocusChangeListener(new FocusListener());
-        word4.setOnFocusChangeListener(new FocusListener());
-        word5.setOnFocusChangeListener(new FocusListener());
-        word6.setOnFocusChangeListener(new FocusListener());
-        word7.setOnFocusChangeListener(new FocusListener());
-        word8.setOnFocusChangeListener(new FocusListener());
-        word9.setOnFocusChangeListener(new FocusListener());
-        word10.setOnFocusChangeListener(new FocusListener());
-        word11.setOnFocusChangeListener(new FocusListener());
-        word12.setOnFocusChangeListener(new FocusListener());
+        FocusListener focusListener = new FocusListener();
+        word1.setOnFocusChangeListener(focusListener);
+        word2.setOnFocusChangeListener(focusListener);
+        word3.setOnFocusChangeListener(focusListener);
+        word4.setOnFocusChangeListener(focusListener);
+        word5.setOnFocusChangeListener(focusListener);
+        word6.setOnFocusChangeListener(focusListener);
+        word7.setOnFocusChangeListener(focusListener);
+        word8.setOnFocusChangeListener(focusListener);
+        word9.setOnFocusChangeListener(focusListener);
+        word10.setOnFocusChangeListener(focusListener);
+        word11.setOnFocusChangeListener(focusListener);
+        word12.setOnFocusChangeListener(focusListener);
 
         restore = getIntent().getExtras() != null && getIntent().getExtras().getBoolean("restore");
         resetPin = getIntent().getExtras() != null && getIntent().getExtras().getBoolean("resetPin");

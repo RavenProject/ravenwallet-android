@@ -139,6 +139,27 @@ public class RvnTransactionDataStore implements BRDataSourceInterface {
         return transactions;
     }
 
+    public BRTransactionEntity getTransaction(Context app, String iso, String hash) {
+        BRTransactionEntity transaction= null;
+        Cursor cursor = null;
+        try {
+            database = openDatabase();
+            cursor = database.query(BRSQLiteHelper.TX_TABLE_NAME,
+                    allColumns, BRSQLiteHelper.TX_ISO + "=? AND "
+                            + BRSQLiteHelper.TX_COLUMN_ID + "=?", new String[]{iso.toUpperCase(), hash},
+                    null, null, null);
+            cursor.moveToFirst();
+            BRTransactionEntity transactionEntity = cursorToTransaction(app, iso.toUpperCase(), cursor);
+            transaction = transactionEntity;
+        } finally {
+            closeDatabase();
+            if (cursor != null)
+                cursor.close();
+            printTest(app, iso);
+        }
+        return transaction;
+    }
+
 
     public static BRTransactionEntity cursorToTransaction(Context app, String iso, Cursor cursor) {
         return new BRTransactionEntity(cursor.getBlob(1), cursor.getInt(2), cursor.getLong(3), cursor.getString(0), iso.toUpperCase());

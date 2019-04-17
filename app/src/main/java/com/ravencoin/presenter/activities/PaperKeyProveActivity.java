@@ -121,7 +121,7 @@ public class PaperKeyProveActivity extends BRActivity {
                 if (isWordCorrect(true) && isWordCorrect(false)) {
                     Utils.hideKeyboard(PaperKeyProveActivity.this);
                     BRSharedPrefs.putPhraseWroteDown(PaperKeyProveActivity.this, true);
-                    BRAnimator.showBreadSignal(PaperKeyProveActivity.this, getString(R.string.Alerts_paperKeySet), getString(R.string.Alerts_paperKeySetSubheader), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
+                    BRAnimator.showRvnSignal(PaperKeyProveActivity.this, getString(R.string.Alerts_paperKeySet), getString(R.string.Alerts_paperKeySetSubheader), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
                         @Override
                         public void onComplete() {
                             Intent intent = new Intent(PaperKeyProveActivity.this, HomeActivity.class);

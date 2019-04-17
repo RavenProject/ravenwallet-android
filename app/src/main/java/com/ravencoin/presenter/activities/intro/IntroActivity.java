@@ -12,7 +12,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,7 +20,6 @@ import android.widget.ImageButton;
 import com.ravencoin.BuildConfig;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.HomeActivity;
-import com.ravencoin.presenter.activities.SetPinActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.newTutorial.TutorialActivity;
 import com.ravencoin.tools.animation.BRAnimator;
@@ -33,7 +31,6 @@ import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
-import com.crashlytics.android.Crashlytics;
 import com.platform.APIClient;
 
 import java.io.Serializable;
@@ -136,19 +133,19 @@ public class IntroActivity extends BRActivity implements Serializable {
 
     }
 
-    private void updateBundles() {
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                Thread.currentThread().setName("updateBundle");
-                final long startTime = System.currentTimeMillis();
-                APIClient apiClient = APIClient.getInstance(IntroActivity.this);
-              apiClient.updateBundle();
-                long endTime = System.currentTimeMillis();
-                Log.d(TAG, "updateBundle DONE in " + (endTime - startTime) + "ms");
-            }
-        });
-    }
+//    private void updateBundles() {
+//        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                Thread.currentThread().setName("updateBundle");
+//                final long startTime = System.currentTimeMillis();
+//                APIClient apiClient = APIClient.getInstance(IntroActivity.this);
+//              apiClient.updateBundle();
+//                long endTime = System.currentTimeMillis();
+//                Log.d(TAG, "updateBundle DONE in " + (endTime - startTime) + "ms");
+//            }
+//        });
+//    }
 
 
     private void setListeners() {

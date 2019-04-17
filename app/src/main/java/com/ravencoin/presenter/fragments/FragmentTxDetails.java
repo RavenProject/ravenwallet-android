@@ -29,7 +29,6 @@ import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
 import com.platform.entities.TxMetaData;
-import com.platform.tools.KVStoreManager;
 
 import java.math.BigDecimal;
 
@@ -61,7 +60,7 @@ public class FragmentTxDetails extends DialogFragment {
     private BRText mTransactionId;
     private BRText mShowHide;
     private BRText mAmountWhenSent;
-    private BRText mAmountNow,labelWhenSent, labelAmountNow;
+    private BRText mAmountNow, labelWhenSent, labelAmountNow;
 
     private ImageButton mCloseButton;
     private RelativeLayout mDetailsContainer, layoutMemo, layoutStartingBalance,
@@ -173,22 +172,22 @@ public class FragmentTxDetails extends DialogFragment {
 
             BigDecimal fiatAmountNow = walletManager.getFiatForSmallestCrypto(getActivity(), cryptoAmount.abs(), null);
 
-            BigDecimal fiatAmountWhenSent;
-            TxMetaData metaData = KVStoreManager.getInstance().getTxMetaData(getActivity(), mTransaction.getTxHash());
-            if (metaData == null || metaData.exchangeRate == 0 || Utils.isNullOrEmpty(metaData.exchangeCurrency)) {
-                fiatAmountWhenSent = new BigDecimal(0);
-                amountWhenSent = CurrencyUtils.getFormattedAmount(getActivity(), fiatIso, fiatAmountWhenSent);//always fiat amount
-            } else {
-
-                CurrencyEntity ent = new CurrencyEntity(metaData.exchangeCurrency, null, (float) metaData.exchangeRate, walletManager.getIso(getActivity()));
-                fiatAmountWhenSent = walletManager.getFiatForSmallestCrypto(getActivity(), cryptoAmount.abs(), ent);
-                amountWhenSent = CurrencyUtils.getFormattedAmount(getActivity(), ent.code, fiatAmountWhenSent);//always fiat amount
-
-            }
+//            BigDecimal fiatAmountWhenSent;
+//            TxMetaData metaData = KVStoreManager.getInstance().getTxMetaData(getActivity(), mTransaction.getTxHash());
+//            if (metaData == null || metaData.exchangeRate == 0 || Utils.isNullOrEmpty(metaData.exchangeCurrency)) {
+//                fiatAmountWhenSent = new BigDecimal(0);
+//                amountWhenSent = CurrencyUtils.getFormattedAmount(getActivity(), fiatIso, fiatAmountWhenSent);//always fiat amount
+//            } else {
+//
+//                CurrencyEntity ent = new CurrencyEntity(metaData.exchangeCurrency, null, (float) metaData.exchangeRate, walletManager.getIso(getActivity()));
+//                fiatAmountWhenSent = walletManager.getFiatForSmallestCrypto(getActivity(), cryptoAmount.abs(), ent);
+//                amountWhenSent = CurrencyUtils.getFormattedAmount(getActivity(), ent.code, fiatAmountWhenSent);//always fiat amount
+//
+//            }
 
             amountNow = CurrencyUtils.getFormattedAmount(getActivity(), fiatIso, fiatAmountNow);//always fiat amount
 
-            mAmountWhenSent.setText(amountWhenSent);
+//            mAmountWhenSent.setText(amountWhenSent);
             mAmountNow.setText(amountNow);
 
             BigDecimal tmpStartingBalance = new BigDecimal(mTransaction.getBalanceAfterTx()).subtract(cryptoAmount.abs()).subtract(new BigDecimal(mTransaction.getFee()).abs());
@@ -237,30 +236,30 @@ public class FragmentTxDetails extends DialogFragment {
             if (!sent)
                 mTxAmount.setTextColor(getContext().getColor(R.color.transaction_amount_received_color));
 
-            // Set the memo text if one is available
-            String memo;
-            TxMetaData txMetaData = KVStoreManager.getInstance().getTxMetaData(getActivity(), mTransaction.getTxHash());
-
-            if (txMetaData != null) {
-                Log.d(TAG, "TxMetaData not null");
-                if (txMetaData.comment != null) {
-                    Log.d(TAG, "Comment not null");
-                    memo = txMetaData.comment;
-                    mMemoText.setText(memo);
-                } else {
-                    Log.d(TAG, "Comment is null");
-                    mMemoText.setText("");
-                }
-
-                String metaIso = Utils.isNullOrEmpty(txMetaData.exchangeCurrency) ? "USD" : txMetaData.exchangeCurrency;
-
-                exchangeRateFormatted = CurrencyUtils.getFormattedAmount(getActivity(), metaIso, new BigDecimal(txMetaData.exchangeRate));
-                mExchangeRate.setText(exchangeRateFormatted);
-            } else {
-                Log.d(TAG, "TxMetaData is null");
-                mMemoText.setText("");
-
-            }
+//            // Set the memo text if one is available
+//            String memo;
+//            TxMetaData txMetaData = KVStoreManager.getInstance().getTxMetaData(getActivity(), mTransaction.getTxHash());
+//
+//            if (txMetaData != null) {
+//                Log.d(TAG, "TxMetaData not null");
+//                if (txMetaData.comment != null) {
+//                    Log.d(TAG, "Comment not null");
+//                    memo = txMetaData.comment;
+//                    mMemoText.setText(memo);
+//                } else {
+//                    Log.d(TAG, "Comment is null");
+//                    mMemoText.setText("");
+//                }
+//
+//                String metaIso = Utils.isNullOrEmpty(txMetaData.exchangeCurrency) ? "USD" : txMetaData.exchangeCurrency;
+//
+//                exchangeRateFormatted = CurrencyUtils.getFormattedAmount(getActivity(), metaIso, new BigDecimal(txMetaData.exchangeRate));
+//                mExchangeRate.setText(exchangeRateFormatted);
+//            } else {
+//                Log.d(TAG, "TxMetaData is null");
+//                mMemoText.setText("");
+//
+//            }
 
             // timestamp is 0 if it's not confirmed in a block yet so make it now
             mTxDate.setText(BRDateUtil.getLongDate(mTransaction.getTimeStamp() == 0 ? System.currentTimeMillis() : (mTransaction.getTimeStamp() * 1000)));
@@ -304,7 +303,6 @@ public class FragmentTxDetails extends DialogFragment {
                     amount = com.platform.assets.Utils.formatAssetAmount(assetAmount, mAsset.getUnit()) + " " + mAsset.getName();
                 }
                 mTxAmount.setText(amount);
-                layoutMemo.setVisibility(View.GONE);
                 layoutStartingBalance.setVisibility(View.GONE);
                 layoutEndingBalance.setVisibility(View.GONE);
                 layoutExchangeRate.setVisibility(View.GONE);
@@ -315,6 +313,7 @@ public class FragmentTxDetails extends DialogFragment {
                 labelWhenSent.setVisibility(View.GONE);
                 labelAmountNow.setVisibility(View.GONE);
             }
+            layoutMemo.setVisibility(View.GONE);
         } else {
 
             Toast.makeText(getContext(), "Error getting transaction data", Toast.LENGTH_SHORT).show();

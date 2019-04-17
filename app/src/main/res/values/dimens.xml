@@ -19,6 +19,4 @@
 
     <dimen name="margin_btn_asset_menu">10dp</dimen>
     <dimen name="height_tuto_image">250dp</dimen>
-    <dimen name="height_ic_raven_coin_title">47dp</dimen>
-    <dimen name="width_ic_raven_white">269dp</dimen>
 </resources>

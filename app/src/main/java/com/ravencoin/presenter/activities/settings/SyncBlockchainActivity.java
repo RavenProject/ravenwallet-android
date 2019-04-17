@@ -62,7 +62,7 @@ public class SyncBlockchainActivity extends BRActivity {
                                         BRSharedPrefs.putStartHeight(SyncBlockchainActivity.this, BRSharedPrefs.getCurrentWalletIso(SyncBlockchainActivity.this), 0);
                                         BRSharedPrefs.putAllowSpend(SyncBlockchainActivity.this, BRSharedPrefs.getCurrentWalletIso(SyncBlockchainActivity.this), false);
                                         WalletsMaster.getInstance(SyncBlockchainActivity.this).getCurrentWallet(SyncBlockchainActivity.this).getPeerManager().rescan();
-                                        BRAnimator.startBreadActivity(SyncBlockchainActivity.this, false);
+                                        BRAnimator.startRvnActivity(SyncBlockchainActivity.this, false);
 
                                     }
                                 });

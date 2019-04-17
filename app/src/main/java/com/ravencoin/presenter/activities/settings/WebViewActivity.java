@@ -42,8 +42,7 @@ import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.BRDialog;
 import com.ravencoin.tools.util.Utils;
-import com.platform.HTTPServer;
-import com.platform.middlewares.plugins.LinkPlugin;
+//import com.platform.HTTPServer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -313,29 +312,29 @@ public class WebViewActivity extends BRActivity {
 
     }
 
-    private void navigate(String to) {
-        String js = String.format("window.location = \'%s\';", to);
-        webView.evaluateJavascript(js, new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String value) {
-                Log.e(TAG, "onReceiveValue: " + value);
-            }
-        });
-    }
-
-    private boolean setupServerMode(String url) {
-        if (url.equalsIgnoreCase(HTTPServer.URL_BUY)) {
-            HTTPServer.mode = HTTPServer.ServerMode.BUY;
-        } else if (url.equalsIgnoreCase(HTTPServer.URL_SUPPORT)) {
-            HTTPServer.mode = HTTPServer.ServerMode.SUPPORT;
-        } else if (url.equalsIgnoreCase(HTTPServer.URL_EA)) {
-            HTTPServer.mode = HTTPServer.ServerMode.EA;
-        } else {
-            Log.e(TAG, "setupServerMode: " + "unknown url: " + url);
-            return false;
-        }
-        return true;
-    }
+//    private void navigate(String to) {
+//        String js = String.format("window.location = \'%s\';", to);
+//        webView.evaluateJavascript(js, new ValueCallback<String>() {
+//            @Override
+//            public void onReceiveValue(String value) {
+//                Log.e(TAG, "onReceiveValue: " + value);
+//            }
+//        });
+//    }
+//
+//    private boolean setupServerMode(String url) {
+//        if (url.equalsIgnoreCase(HTTPServer.URL_BUY)) {
+//            HTTPServer.mode = HTTPServer.ServerMode.BUY;
+//        } else if (url.equalsIgnoreCase(HTTPServer.URL_SUPPORT)) {
+//            HTTPServer.mode = HTTPServer.ServerMode.SUPPORT;
+//        } else if (url.equalsIgnoreCase(HTTPServer.URL_EA)) {
+//            HTTPServer.mode = HTTPServer.ServerMode.EA;
+//        } else {
+//            Log.e(TAG, "setupServerMode: " + "unknown url: " + url);
+//            return false;
+//        }
+//        return true;
+//    }
 
     private boolean closeOnMatch(Uri toUri) {
         if (onCloseUrl == null) {
@@ -512,7 +511,7 @@ public class WebViewActivity extends BRActivity {
     @Override
     public void onBackPressed() {
         if (ActivityUTILS.isLast(this)) {
-            BRAnimator.startBreadActivity(this, false);
+            BRAnimator.startRvnActivity(this, false);
         } else {
             super.onBackPressed();
         }
@@ -703,7 +702,7 @@ public class WebViewActivity extends BRActivity {
     protected void onPause() {
         super.onPause();
         appVisible = false;
-        LinkPlugin.hasBrowser = false;
+//        LinkPlugin.hasBrowser = false;
     }
 
     @Override

@@ -1379,7 +1379,7 @@ void BRPeerSendMessage(BRPeer *peer, const uint8_t *msg, size_t msgLen, const ch
         memcpy(&buf[off], hash, sizeof(uint32_t));
         off += sizeof(uint32_t);
         memcpy(&buf[off], msg, msgLen);
-        peer_log(peer, "sending %s", type);
+        peer_log(peer, "synsending %s", type);
         msgLen = 0;
         socket = ctx->socket;
         if (socket < 0) error = ENOTCONN;

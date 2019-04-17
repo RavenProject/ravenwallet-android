@@ -1,20 +1,15 @@
 package com.ravencoin.presenter.fragments;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,26 +20,21 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.platform.assets.Asset;
+import com.platform.assets.AssetsValidation;
 import com.ravencoin.R;
-import com.ravencoin.core.BRCoreAddress;
-import com.ravencoin.core.BRCoreTransaction;
 import com.ravencoin.core.BRCoreTransactionAsset;
-import com.ravencoin.core.BRCoreWallet;
+import com.ravencoin.presenter.AssetChangeListener;
 import com.ravencoin.presenter.activities.AddressBookActivity;
 import com.ravencoin.presenter.customviews.BRButton;
-import com.ravencoin.presenter.customviews.BRKeyboard;
 import com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret;
 import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.presenter.customviews.ContactButton;
 import com.ravencoin.presenter.customviews.PasteButton;
 import com.ravencoin.presenter.customviews.ScanButton;
-import com.ravencoin.presenter.interfaces.BRAuthCompletion;
-import com.ravencoin.presenter.interfaces.ConfirmationListener;
 import com.ravencoin.presenter.interfaces.WalletManagerListener;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SlideDetector;
 import com.ravencoin.tools.manager.BRSharedPrefs;
-import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.tools.util.Utils;
@@ -53,15 +43,15 @@ import com.ravencoin.wallet.abstracts.BaseWalletManager;
 import com.ravencoin.wallet.wallets.raven.RvnWalletManager;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import static com.platform.assets.AssetType.TRANSFER;
 import static com.ravencoin.presenter.activities.AddressBookActivity.PICK_ADDRESS_VIEW_EXTRAS_KEY;
 import static com.ravencoin.tools.animation.BRAnimator.animateBackgroundDim;
 import static com.ravencoin.tools.animation.BRAnimator.animateSignalSlide;
 import static com.ravencoin.tools.util.BRConstants.MAX_ASSET_QUANTITY;
-import static com.ravencoin.tools.util.BRConstants.ONE_RAVEN;
 import static com.ravencoin.tools.util.BRConstants.SATOSHIS;
 
 
@@ -93,13 +83,14 @@ import static com.ravencoin.tools.util.BRConstants.SATOSHIS;
 public class FragmentTransferAsset extends BaseAddressValidation implements WalletManagerListener {
 
     private static final String TAG = FragmentTransferAsset.class.getName();
-
+    private AssetChangeListener assetChangeListener;
     private ScrollView backgroundLayout;
-    private LinearLayout signalLayout, keyboardLayout, balanceLayout;
+    private LinearLayout signalLayout, /*keyboardLayout,*/
+            balanceLayout, layoutQuantity;
     private EditText amountEditText;
-    private StringBuilder amountBuilder;
+    //    private StringBuilder amountBuilder;
     private BRLinearLayoutWithCaret feeLayout;
-    private BRKeyboard keyboard;
+    //    private BRKeyboard keyboard;
     private BRButton regular;
     private BRButton economy;
     private TextView assetBalance, balanceText, feeText;
@@ -109,7 +100,8 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
     private CheckBox transferOwnershipCheckbox;
     private ContactButton importContactButton;
     private boolean hasTransferFee = false;
-
+    private QuantityTextWatcher quantityTextWatcher;
+    private boolean isUniqueAsset;
     private Asset asset;
 
     private final static String EXTRAS_ASSET_KEY = "extras.asset.key";
@@ -126,14 +118,15 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_transfer_asset, container, false);
 
+        layoutQuantity = rootView.findViewById(R.id.layout_quantity);
         backgroundLayout = rootView.findViewById(R.id.background_layout);
         signalLayout = rootView.findViewById(R.id.signal_layout);
         addressEditText = rootView.findViewById(R.id.address_edit);
         amountEditText = rootView.findViewById(R.id.asset_amount_edit_text);
         assetBalance = rootView.findViewById(R.id.asset_balance_text);
         feeLayout = rootView.findViewById(R.id.fee_buttons_layout);
-        keyboardLayout = rootView.findViewById(R.id.keyboard_layout);
-        keyboard = rootView.findViewById(R.id.keyboard);
+//        keyboardLayout = rootView.findViewById(R.id.keyboard_layout);
+//        keyboard = rootView.findViewById(R.id.keyboard);
         balanceLayout = rootView.findViewById(R.id.balance_layout);
         feeDescription = rootView.findViewById(R.id.fee_description);
         warningText = rootView.findViewById(R.id.warning_text);
@@ -144,8 +137,10 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
         transferOwnershipLayout = rootView.findViewById(R.id.transfer_ownership_layout);
         transferOwnershipCheckbox = rootView.findViewById(R.id.transfer_ownership_checkbox);
         importContactButton = rootView.findViewById(R.id.import_contact);
-
+        quantityTextWatcher = new QuantityTextWatcher(amountEditText);
         setListeners(rootView);
+
+        setButton(true);
 
         signalLayout.setOnTouchListener(new SlideDetector(getContext(), signalLayout));
 
@@ -159,12 +154,13 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
 
         // Show/hide ownership transfer layout
         transferOwnershipLayout.setVisibility(asset.getOwnership() == 1 ? View.VISIBLE : View.GONE);
-
+        isUniqueAsset = asset.getName().contains(AssetsValidation.UNIQUE_TAG_DELIMITER);
+        layoutQuantity.setVisibility(isUniqueAsset ? View.GONE : View.VISIBLE);
         // Set keyboard background color
-        keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
-        keyboard.setBRKeyboardColor(R.color.white);
+//        keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
+//        keyboard.setBRKeyboardColor(R.color.white);
 
-        amountBuilder = new StringBuilder(0);
+//        amountBuilder = new StringBuilder(0);
 
         setBalanceAndTransactionFee();
 
@@ -257,46 +253,46 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
             }
         });
 
-        amountEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//        amountEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (s.toString().isEmpty()) {
+//                    amountEditText.setTextSize(16);
+//                } else {
+//                    amountEditText.setTextSize(24);
+//                }
+//            }
+//        });
 
-            }
+//        amountEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    Utils.hideKeyboard(getActivity());
+//                    keyboardLayout.setVisibility(View.VISIBLE);
+//                } else {
+//                    keyboardLayout.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+//        amountEditText.setShowSoftInputOnFocus(false);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().isEmpty()) {
-                    amountEditText.setTextSize(16);
-                } else {
-                    amountEditText.setTextSize(24);
-                }
-            }
-        });
-
-        amountEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    Utils.hideKeyboard(getActivity());
-                    keyboardLayout.setVisibility(View.VISIBLE);
-                } else {
-                    keyboardLayout.setVisibility(View.GONE);
-                }
-            }
-        });
-        amountEditText.setShowSoftInputOnFocus(false);
-
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleClick(key);
-            }
-        });
+//        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
+//            @Override
+//            public void onClick(String key) {
+//                handleClick(key);
+//            }
+//        });
 
         regular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,7 +311,7 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
             @Override
             public void onClick(View v) {
                 transferOwnershipCheckbox.setChecked(!transferOwnershipCheckbox.isChecked());
-                amountEditText.setVisibility(transferOwnershipCheckbox.isChecked() ? View.GONE : View.VISIBLE);
+                layoutQuantity.setVisibility(transferOwnershipCheckbox.isChecked() ? View.GONE : View.VISIBLE);
             }
         });
 
@@ -329,22 +325,8 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
             }
         });
 
-        amountEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        amountEditText.addTextChangedListener(quantityTextWatcher);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         BRButton transferAssetButton = rootView.findViewById(R.id.transfer_asset_button);
         transferAssetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -360,13 +342,10 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
                     return;
                 }
                 double quantity;
-                if (transferOwnershipCheckbox.isChecked()) {
+                if (transferOwnershipCheckbox.isChecked() || isUniqueAsset ) {
                     quantity = 1;
-                } else if (TextUtils.isEmpty(amountBuilder.toString())) {
-                    sayCustomMessage("Invalid Quantity");
-                    return;
                 } else {
-                    quantity = Double.parseDouble(amountBuilder.toString());
+                    quantity = quantityTextWatcher.getValue();
                     if (quantity <= 0 || quantity * SATOSHIS > asset.getAmount()) {
                         sayCustomMessage("Invalid Quantity");
                         return;
@@ -410,64 +389,64 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
         assetBalance.setText(String.format(getString(R.string.asset_balance), formattedAmount));
     }
 
-    private void handleClick(String key) {
-        if (key == null) {
-            Log.e(TAG, "handleClick: key is null! ");
-            return;
-        }
+//    private void handleClick(String key) {
+//        if (key == null) {
+//            Log.e(TAG, "handleClick: key is null! ");
+//            return;
+//        }
+//
+//        if (key.isEmpty()) {
+//            handleDeleteClick();
+//        } else if (Character.isDigit(key.charAt(0))) {
+//            handleDigitClick(Integer.parseInt(key.substring(0, 1)));
+//        } else if (key.charAt(0) == '.') {
+//            handleSeparatorClick();
+//        }
+//    }
 
-        if (key.isEmpty()) {
-            handleDeleteClick();
-        } else if (Character.isDigit(key.charAt(0))) {
-            handleDigitClick(Integer.parseInt(key.substring(0, 1)));
-        } else if (key.charAt(0) == '.') {
-            handleSeparatorClick();
-        }
-    }
+//    private void handleDigitClick(Integer digit) {
+//        String currentAmount = amountBuilder.toString();
+//        if (currentAmount.contains(".")) {
+//            String decimals = currentAmount.substring(currentAmount.indexOf("."));
+//            if (decimals.length() - 1 < asset.getUnits()) {
+//                // minus 1 is for the "." character that already exist within the string to be checked
+//                checkNewAmountValidity(currentAmount, digit);
+//            }
+//        } else {
+//            checkNewAmountValidity(currentAmount, digit);
+//        }
+//    }
 
-    private void handleDigitClick(Integer digit) {
-        String currentAmount = amountBuilder.toString();
-        if (currentAmount.contains(".")) {
-            String decimals = currentAmount.substring(currentAmount.indexOf("."));
-            if (decimals.length() - 1 < asset.getUnits()) {
-                // minus 1 is for the "." character that already exist within the string to be checked
-                checkNewAmountValidity(currentAmount, digit);
-            }
-        } else {
-            checkNewAmountValidity(currentAmount, digit);
-        }
-    }
+//    private void handleSeparatorClick() {
+//        if (asset.getUnits() == 0 || amountBuilder.toString().contains(".") || Double.parseDouble(amountBuilder.toString()) == MAX_ASSET_QUANTITY) {
+//            return;
+//        }
+//        amountBuilder.append(".");
+//        setAmount();
+//    }
 
-    private void handleSeparatorClick() {
-        if (asset.getUnits() == 0 || amountBuilder.toString().contains(".") || Double.parseDouble(amountBuilder.toString()) == MAX_ASSET_QUANTITY) {
-            return;
-        }
-        amountBuilder.append(".");
-        setAmount();
-    }
+//    private void handleDeleteClick() {
+//        String currAmount = amountBuilder.toString();
+//        if (currAmount.length() > 0) {
+//            amountBuilder.deleteCharAt(currAmount.length() - 1);
+//            if (amountBuilder.length() > 0) {
+//                checkAssetAmountWithBalance(Double.parseDouble(amountBuilder.toString()));
+//            }
+//            setAmount();
+//        }
+//    }
 
-    private void handleDeleteClick() {
-        String currAmount = amountBuilder.toString();
-        if (currAmount.length() > 0) {
-            amountBuilder.deleteCharAt(currAmount.length() - 1);
-            if (amountBuilder.length() > 0) {
-                checkAssetAmountWithBalance(Double.parseDouble(amountBuilder.toString()));
-            }
-            setAmount();
-        }
-    }
-
-    private void checkNewAmountValidity(String currentAmount, Integer digit) {
-        double newAmount = new BigDecimal(currentAmount.concat(String.valueOf(digit))).doubleValue();
-        if (newAmount <= MAX_ASSET_QUANTITY) {
-            amountBuilder.append(digit);
-            checkAssetAmountWithBalance(newAmount);
-            setAmount();
-        }
-    }
+//    private void checkNewAmountValidity(String currentAmount, Integer digit) {
+//        double newAmount = new BigDecimal(currentAmount.concat(String.valueOf(digit))).doubleValue();
+//        if (newAmount <= MAX_ASSET_QUANTITY) {
+//            amountBuilder.append(digit);
+//            checkAssetAmountWithBalance(newAmount);
+//            setAmount();
+//        }
+//    }
 
     private void checkAssetAmountWithBalance(double newAmount) {
-        if (newAmount*SATOSHIS > asset.getAmount()) {
+        if (newAmount * SATOSHIS > asset.getAmount()) {
             amountEditText.setTextColor(getContext().getColor(R.color.warning_color));
             assetBalance.setTextColor(getContext().getColor(R.color.warning_color));
         } else {
@@ -487,13 +466,13 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
             BRSharedPrefs.putFavorStandardFee(getActivity(), iso, true);
             regular.setTextColor(getContext().getColor(R.color.white));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue));
-            economy.setTextColor(getContext().getColor(R.color.dark_blue));
+            economy.setTextColor(getContext().getColor(R.color.primaryColor));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue_stroke));
             feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver), getString(R.string.FeeSelector_regularTime)));
             warningText.getLayoutParams().height = 0;
         } else {
             BRSharedPrefs.putFavorStandardFee(getActivity(), iso, false);
-            regular.setTextColor(getContext().getColor(R.color.dark_blue));
+            regular.setTextColor(getContext().getColor(R.color.primaryColor));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue_stroke));
             economy.setTextColor(getContext().getColor(R.color.white));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue));
@@ -533,21 +512,21 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
         balanceLayout.requestLayout();
     }
 
-    private void setAmount() {
-        String tmpAmount = amountBuilder.toString();
-        int divider = tmpAmount.length();
-        if (tmpAmount.contains(".")) {
-            divider = tmpAmount.indexOf(".");
-        }
-        StringBuilder newAmount = new StringBuilder();
-        for (int i = 0; i < tmpAmount.length(); i++) {
-            newAmount.append(tmpAmount.charAt(i));
-            if (divider > 3 && divider - 1 != i && divider > i && ((divider - i - 1) % 3 == 0)) {
-                newAmount.append(",");
-            }
-        }
-        amountEditText.setText(newAmount.toString());
-    }
+//    private void setAmount() {
+//        String tmpAmount = amountBuilder.toString();
+//        int divider = tmpAmount.length();
+//        if (tmpAmount.contains(".")) {
+//            divider = tmpAmount.indexOf(".");
+//        }
+//        StringBuilder newAmount = new StringBuilder();
+//        for (int i = 0; i < tmpAmount.length(); i++) {
+//            newAmount.append(tmpAmount.charAt(i));
+//            if (divider > 3 && divider - 1 != i && divider > i && ((divider - i - 1) % 3 == 0)) {
+//                newAmount.append(",");
+//            }
+//        }
+//        amountEditText.setText(newAmount.toString());
+//    }
 
     @Override
     public void close() {
@@ -558,4 +537,72 @@ public class FragmentTransferAsset extends BaseAddressValidation implements Wall
     public void error(String error) {
         sayCustomMessage(error);
     }
+
+    public class QuantityTextWatcher implements TextWatcher {
+
+        private EditText editText;
+        private double oldValue;
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+
+        public QuantityTextWatcher(EditText inputField) {
+            this.editText = inputField;
+            formatter.applyPattern("#,###,###");
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            oldValue = getQuantityFromString(s);
+        }
+
+        private double getQuantityFromString(CharSequence s) {
+            double value = 0;
+            try {
+                value = formatter.parse(s.toString()).doubleValue();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return value;
+        }
+
+        public double getValue() {
+            double value = 0;
+            try {
+                value = formatter.parse(editText.getText().toString()).doubleValue();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return value;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.toString().isEmpty()) {
+                editText.setTextSize(16);
+            } else {
+                editText.setTextSize(24);
+            }
+            editText.removeTextChangedListener(this);
+            double newValue = 0;
+            try {
+                newValue = getQuantityFromString(s);
+                if (new BigDecimal(newValue).doubleValue() > MAX_ASSET_QUANTITY)
+                    newValue = oldValue;
+                String formattedString = formatter.format(newValue);
+                //setting text after format to EditText
+                editText.setText(formattedString);
+                editText.setSelection(editText.getText().length());
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
+
+            editText.addTextChangedListener(this);
+            checkAssetAmountWithBalance(newValue);
+        }
+    }
+
 }

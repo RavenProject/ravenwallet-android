@@ -19,7 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
 import android.webkit.JsResult;
-import android.webkit.ValueCallback;
+//import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -31,12 +31,12 @@ import com.ravencoin.R;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SlideDetector;
 import com.ravencoin.tools.util.Utils;
-import com.platform.HTTPServer;
+//import com.platform.HTTPServer;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static com.platform.HTTPServer.URL_SUPPORT;
+//import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**
@@ -72,9 +72,9 @@ public class FragmentSupport extends Fragment {
     String theUrl;
     public static boolean appVisible = false;
     private String onCloseUrl;
+    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
 
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_support, container, false);
@@ -112,7 +112,7 @@ public class FragmentSupport extends Fragment {
         });
 
         theUrl = URL_SUPPORT;
-        HTTPServer.mode = HTTPServer.ServerMode.SUPPORT;
+//        HTTPServer.mode = HTTPServer.ServerMode.SUPPORT;
         String articleId = getArguments() == null ? null : getArguments().getString("articleId");
         if (Utils.isNullOrEmpty(theUrl)) throw new IllegalArgumentException("No url extra!");
 

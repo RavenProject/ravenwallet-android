@@ -22,6 +22,10 @@ import com.ravencoin.presenter.interfaces.OnItemTouchHelperListener;
 import java.util.Collections;
 import java.util.List;
 
+import static com.platform.assets.AssetsValidation.SUB_NAME_DELIMITER;
+import static com.platform.assets.AssetsValidation.UNIQUE_TAG_DELIMITER;
+import static com.platform.assets.adapter.AssetsAdapter.replaceLast;
+
 
 public class ManageAssetsAdapter extends RecyclerView.Adapter<ManageAssetsAdapter.ViewHolder> implements OnItemTouchHelperListener {
 
@@ -43,7 +47,27 @@ public class ManageAssetsAdapter extends RecyclerView.Adapter<ManageAssetsAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Asset asset = assets.get(position);
-        holder.assetName.setText(asset.getName());
+
+        String name = asset.getName();
+        if (!name.contains(SUB_NAME_DELIMITER) && !name.contains(UNIQUE_TAG_DELIMITER)) {
+            holder.assetName.setText(name);
+            holder.rootAssetName.setVisibility(View.GONE);
+        } else {
+            holder.rootAssetName.setVisibility(View.VISIBLE);
+            if (name.contains(UNIQUE_TAG_DELIMITER)) {
+                String[] names = name.split(UNIQUE_TAG_DELIMITER);
+                String subName = names[names.length - 1];
+                String rootName = replaceLast(name, subName, "");
+                holder.assetName.setText(subName);
+                holder.rootAssetName.setText(rootName);
+            } else {
+                String[] names = name.split(SUB_NAME_DELIMITER);
+                String subName = names[names.length - 1];
+                String rootName = replaceLast(name, subName, "");
+                holder.assetName.setText(subName);
+                holder.rootAssetName.setText(rootName);
+            }
+        }
         final String showText = context.getString(R.string.show);
         final String hideText = context.getString(R.string.hide);
 
@@ -130,11 +154,13 @@ public class ManageAssetsAdapter extends RecyclerView.Adapter<ManageAssetsAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout viewContainer;
         TextView assetName;
+        TextView rootAssetName;
         Button visibilityButton;
 
         ViewHolder(View itemView) {
             super(itemView);
             viewContainer = itemView.findViewById(R.id.view_container);
+            rootAssetName = itemView.findViewById(R.id.root_asset_name);
             assetName = itemView.findViewById(R.id.asset_name);
             visibilityButton = itemView.findViewById(R.id.item_visibility_action);
         }

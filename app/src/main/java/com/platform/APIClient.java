@@ -18,8 +18,8 @@ import com.ravencoin.tools.crypto.CryptoHelper;
 import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.Utils;
-import com.platform.kvstore.RemoteKVStore;
-import com.platform.kvstore.ReplicatedKVStore;
+//import com.platform.kvstore.RemoteKVStore;
+//import com.platform.kvstore.ReplicatedKVStore;
 
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
@@ -40,6 +40,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -96,55 +97,33 @@ public class APIClient {
 
     // convenience getter for the API endpoint
     public static String BASE_URL = PROTO + "://" + RavenApp.HOST;
-    //feePerKb url
-    private static final String FEE_PER_KB_URL = "/v1/fee-per-kb";
-    //token
-    private static final String TOKEN = "/token";
-    //me
-    private static final String ME = "/me";
+//    //feePerKb url
+//    private static final String FEE_PER_KB_URL = "/v1/fee-per-kb";
+//    //token
+//    private static final String TOKEN = "/token";
+//    //me
+//    private static final String ME = "/me";
     //singleton instance
     private static APIClient ourInstance;
 
 
-    private static final String BUNDLES = "bundles";
-    public static String BREAD_POINT = "bread-frontend";
+//    private static final String BUNDLES = "bundles";
+//    public static String BREAD_POINT = "bread-frontend";
 
-    private static final String BUNDLES_FOLDER = String.format("/%s", BUNDLES);
+//    private static final String BUNDLES_FOLDER = String.format("/%s", BUNDLES);
 
-    private static String BREAD_FILE;
-    private static String BREAD_EXTRACTED;
+//    private static String BREAD_FILE;
+//    private static String BREAD_EXTRACTED;
     private static final boolean PRINT_FILES = false;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+//    private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
 
-    private boolean platformUpdating = false;
+//    private boolean platformUpdating = false;
     private AtomicInteger itemsLeftToUpdate = new AtomicInteger(0);
 
-    public static HTTPServer server;
+//    public static HTTPServer server;
 
     private Context ctx;
-
-    public enum FeatureFlags {
-        BUY_BITCOIN("buy-bitcoin"),
-        EARLY_ACCESS("early-access");
-
-        private final String text;
-
-        /**
-         * @param text
-         */
-        private FeatureFlags(final String text) {
-            this.text = text;
-        }
-
-        /* (non-Javadoc)
-         * @see java.lang.Enum#toString()
-         */
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
 
     public static synchronized APIClient getInstance(Context context) {
 
@@ -154,124 +133,96 @@ public class APIClient {
 
     private APIClient(Context context) {
         ctx = context;
-        itemsLeftToUpdate = new AtomicInteger(0);
-        if (0 != (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
-            BREAD_POINT = "bread-frontend-staging";
-            BREAD_FILE = String.format("/%s.tar", BREAD_POINT);
-            BREAD_EXTRACTED = String.format("%s-extracted", BREAD_POINT);
-        }
+//        itemsLeftToUpdate = new AtomicInteger(0);
+//        if (0 != (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
+//            BREAD_POINT = "bread-frontend-staging";
+//            BREAD_FILE = String.format("/%s.tar", BREAD_POINT);
+//            BREAD_EXTRACTED = String.format("%s-extracted", BREAD_POINT);
+//        }
     }
 
-    //returns the fee per kb or 0 if something went wrong
-    public long feePerKb() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        Response response = null;
-        try {
-            String strUtl = BASE_URL + FEE_PER_KB_URL;
-            Request request = new Request.Builder().url(strUtl).get().build();
-            String body = null;
-            try {
-                response = sendRequest(request, false, 0);
-                body = response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            JSONObject object = null;
-            object = new JSONObject(body);
-            return (long) object.getInt("fee_per_kb");
-        } catch (JSONException e) {
-            e.printStackTrace();
+//    public String getToken() {
+//        if (ActivityUTILS.isMainThread()) {
+//            throw new NetworkOnMainThreadException();
+//        }
+//        if (ctx == null) ctx = RavenApp.getRvnContext();
+//        if (ctx == null) return null;
+//        try {
+//            String strUtl = BASE_URL + TOKEN;
+//
+//            JSONObject requestMessageJSON = new JSONObject();
+//            String base58PubKey = null;
+//            base58PubKey = BRCoreKey.getAuthPublicKeyForAPI(BRKeyStore.getAuthKey(ctx));
+//            requestMessageJSON.put("pubKey", base58PubKey);
+//            requestMessageJSON.put("deviceID", BRSharedPrefs.getDeviceId(ctx));
+//
+//            final MediaType JSON
+//                    = MediaType.parse("application/json; charset=utf-8");
+//            RequestBody requestBody = RequestBody.create(JSON, requestMessageJSON.toString());
+//            Request request = new Request.Builder()
+//                    .url(strUtl)
+//                    .header("Content-Type", "application/json")
+//                    .header("Accept", "application/json")
+//                    .post(requestBody).build();
+//            String strResponse = null;
+//            Response response = null;
+//            try {
+//                response = sendRequest(request, false, 0);
+//                if (response != null)
+//                    strResponse = response.body().string();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } finally {
+//                if (response != null) response.close();
+//            }
+//            if (Utils.isNullOrEmpty(strResponse)) {
+//                Log.e(TAG, "getToken: retrieving token failed");
+//                return null;
+//            }
+//            JSONObject obj = null;
+//            obj = new JSONObject(strResponse);
+//            String token = obj.getString("token");
+//            BRKeyStore.putToken(token.getBytes(), ctx);
+//            return token;
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//
+//        }
+//        return null;
+//
+//    }
 
-        } finally {
-            if (response != null) response.close();
-        }
-        return 0;
-    }
+//    private String createRequest(String reqMethod, String base58Body, String contentType, String dateHeader, String url) {
+//        return (reqMethod == null ? "" : reqMethod) + "\n" +
+//                (base58Body == null ? "" : base58Body) + "\n" +
+//                (contentType == null ? "" : contentType) + "\n" +
+//                (dateHeader == null ? "" : dateHeader) + "\n" +
+//                (url == null ? "" : url);
+//    }
 
-    public String getToken() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        if (ctx == null) ctx = RavenApp.getBreadContext();
-        if (ctx == null) return null;
-        try {
-            String strUtl = BASE_URL + TOKEN;
-
-            JSONObject requestMessageJSON = new JSONObject();
-            String base58PubKey = null;
-            base58PubKey = BRCoreKey.getAuthPublicKeyForAPI(BRKeyStore.getAuthKey(ctx));
-            requestMessageJSON.put("pubKey", base58PubKey);
-            requestMessageJSON.put("deviceID", BRSharedPrefs.getDeviceId(ctx));
-
-            final MediaType JSON
-                    = MediaType.parse("application/json; charset=utf-8");
-            RequestBody requestBody = RequestBody.create(JSON, requestMessageJSON.toString());
-            Request request = new Request.Builder()
-                    .url(strUtl)
-                    .header("Content-Type", "application/json")
-                    .header("Accept", "application/json")
-                    .post(requestBody).build();
-            String strResponse = null;
-            Response response = null;
-            try {
-                response = sendRequest(request, false, 0);
-                if (response != null)
-                    strResponse = response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (response != null) response.close();
-            }
-            if (Utils.isNullOrEmpty(strResponse)) {
-                Log.e(TAG, "getToken: retrieving token failed");
-                return null;
-            }
-            JSONObject obj = null;
-            obj = new JSONObject(strResponse);
-            String token = obj.getString("token");
-            BRKeyStore.putToken(token.getBytes(), ctx);
-            return token;
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
-        return null;
-
-    }
-
-    private String createRequest(String reqMethod, String base58Body, String contentType, String dateHeader, String url) {
-        return (reqMethod == null ? "" : reqMethod) + "\n" +
-                (base58Body == null ? "" : base58Body) + "\n" +
-                (contentType == null ? "" : contentType) + "\n" +
-                (dateHeader == null ? "" : dateHeader) + "\n" +
-                (url == null ? "" : url);
-    }
-
-    public String signRequest(String request) {
-        Log.d(TAG, "signRequest: " + request);
-        byte[] doubleSha256 = CryptoHelper.doubleSha256(request.getBytes(StandardCharsets.UTF_8));
-        BRCoreKey key;
-        try {
-            byte[] authKey = BRKeyStore.getAuthKey(ctx);
-            if (Utils.isNullOrEmpty(authKey)) {
-                Log.e(TAG, "signRequest: authkey is null");
-                return null;
-            }
-            key = new BRCoreKey(authKey);
-        } catch (IllegalArgumentException ex) {
-            key = null;
-            Log.e(TAG, "signRequest: " + request, ex);
-        }
-        if (key == null) {
-            Log.e(TAG, "signRequest: key is null, failed to create BRKey");
-            return null;
-        }
-        byte[] signedBytes = key.compactSign(doubleSha256);
-        return Base58.encode(signedBytes);
-
-    }
+//    public String signRequest(String request) {
+//        Log.d(TAG, "signRequest: " + request);
+//        byte[] doubleSha256 = CryptoHelper.doubleSha256(request.getBytes(StandardCharsets.UTF_8));
+//        BRCoreKey key;
+//        try {
+//            byte[] authKey = BRKeyStore.getAuthKey(ctx);
+//            if (Utils.isNullOrEmpty(authKey)) {
+//                Log.e(TAG, "signRequest: authkey is null");
+//                return null;
+//            }
+//            key = new BRCoreKey(authKey);
+//        } catch (IllegalArgumentException ex) {
+//            key = null;
+//            Log.e(TAG, "signRequest: " + request, ex);
+//        }
+//        if (key == null) {
+//            Log.e(TAG, "signRequest: key is null, failed to create BRKey");
+//            return null;
+//        }
+//        byte[] signedBytes = key.compactSign(doubleSha256);
+//        return Base58.encode(signedBytes);
+//
+//    }
 
     public Response sendRequest(Request locRequest, boolean needsAuth, int retryCount) {
         if (retryCount > 1)
@@ -281,7 +232,7 @@ public class APIClient {
             throw new RuntimeException("network on main thread");
         }
 
-        Map<String, String> headers = RavenApp.getBreadHeaders();
+        Map<String, String> headers = new HashMap<>();
 
         Iterator it = headers.entrySet().iterator();
 
@@ -293,10 +244,10 @@ public class APIClient {
         }
 
         Request request = newBuilder.build();
-        if (needsAuth) {
-            request = authenticateRequest(request);
-            if (request == null) return null;
-        }
+//        if (needsAuth) {
+//            request = authenticateRequest(request);
+//            if (request == null) return null;
+//        }
 
         Response response = null;
         ResponseBody postReqBody = null;
@@ -358,339 +309,339 @@ public class APIClient {
         }
 
         postReqBody = ResponseBody.create(null, data);
-        if (needsAuth && isBreadChallenge(response)) {
-            Log.d(TAG, "sendRequest: got authentication challenge from API - will attempt to get token");
-            getToken();
-            if (retryCount < 1) {
-                response.close();
-                sendRequest(request, true, retryCount + 1);
-            }
-        }
+//        if (needsAuth && isBreadChallenge(response)) {
+//            Log.d(TAG, "sendRequest: got authentication challenge from API - will attempt to get token");
+////            getToken();
+//            if (retryCount < 1) {
+//                response.close();
+//                sendRequest(request, true, retryCount + 1);
+//            }
+//        }
         return response.newBuilder().body(postReqBody).build();
     }
 
-    private Request authenticateRequest(Request request) {
-        Request.Builder modifiedRequest = request.newBuilder();
-        String base58Body = "";
-        RequestBody body = request.body();
+//    private Request authenticateRequest(Request request) {
+//        Request.Builder modifiedRequest = request.newBuilder();
+//        String base58Body = "";
+//        RequestBody body = request.body();
+//
+//        try {
+//            if (body != null && body.contentLength() != 0) {
+//                BufferedSink sink = new Buffer();
+//                try {
+//                    body.writeTo(sink);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                byte[] bytes = sink.buffer().readByteArray();
+//                base58Body = CryptoHelper.base58ofSha256(bytes);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        String httpDate = sdf.format(new Date());
+//
+//        request = modifiedRequest.header("Date", httpDate.substring(0, httpDate.length() - 6)).build();
+//
+//        String queryString = request.url().encodedQuery();
+//
+//        String requestString = createRequest(request.method(), base58Body,
+//                request.header("Content-Type"), request.header("Date"), request.url().encodedPath()
+//                        + ((queryString != null && !queryString.isEmpty()) ? ("?" + queryString) : ""));
+//        String signedRequest = signRequest(requestString);
+//        if (signedRequest == null) return null;
+//        byte[] tokenBytes = new byte[0];
+//        tokenBytes = BRKeyStore.getToken(ctx);
+//        String token = tokenBytes == null ? "" : new String(tokenBytes);
+//        if (token.isEmpty()) token = getToken();
+//        if (token == null || token.isEmpty()) {
+//            Log.e(TAG, "sendRequest: failed to retrieve token");
+//            return null;
+//        }
+//        String authValue = "bread " + token + ":" + signedRequest;
+////            Log.e(TAG, "sendRequest: authValue: " + authValue);
+//        modifiedRequest = request.newBuilder();
+//
+//        try {
+//            request = modifiedRequest.header("Authorization", authValue).build();
+//        } catch (Exception e) {
+//            BRReportsManager.reportBug(e);
+//            return null;
+//        }
+//        return request;
+//    }
 
-        try {
-            if (body != null && body.contentLength() != 0) {
-                BufferedSink sink = new Buffer();
-                try {
-                    body.writeTo(sink);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                byte[] bytes = sink.buffer().readByteArray();
-                base58Body = CryptoHelper.base58ofSha256(bytes);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        String httpDate = sdf.format(new Date());
+//    public void updateBundle() {
+//        if (ActivityUTILS.isMainThread()) {
+//            throw new NetworkOnMainThreadException();
+//        }
+//        File bundleFile = new File(getBundleResource(ctx, BREAD_FILE));
+//        Log.d(TAG, "updateBundle: " + bundleFile);
+//        if (bundleFile.exists()) {
+//            Log.d(TAG, bundleFile + ": updateBundle: exists");
+//
+//            byte[] bFile = new byte[0];
+//            try {
+//                FileInputStream in = new FileInputStream(bundleFile);
+//                bFile = IOUtils.toByteArray(in);
+//                in.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            String latestVersion = getLatestVersion();
+//            String currentTarVersion = null;
+//            byte[] hash = CryptoHelper.sha256(bFile);
+//
+//            currentTarVersion = Utils.bytesToHex(hash);
+//            Log.d(TAG, bundleFile + ": updateBundle: version of the current tar: " + currentTarVersion);
+////            FileHelper.printDirectoryTree(new File(getExtractedPath(ctx, null)));
+//            if (latestVersion != null) {
+//                if (latestVersion.equals(currentTarVersion)) {
+//                    Log.d(TAG, bundleFile + ": updateBundle: have the latest version");
+//                    tryExtractTar();
+//                } else {
+//                    Log.d(TAG, bundleFile + ": updateBundle: don't have the most recent version, download diff");
+//                    downloadDiff(currentTarVersion);
+//                    tryExtractTar();
+//                }
+//            } else {
+//                Log.d(TAG, bundleFile + ": updateBundle: latestVersion is null");
+//            }
+////            FileHelper.printDirectoryTree(new File(getExtractedPath(ctx, null)));
+//
+//        } else {
+//            Log.d(TAG, bundleFile + ": updateBundle: bundle doesn't exist, downloading new copy");
+//            long startTime = System.currentTimeMillis();
+//            Request request = new Request.Builder()
+//                    .url(String.format("%s/assets/bundles/%s/download", BASE_URL, BREAD_POINT))
+//                    .get().build();
+//            Response response = null;
+//            byte[] body;
+//            try {
+//                response = sendRequest(request, false, 0);
+//                Log.d(TAG, bundleFile + ": updateBundle: Downloaded, took: " + (System.currentTimeMillis() - startTime));
+//                body = writeBundleToFile(response);
+//            } finally {
+//                if (response != null) response.close();
+//            }
+//            if (Utils.isNullOrEmpty(body)) {
+//                Log.e(TAG, "updateBundle: body is null, returning.");
+//                return;
+//            }
+//
+//            boolean b = tryExtractTar();
+//            if (!b) {
+//                Log.e(TAG, "updateBundle: Failed to extract tar");
+//            }
+//        }
+//
+//        logFiles("updateBundle after", ctx);
+//    }
 
-        request = modifiedRequest.header("Date", httpDate.substring(0, httpDate.length() - 6)).build();
+//    public String getLatestVersion() {
+//        if (ActivityUTILS.isMainThread()) {
+//            throw new NetworkOnMainThreadException();
+//        }
+//        String latestVersion = null;
+//        Response response = null;
+//        String respBody = null;
+//        try {
+//            response = sendRequest(new Request.Builder()
+//                    .get()
+//                    .url(String.format("%s/assets/bundles/%s/versions", BASE_URL, BREAD_POINT))
+//                    .build(), false, 0);
+//        } finally {
+//            if (response != null) {
+//                try {
+//                    respBody = response.body().string();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                response.close();
+//            }
+//        }
+//
+//        if (respBody == null) return null;
+//        try {
+//            JSONObject versionsJson = new JSONObject(respBody);
+//            JSONArray jsonArray = versionsJson.getJSONArray("versions");
+//            if (jsonArray.length() == 0) return null;
+//            latestVersion = (String) jsonArray.get(jsonArray.length() - 1);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return latestVersion;
+//    }
 
-        String queryString = request.url().encodedQuery();
+//    public void downloadDiff(String currentTarVersion) {
+//        if (ActivityUTILS.isMainThread()) {
+//            throw new NetworkOnMainThreadException();
+//        }
+//        Request diffRequest = new Request.Builder()
+//                .url(String.format("%s/assets/bundles/%s/diff/%s", BASE_URL, BREAD_POINT, currentTarVersion))
+//                .get().build();
+//        Response diffResponse = sendRequest(diffRequest, false, 0);
+//        File patchFile = null;
+//        File tempFile = null;
+//        byte[] patchBytes = null;
+//        try {
+//            patchFile = new File(getBundleResource(ctx, BREAD_POINT + "-patch.diff"));
+//            patchBytes = diffResponse.body().bytes();
+//            Log.e(TAG, "downloadDiff: trying to write to file");
+//            FileUtils.writeByteArrayToFile(patchFile, patchBytes);
+//            tempFile = new File(getBundleResource(ctx, BREAD_POINT + "-2temp.tar"));
+//            boolean a = tempFile.createNewFile();
+//            File bundleFile = new File(getBundleResource(ctx, BREAD_POINT + ".tar"));
+//            FileUI.patch(bundleFile, tempFile, patchFile);
+//            byte[] updatedBundleBytes = IOUtils.toByteArray(new FileInputStream(tempFile));
+//            if (Utils.isNullOrEmpty(updatedBundleBytes))
+//                Log.e(TAG, "downloadDiff: failed to get bytes from the updatedBundle: " + tempFile.getAbsolutePath());
+//            FileUtils.writeByteArrayToFile(bundleFile, updatedBundleBytes);
+//
+//        } catch (IOException | InvalidHeaderException | CompressorException | NullPointerException e) {
+//            Log.e(TAG, "downloadDiff: ", e);
+//            new File(getBundleResource(ctx, BREAD_POINT + ".tar")).delete();
+//        } finally {
+//            if (patchFile != null)
+//                patchFile.delete();
+//            if (tempFile != null)
+//                tempFile.delete();
+//            if (diffResponse != null) diffResponse.close();
+//        }
+//
+//        logFiles("downloadDiff", ctx);
+//    }
 
-        String requestString = createRequest(request.method(), base58Body,
-                request.header("Content-Type"), request.header("Date"), request.url().encodedPath()
-                        + ((queryString != null && !queryString.isEmpty()) ? ("?" + queryString) : ""));
-        String signedRequest = signRequest(requestString);
-        if (signedRequest == null) return null;
-        byte[] tokenBytes = new byte[0];
-        tokenBytes = BRKeyStore.getToken(ctx);
-        String token = tokenBytes == null ? "" : new String(tokenBytes);
-        if (token.isEmpty()) token = getToken();
-        if (token == null || token.isEmpty()) {
-            Log.e(TAG, "sendRequest: failed to retrieve token");
-            return null;
-        }
-        String authValue = "bread " + token + ":" + signedRequest;
-//            Log.e(TAG, "sendRequest: authValue: " + authValue);
-        modifiedRequest = request.newBuilder();
+//    public byte[] writeBundleToFile(Response response) {
+//        byte[] bodyBytes;
+//        FileOutputStream fileOutputStream = null;
+//        assert (response != null);
+//        try {
+//            if (response == null) {
+//                Log.e(TAG, "writeBundleToFile: WARNING, response is null");
+//                return null;
+//            }
+//            bodyBytes = response.body().bytes();
+//            File bundleFile = new File(getBundleResource(ctx, BREAD_POINT + ".tar"));
+//            FileUtils.writeByteArrayToFile(bundleFile, bodyBytes);
+//            return bodyBytes;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (fileOutputStream != null) {
+//                    fileOutputStream.close();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        return null;
+//    }
 
-        try {
-            request = modifiedRequest.header("Authorization", authValue).build();
-        } catch (Exception e) {
-            BRReportsManager.reportBug(e);
-            return null;
-        }
-        return request;
-    }
+//    public boolean tryExtractTar() {
+//        Context app = RavenApp.getRvnContext();
+//        if (app == null) {
+//            Log.e(TAG, "tryExtractTar: failed to extract, app is null");
+//            return false;
+//        }
+//        File bundleFile = new File(getBundleResource(ctx, BREAD_POINT + ".tar"));
+//        Log.e(TAG, "tryExtractTar: " + bundleFile.getAbsolutePath());
+//        boolean result = false;
+//        TarArchiveInputStream debInputStream = null;
+//        try {
+//            final InputStream is = new FileInputStream(bundleFile);
+//            debInputStream = (TarArchiveInputStream) new ArchiveStreamFactory().createArchiveInputStream("tar", is);
+//            TarArchiveEntry entry = null;
+//            while ((entry = (TarArchiveEntry) debInputStream.getNextEntry()) != null) {
+//
+//                final String outPutFileName = entry.getName().replace("./", "");
+//                final File outputFile = new File(getExtractedPath(ctx, null), outPutFileName);
+//                if (!entry.isDirectory()) {
+//                    FileUtils.writeByteArrayToFile(outputFile, org.apache.commons.compress.utils.IOUtils.toByteArray(debInputStream));
+//                }
+//            }
+//
+//            result = true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (debInputStream != null)
+//                    debInputStream.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        logFiles("tryExtractTar", ctx);
+//        return result;
+//
+//    }
 
-    public void updateBundle() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        File bundleFile = new File(getBundleResource(ctx, BREAD_FILE));
-        Log.d(TAG, "updateBundle: " + bundleFile);
-        if (bundleFile.exists()) {
-            Log.d(TAG, bundleFile + ": updateBundle: exists");
+//    public void updateFeatureFlag() {
+//        if (ActivityUTILS.isMainThread()) {
+//            throw new NetworkOnMainThreadException();
+//        }
+//        String furl = "/me/features";
+//        Request req = new Request.Builder()
+//                .url(buildUrl(furl))
+//                .get().build();
+//        Response res = sendRequest(req, true, 0);
+//        if (res == null) {
+//            Log.e(TAG, "updateFeatureFlag: error fetching features");
+//            return;
+//        }
+//
+//        if (!res.isSuccessful()) {
+//            Log.e(TAG, "updateFeatureFlag: request was unsuccessful: " + res.code() + ":" + res.message());
+//            return;
+//        }
+//
+//        try {
+//            String j = res.body().string();
+//            if (j.isEmpty()) {
+//                Log.e(TAG, "updateFeatureFlag: JSON empty");
+//                return;
+//            }
+//
+//            JSONArray arr = new JSONArray(j);
+//            for (int i = 0; i < arr.length(); i++) {
+//                try {
+//                    JSONObject obj = arr.getJSONObject(i);
+//                    String name = obj.getString("name");
+//                    String description = obj.getString("description");
+//                    boolean selected = obj.getBoolean("selected");
+//                    boolean enabled = obj.getBoolean("enabled");
+//                    boolean isPrivate = obj.getBoolean("private");
+//                    BRSharedPrefs.putFeatureEnabled(ctx, enabled, name);
+//                } catch (Exception e) {
+//                    Log.e(TAG, "malformed feature at position: " + i + ", whole json: " + j, e);
+//                }
+//
+//            }
+//        } catch (IOException | JSONException e) {
+//            Log.e(TAG, "updateFeatureFlag: failed to pull up features");
+//            e.printStackTrace();
+//        } finally {
+//            res.close();
+//        }
+//
+//    }
 
-            byte[] bFile = new byte[0];
-            try {
-                FileInputStream in = new FileInputStream(bundleFile);
-                bFile = IOUtils.toByteArray(in);
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            String latestVersion = getLatestVersion();
-            String currentTarVersion = null;
-            byte[] hash = CryptoHelper.sha256(bFile);
-
-            currentTarVersion = Utils.bytesToHex(hash);
-            Log.d(TAG, bundleFile + ": updateBundle: version of the current tar: " + currentTarVersion);
-//            FileHelper.printDirectoryTree(new File(getExtractedPath(ctx, null)));
-            if (latestVersion != null) {
-                if (latestVersion.equals(currentTarVersion)) {
-                    Log.d(TAG, bundleFile + ": updateBundle: have the latest version");
-                    tryExtractTar();
-                } else {
-                    Log.d(TAG, bundleFile + ": updateBundle: don't have the most recent version, download diff");
-                    downloadDiff(currentTarVersion);
-                    tryExtractTar();
-                }
-            } else {
-                Log.d(TAG, bundleFile + ": updateBundle: latestVersion is null");
-            }
-//            FileHelper.printDirectoryTree(new File(getExtractedPath(ctx, null)));
-
-        } else {
-            Log.d(TAG, bundleFile + ": updateBundle: bundle doesn't exist, downloading new copy");
-            long startTime = System.currentTimeMillis();
-            Request request = new Request.Builder()
-                    .url(String.format("%s/assets/bundles/%s/download", BASE_URL, BREAD_POINT))
-                    .get().build();
-            Response response = null;
-            byte[] body;
-            try {
-                response = sendRequest(request, false, 0);
-                Log.d(TAG, bundleFile + ": updateBundle: Downloaded, took: " + (System.currentTimeMillis() - startTime));
-                body = writeBundleToFile(response);
-            } finally {
-                if (response != null) response.close();
-            }
-            if (Utils.isNullOrEmpty(body)) {
-                Log.e(TAG, "updateBundle: body is null, returning.");
-                return;
-            }
-
-            boolean b = tryExtractTar();
-            if (!b) {
-                Log.e(TAG, "updateBundle: Failed to extract tar");
-            }
-        }
-
-        logFiles("updateBundle after", ctx);
-    }
-
-    public String getLatestVersion() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        String latestVersion = null;
-        Response response = null;
-        String respBody = null;
-        try {
-            response = sendRequest(new Request.Builder()
-                    .get()
-                    .url(String.format("%s/assets/bundles/%s/versions", BASE_URL, BREAD_POINT))
-                    .build(), false, 0);
-        } finally {
-            if (response != null) {
-                try {
-                    respBody = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                response.close();
-            }
-        }
-
-        if (respBody == null) return null;
-        try {
-            JSONObject versionsJson = new JSONObject(respBody);
-            JSONArray jsonArray = versionsJson.getJSONArray("versions");
-            if (jsonArray.length() == 0) return null;
-            latestVersion = (String) jsonArray.get(jsonArray.length() - 1);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return latestVersion;
-    }
-
-    public void downloadDiff(String currentTarVersion) {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        Request diffRequest = new Request.Builder()
-                .url(String.format("%s/assets/bundles/%s/diff/%s", BASE_URL, BREAD_POINT, currentTarVersion))
-                .get().build();
-        Response diffResponse = sendRequest(diffRequest, false, 0);
-        File patchFile = null;
-        File tempFile = null;
-        byte[] patchBytes = null;
-        try {
-            patchFile = new File(getBundleResource(ctx, BREAD_POINT + "-patch.diff"));
-            patchBytes = diffResponse.body().bytes();
-            Log.e(TAG, "downloadDiff: trying to write to file");
-            FileUtils.writeByteArrayToFile(patchFile, patchBytes);
-            tempFile = new File(getBundleResource(ctx, BREAD_POINT + "-2temp.tar"));
-            boolean a = tempFile.createNewFile();
-            File bundleFile = new File(getBundleResource(ctx, BREAD_POINT + ".tar"));
-            FileUI.patch(bundleFile, tempFile, patchFile);
-            byte[] updatedBundleBytes = IOUtils.toByteArray(new FileInputStream(tempFile));
-            if (Utils.isNullOrEmpty(updatedBundleBytes))
-                Log.e(TAG, "downloadDiff: failed to get bytes from the updatedBundle: " + tempFile.getAbsolutePath());
-            FileUtils.writeByteArrayToFile(bundleFile, updatedBundleBytes);
-
-        } catch (IOException | InvalidHeaderException | CompressorException | NullPointerException e) {
-            Log.e(TAG, "downloadDiff: ", e);
-            new File(getBundleResource(ctx, BREAD_POINT + ".tar")).delete();
-        } finally {
-            if (patchFile != null)
-                patchFile.delete();
-            if (tempFile != null)
-                tempFile.delete();
-            if (diffResponse != null) diffResponse.close();
-        }
-
-        logFiles("downloadDiff", ctx);
-    }
-
-    public byte[] writeBundleToFile(Response response) {
-        byte[] bodyBytes;
-        FileOutputStream fileOutputStream = null;
-        assert (response != null);
-        try {
-            if (response == null) {
-                Log.e(TAG, "writeBundleToFile: WARNING, response is null");
-                return null;
-            }
-            bodyBytes = response.body().bytes();
-            File bundleFile = new File(getBundleResource(ctx, BREAD_POINT + ".tar"));
-            FileUtils.writeByteArrayToFile(bundleFile, bodyBytes);
-            return bodyBytes;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileOutputStream != null) {
-                    fileOutputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
-    }
-
-    public boolean tryExtractTar() {
-        Context app = RavenApp.getBreadContext();
-        if (app == null) {
-            Log.e(TAG, "tryExtractTar: failed to extract, app is null");
-            return false;
-        }
-        File bundleFile = new File(getBundleResource(ctx, BREAD_POINT + ".tar"));
-        Log.e(TAG, "tryExtractTar: " + bundleFile.getAbsolutePath());
-        boolean result = false;
-        TarArchiveInputStream debInputStream = null;
-        try {
-            final InputStream is = new FileInputStream(bundleFile);
-            debInputStream = (TarArchiveInputStream) new ArchiveStreamFactory().createArchiveInputStream("tar", is);
-            TarArchiveEntry entry = null;
-            while ((entry = (TarArchiveEntry) debInputStream.getNextEntry()) != null) {
-
-                final String outPutFileName = entry.getName().replace("./", "");
-                final File outputFile = new File(getExtractedPath(ctx, null), outPutFileName);
-                if (!entry.isDirectory()) {
-                    FileUtils.writeByteArrayToFile(outputFile, org.apache.commons.compress.utils.IOUtils.toByteArray(debInputStream));
-                }
-            }
-
-            result = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (debInputStream != null)
-                    debInputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        logFiles("tryExtractTar", ctx);
-        return result;
-
-    }
-
-    public void updateFeatureFlag() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        String furl = "/me/features";
-        Request req = new Request.Builder()
-                .url(buildUrl(furl))
-                .get().build();
-        Response res = sendRequest(req, true, 0);
-        if (res == null) {
-            Log.e(TAG, "updateFeatureFlag: error fetching features");
-            return;
-        }
-
-        if (!res.isSuccessful()) {
-            Log.e(TAG, "updateFeatureFlag: request was unsuccessful: " + res.code() + ":" + res.message());
-            return;
-        }
-
-        try {
-            String j = res.body().string();
-            if (j.isEmpty()) {
-                Log.e(TAG, "updateFeatureFlag: JSON empty");
-                return;
-            }
-
-            JSONArray arr = new JSONArray(j);
-            for (int i = 0; i < arr.length(); i++) {
-                try {
-                    JSONObject obj = arr.getJSONObject(i);
-                    String name = obj.getString("name");
-                    String description = obj.getString("description");
-                    boolean selected = obj.getBoolean("selected");
-                    boolean enabled = obj.getBoolean("enabled");
-                    boolean isPrivate = obj.getBoolean("private");
-                    BRSharedPrefs.putFeatureEnabled(ctx, enabled, name);
-                } catch (Exception e) {
-                    Log.e(TAG, "malformed feature at position: " + i + ", whole json: " + j, e);
-                }
-
-            }
-        } catch (IOException | JSONException e) {
-            Log.e(TAG, "updateFeatureFlag: failed to pull up features");
-            e.printStackTrace();
-        } finally {
-            res.close();
-        }
-
-    }
-
-    public boolean isBreadChallenge(Response resp) {
-        String challenge = resp.header("www-authenticate");
-        return challenge != null && challenge.startsWith("bread");
-    }
-
-    public boolean isFeatureEnabled(String feature) {
-        boolean b = BRSharedPrefs.getFeatureEnabled(ctx, feature);
-//        Log.e(TAG, "isFeatureEnabled: " + feature + " - " + b);
-        return b;
-    }
+//    public boolean isBreadChallenge(Response resp) {
+//        String challenge = resp.header("www-authenticate");
+//        return challenge != null && challenge.startsWith("bread");
+//    }
+//
+//    public boolean isFeatureEnabled(String feature) {
+//        boolean b = BRSharedPrefs.getFeatureEnabled(ctx, feature);
+////        Log.e(TAG, "isFeatureEnabled: " + feature + " - " + b);
+//        return b;
+//    }
 
     public String buildUrl(String path) {
         return BASE_URL + path;
@@ -715,134 +666,132 @@ public class APIClient {
         }
     }
 
-    public void updatePlatform() {
-        if (platformUpdating) {
-            Log.e(TAG, "updatePlatform: platform already Updating!");
-            return;
-        }
-        platformUpdating = true;
+//    public void updatePlatform() {
+//        if (platformUpdating) {
+//            Log.e(TAG, "updatePlatform: platform already Updating!");
+//            return;
+//        }
+//        platformUpdating = true;
+//
+//        //update Bundle
+//        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                Thread.currentThread().setName("UpdateBundle");
+//                final long startTime = System.currentTimeMillis();
+//                APIClient apiClient = APIClient.getInstance(ctx);
+//                apiClient.updateBundle();
+//                long endTime = System.currentTimeMillis();
+//                Log.d(TAG, "updateBundle " + BREAD_POINT + ": DONE in " + (endTime - startTime) + "ms");
+//                itemFinished();
+//            }
+//        });
+//
+//        //update feature flags
+//        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                Thread.currentThread().setName("updateFeatureFlag");
+//                final long startTime = System.currentTimeMillis();
+//                APIClient apiClient = APIClient.getInstance(ctx);
+//                apiClient.updateFeatureFlag();
+//                long endTime = System.currentTimeMillis();
+//                Log.d(TAG, "updateFeatureFlag: DONE in " + (endTime - startTime) + "ms");
+//                itemFinished();
+//            }
+//        });
+//
+//        //update kvStore
+//        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                Thread.currentThread().setName("updatePlatform");
+//                final long startTime = System.currentTimeMillis();
+//                APIClient apiClient = APIClient.getInstance(ctx);
+//                apiClient.syncKvStore();
+//                long endTime = System.currentTimeMillis();
+//                Log.d(TAG, "syncKvStore: DONE in " + (endTime - startTime) + "ms");
+//                itemFinished();
+//            }
+//        });
+//
+//        //update fee
+//        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                final long startTime = System.currentTimeMillis();
+//                BRApiManager.updateFeePerKb(ctx);
+//                long endTime = System.currentTimeMillis();
+//                Log.d(TAG, "update fee: DONE in " + (endTime - startTime) + "ms");
+//                itemFinished();
+//            }
+//        });
+//
+//    }
 
-        //update Bundle
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                Thread.currentThread().setName("UpdateBundle");
-                final long startTime = System.currentTimeMillis();
-                APIClient apiClient = APIClient.getInstance(ctx);
-                apiClient.updateBundle();
-                long endTime = System.currentTimeMillis();
-                Log.d(TAG, "updateBundle " + BREAD_POINT + ": DONE in " + (endTime - startTime) + "ms");
-                itemFinished();
-            }
-        });
+//    private void itemFinished() {
+//        int items = itemsLeftToUpdate.incrementAndGet();
+//        if (items >= 4) {
+//            Log.d(TAG, "PLATFORM ALL UPDATED: " + items);
+//            platformUpdating = false;
+//            itemsLeftToUpdate.set(0);
+//        }
+//    }
 
-        //update feature flags
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Thread.currentThread().setName("updateFeatureFlag");
-                final long startTime = System.currentTimeMillis();
-                APIClient apiClient = APIClient.getInstance(ctx);
-                apiClient.updateFeatureFlag();
-                long endTime = System.currentTimeMillis();
-                Log.d(TAG, "updateFeatureFlag: DONE in " + (endTime - startTime) + "ms");
-                itemFinished();
-            }
-        });
+//    public void syncKvStore() {
+//        if (ActivityUTILS.isMainThread()) {
+//            throw new NetworkOnMainThreadException();
+//        }
+//        final APIClient client = this;
+//        //sync the kv stores
+//        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(client);
+//        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(ctx, remoteKVStore);
+//        kvStore.syncAllKeys();
+//    }
 
-        //update kvStore
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                Thread.currentThread().setName("updatePlatform");
-                final long startTime = System.currentTimeMillis();
-                APIClient apiClient = APIClient.getInstance(ctx);
-                apiClient.syncKvStore();
-                long endTime = System.currentTimeMillis();
-                Log.d(TAG, "syncKvStore: DONE in " + (endTime - startTime) + "ms");
-                itemFinished();
-            }
-        });
+//    //returns the resource at bundles/path, if path is null then the bundle folder
+//    public String getBundleResource(Context app, String path) {
+//        String bundle = app.getFilesDir().getAbsolutePath() + BUNDLES_FOLDER;
+//        if (Utils.isNullOrEmpty(path)) {
+//            return bundle;
+//        } else {
+//            if (!path.startsWith("/")) {
+//                path = "/" + path;
+//            }
+//            return bundle + path;
+//        }
+//    }
 
-        //update fee
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                final long startTime = System.currentTimeMillis();
-                BRApiManager.updateFeePerKb(ctx);
-                long endTime = System.currentTimeMillis();
-                Log.d(TAG, "update fee: DONE in " + (endTime - startTime) + "ms");
-                itemFinished();
-            }
-        });
+//    //returns the extracted folder or the path in it
+//    public String getExtractedPath(Context app, String path) {
+//        String extracted = app.getFilesDir().getAbsolutePath() + "/" + BREAD_EXTRACTED;
+//        if (Utils.isNullOrEmpty(path)) {
+//            return extracted;
+//        } else {
+//            if (!path.startsWith("/")) {
+//                path = "/" + path;
+//            }
+//            return extracted + path;
+//        }
+//    }
 
-    }
-
-    private void itemFinished() {
-        int items = itemsLeftToUpdate.incrementAndGet();
-        if (items >= 4) {
-            Log.d(TAG, "PLATFORM ALL UPDATED: " + items);
-            platformUpdating = false;
-            itemsLeftToUpdate.set(0);
-        }
-    }
-
-    public void syncKvStore() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        final APIClient client = this;
-        //sync the kv stores
-        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(client);
-        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(ctx, remoteKVStore);
-        kvStore.syncAllKeys();
-    }
-
-    //returns the resource at bundles/path, if path is null then the bundle folder
-    public String getBundleResource(Context app, String path) {
-        String bundle = app.getFilesDir().getAbsolutePath() + BUNDLES_FOLDER;
-        if (Utils.isNullOrEmpty(path)) {
-            return bundle;
-        } else {
-            if (!path.startsWith("/")) {
-                path = "/" + path;
-            }
-            return bundle + path;
-        }
-    }
-
-    //returns the extracted folder or the path in it
-    public String getExtractedPath(Context app, String path) {
-        String extracted = app.getFilesDir().getAbsolutePath() + "/" + BREAD_EXTRACTED;
-        if (Utils.isNullOrEmpty(path)) {
-            return extracted;
-        } else {
-            if (!path.startsWith("/")) {
-                path = "/" + path;
-            }
-            return extracted + path;
-        }
-    }
-
-    public void logFiles(String tag, Context ctx) {
-        if (PRINT_FILES) {
-            Log.e(TAG, "logFiles " + tag + " : START LOGGING");
-            String path = getExtractedPath(ctx, null);
-
-            File directory = new File(path);
-            File[] files = directory.listFiles();
-            Log.e("Files", "Path: " + path + ", size: " + (files == null ? 0 : files.length));
-            for (int i = 0; files != null && i < files.length; i++) {
-                Log.e("Files", "FileName:" + files[i].getName());
-            }
-            Log.e(TAG, "logFiles " + tag + " : START LOGGING");
-        }
-    }
-
-
+//    public void logFiles(String tag, Context ctx) {
+//        if (PRINT_FILES) {
+//            Log.e(TAG, "logFiles " + tag + " : START LOGGING");
+//            String path = getExtractedPath(ctx, null);
+//
+//            File directory = new File(path);
+//            File[] files = directory.listFiles();
+//            Log.e("Files", "Path: " + path + ", size: " + (files == null ? 0 : files.length));
+//            for (int i = 0; files != null && i < files.length; i++) {
+//                Log.e("Files", "FileName:" + files[i].getName());
+//            }
+//            Log.e(TAG, "logFiles " + tag + " : START LOGGING");
+//        }
+//    }
 }

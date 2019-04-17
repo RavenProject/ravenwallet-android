@@ -20,6 +20,7 @@ import com.ravencoin.R;
 import com.ravencoin.presenter.customviews.BRButton;
 import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.presenter.interfaces.ConfirmationListener;
+import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
@@ -44,7 +45,7 @@ public class FragmentConfirmation extends DialogFragment {
     private BRText mTvAmount, tvAddress;
     private BRText lblAmount, tvNetFee, lblTxTypeFee, tvTxTypeFee, tvTotal;
     private BRButton mSendButton, mCancelButton;
-    private LinearLayout layout_tx_type_fee, layoutAddress,layout_amount;
+    private LinearLayout layout_tx_type_fee, layoutAddress, layout_amount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,7 @@ public class FragmentConfirmation extends DialogFragment {
                 type = "Transfer";
                 lblTxFee = "Transfer Fee";
                 layout_tx_type_fee.setVisibility(View.GONE);
+                mSendButton.setText("Send");
                 assetTypeFee = 0;
                 break;
             case SUB:
@@ -149,6 +151,8 @@ public class FragmentConfirmation extends DialogFragment {
                 lblTxFee = "Burn Fee";
                 layout_tx_type_fee.setVisibility(View.GONE);
                 layout_amount.setVisibility(View.GONE);
+                mSendButton.setText("Burn");
+                mSendButton.setType(6);
                 assetTypeFee = 0;
                 break;
         }
@@ -175,7 +179,7 @@ public class FragmentConfirmation extends DialogFragment {
         tvTxTypeFee.setText(formattedAssetFee);
         tvNetFee.setText(formattedFee);
 
-        if (TextUtils.isEmpty(address))
+        if (TextUtils.isEmpty(address) || !BRSharedPrefs.getExpertMode(getContext()))
             layoutAddress.setVisibility(View.GONE);
         else tvAddress.setText(address);
         DecimalFormat currencyFormat = (DecimalFormat) DecimalFormat.getInstance();

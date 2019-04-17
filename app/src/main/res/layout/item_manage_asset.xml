@@ -8,19 +8,41 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/asset_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+
+    <LinearLayout
+        android:layout_toEndOf="@id/asset_ownership_image"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/total_assets_usd_color"
-        android:textSize="18sp"
-        app:customTFont="CircularPro-Bold.otf"
-        tools:text="Troncoin" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/root_asset_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/total_assets_usd_color"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:customTFont="CircularPro-Bold.otf"
+            tools:text="Troncoin" />
+
+        <com.ravencoin.presenter.customviews.BRText
+            android:id="@+id/asset_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/total_assets_usd_color"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Bold.otf"
+            tools:text="Troncoin" />
+
+    </LinearLayout>
 
     <com.ravencoin.presenter.customviews.BRButton
         android:id="@+id/item_visibility_action"

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,9 +14,7 @@ import com.ravencoin.R;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SpringAnimator;
-import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.security.AuthManager;
-import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.util.BRConstants;
 
 import java.util.Locale;
@@ -79,7 +76,7 @@ public class DisabledActivity extends BRActivity {
         if (AuthManager.getInstance().isWalletDisabled(DisabledActivity.this)) {
             SpringAnimator.failShakeAnimation(DisabledActivity.this, disabled);
         } else {
-            BRAnimator.startBreadActivity(DisabledActivity.this, true);
+            BRAnimator.startRvnActivity(DisabledActivity.this, true);
         }
     }
 
@@ -131,7 +128,7 @@ public class DisabledActivity extends BRActivity {
         } else if (AuthManager.getInstance().isWalletDisabled(DisabledActivity.this)) {
             SpringAnimator.failShakeAnimation(DisabledActivity.this, disabled);
         } else {
-            BRAnimator.startBreadActivity(DisabledActivity.this, true);
+            BRAnimator.startRvnActivity(DisabledActivity.this, true);
         }
         overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
     }

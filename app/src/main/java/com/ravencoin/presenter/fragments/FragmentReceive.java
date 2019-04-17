@@ -40,7 +40,7 @@ import com.ravencoin.wallet.wallets.util.CryptoUriParser;
 
 import static com.ravencoin.tools.animation.BRAnimator.animateBackgroundDim;
 import static com.ravencoin.tools.animation.BRAnimator.animateSignalSlide;
-import static com.platform.HTTPServer.URL_SUPPORT;
+//import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**
@@ -92,6 +92,7 @@ public class FragmentReceive extends Fragment {
     private BRKeyboard keyboard;
     private View separator2;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 3;
+    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -293,7 +294,7 @@ public class FragmentReceive extends Fragment {
     }
 
     private void updateQr() {
-        final Context ctx = getContext() == null ? RavenApp.getBreadContext() : (Activity) getContext();
+        final Context ctx = getContext() == null ? RavenApp.getRvnContext() : (Activity) getContext();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {

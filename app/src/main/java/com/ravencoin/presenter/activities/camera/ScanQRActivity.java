@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.platform.tools.BRBitId;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.tools.animation.SpringAnimator;
@@ -183,7 +182,7 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
         lastUpdated = System.currentTimeMillis();
         if (handlingCode) return;
         handlingCode = true;
-        if (CryptoUriParser.isCryptoUrl(this, text) || BRBitId.isBitId(text)) {
+        if (CryptoUriParser.isCryptoUrl(this, text) /*|| BRBitId.isBitId(text)*/) {
             Log.e(TAG, "onQRCodeRead: isCrypto");
             runOnUiThread(new Runnable() {
                 @Override

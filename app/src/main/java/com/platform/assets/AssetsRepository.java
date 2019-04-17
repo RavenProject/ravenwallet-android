@@ -1,6 +1,7 @@
 package com.platform.assets;
 
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,7 +13,14 @@ import android.util.Log;
 
 import com.platform.sqlite.PlatformSqliteHelper;
 import com.platform.sqlite.PlatformSqliteHelper.OwnedAsset;
+import com.ravencoin.R;
+import com.ravencoin.presenter.AssetChangeListener;
+import com.ravencoin.presenter.activities.HomeActivity;
+import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
+import com.ravencoin.tools.animation.BRAnimator;
+import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.BRConstants;
+import com.ravencoin.tools.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +54,7 @@ public class AssetsRepository {
 
     private final PlatformSqliteHelper dbHelper;
     private SQLiteDatabase mDatabase;
-
+    private List<AssetChangeListener> listeners = new ArrayList<>();
     private static AssetsRepository instance;
 
     public static AssetsRepository getInstance(Context context) {
@@ -54,6 +62,12 @@ public class AssetsRepository {
             instance = new AssetsRepository(context);
         }
         return instance;
+    }
+
+    public void addListener(AssetChangeListener assetChangeListener) {
+        if (listeners == null) listeners = new ArrayList<>();
+        if (assetChangeListener != null)
+            listeners.add(assetChangeListener);
     }
 
     private AssetsRepository(Context context) {
@@ -138,10 +152,25 @@ public class AssetsRepository {
 
         try (SQLiteDatabase db = getWritable()) {
             int n = db.update(OwnedAsset.TABLE_NAME, values, OwnedAsset._ID + " = ?", new String[]{String.valueOf(asset.getID())});
+            notifyListeners();
             return n != -1;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private void notifyListeners() {
+        if (listeners != null) {
+            for (final AssetChangeListener listener : listeners)
+                if (listener != null) {
+                    BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onChange();
+                        }
+                    });
+                }
         }
     }
 
@@ -153,6 +182,7 @@ public class AssetsRepository {
         try (SQLiteDatabase db = getWritable()) {
 
             int n = db.update(OwnedAsset.TABLE_NAME, values, OwnedAsset._ID + " = ?", new String[]{String.valueOf(asset.getID())});
+            notifyListeners();
             return n != -1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,6 +196,7 @@ public class AssetsRepository {
         try (SQLiteDatabase db = getWritable()) {
 
             long n = db.insert(OwnedAsset.TABLE_NAME, null, values);
+            notifyListeners();
             return n != -1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -225,6 +256,7 @@ public class AssetsRepository {
     }
 
     public boolean updateAsset(Asset asset) {
+        Log.d(AssetsRepository.class.getName(),"updateAsset called");
         ContentValues values = getContentValues(asset);
         String assetName = asset.getName();
         return updateAssetByName(values, assetName);
@@ -234,6 +266,7 @@ public class AssetsRepository {
         try (SQLiteDatabase db = getWritable()) {
             long n = db.update(OwnedAsset.TABLE_NAME, values,
                     OwnedAsset.COLUMN_NAME + " = '" + assetName + "'", null);
+            notifyListeners();
             return n != -1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -257,6 +290,7 @@ public class AssetsRepository {
         if (TextUtils.isEmpty(assetName)) return;
         try (SQLiteDatabase db = getWritable()) {
             db.delete(OwnedAsset.TABLE_NAME, OwnedAsset.COLUMN_NAME + " = '" + assetName + "'", null);
+            notifyListeners();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -283,5 +317,10 @@ public class AssetsRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void removeListener(AssetChangeListener listener) {
+        if (listeners != null && listener != null)
+            listeners.remove(listener);
     }
 }

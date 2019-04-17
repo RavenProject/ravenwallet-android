@@ -885,19 +885,19 @@ public class BRWalletManager extends BRCoreWalletManager {
         return  new BRCoreWallet.Listener() {
             @Override
             public void balanceChanged(long balance) {
-                System.out.println(String.format("            balance   : %d", balance));
+//                System.out.println(String.format("            balance   : %d", balance));
             }
 
             @Override
             public void onTxAdded(BRCoreTransaction transaction) {
-                System.out.println(String.format("            tx added  : %s",
-                        BRCoreKey.encodeHex(transaction.getHash())));
+//                System.out.println(String.format("            tx added  : %s",
+//                        BRCoreKey.encodeHex(transaction.getHash())));
 
             }
 
             @Override
             public void onTxUpdated(String hash, int blockHeight, int timeStamp) {
-                System.out.println(String.format("            tx updated: %s", hash));
+//                System.out.println(String.format("            tx updated: %s", hash));
             }
 
             @Override

@@ -25,7 +25,6 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
-import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,14 +41,9 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ravencoin.RavenApp;
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.util.BRActivity;
-import com.ravencoin.tools.threads.executor.BRExecutor;
-import com.platform.middlewares.plugins.CameraPlugin;
 
-import java.io.File;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -239,21 +233,21 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     private ImageReader mImageReader;
 
 
-    /**
-     * This a callback object for the {@link ImageReader}. "onImageAvailable" will be called when a
-     * still image is ready to be saved.
-     */
-    private final ImageReader.OnImageAvailableListener mOnImageAvailableListener
-            = new ImageReader.OnImageAvailableListener() {
-
-        @Override
-        public void onImageAvailable(ImageReader reader) {
-            if (imageTaken) return;
-            imageTaken = true;
-            mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage()));
-        }
-
-    };
+//    /**
+//     * This a callback object for the {@link ImageReader}. "onImageAvailable" will be called when a
+//     * still image is ready to be saved.
+//     */
+//    private final ImageReader.OnImageAvailableListener mOnImageAvailableListener
+//            = new ImageReader.OnImageAvailableListener() {
+//
+//        @Override
+//        public void onImageAvailable(ImageReader reader) {
+//            if (imageTaken) return;
+//            imageTaken = true;
+//            mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage()));
+//        }
+//
+//    };
 
     /**
      * {@link CaptureRequest.Builder} for the camera preview
@@ -472,8 +466,8 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                         new CompareSizesByArea());
                 mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
                         ImageFormat.JPEG, /*maxImages*/2);
-                mImageReader.setOnImageAvailableListener(
-                        mOnImageAvailableListener, mBackgroundHandler);
+//                mImageReader.setOnImageAvailableListener(
+//                        mOnImageAvailableListener, mBackgroundHandler);
 
                 // Find out if we need to swap dimension to get the preview size relative to sensor
                 // coordinate.
@@ -863,51 +857,51 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
         }
     }
 
-    /**
-     * Saves a JPEG {@link Image} into the specified {@link File}.
-     */
-    private static class ImageSaver implements Runnable {
-
-        /**
-         * The JPEG image
-         */
-        private final Image mImage;
-
-        /**
-         * The file we save the image into.
-         */
-
-        public ImageSaver(Image image) {
-            mImage = image;
-        }
-
-        @Override
-        public void run() {
-            Log.e(TAG, "run: ");
-            ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
-            final byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
-            BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-                @Override
-                public void run() {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1000);
-                                CameraPlugin.handleCameraImageTaken(RavenApp.getBreadContext(), bytes);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    app.finish();
-                }
-            });
-
-        }
-
-    }
+//    /**
+//     * Saves a JPEG {@link Image} into the specified {@link File}.
+//     */
+//    private static class ImageSaver implements Runnable {
+//
+//        /**
+//         * The JPEG image
+//         */
+//        private final Image mImage;
+//
+//        /**
+//         * The file we save the image into.
+//         */
+//
+//        public ImageSaver(Image image) {
+//            mImage = image;
+//        }
+//
+//        @Override
+//        public void run() {
+//            Log.e(TAG, "run: ");
+//            ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
+//            final byte[] bytes = new byte[buffer.remaining()];
+//            buffer.get(bytes);
+//            BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                Thread.sleep(1000);
+//                                CameraPlugin.handleCameraImageTaken(RavenApp.getRvnContext(), bytes);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    });
+//                    app.finish();
+//                }
+//            });
+//
+//        }
+//
+//    }
 
     /**
      * Compares two {@code Size}s based on their areas.

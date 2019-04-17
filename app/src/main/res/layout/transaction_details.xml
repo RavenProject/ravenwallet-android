@@ -27,12 +27,13 @@
 
         <ImageButton
             android:id="@+id/close_button"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_above="@+id/tx_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_alignEnd="@id/tx_date"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_close_light_grey" />
+            android:padding="20dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close_light_grey" />
 
 
         <com.ravencoin.presenter.customviews.BRText
@@ -244,7 +245,6 @@
 
 
             <View
-                android:id="@+id/divider4"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/tx_starting_balance_label"
@@ -280,7 +280,6 @@
 
 
             <View
-                android:id="@+id/divider5"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/tx_ending_balance"
@@ -315,7 +314,6 @@
                 app:customTFont="CircularPro-Book.otf" />
 
             <View
-                android:id="@+id/divider6"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/exchange_rate"
@@ -343,7 +341,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="14dp"
-                android:text="549293"
+                tools:text="549293"
                 app:customTFont="CircularPro-Book.otf" />
 
 
@@ -395,12 +393,14 @@
 
         <com.ravencoin.presenter.customviews.BRText
             android:id="@+id/show_hide_details"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_below="@id/details_container"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Show Details"
             android:textColor="@color/blue" />
 

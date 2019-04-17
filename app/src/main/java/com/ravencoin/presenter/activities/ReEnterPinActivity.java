@@ -1,9 +1,7 @@
 package com.ravencoin.presenter.activities;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,19 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ravencoin.R;
-import com.ravencoin.presenter.activities.intro.WriteDownActivity;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.customviews.BRKeyboard;
 import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
-import com.ravencoin.presenter.newTutorial.TutorialActivity;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SpringAnimator;
 import com.ravencoin.tools.security.AuthManager;
 import com.ravencoin.tools.security.PostAuth;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.Utils;
-
-import static com.ravencoin.tools.security.PostAuth.SHOW_TERMS_AND_CONDITIONS_EXTRA_KEY;
 
 public class ReEnterPinActivity extends BRActivity {
     private static final String TAG = ReEnterPinActivity.class.getName();
@@ -179,7 +173,7 @@ public class ReEnterPinActivity extends BRActivity {
                 if (getIntent().getBooleanExtra(IS_CREATE_WALLET, false)) {
                     PostAuth.getInstance().onCreateWalletAuth(ReEnterPinActivity.this, true);
                 } else
-                    BRAnimator.startBreadActivity(this, false);
+                    BRAnimator.startRvnActivity(this, false);
                 //PostAuth.getInstance().onPhraseCheckAuth(ReEnterPinActivity.this, false);
            /*     if (getIntent().getBooleanExtra(SHOW_TERMS_AND_CONDITIONS_EXTRA_KEY, false)) {
                     Intent intent = new Intent(ReEnterPinActivity.this, TermsAndConditionsActivity.class);
@@ -187,10 +181,10 @@ public class ReEnterPinActivity extends BRActivity {
                     overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
                     finish();
                 } else {
-                    BRAnimator.startBreadActivity(this, false);
+                    BRAnimator.startRvnActivity(this, false);
                 }*/
             } else {
-                BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_createInstruction), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
+                BRAnimator.showRvnSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_createInstruction), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
                     @Override
                     public void onComplete() {
                         PostAuth.getInstance().onCreateWalletAuth(ReEnterPinActivity.this, true);

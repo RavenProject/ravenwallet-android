@@ -99,7 +99,7 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
         BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                TxManager.getInstance().updateTxList(breadActivity);
+                TxManager.getInstance().updateTxList(breadActivity,false);
             }
         });
 

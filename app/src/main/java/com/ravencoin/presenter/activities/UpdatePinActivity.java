@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ravencoin.R;
-import com.ravencoin.presenter.activities.util.ActivityUTILS;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.customviews.BRKeyboard;
 import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
@@ -174,10 +173,10 @@ public class UpdatePinActivity extends BRActivity {
             case RE_ENTER_NEW_PIN:
                 if (curNewPin.equalsIgnoreCase(pin.toString())) {
                     AuthManager.getInstance().setPinCode(pin.toString(), this);
-                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
+                    BRAnimator.showRvnSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
                         @Override
                         public void onComplete() {
-                            BRAnimator.startBreadActivity(UpdatePinActivity.this, false);
+                            BRAnimator.startRvnActivity(UpdatePinActivity.this, false);
                         }
                     });
                 } else {

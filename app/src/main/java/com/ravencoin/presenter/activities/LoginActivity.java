@@ -342,7 +342,7 @@ public class LoginActivity extends BRActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(LoginActivity.this, WalletActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
                         if (!LoginActivity.this.isDestroyed()) {

@@ -39,7 +39,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
         public void onLongItemClick(View view, int position);
     }
 
-    GestureDetector mGestureDetector;
+    private GestureDetector mGestureDetector;
 
     public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
         mListener = listener;

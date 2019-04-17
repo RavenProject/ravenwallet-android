@@ -452,15 +452,17 @@ Java_com_ravencoin_core_BRCoreWallet_transferAsset(JNIEnv *env, jobject instance
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_ravencoin_core_BRCoreWallet_transferOwnerShipAsset(JNIEnv *env, jobject instance, jdouble amount,
+Java_com_ravencoin_core_BRCoreWallet_transferOwnerShipAsset(JNIEnv *env, jobject instance,
+                                                            jdouble amount,
                                                             jstring address_, jobject assetObject) {
     BRWallet *wallet = (BRWallet *) getJNIReference(env, instance);
     const char *address = (*env)->GetStringUTFChars(env, address_, 0);
     BRAsset *asset = (BRAsset *) getJNIReference(env, assetObject);
 
     BRTransaction *transaction = BRWalletCreateTxForRootAssetTransferOwnership(wallet,
-                                                                      (uint64_t) amount, address,
-                                                                      asset);
+                                                                               (uint64_t) amount,
+                                                                               address,
+                                                                               asset);
     return NULL == transaction
            ? NULL
            : (*env)->NewObject(env, transactionClass, transactionConstructor, (jlong) transaction);

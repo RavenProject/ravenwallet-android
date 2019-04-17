@@ -16,8 +16,8 @@ public class AssetsValidation {
     private final static String LEADING_PUNCTUATION = "^[._].*$";
     private final static String TRAILING_PUNCTUATION = "^.*[._]$";
 
-    private final static String SUB_NAME_DELIMITER = "/";
-    private final static String UNIQUE_TAG_DELIMITER = "#";
+    public final static String SUB_NAME_DELIMITER = "/";
+    public final static String UNIQUE_TAG_DELIMITER = "#";
     private final static String CHANNEL_TAG_DELIMITER = "~";
 
     private final static String UNIQUE_INDICATOR = "^[^#]+#[^#]+$";

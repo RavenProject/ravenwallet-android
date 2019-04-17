@@ -20,6 +20,7 @@ import com.platform.assets.Asset;
 import com.platform.assets.AssetsRepository;
 import com.platform.assets.adapter.AssetsAdapter;
 import com.ravencoin.R;
+import com.ravencoin.presenter.AssetChangeListener;
 import com.ravencoin.presenter.activities.util.BRActivity;
 import com.ravencoin.presenter.activities.util.CustomItemTouchHelperCallback;
 import com.ravencoin.tools.adapter.ManageAssetsAdapter;
@@ -28,12 +29,13 @@ import com.ravencoin.tools.animation.BRAnimator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManageAssetsActivity extends BRActivity {
+public class ManageAssetsActivity extends BRActivity implements AssetChangeListener {
     private static final String TAG = ManageAssetsActivity.class.getName();
 
     public RecyclerView mAssetsList;
     public RelativeLayout layout;
     public List<Asset> assets;
+    AssetsRepository repository;
 
     public final static String IS_OWNED_ASSETS_VIEW_EXTRAS_KEY = "owned.assets.view.extras.key";
     private boolean isOwnedAssetsView = false;
@@ -60,7 +62,8 @@ public class ManageAssetsActivity extends BRActivity {
                 onBackPressed();
             }
         });
-
+        repository  = AssetsRepository.getInstance(this);
+        repository.addListener(this);
         setAssets();
     }
 
@@ -79,8 +82,13 @@ public class ManageAssetsActivity extends BRActivity {
         window.setBackgroundDrawable(background);
     }
 
+    @Override
+    protected void onDestroy() {
+        repository.removeListener(this);
+        super.onDestroy();
+    }
+
     private void setAssets() {
-        AssetsRepository repository = AssetsRepository.getInstance(this);
         List<Asset> assets = repository.getAllAssets();
         if (assets.size() > 0) {
             mAssetsList.setVisibility(View.VISIBLE);
@@ -116,5 +124,10 @@ public class ManageAssetsActivity extends BRActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    @Override
+    public void onChange() {
+        setAssets();
     }
 }

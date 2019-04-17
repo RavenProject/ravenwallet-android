@@ -31,8 +31,6 @@ import com.ravencoin.tools.util.BytesUtil;
 import com.ravencoin.tools.util.TypesConverter;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
-import com.platform.entities.WalletInfo;
-import com.platform.tools.KVStoreManager;
 
 import junit.framework.Assert;
 
@@ -44,7 +42,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -175,10 +172,10 @@ public class BRKeyStore {
 //        Log.e(TAG, "_setData: " + alias);
         validateSet(data, alias, alias_file, alias_iv, auth_required);
 
-        KeyStore keyStore = null;
+        java.security.KeyStore keyStore = null;
         try {
             lock.lock();
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+            keyStore = java.security.KeyStore.getInstance(ANDROID_KEY_STORE);
             keyStore.load(null);
             SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
             Cipher inCipher = Cipher.getInstance(NEW_CIPHER_ALGORITHM);
@@ -243,7 +240,7 @@ public class BRKeyStore {
     private static SecretKey createKeys(String alias, boolean auth_required) throws InvalidAlgorithmParameterException, KeyStoreException, NoSuchProviderException, NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
 
-        // Set the alias of the entry in Android KeyStore where the key will appear
+        // Set the alias of the entry in Android BRKeyStore where the key will appear
         // and the constrains (purposes) in the constructor of the Builder
         keyGenerator.init(new KeyGenParameterSpec.Builder(alias,
                 KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
@@ -260,11 +257,11 @@ public class BRKeyStore {
     private synchronized static byte[] _getData(final Context context, String alias, String alias_file, String alias_iv, int request_code)
             throws UserNotAuthenticatedException {
         validateGet(alias, alias_file, alias_iv);//validate entries
-        KeyStore keyStore = null;
+        java.security.KeyStore keyStore = null;
 
         try {
             lock.lock();
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+            keyStore = java.security.KeyStore.getInstance(ANDROID_KEY_STORE);
             keyStore.load(null);
             SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
 
@@ -501,78 +498,78 @@ public class BRKeyStore {
         return null;
     }
 
-    public synchronized static boolean putAuthKey(byte[] authKey, Context context) {
-        AliasObject obj = aliasObjectMap.get(AUTH_KEY_ALIAS);
-        try {
-            return authKey != null && authKey.length != 0 && _setData(context, authKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public synchronized static boolean putAuthKey(byte[] authKey, Context context) {
+//        AliasObject obj = aliasObjectMap.get(AUTH_KEY_ALIAS);
+//        try {
+//            return authKey != null && authKey.length != 0 && _setData(context, authKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+//        } catch (UserNotAuthenticatedException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
-    public synchronized static byte[] getAuthKey(final Context context) {
-        AliasObject obj = aliasObjectMap.get(AUTH_KEY_ALIAS);
-        try {
-            return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public synchronized static byte[] getAuthKey(final Context context) {
+//        AliasObject obj = aliasObjectMap.get(AUTH_KEY_ALIAS);
+//        try {
+//            return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
+//        } catch (UserNotAuthenticatedException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-    public synchronized static boolean putToken(byte[] token, Context context) {
-        AliasObject obj = aliasObjectMap.get(TOKEN_ALIAS);
-        try {
-            return token != null && token.length != 0 && _setData(context, token, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public synchronized static boolean putToken(byte[] token, Context context) {
+//        AliasObject obj = aliasObjectMap.get(TOKEN_ALIAS);
+//        try {
+//            return token != null && token.length != 0 && _setData(context, token, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+//        } catch (UserNotAuthenticatedException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
-    public synchronized static byte[] getToken(final Context context) {
-        AliasObject obj = aliasObjectMap.get(TOKEN_ALIAS);
-        try {
-            return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public synchronized static byte[] getToken(final Context context) {
+//        AliasObject obj = aliasObjectMap.get(TOKEN_ALIAS);
+//        try {
+//            return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
+//        } catch (UserNotAuthenticatedException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-    public synchronized static boolean putWalletCreationTime(int creationTime, Context context) {
-        AliasObject obj = aliasObjectMap.get(WALLET_CREATION_TIME_ALIAS);
-        byte[] bytesToStore = TypesConverter.intToBytes(creationTime);
-        try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public synchronized static boolean putWalletCreationTime(int creationTime, Context context) {
+//        AliasObject obj = aliasObjectMap.get(WALLET_CREATION_TIME_ALIAS);
+//        byte[] bytesToStore = TypesConverter.intToBytes(creationTime);
+//        try {
+//            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+//        } catch (UserNotAuthenticatedException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
-    public synchronized static int getWalletCreationTime(final Context context) {
-        AliasObject obj = aliasObjectMap.get(WALLET_CREATION_TIME_ALIAS);
-        byte[] result = null;
-        try {
-            result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        if (Utils.isNullOrEmpty(result)) {
-            //if none, try getting from KVStore
-            WalletInfo info = KVStoreManager.getInstance().getWalletInfo(context);
-            if (info != null) {
-                int creationDate = info.creationDate;
-                putWalletCreationTime(creationDate, context);
-                return creationDate;
-            } else
-                return 0;
-        } else {
-            return TypesConverter.bytesToInt(result);
-        }
-    }
+//    public synchronized static int getWalletCreationTime(final Context context) {
+//        AliasObject obj = aliasObjectMap.get(WALLET_CREATION_TIME_ALIAS);
+//        byte[] result = null;
+//        try {
+//            result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
+//        } catch (UserNotAuthenticatedException e) {
+//            e.printStackTrace();
+//        }
+//        if (Utils.isNullOrEmpty(result)) {
+//            //if none, try getting from KVStore
+//            WalletInfo info = KVStoreManager.getInstance().getWalletInfo(context);
+//            if (info != null) {
+//                int creationDate = info.creationDate;
+//                putWalletCreationTime(creationDate, context);
+//                return creationDate;
+//            } else
+//                return 0;
+//        } else {
+//            return TypesConverter.bytesToInt(result);
+//        }
+//    }
 
     public synchronized static boolean putPinCode(String pinCode, Context context) {
         AliasObject obj = aliasObjectMap.get(PASS_CODE_ALIAS);
@@ -734,9 +731,9 @@ public class BRKeyStore {
     }
 
     public synchronized static boolean resetWalletKeyStore(Context context) {
-        KeyStore keyStore;
+        java.security.KeyStore keyStore;
         try {
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+            keyStore = java.security.KeyStore.getInstance(ANDROID_KEY_STORE);
             keyStore.load(null);
             int count = 0;
             if (keyStore.aliases() != null) {
@@ -768,7 +765,7 @@ public class BRKeyStore {
         return true;
     }
 
-    public synchronized static void removeAliasAndDatas(KeyStore keyStore, String alias, Context context) {
+    public synchronized static void removeAliasAndDatas(java.security.KeyStore keyStore, String alias, Context context) {
         if (Utils.isNullOrEmpty(alias)) return;
         try {
             keyStore.deleteEntry(alias);
@@ -857,160 +854,160 @@ public class BRKeyStore {
         return bytes;
     }
 
-    //USE ONLY FOR TESTING
-    public synchronized static boolean _setOldData(Context context, byte[] data, String alias, String alias_file, String alias_iv,
-                                                   int request_code, boolean auth_required) throws UserNotAuthenticatedException {
-//        Log.e(TAG, "_setData: " + alias);
-        try {
-            validateSet(data, alias, alias_file, alias_iv, auth_required);
-        } catch (Exception e) {
-            Log.e(TAG, "_setData: ", e);
-        }
+//    //USE ONLY FOR TESTING
+//    public synchronized static boolean _setOldData(Context context, byte[] data, String alias, String alias_file, String alias_iv,
+//                                                   int request_code, boolean auth_required) throws UserNotAuthenticatedException {
+////        Log.e(TAG, "_setData: " + alias);
+//        try {
+//            validateSet(data, alias, alias_file, alias_iv, auth_required);
+//        } catch (Exception e) {
+//            Log.e(TAG, "_setData: ", e);
+//        }
+//
+//
+//        java.security.KeyStore keyStore = null;
+//        try {
+//            keyStore = java.security.KeyStore.getInstance(ANDROID_KEY_STORE);
+//            keyStore.load(null);
+//            // Create the keys if necessary
+//            if (!keyStore.containsAlias(alias)) {
+//                KeyGenerator keyGenerator = KeyGenerator.getInstance(
+//                        KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
+//
+//                // Set the alias of the entry in Android BRKeyStore where the key will appear
+//                // and the constrains (purposes) in the constructor of the Builder
+//                keyGenerator.init(new KeyGenParameterSpec.Builder(alias,
+//                        KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+//                        .setBlockModes(BLOCK_MODE)
+//                        .setKeySize(256)
+//                        .setUserAuthenticationRequired(auth_required)
+//                        .setUserAuthenticationValidityDurationSeconds(AUTH_DURATION_SEC)
+//                        .setRandomizedEncryptionRequired(true)
+//                        .setEncryptionPaddings(PADDING)
+//                        .build());
+//                SecretKey key = keyGenerator.generateKey();
+//
+//            }
+//
+//            String encryptedDataFilePath = getFilePath(alias_file, context);
+//
+//            SecretKey secret = (SecretKey) keyStore.getKey(alias, null);
+//            if (secret == null) {
+//                Log.e(TAG, "_setOldData: " + "secret is null on _setData: " + alias);
+//                return false;
+//            }
+//            Cipher inCipher = Cipher.getInstance(CIPHER_ALGORITHM);
+//            inCipher.init(Cipher.ENCRYPT_MODE, secret);
+//            byte[] iv = inCipher.getIV();
+//            String path = getFilePath(alias_iv, context);
+//            boolean success = writeBytesToFile(path, iv);
+//            if (!success) {
+//                Log.e(TAG, "_setOldData: " + "failed to writeBytesToFile: " + alias);
+//                BRDialog.showCustomDialog(context, context.getString(R.string.Alert_keystore_title_android), "Failed to save the iv file for: " + alias, "close", null, new BRDialogView.BROnClickListener() {
+//                    @Override
+//                    public void onClick(BRDialogView brDialogView) {
+//                        brDialogView.dismissWithAnimation();
+//                    }
+//                }, null, null, 0);
+//                keyStore.deleteEntry(alias);
+//                return false;
+//            }
+//            CipherOutputStream cipherOutputStream = null;
+//            try {
+//                cipherOutputStream = new CipherOutputStream(
+//                        new FileOutputStream(encryptedDataFilePath), inCipher);
+//                cipherOutputStream.write(data);
+//
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            } finally {
+//                if (cipherOutputStream != null) cipherOutputStream.close();
+//            }
+//            return true;
+//        } catch (UserNotAuthenticatedException e) {
+//            Log.e(TAG, "_setOldData: showAuthenticationScreen: " + alias);
+//            showAuthenticationScreen(context, request_code, alias);
+//            throw e;
+//        } catch (Exception e) {
+//            Log.e(TAG, "_setOldData: ", e);
+//            return false;
+//        }
+//    }
 
-
-        KeyStore keyStore = null;
-        try {
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            // Create the keys if necessary
-            if (!keyStore.containsAlias(alias)) {
-                KeyGenerator keyGenerator = KeyGenerator.getInstance(
-                        KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
-
-                // Set the alias of the entry in Android KeyStore where the key will appear
-                // and the constrains (purposes) in the constructor of the Builder
-                keyGenerator.init(new KeyGenParameterSpec.Builder(alias,
-                        KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
-                        .setBlockModes(BLOCK_MODE)
-                        .setKeySize(256)
-                        .setUserAuthenticationRequired(auth_required)
-                        .setUserAuthenticationValidityDurationSeconds(AUTH_DURATION_SEC)
-                        .setRandomizedEncryptionRequired(true)
-                        .setEncryptionPaddings(PADDING)
-                        .build());
-                SecretKey key = keyGenerator.generateKey();
-
-            }
-
-            String encryptedDataFilePath = getFilePath(alias_file, context);
-
-            SecretKey secret = (SecretKey) keyStore.getKey(alias, null);
-            if (secret == null) {
-                Log.e(TAG, "_setOldData: " + "secret is null on _setData: " + alias);
-                return false;
-            }
-            Cipher inCipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            inCipher.init(Cipher.ENCRYPT_MODE, secret);
-            byte[] iv = inCipher.getIV();
-            String path = getFilePath(alias_iv, context);
-            boolean success = writeBytesToFile(path, iv);
-            if (!success) {
-                Log.e(TAG, "_setOldData: " + "failed to writeBytesToFile: " + alias);
-                BRDialog.showCustomDialog(context, context.getString(R.string.Alert_keystore_title_android), "Failed to save the iv file for: " + alias, "close", null, new BRDialogView.BROnClickListener() {
-                    @Override
-                    public void onClick(BRDialogView brDialogView) {
-                        brDialogView.dismissWithAnimation();
-                    }
-                }, null, null, 0);
-                keyStore.deleteEntry(alias);
-                return false;
-            }
-            CipherOutputStream cipherOutputStream = null;
-            try {
-                cipherOutputStream = new CipherOutputStream(
-                        new FileOutputStream(encryptedDataFilePath), inCipher);
-                cipherOutputStream.write(data);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            } finally {
-                if (cipherOutputStream != null) cipherOutputStream.close();
-            }
-            return true;
-        } catch (UserNotAuthenticatedException e) {
-            Log.e(TAG, "_setOldData: showAuthenticationScreen: " + alias);
-            showAuthenticationScreen(context, request_code, alias);
-            throw e;
-        } catch (Exception e) {
-            Log.e(TAG, "_setOldData: ", e);
-            return false;
-        }
-    }
-
-    //USE ONLY FOR TESTING
-    public synchronized static byte[] _getOldData(final Context context, String alias, String alias_file, String alias_iv, int request_code)
-            throws UserNotAuthenticatedException {
-//        Log.e(TAG, "_getData: " + alias);
-
-        try {
-            validateGet(alias, alias_file, alias_iv);
-        } catch (Exception e) {
-            Log.e(TAG, "_getOldData: ", e);
-        }
-
-        KeyStore keyStore = null;
-
-        String encryptedDataFilePath = getFilePath(alias_file, context);
-//        byte[] result = new byte[0];
-        try {
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
-            if (secretKey == null) {
-                /* no such key, the key is just simply not there */
-                boolean fileExists = new File(encryptedDataFilePath).exists();
-//                Log.e(TAG, "_getData: " + alias + " file exist: " + fileExists);
-                if (!fileExists) {
-                    return null;/* file also not there, fine then */
-                }
-                Log.e(TAG, "_getOldData: " + "file is present but the key is gone: " + alias);
-                return null;
-            }
-
-            boolean ivExists = new File(getFilePath(alias_iv, context)).exists();
-            boolean aliasExists = new File(getFilePath(alias_file, context)).exists();
-            if (!ivExists || !aliasExists) {
-                removeAliasAndDatas(keyStore, alias, context);
-                //report it if one exists and not the other.
-                if (ivExists != aliasExists) {
-                    Log.e(TAG, "_getOldData: " + "alias or iv isn't on the disk: " + alias + ", aliasExists:" + aliasExists);
-                    return null;
-                } else {
-                    Log.e(TAG, "_getOldData: " + "!ivExists && !aliasExists: " + alias);
-                    return null;
-                }
-            }
-
-            byte[] iv = readBytesFromFile(getFilePath(alias_iv, context));
-            if (Utils.isNullOrEmpty(iv))
-                throw new NullPointerException("iv is missing for " + alias);
-            Cipher outCipher;
-            outCipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            outCipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
-            CipherInputStream cipherInputStream = new CipherInputStream(new FileInputStream(encryptedDataFilePath), outCipher);
-            return BytesUtil.readBytesFromStream(cipherInputStream);
-        } catch (InvalidKeyException e) {
-            if (e instanceof UserNotAuthenticatedException) {
-                /** user not authenticated, ask the system for authentication */
-                Log.e(TAG, "_getOldData: showAuthenticationScreen: " + alias);
-                showAuthenticationScreen(context, request_code, alias);
-                throw (UserNotAuthenticatedException) e;
-            } else {
-                Log.e(TAG, "_getOldData: InvalidKeyException", e);
-                return null;
-            }
-        } catch (IOException | CertificateException | KeyStoreException e) {
-            /** keyStore.load(null) threw the Exception, meaning the keystore is unavailable */
-            Log.e(TAG, "_getOldData: keyStore.load(null) threw the Exception, meaning the keystore is unavailable", e);
-            return null;
-
-        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
-            /** if for any other reason the keystore fails, crash! */
-            Log.e(TAG, "getData: error: " + e.getClass().getSuperclass().getName());
-            return null;
-        }
-    }
-
+//    //USE ONLY FOR TESTING
+//    public synchronized static byte[] _getOldData(final Context context, String alias, String alias_file, String alias_iv, int request_code)
+//            throws UserNotAuthenticatedException {
+////        Log.e(TAG, "_getData: " + alias);
+//
+//        try {
+//            validateGet(alias, alias_file, alias_iv);
+//        } catch (Exception e) {
+//            Log.e(TAG, "_getOldData: ", e);
+//        }
+//
+//        java.security.KeyStore keyStore = null;
+//
+//        String encryptedDataFilePath = getFilePath(alias_file, context);
+////        byte[] result = new byte[0];
+//        try {
+//            keyStore = java.security.KeyStore.getInstance(ANDROID_KEY_STORE);
+//            keyStore.load(null);
+//            SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
+//            if (secretKey == null) {
+//                /* no such key, the key is just simply not there */
+//                boolean fileExists = new File(encryptedDataFilePath).exists();
+////                Log.e(TAG, "_getData: " + alias + " file exist: " + fileExists);
+//                if (!fileExists) {
+//                    return null;/* file also not there, fine then */
+//                }
+//                Log.e(TAG, "_getOldData: " + "file is present but the key is gone: " + alias);
+//                return null;
+//            }
+//
+//            boolean ivExists = new File(getFilePath(alias_iv, context)).exists();
+//            boolean aliasExists = new File(getFilePath(alias_file, context)).exists();
+//            if (!ivExists || !aliasExists) {
+//                removeAliasAndDatas(keyStore, alias, context);
+//                //report it if one exists and not the other.
+//                if (ivExists != aliasExists) {
+//                    Log.e(TAG, "_getOldData: " + "alias or iv isn't on the disk: " + alias + ", aliasExists:" + aliasExists);
+//                    return null;
+//                } else {
+//                    Log.e(TAG, "_getOldData: " + "!ivExists && !aliasExists: " + alias);
+//                    return null;
+//                }
+//            }
+//
+//            byte[] iv = readBytesFromFile(getFilePath(alias_iv, context));
+//            if (Utils.isNullOrEmpty(iv))
+//                throw new NullPointerException("iv is missing for " + alias);
+//            Cipher outCipher;
+//            outCipher = Cipher.getInstance(CIPHER_ALGORITHM);
+//            outCipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
+//            CipherInputStream cipherInputStream = new CipherInputStream(new FileInputStream(encryptedDataFilePath), outCipher);
+//            return BytesUtil.readBytesFromStream(cipherInputStream);
+//        } catch (InvalidKeyException e) {
+//            if (e instanceof UserNotAuthenticatedException) {
+//                /** user not authenticated, ask the system for authentication */
+//                Log.e(TAG, "_getOldData: showAuthenticationScreen: " + alias);
+//                showAuthenticationScreen(context, request_code, alias);
+//                throw (UserNotAuthenticatedException) e;
+//            } else {
+//                Log.e(TAG, "_getOldData: InvalidKeyException", e);
+//                return null;
+//            }
+//        } catch (IOException | CertificateException | KeyStoreException e) {
+//            /** keyStore.load(null) threw the Exception, meaning the keystore is unavailable */
+//            Log.e(TAG, "_getOldData: keyStore.load(null) threw the Exception, meaning the keystore is unavailable", e);
+//            return null;
+//
+//        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
+//            /** if for any other reason the keystore fails, crash! */
+//            Log.e(TAG, "getData: error: " + e.getClass().getSuperclass().getName());
+//            return null;
+//        }
+//    }
+//
     private static void showLoopBugMessage(final Context app) {
         if (bugMessageShowing) return;
         bugMessageShowing = true;

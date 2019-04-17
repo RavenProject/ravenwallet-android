@@ -335,7 +335,7 @@
                     android:background="@drawable/b_half_right_blue_stroke"
                     android:padding="0dp"
                     android:text="@string/FeeSelector.economy"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/primaryColor"
                     android:textSize="14sp"
                     app:customBFont="CircularPro-Medium.otf"
                     app:isBreadButton="false" />

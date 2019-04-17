@@ -162,8 +162,7 @@
     <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Hai creato il tuo portafoglio il %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -364,13 +363,11 @@
   <string name="Send.noAddress">Inserisci l\'indirizzo del destinatario.</string>
   <!-- Emtpy amount alert message -->
     <!-- Paste button label -->
-  <string name="Send.pasteLabel">Incolla</string>
-  <!-- Could not publish transaction alert title -->
+    <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">Non è stato possibile caricare la richiesta</string>
   <!-- Scan button label -->
-  <string name="Send.scanLabel">Acquisisci</string>
-  <!-- Send button label (the action, "press here to send") -->
+    <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Invia</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">Invia</string>

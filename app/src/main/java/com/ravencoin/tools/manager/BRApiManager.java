@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -250,12 +251,11 @@ public class BRApiManager {
     }
 
     public static String urlGET(Context app, String myURL) {
-//        System.out.println("Requested URL_EA:" + myURL);
         if (ActivityUTILS.isMainThread()) {
             Log.e(TAG, "urlGET: network on main thread");
             throw new RuntimeException("network on main thread");
         }
-        Map<String, String> headers = RavenApp.getBreadHeaders();
+        Map<String, String> headers = new HashMap<>();//RavenApp.getRvnHeaders();
 
         Request.Builder builder = new Request.Builder()
                 .url(myURL)

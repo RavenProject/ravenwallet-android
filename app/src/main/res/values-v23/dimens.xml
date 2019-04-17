@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="height_tuto_image">220dp</dimen>
-    <dimen name="width_ic_raven_white">209dp</dimen>
 </resources>

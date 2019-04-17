@@ -51,13 +51,10 @@ public class CurrencyUtils {
     public static String getFormattedAmount(Context app, String iso, BigDecimal amount) {
         if (amount == null) return "---"; //to be able to detect in a bug
         if (iso == null) return "???"; //to be able to detect in a bug
-//        Log.e(TAG, "amount: " + amount);
         DecimalFormat currencyFormat;
 
         // This formats currency values as the user expects to read them (default locale).
         currencyFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.getDefault());
-
-//        currencyFormat.applyPattern("\u00A40.#####");
 
         // This specifies the actual currency that the value is in, and provide
         // s the currency symbol.
@@ -65,7 +62,6 @@ public class CurrencyUtils {
         Currency currency = null;
         String symbol = null;
         decimalFormatSymbols = currencyFormat.getDecimalFormatSymbols();
-//        int decimalPoints = 0;
         BaseWalletManager wallet = WalletsMaster.getInstance(app).getWalletByIso(app, iso);
         if (wallet != null) {
             symbol = wallet.getSymbol(app);

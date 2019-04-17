@@ -3,6 +3,7 @@ package com.ravencoin.tools.services;
 import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
+import android.arch.lifecycle.Lifecycle;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,9 @@ import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
+import android.arch.lifecycle.ProcessLifecycleOwner;
+
+import java.util.Objects;
 
 /**
  * BreadWallet
@@ -40,10 +44,8 @@ import com.ravencoin.wallet.abstracts.BaseWalletManager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class SyncService extends /*Job*/ IntentService {
+public class SyncService extends IntentService {
     private static final String TAG = SyncService.class.getSimpleName();
-
-//    private static final int JOB_ID = 0xe1743572; // Used to identify jobs that belong to this service. (Random number used for uniqueness.)
 
     public static final String ACTION_START_SYNC_PROGRESS_POLLING = "com.ravenwallet.tools.services.ACTION_START_SYNC_PROGRESS_POLLING";
     public static final String ACTION_SYNC_PROGRESS_UPDATE = "com.ravenwallet.tools.services.ACTION_SYNC_PROGRESS_UPDATE";
@@ -59,8 +61,8 @@ public class SyncService extends /*Job*/ IntentService {
     public static final int PROGRESS_START = 0;
     public static final int PROGRESS_FINISH = 1;
 
-    private static final String PACKAGE_NAME = RavenApp.getBreadContext() == null ? null
-            : RavenApp.getBreadContext().getApplicationContext().getPackageName();
+    private static final String PACKAGE_NAME = RavenApp.getRvnContext() == null ? null
+            : RavenApp.getRvnContext().getApplicationContext().getPackageName();
 
     static {
         try {
@@ -69,7 +71,7 @@ public class SyncService extends /*Job*/ IntentService {
             e.printStackTrace();
             Log.d(TAG, "Native code library failed to load.\\n\" + " + e);
             Log.d(TAG, "Installer Package Name -> " + (PACKAGE_NAME == null ? "null"
-                    : RavenApp.getBreadContext().getPackageManager().getInstallerPackageName(PACKAGE_NAME)));
+                    : RavenApp.getRvnContext().getPackageManager().getInstallerPackageName(PACKAGE_NAME)));
         }
     }
 
@@ -89,7 +91,7 @@ public class SyncService extends /*Job*/ IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            switch (intent.getAction()) {
+            switch (Objects.requireNonNull(intent.getAction())) {
                 case ACTION_START_SYNC_PROGRESS_POLLING:
                     String walletIso = intent.getStringExtra(EXTRA_WALLET_CURRENCY_CODE);
                     if (walletIso != null) {
@@ -137,8 +139,11 @@ public class SyncService extends /*Job*/ IntentService {
      * @param currencyCode The currency code of the wallet that is syncing.
      */
     public static void startService(Context context, String currencyCode) {
-//        enqueueWork(context, SyncService.class, JOB_ID, createIntent(context, SyncService.ACTION_START_SYNC_PROGRESS_POLLING, currencyCode));
-        context.startService(createIntent(context, ACTION_START_SYNC_PROGRESS_POLLING, currencyCode));
+        if (ProcessLifecycleOwner.get().getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+            context.startService(createIntent(context, ACTION_START_SYNC_PROGRESS_POLLING, currencyCode));
+        } else {
+            Log.e(TAG, "startService: the app is in background, service not started");
+        }
     }
 
     /**

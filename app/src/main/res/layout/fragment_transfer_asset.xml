@@ -155,13 +155,13 @@
             android:background="@color/extra_light_gray" />
 
         <LinearLayout
+            android:id="@+id/layout_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp">
+            android:paddingEnd="16dp">
 
             <com.ravencoin.presenter.customviews.BREdit
                 android:id="@+id/asset_amount_edit_text"
@@ -182,15 +182,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/light_gray"
-                android:textSize="@dimen/sub_header"
+                android:textSize="14sp"
                 tools:text="Asset Balance: 10000.00" />
+            <View
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/extra_light_gray" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/extra_light_gray" />
 
         <LinearLayout
             android:id="@+id/keyboard_layout"
@@ -261,7 +261,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/light_gray"
-                android:textSize="@dimen/sub_header"
+                android:textSize="14sp"
                 tools:text="Balance: $0.0318225" />
 
             <LinearLayout
@@ -275,7 +275,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:textColor="@color/light_gray"
-                    android:textSize="@dimen/sub_header"
+                    android:textSize="14sp"
                     tools:text="Network Fee" />
 
                 <ImageView
@@ -294,7 +294,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
+            tools:visibility="visible"
             android:weightSum="2.0"
+            android:paddingTop="10dp"
             app:backgroundColor="@color/extra_light_blue_background"
             app:strokeColor="@color/extra_light_gray"
             app:withStroke="true">
@@ -348,7 +350,7 @@
                     android:background="@drawable/b_half_right_blue_stroke"
                     android:padding="0dp"
                     android:text="@string/FeeSelector.economy"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/primaryColor"
                     android:textSize="14sp"
                     app:customBFont="CircularPro-Medium.otf"
                     app:isBreadButton="false" />

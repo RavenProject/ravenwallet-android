@@ -19,7 +19,7 @@
     <!-- About screen twitter label -->
     <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
-    <string name="AccessibilityLabels.close">Close</string>
+    <string name="AccessibilityLabels.close">Close</string>ƒ
     <!-- Support center accessibiliy label -->
     <!-- Loading Wallet Message -->
     <!-- Default wallet name -->
@@ -103,20 +103,20 @@
     <string name="ErrorMessages.touchIdFailed.android">Fingerprint not recognized. Please try again.</string>
     <!-- Economy fee -->
     <string name="FeeSelector.economy">Economy</string>
-    <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-    <string name="FeeSelector.economyTime">1-24 hours</string>
+    <!-- E.g. [This transaction is predicted to complete in] 10-30 minutes -->
+    <string name="FeeSelector.economyTime">10–30 minutes</string>
     <!-- Warning message for economy fee -->
     <string name="FeeSelector.economyWarning">This option is not recommended for time-sensitive transactions.</string>
     <!-- E.g. Estimated delivery: 10-60 minutes -->
     <string name="FeeSelector.estimatedDeliver">Estimated Delivery: %1$s</string>
     <!-- Regular fee -->
     <string name="FeeSelector.regular">Regular</string>
-    <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-    <string name="FeeSelector.regularTime">10-60 minutes</string>
+    <!-- E.g. [This transaction is predicted to complete in] 1-6 minutes -->
+    <string name="FeeSelector.regularTime">1–6 minutes</string>
     <!-- Fee Selector title -->
     <string name="FeeSelector.title">Processing Speed</string>
     <!-- Checking private key balance progress view text -->
-    <string name="Import.checking">Checking private key balance...</string>
+    <string name="Import.checking">Checking private key balance…</string>
     <!-- Sweep private key confirmation message -->
     <string name="Import.confirm">Send %1$s from this private key into your wallet? The Raven network will receive a fee of %2$s.</string>
     <!-- Duplicate key error message -->
@@ -158,7 +158,6 @@
     <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-    <string name="ManageWallet.creationDatePrefix">You created your wallet on %1$s</string>
     <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
@@ -361,7 +360,7 @@
     <string name="Send.fee">Network Fee: %1$s</string>
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
-    <string name="Send.invalidAddressMessage">The destination address is not a valid bitcoin address.</string>
+    <string name="Send.invalidAddressMessage">The destination address is not address.</string>
     <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
     <string name="Send.invalidAddressTitle">Invalid Address</string>
@@ -372,12 +371,10 @@
     <string name="Send.noAddress">Please enter the recipient\'s address.</string>
     <!-- Emtpy amount alert message -->
     <!-- Paste button label -->
-    <string name="Send.pasteLabel">Paste</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Could not load payment request</string>
     <!-- Scan button label -->
-    <string name="Send.scanLabel">Scan</string>
     <!-- Send button label (the action, "press here to send") -->
     <string name="Send.sendLabel">Send</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
@@ -597,7 +594,6 @@
 
     <string name="Dialog.screenAlteringTitle">"Screen Altering App Detected</string>
     <string name="Dialog.screenAlteringMessage">"Ravencoin Wallet will not function properly unless screen altering apps(such as Twilight) are disabled. </string>
-    <string name="syncing">Syncing</string>
 
     <string name="app_intro_skip_button">SKIP</string>
     <string name="app_intro_done_button">DONE</string>
@@ -630,7 +626,7 @@
     <string name="create">Create</string>
     <string name="quantity">Quantity</string>
     <string name="units">Units</string>
-    <string name="reissuable">is reissuable</string>
+    <string name="reissuable">Reissuable</string>
     <string name="ipfs_hash">Has IPFS</string>
     <string name="asset_creation_fee">Creation Fee: %1$s</string>
     <string name="sub_asset_creation_fee">Sub Asset Fee: %1$s</string>
@@ -664,7 +660,6 @@
     <string name="finish">Finish</string>
 
     <!-- Advanced Settings -->
-    <string name="wipe_wallet">Wipe Wallet</string>
     <string name="wipe_wallet_warning_title">Wipe Wallet</string>
     <string name="wipe_wallet_warning_message">Would you like to wipe all data? \nMake sure you have your 12 words, you can\'t go back.</string>
     <string name="cancel">Cancel</string>
@@ -680,15 +675,14 @@
     <string name="txt_btn_check_availability">Check Availability</string>
 
     <!-- Syncing view connection state header text -->
-    <string name="SyncingView.connecting">Connecting</string>
     <!-- The sync has failed (to complete) -->
-    <string name="SyncingView.failed">Sync Failed</string>
     <!-- Syncing view header text -->
-    <string name="SyncingView.header">Syncing</string>
     <!-- Retry button label -->
-    <string name="SyncingView.retry">Retry</string>
     <!-- "eg. Synced through <Jan 12, 2015> -->
     <string name="SyncingView.syncedThrough">Synced through %1$s</string>
     <!-- Syncing view syncing state header text -->
     <string name="SyncingView.syncing">Syncing</string>
+
+    <string name="txt_btn_create_asset">Create Asset</string>
+    <string name="txt_checking_availability">Checking Availability...</string>
 </resources>

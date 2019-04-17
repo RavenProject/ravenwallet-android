@@ -77,7 +77,8 @@
                 android:hint="@string/name_hint"
                 android:layout_toStartOf="@+id/img_valid"
                 android:ellipsize="start"
-                android:imeOptions="actionDone"
+                android:nextFocusDown="@+id/address_edit_text"
+                android:imeOptions="actionNext"
                 android:inputType="textPersonName"
                 android:scrollHorizontally="true"
                 tools:text="createnewasset"
@@ -114,8 +115,6 @@
                 android:maxLines="1"
                 android:minWidth="170dp"
                 android:minHeight="60dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:text="@string/txt_btn_check_availability"
                 android:textColor="@color/light_gray"
                 android:textSize="16sp"
@@ -146,8 +145,10 @@
                 android:ellipsize="middle"
                 android:ems="10"
                 android:hint="@string/Send.toLabel"
+                android:nextFocusDown="@+id/quantity_edit_text"
                 android:scrollHorizontally="true"
                 android:inputType="textPersonName"
+                android:imeOptions="actionNext"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="@drawable/address_edit_text_selector"
@@ -271,6 +272,8 @@
                 android:ems="10"
                 android:hint="@string/quantity"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/units_edit_text"
                 android:padding="5dp"
                 android:textIsSelectable="false"
                 android:textSize="16sp" />
@@ -283,7 +286,6 @@
             android:background="@color/extra_light_gray" />
 
         <LinearLayout
-            android:id="@+id/quantity_keyboard_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
@@ -291,7 +293,6 @@
             android:visibility="gone">
 
             <com.ravencoin.presenter.customviews.BRKeyboard
-                android:id="@+id/quantity_keyboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/extra_light_gray" />
@@ -312,6 +313,20 @@
             android:paddingEnd="16dp"
             android:paddingBottom="12dp">
 
+            <com.ravencoin.presenter.customviews.BRText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/units"
+                android:inputType="numberDecimal"
+                android:textIsSelectable="false"
+                android:textSize="12sp" />
+
             <com.ravencoin.presenter.customviews.BREdit
                 android:id="@+id/units_edit_text"
                 android:layout_width="match_parent"
@@ -321,9 +336,11 @@
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:ems="10"
-                android:hint="@string/units"
                 android:inputType="numberDecimal"
                 android:padding="5dp"
+                android:imeOptions="actionDone"
+                android:text="0"
+                android:digits="012345678"
                 android:textIsSelectable="false"
                 android:textSize="16sp" />
 
@@ -335,7 +352,6 @@
             android:background="@color/extra_light_gray" />
 
         <LinearLayout
-            android:id="@+id/units_keyboard_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
@@ -343,7 +359,6 @@
             android:visibility="gone">
 
             <com.ravencoin.presenter.customviews.BRKeyboard
-                android:id="@+id/units_keyboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/extra_light_gray" />
@@ -360,20 +375,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="12dp"
+            android:paddingStart="16dp"
             android:paddingBottom="12dp">
 
-            <com.ravencoin.presenter.customviews.BRText
+            <!--<com.ravencoin.presenter.customviews.BRText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:fontFamily="CircularPro-Medium.otf"-->
+                <!--android:padding="5dp"-->
+                <!--android:text="@string/reissuable"-->
+                <!--android:textSize="@dimen/sub_header" />-->
+            <com.ravencoin.presenter.customviews.BREdit
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
-                android:fontFamily="CircularPro-Medium.otf"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/reissuable"
                 android:padding="5dp"
-                android:text="@string/reissuable"
-                android:textSize="@dimen/sub_header" />
+                android:textIsSelectable="false"
+                android:textSize="16sp" />
+
 
             <CheckBox
                 android:id="@+id/reissuable_checkbox"
@@ -410,6 +440,7 @@
                 android:ellipsize="middle"
                 android:ems="10"
                 android:hint="@string/ipfs_hash"
+                android:imeOptions="actionDone"
                 android:inputType="textPersonName"
                 android:padding="5dp"
                 android:singleLine="true"
@@ -493,7 +524,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/light_gray"
-                android:textSize="@dimen/sub_header"
+                android:textSize="14.0sp"
                 tools:text="Balance: Ꝛ1" />
 
             <LinearLayout
@@ -507,7 +538,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:textColor="@color/light_gray"
-                    android:textSize="@dimen/sub_header"
+                    android:textSize="14.0dp"
                     tools:text="Network Fee: Ꝛ0.000023" />
 
                 <ImageView
@@ -523,7 +554,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
-                android:textSize="@dimen/sub_header"
+                android:textSize="14.0dp"
                 tools:text="Creation Fee: Ꝛ500" />
 
         </LinearLayout>
@@ -538,13 +569,14 @@
             app:backgroundColor="@color/extra_light_blue_background"
             app:strokeColor="@color/extra_light_gray"
             app:withStroke="true"
+            android:paddingTop="10dp"
             tools:visibility="visible">
 
             <com.ravencoin.presenter.customviews.BRText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/FeeSelector.title"
                 android:textColor="@color/almost_black"
                 android:textSize="@dimen/sub_header"
@@ -589,7 +621,7 @@
                     android:background="@drawable/b_half_right_blue_stroke"
                     android:padding="0dp"
                     android:text="@string/FeeSelector.economy"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/primaryColor"
                     android:textSize="14sp"
                     app:customBFont="CircularPro-Medium.otf"
                     app:isBreadButton="false" />
@@ -624,7 +656,7 @@
             android:background="@android:color/transparent"
             android:minHeight="60dp"
             android:padding="10dp"
-            android:text="@string/create"
+            android:text="@string/txt_btn_create_asset"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:buttonType="2"

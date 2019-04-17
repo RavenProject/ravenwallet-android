@@ -81,7 +81,7 @@ public class FragmentPin extends Fragment {
         // The last two arguments ensure LayoutParams are inflated
         // properly.
 
-        View rootView = inflater.inflate(R.layout.fragment_bread_pin, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_pin, container, false);
         keyboard = (BRKeyboard) rootView.findViewById(R.id.brkeyboard);
         pinLayout = (LinearLayout) rootView.findViewById(R.id.pinLayout);
 

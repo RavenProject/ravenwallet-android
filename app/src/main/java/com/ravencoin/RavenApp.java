@@ -31,34 +31,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import io.fabric.sdk.android.Fabric;
 
-import static com.platform.APIClient.BREAD_POINT;
-
-/**
- * RavenWallet
- * <p/>
- * Created by Mihail Gutan <mihail@breadwallet.com> on 7/22/15.
- * Copyright (c) 2016 breadwallet LLC
- * <p/>
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * <p/>
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * <p/>
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+//import static com.platform.APIClient.BREAD_POINT;
 
 public class RavenApp extends Application {
+
     private static final String TAG = RavenApp.class.getName();
     public static int DISPLAY_HEIGHT_PX;
     FingerprintManager mFingerprintManager;
@@ -73,7 +49,7 @@ public class RavenApp extends Application {
 
     public static final boolean IS_ALPHA = false;
 
-    public static final Map<String, String> mHeaders = new HashMap<>();
+//    public static final Map<String, String> mHeaders = new HashMap<>();
 
     private static Activity currentActivity;
 
@@ -88,14 +64,14 @@ public class RavenApp extends Application {
         if (!Utils.isEmulatorOrDebug(this) && IS_ALPHA)
             throw new RuntimeException("can't be alpha for release");
 
-        boolean isTestVersion = BREAD_POINT.contains("staging") || BREAD_POINT.contains("stage");
-        boolean isTestNet = BuildConfig.TESTNET;
-        String lang = getCurrentLocale(this);
+////        boolean isTestVersion = BREAD_POINT.contains("staging") || BREAD_POINT.contains("stage");
+//        boolean isTestNet = BuildConfig.TESTNET;
+//        String lang = getCurrentLocale(this);
 
-        mHeaders.put("X-Is-Internal", IS_ALPHA ? "true" : "false");
-        mHeaders.put("X-Testflight", isTestVersion ? "true" : "false");
-        mHeaders.put("X-Bitcoin-Testnet", isTestNet ? "true" : "false");
-        mHeaders.put("Accept-Language", lang);
+//        mHeaders.put("X-Is-Internal", IS_ALPHA ? "true" : "false");
+//        mHeaders.put("X-Testflight", "false");
+//        mHeaders.put("X-Bitcoin-Testnet", isTestNet ? "true" : "false");
+//        mHeaders.put("Accept-Language", lang);
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -103,6 +79,7 @@ public class RavenApp extends Application {
         display.getSize(size);
         int DISPLAY_WIDTH_PX = size.x;
         DISPLAY_HEIGHT_PX = size.y;
+
         mFingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
 
         registerReceiver(InternetManager.getInstance(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
@@ -126,18 +103,18 @@ public class RavenApp extends Application {
         }
     }
 
-    public static Map<String, String> getBreadHeaders() {
-        return mHeaders;
-    }
+//    public static Map<String, String> getRvnHeaders() {
+//        return mHeaders;
+//    }
 
-    public static Context getBreadContext() {
+    public static Context getRvnContext() {
         Context app = currentActivity;
         if (app == null) app = SyncReceiver.app;
         if (app == null) app = mContext;
         return app;
     }
 
-    public static void setBreadContext(Activity app) {
+    public static void setRvnContext(Activity app) {
         currentActivity = app;
     }
 

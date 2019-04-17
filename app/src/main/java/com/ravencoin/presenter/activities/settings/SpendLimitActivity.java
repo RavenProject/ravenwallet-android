@@ -188,7 +188,7 @@ public class SpendLimitActivity extends BRActivity {
             // get the TextView and then set the text (item name) and tag (item ID) values
             textViewItem = convertView.findViewById(R.id.currency_item_text);
             Integer item = getItem(position);
-            BaseWalletManager walletManager = RvnWalletManager.getInstance(app); //use the bitcoin wallet to show the limits
+            BaseWalletManager walletManager = RvnWalletManager.getInstance(app);
 
             String cryptoAmount = CurrencyUtils.getFormattedAmount(app, walletManager.getIso(app), new BigDecimal(item));
 

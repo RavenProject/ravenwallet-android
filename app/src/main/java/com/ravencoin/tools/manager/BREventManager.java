@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.platform.APIClient.BASE_URL;
+//import static com.platform.APIClient.BASE_URL;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -85,7 +85,7 @@ public class BREventManager implements RavenApp.OnAppBackgrounded {
     public void onBackgrounded() {
         Log.e(TAG, "onBackgrounded: ");
         saveEvents();
-        pushToServer();
+//        pushToServer();
     }
 
     private void saveEvents() {
@@ -111,7 +111,7 @@ public class BREventManager implements RavenApp.OnAppBackgrounded {
 //            Log.e(TAG, "saveEvents: insert json to array: " + obj);
             array.put(obj);
         }
-        Context app = RavenApp.getBreadContext();
+        Context app = RavenApp.getRvnContext();
         if (app != null) {
             String fileName = app.getFilesDir().getAbsolutePath() + "/events/" + UUID.randomUUID().toString();
             writeEventsToDisk(fileName, array.toString());
@@ -120,75 +120,75 @@ public class BREventManager implements RavenApp.OnAppBackgrounded {
         }
     }
 
-    private void pushToServer() {
-//        Log.d(TAG, "pushToServer");
-        Context app = RavenApp.getBreadContext();
-        if (app != null) {
-            List<JSONArray> arrs = getEventsFromDisk(app);
-            int fails = 0;
-            for (JSONArray arr : arrs) {
-                JSONObject obj = new JSONObject();
-                try {
-                    obj.put("deviceType", 1);
-                    int verCode = -1;
-                    try {
-                        PackageInfo pInfo = app.getPackageManager().getPackageInfo(app.getPackageName(), 0);
-                        verCode = pInfo.versionCode;
-                    } catch (PackageManager.NameNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    obj.put("appVersion", verCode);
-                    obj.put("events", arr);
-
-                    String strUtl = BASE_URL + "/events";
-
-                    final MediaType JSON = MediaType.parse("application/json");
-                    RequestBody requestBody = RequestBody.create(JSON, obj.toString());
-                    Request request = new Request.Builder()
-                            .url(strUtl)
-                            .header("Content-Type", "application/json")
-                            .header("Accept", "application/json")
-                            .post(requestBody).build();
-                    String strResponse = null;
-                    Response response = null;
-                    try {
-                        response = APIClient.getInstance(app).sendRequest(request, true, 0);
-                        if (response != null)
-                            strResponse = response.body().string();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        fails++;
-                    } finally {
-                        if (response != null) response.close();
-                    }
-                    if (Utils.isNullOrEmpty(strResponse)) {
-                        Log.e(TAG, "pushToServer: response is empty");
-                        fails++;
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    fails++;
-                }
-            }
-            if (fails == 0) {
-                //if no fails then remove the local files.
-                File dir = new File(app.getFilesDir().getAbsolutePath() + "/events/");
-                if (dir.isDirectory()) {
-                    String[] children = dir.list();
-                    for (int i = 0; i < children.length; i++) {
-                        new File(dir, children[i]).delete();
-                    }
-                } else {
-                    Log.e(TAG, "pushToServer:  HUH?");
-                }
-            } else {
-                Log.e(TAG, "pushToServer: FAILED with:" + fails + " fails");
-            }
-        } else {
-            Log.e(TAG, "pushToServer: Failed to push, app is null");
-        }
-    }
+//    private void pushToServer() {
+////        Log.d(TAG, "pushToServer");
+//        Context app = RavenApp.getRvnContext();
+//        if (app != null) {
+//            List<JSONArray> arrs = getEventsFromDisk(app);
+//            int fails = 0;
+//            for (JSONArray arr : arrs) {
+//                JSONObject obj = new JSONObject();
+//                try {
+//                    obj.put("deviceType", 1);
+//                    int verCode = -1;
+//                    try {
+//                        PackageInfo pInfo = app.getPackageManager().getPackageInfo(app.getPackageName(), 0);
+//                        verCode = pInfo.versionCode;
+//                    } catch (PackageManager.NameNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    obj.put("appVersion", verCode);
+//                    obj.put("events", arr);
+//
+//                    String strUtl = BASE_URL + "/events";
+//
+//                    final MediaType JSON = MediaType.parse("application/json");
+//                    RequestBody requestBody = RequestBody.create(JSON, obj.toString());
+//                    Request request = new Request.Builder()
+//                            .url(strUtl)
+//                            .header("Content-Type", "application/json")
+//                            .header("Accept", "application/json")
+//                            .post(requestBody).build();
+//                    String strResponse = null;
+//                    Response response = null;
+//                    try {
+//                        response = APIClient.getInstance(app).sendRequest(request, true, 0);
+//                        if (response != null)
+//                            strResponse = response.body().string();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                        fails++;
+//                    } finally {
+//                        if (response != null) response.close();
+//                    }
+//                    if (Utils.isNullOrEmpty(strResponse)) {
+//                        Log.e(TAG, "pushToServer: response is empty");
+//                        fails++;
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    fails++;
+//                }
+//            }
+//            if (fails == 0) {
+//                //if no fails then remove the local files.
+//                File dir = new File(app.getFilesDir().getAbsolutePath() + "/events/");
+//                if (dir.isDirectory()) {
+//                    String[] children = dir.list();
+//                    for (int i = 0; i < children.length; i++) {
+//                        new File(dir, children[i]).delete();
+//                    }
+//                } else {
+//                    Log.e(TAG, "pushToServer:  HUH?");
+//                }
+//            } else {
+//                Log.e(TAG, "pushToServer: FAILED with:" + fails + " fails");
+//            }
+//        } else {
+//            Log.e(TAG, "pushToServer: Failed to push, app is null");
+//        }
+//    }
 
     private boolean writeEventsToDisk(String fileName, String json) {
         Log.e(TAG, "saveEvents: eventsFile: " + fileName + ", \njson: " + json);

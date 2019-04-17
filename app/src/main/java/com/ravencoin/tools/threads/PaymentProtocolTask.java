@@ -11,7 +11,6 @@ import com.ravencoin.core.BRCorePaymentProtocolRequest;
 import com.ravencoin.core.BRCoreTransaction;
 import com.ravencoin.core.BRCoreTransactionOutput;
 import com.ravencoin.presenter.customviews.BRDialogView;
-import com.ravencoin.tools.exceptions.CertificateChainNotFound;
 import com.ravencoin.presenter.interfaces.BRAuthCompletion;
 import com.ravencoin.tools.animation.BRDialog;
 import com.ravencoin.tools.manager.BRSharedPrefs;
@@ -71,7 +70,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
     //params[0] = uri, params[1] = label
     @Override
     protected String doInBackground(String... params) {
-        app = (Activity) RavenApp.getBreadContext();
+        app = (Activity) RavenApp.getRvnContext();
         InputStream in;
         try {
             Log.e(TAG, "the uri: " + params[0]);
@@ -174,8 +173,6 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                         }
                     }, null, null, 0);
                 paymentProtocolRequest = null;
-            } else if (e instanceof CertificateChainNotFound) {
-                Log.e(TAG, "No certificates!", e);
             } else {
                 if (app != null)
                     BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title), app.getString(R.string.PaymentProtocol_Errors_badPaymentRequest) + ":" + e.getMessage(), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {

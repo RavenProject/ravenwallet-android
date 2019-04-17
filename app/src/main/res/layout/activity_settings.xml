@@ -17,12 +17,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/back_button"
-                android:background="@drawable/ic_chevron_left"
+                android:src="@drawable/ic_chevron_left"
+                android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
+                android:padding="5dp"
                 android:layout_height="wrap_content" />
 
 
@@ -62,8 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:layout_below="@id/title"
-
-        />
+        android:layout_below="@id/title" />
 
 </RelativeLayout>

@@ -24,6 +24,8 @@
  */
 package com.ravencoin.core;
 
+import android.content.Context;
+
 /**
  *
  */

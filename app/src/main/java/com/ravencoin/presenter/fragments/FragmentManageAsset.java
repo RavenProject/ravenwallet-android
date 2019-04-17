@@ -1,12 +1,10 @@
 package com.ravencoin.presenter.fragments;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -28,8 +25,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.platform.assets.Asset;
+import com.platform.assets.QuantityTextWatcher;
+import com.platform.assets.UnitTextWatcher;
 import com.ravencoin.R;
-import com.ravencoin.core.BRCoreTransaction;
 import com.ravencoin.core.BRCoreTransactionAsset;
 import com.ravencoin.core.BRCoreWallet;
 import com.ravencoin.presenter.activities.AddressBookActivity;
@@ -40,13 +38,10 @@ import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.presenter.customviews.ContactButton;
 import com.ravencoin.presenter.customviews.PasteButton;
 import com.ravencoin.presenter.customviews.ScanButton;
-import com.ravencoin.presenter.interfaces.BRAuthCompletion;
-import com.ravencoin.presenter.interfaces.ConfirmationListener;
 import com.ravencoin.presenter.interfaces.WalletManagerListener;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SlideDetector;
 import com.ravencoin.tools.manager.BRSharedPrefs;
-import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.tools.util.Utils;
@@ -57,13 +52,11 @@ import com.ravencoin.wallet.wallets.raven.RvnWalletManager;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Locale;
 
 import static com.platform.assets.AssetType.REISSUE;
 import static com.ravencoin.presenter.activities.AddressBookActivity.PICK_ADDRESS_VIEW_EXTRAS_KEY;
 import static com.ravencoin.tools.animation.BRAnimator.animateBackgroundDim;
 import static com.ravencoin.tools.animation.BRAnimator.animateSignalSlide;
-import static com.ravencoin.tools.util.BRConstants.REISSUE_FEE;
 import static com.ravencoin.tools.util.BRConstants.SATOSHIS;
 
 
@@ -100,11 +93,11 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
     public static final int ASSET_MANAGING_FEE = 100;
 
     private ScrollView backgroundLayout;
-    private LinearLayout signalLayout, quantityKeyboardLayout, unitsKeyboardLayout, balanceLayout;
+    private LinearLayout signalLayout,/* quantityKeyboardLayout, unitsKeyboardLayout,*/ balanceLayout;
     private EditText quantityEditText, unitsEditText;
-    private StringBuilder quantityBuilder;
+//    private StringBuilder quantityBuilder;
     private BRLinearLayoutWithCaret feeLayout;
-    private BRKeyboard quantityKeyboard, unitsKeyboard;
+//    private BRKeyboard quantityKeyboard, unitsKeyboard;
     private BRButton regular;
     private BRButton economy;
     private TextView balanceText, feeText, managingFeeText;
@@ -120,6 +113,9 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
     private String mAddress;
     private Asset mAsset;
     private BRCoreTransactionAsset reissueAsset;
+    private QuantityTextWatcher quantityTextWatcher;
+    private UnitTextWatcher unitTextWatcher;
+
     private final static String EXTRAS_ASSET_KEY = "extras.asset.key";
 
     public static FragmentManageAsset newInstance(Asset asset) {
@@ -141,10 +137,10 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
         quantityEditText = rootView.findViewById(R.id.quantity_edit_text);
         unitsEditText = rootView.findViewById(R.id.units_edit_text);
         feeLayout = rootView.findViewById(R.id.fee_buttons_layout);
-        quantityKeyboardLayout = rootView.findViewById(R.id.quantity_keyboard_layout);
-        unitsKeyboardLayout = rootView.findViewById(R.id.units_keyboard_layout);
-        quantityKeyboard = rootView.findViewById(R.id.quantity_keyboard);
-        unitsKeyboard = rootView.findViewById(R.id.units_keyboard);
+//        quantityKeyboardLayout = rootView.findViewById(R.id.quantity_keyboard_layout);
+//        unitsKeyboardLayout = rootView.findViewById(R.id.units_keyboard_layout);
+//        quantityKeyboard = rootView.findViewById(R.id.quantity_keyboard);
+//        unitsKeyboard = rootView.findViewById(R.id.units_keyboard);
         balanceLayout = rootView.findViewById(R.id.balance_layout);
         feeDescription = rootView.findViewById(R.id.fee_description);
         warningText = rootView.findViewById(R.id.warning_text);
@@ -163,8 +159,10 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
 
         boolean isExpertMode = BRSharedPrefs.getExpertMode(getActivity());
         addressLayout.setVisibility(isExpertMode ? View.VISIBLE : View.GONE);
+        quantityTextWatcher = new QuantityTextWatcher(quantityEditText);
+        unitTextWatcher = new UnitTextWatcher(unitsEditText);
         setListeners(rootView);
-
+        setButton(true);
         signalLayout.setOnTouchListener(new SlideDetector(getContext(), signalLayout));
 
         // Set title
@@ -173,12 +171,12 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
         title.setText(getString(R.string.manage_asset_title, mAsset.getName()));
         unitsEditText.setText(String.valueOf(mAsset.getUnits()));
         // Set keyboards background color
-        quantityKeyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
-        quantityKeyboard.setBRKeyboardColor(R.color.white);
-        unitsKeyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
-        unitsKeyboard.setBRKeyboardColor(R.color.white);
-
-        quantityBuilder = new StringBuilder(0);
+//        quantityKeyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
+//        quantityKeyboard.setBRKeyboardColor(R.color.white);
+//        unitsKeyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
+//        unitsKeyboard.setBRKeyboardColor(R.color.white);
+//
+//        quantityBuilder = new StringBuilder(0);
 
         setBalanceAndTransactionFee();
         reissuableCheckBox.setChecked(true);
@@ -279,41 +277,41 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
             }
         });
 
-        quantityEditText.addTextChangedListener(new NumbersTypingTextWatcher(quantityEditText));
-        unitsEditText.addTextChangedListener(new NumbersTypingTextWatcher(unitsEditText));
+        quantityEditText.addTextChangedListener(quantityTextWatcher);
+        unitsEditText.addTextChangedListener(unitTextWatcher);
 
-        bindKeyboardViewWithInputField(quantityKeyboardLayout, quantityEditText);
-        bindKeyboardViewWithInputField(unitsKeyboardLayout, unitsEditText);
+//        bindKeyboardViewWithInputField(quantityKeyboardLayout, quantityEditText);
+//        bindKeyboardViewWithInputField(unitsKeyboardLayout, unitsEditText);
 
-        quantityEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (quantityKeyboardLayout.getVisibility() == View.VISIBLE) {
-                    quantityKeyboardLayout.setVisibility(View.GONE);
-                } else quantityKeyboardLayout.setVisibility(View.VISIBLE);
-            }
-        });
-        unitsEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (unitsKeyboardLayout.getVisibility() == View.VISIBLE) {
-                    unitsKeyboardLayout.setVisibility(View.GONE);
-                } else unitsKeyboardLayout.setVisibility(View.VISIBLE);
-            }
-        });
+//        quantityEditText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (quantityKeyboardLayout.getVisibility() == View.VISIBLE) {
+//                    quantityKeyboardLayout.setVisibility(View.GONE);
+//                } else quantityKeyboardLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        unitsEditText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (unitsKeyboardLayout.getVisibility() == View.VISIBLE) {
+//                    unitsKeyboardLayout.setVisibility(View.GONE);
+//                } else unitsKeyboardLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
 
-        quantityKeyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleQuantityKeyboardClick(key);
-            }
-        });
-        unitsKeyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleUnitsKeyboardClick(key);
-            }
-        });
+//        quantityKeyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
+//            @Override
+//            public void onClick(String key) {
+//                handleQuantityKeyboardClick(key);
+//            }
+//        });
+//        unitsKeyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
+//            @Override
+//            public void onClick(String key) {
+//                handleUnitsKeyboardClick(key);
+//            }
+//        });
 
         regular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,22 +366,13 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
                     return;
                 }
 
-                if (TextUtils.isEmpty(quantityBuilder.toString())) {
-                    sayCustomMessage("Invalid Quantity");
-                    return;
-                }
-
-                double quantity = Double.parseDouble(quantityBuilder.toString());
+                double quantity = quantityTextWatcher.getValue();
                 if (quantity <= 0) {
                     sayCustomMessage("Invalid Quantity");
                     return;
                 }
 
-                if (TextUtils.isEmpty(unitsEditText.getText().toString())) {
-                    sayCustomMessage("invalid unit");
-                    return;
-                }
-                int unit = Integer.parseInt(unitsEditText.getText().toString());
+                int unit = unitTextWatcher.getValue();
                 if (unit > 8) {
                     sayCustomMessage("invalid unit");
                     return;
@@ -532,35 +521,36 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
         }
     }
 
-    private void handleQuantityKeyboardClick(String key) {
-        if (key == null) {
-            Log.e(TAG, "handleClick: key is null! ");
-            return;
-        }
-        if (key.isEmpty()) {
-            handleDeleteClick();
-        } else if (Character.isDigit(key.charAt(0))) {
-            handleDigitClick(Integer.parseInt(key.substring(0, 1)));
-        }
-    }
-
-    private void handleDigitClick(Integer digit) {
-        String currentAmount = quantityBuilder.toString();
-        if (new BigDecimal(currentAmount.concat(String.valueOf(digit))).doubleValue() <= MAX_ASSET_QUANTITY) {
-            quantityBuilder.append(digit);
-            setQuantity();
-        }
-    }
-
-    private void handleDeleteClick() {
-        String currentQuantity = quantityBuilder.toString();
-        if (currentQuantity.length() > 0) {
-            quantityBuilder.deleteCharAt(currentQuantity.length() - 1);
-            setQuantity();
-        }
-    }
+//    private void handleQuantityKeyboardClick(String key) {
+//        if (key == null) {
+//            Log.e(TAG, "handleClick: key is null! ");
+//            return;
+//        }
+//        if (key.isEmpty()) {
+//            handleDeleteClick();
+//        } else if (Character.isDigit(key.charAt(0))) {
+//            handleDigitClick(Integer.parseInt(key.substring(0, 1)));
+//        }
+//    }
+//
+//    private void handleDigitClick(Integer digit) {
+//        String currentAmount = quantityBuilder.toString();
+//        if (new BigDecimal(currentAmount.concat(String.valueOf(digit))).doubleValue() <= MAX_ASSET_QUANTITY) {
+//            quantityBuilder.append(digit);
+//            setQuantity();
+//        }
+//    }
+//
+//    private void handleDeleteClick() {
+//        String currentQuantity = quantityBuilder.toString();
+//        if (currentQuantity.length() > 0) {
+//            quantityBuilder.deleteCharAt(currentQuantity.length() - 1);
+//            setQuantity();
+//        }
+//    }
 
     public void setAddress(String address) {
+        addressEditText.setText(address);
     }
 
     private void setButton(boolean isRegular) {
@@ -570,13 +560,13 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
             BRSharedPrefs.putFavorStandardFee(getActivity(), iso, true);
             regular.setTextColor(getContext().getColor(R.color.white));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue));
-            economy.setTextColor(getContext().getColor(R.color.dark_blue));
+            economy.setTextColor(getContext().getColor(R.color.primaryColor));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue_stroke));
             feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver), getString(R.string.FeeSelector_regularTime)));
             warningText.getLayoutParams().height = 0;
         } else {
             BRSharedPrefs.putFavorStandardFee(getActivity(), iso, false);
-            regular.setTextColor(getContext().getColor(R.color.dark_blue));
+            regular.setTextColor(getContext().getColor(R.color.primaryColor));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue_stroke));
             economy.setTextColor(getContext().getColor(R.color.white));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue));
@@ -636,21 +626,21 @@ public class FragmentManageAsset extends BaseAddressAndIpfsHashValidation implem
         }
     }
 
-    private void setQuantity() {
-        String tmpAmount = quantityBuilder.toString();
-        int divider = tmpAmount.length();
-        if (tmpAmount.contains(".")) {
-            divider = tmpAmount.indexOf(".");
-        }
-        StringBuilder newAmount = new StringBuilder();
-        for (int i = 0; i < tmpAmount.length(); i++) {
-            newAmount.append(tmpAmount.charAt(i));
-            if (divider > 3 && divider - 1 != i && divider > i && ((divider - i - 1) % 3 == 0)) {
-                newAmount.append(",");
-            }
-        }
-        quantityEditText.setText(newAmount);
-    }
+//    private void setQuantity() {
+//        String tmpAmount = quantityBuilder.toString();
+//        int divider = tmpAmount.length();
+//        if (tmpAmount.contains(".")) {
+//            divider = tmpAmount.indexOf(".");
+//        }
+//        StringBuilder newAmount = new StringBuilder();
+//        for (int i = 0; i < tmpAmount.length(); i++) {
+//            newAmount.append(tmpAmount.charAt(i));
+//            if (divider > 3 && divider - 1 != i && divider > i && ((divider - i - 1) % 3 == 0)) {
+//                newAmount.append(",");
+//            }
+//        }
+//        quantityEditText.setText(newAmount);
+//    }
 
     private void bindKeyboardViewWithInputField(final ViewGroup keyboardLayout, EditText inputField) {
         inputField.setOnFocusChangeListener(new View.OnFocusChangeListener() {

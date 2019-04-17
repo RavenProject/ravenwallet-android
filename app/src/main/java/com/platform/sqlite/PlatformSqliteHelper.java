@@ -52,16 +52,16 @@ public class PlatformSqliteHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    /**
-     * KV Store table
-     */
-    public static final String KV_STORE_TABLE_NAME = "kvStoreTable";
-    public static final String KV_VERSION = "version";
-    public static final String KV_REMOTE_VERSION = "remote_version";
-    public static final String KV_KEY = "key";
-    public static final String KV_VALUE = "value";
-    public static final String KV_TIME = "thetime";
-    public static final String KV_DELETED = "deleted";
+//    /**
+//     * KV Store table
+//     */
+//    public static final String KV_STORE_TABLE_NAME = "kvStoreTable";
+//    public static final String KV_VERSION = "version";
+//    public static final String KV_REMOTE_VERSION = "remote_version";
+//    public static final String KV_KEY = "key";
+//    public static final String KV_VALUE = "value";
+//    public static final String KV_TIME = "thetime";
+//    public static final String KV_DELETED = "deleted";
 
 
     /**
@@ -92,15 +92,15 @@ public class PlatformSqliteHelper extends SQLiteOpenHelper {
     }
 
 
-    private static final String KV_DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s(" +
-            "   %s         INTEGER  NOT NULL, " +
-            "   %s  INTEGER  NOT NULL DEFAULT 0, " +
-            "   %s             TEXT    NOT NULL, " +
-            "   %s           BLOB    NOT NULL, " +
-            "   %s         INTEGER  NOT NULL, " + // server unix timestamp in MS
-            "   %s         INTEGER    NOT NULL, " +
-            "   PRIMARY KEY (%s, %s) " +
-            ");", KV_STORE_TABLE_NAME, KV_VERSION, KV_REMOTE_VERSION, KV_KEY, KV_VALUE, KV_TIME, KV_DELETED, KV_KEY, KV_VERSION);
+//    private static final String KV_DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s(" +
+//            "   %s         INTEGER  NOT NULL, " +
+//            "   %s  INTEGER  NOT NULL DEFAULT 0, " +
+//            "   %s             TEXT    NOT NULL, " +
+//            "   %s           BLOB    NOT NULL, " +
+//            "   %s         INTEGER  NOT NULL, " + // server unix timestamp in MS
+//            "   %s         INTEGER    NOT NULL, " +
+//            "   PRIMARY KEY (%s, %s) " +
+//            ");", KV_STORE_TABLE_NAME, KV_VERSION, KV_REMOTE_VERSION, KV_KEY, KV_VALUE, KV_TIME, KV_DELETED, KV_KEY, KV_VERSION);
 
     private static final String CREATE_TABLE_ADDRESS_BOOK = String.format("CREATE TABLE IF NOT EXISTS %s(" +
             "   %s         INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -144,10 +144,9 @@ public class PlatformSqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        Log.d(TAG, "onCreate: " + KV_DATABASE_CREATE);
-
-        // Creating the KV Store table
-        database.execSQL(KV_DATABASE_CREATE);
+//        Log.d(TAG, "onCreate: " + KV_DATABASE_CREATE);
+//        // Creating the KV Store table
+//        database.execSQL(KV_DATABASE_CREATE);
 
         // Creating the Address Book table
         database.execSQL(CREATE_TABLE_ADDRESS_BOOK);

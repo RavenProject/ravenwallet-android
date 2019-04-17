@@ -6,8 +6,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.platform.HTTPServer;
-import com.platform.tools.BRBitId;
+//import com.platform.HTTPServer;
 import com.platform.addressBook.AddressBookItem;
 import com.ravencoin.RavenApp;
 import com.ravencoin.R;
@@ -30,30 +29,6 @@ import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.wallets.util.CryptoUriParser;
 
-/**
- * RavenWallet
- * <p/>
- * Created by Mihail Gutan on <mihail@breadwallet.com> 5/23/17.
- * Copyright (c) 2017 breadwallet LLC
- * <p/>
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * <p/>
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * <p/>
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 public class BRActivity extends Activity {
     private static final String TAG = BRActivity.class.getName();
     public static final Point screenParametersPoint = new Point();
@@ -103,17 +78,17 @@ public class BRActivity extends Activity {
                     });
                 }
                 break;
-            case BRConstants.REQUEST_PHRASE_BITID:
-                if (resultCode == RESULT_OK) {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            PostAuth.getInstance().onBitIDAuth(BRActivity.this, true);
-                        }
-                    });
-
-                }
-                break;
+//            case BRConstants.REQUEST_PHRASE_BITID:
+//                if (resultCode == RESULT_OK) {
+//                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            PostAuth.getInstance().onBitIDAuth(BRActivity.this, true);
+//                        }
+//                    });
+//
+//                }
+//                break;
 
             case BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
@@ -187,8 +162,8 @@ public class BRActivity extends Activity {
                             if (CryptoUriParser.isCryptoUrl(BRActivity.this, result))
                                 CryptoUriParser.processRequest(BRActivity.this, result,
                                         WalletsMaster.getInstance(BRActivity.this).getCurrentWallet(BRActivity.this));
-                            else if (BRBitId.isBitId(result))
-                                BRBitId.signBitID(BRActivity.this, result, null);
+//                            else if (BRBitId.isBitId(result))
+//                                BRBitId.signBitID(BRActivity.this, result, null);
                             else
                                 Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                         }
@@ -328,15 +303,15 @@ public class BRActivity extends Activity {
                 AuthManager.getInstance().setWalletDisabled(app);
 
         RavenApp.activityCounter.incrementAndGet();
-        RavenApp.setBreadContext(app);
+        RavenApp.setRvnContext(app);
 
-        if (!HTTPServer.isStarted())
-            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                @Override
-                public void run() {
-                    HTTPServer.startServer();
-                }
-            });
+//        if (!HTTPServer.isStarted())
+//            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    HTTPServer.startServer();
+//                }
+//            });
 
         lockIfNeeded(this);
 
@@ -349,7 +324,7 @@ public class BRActivity extends Activity {
                 && !(app instanceof DisabledActivity)) {
             if (!BRKeyStore.getPinCode(app).isEmpty()) {
                 Log.e(TAG, "lockIfNeeded: " + RavenApp.backgroundedTime);
-                BRAnimator.startBreadActivity(app, true);
+                BRAnimator.startRvnActivity(app, true);
             }
         }
 

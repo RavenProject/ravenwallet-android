@@ -1,23 +1,20 @@
 package com.ravencoin.presenter.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.webkit.WebView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,6 +33,7 @@ import com.platform.chart.widget.ChartModel;
 import com.platform.chart.widget.ChartView;
 import com.platform.chart.widget.SeriesElement;
 import com.ravencoin.R;
+import com.ravencoin.presenter.AssetChangeListener;
 import com.ravencoin.presenter.activities.settings.SecurityCenterActivity;
 import com.ravencoin.presenter.activities.settings.SettingsActivity;
 import com.ravencoin.presenter.activities.util.ActivityUTILS;
@@ -44,36 +42,36 @@ import com.ravencoin.presenter.customviews.BRButton;
 import com.ravencoin.presenter.customviews.BRNotificationBar;
 import com.ravencoin.presenter.customviews.BRText;
 import com.ravencoin.presenter.newTutorial.TutorialActivity;
-import com.ravencoin.tools.adapter.WalletListAdapter;
 import com.ravencoin.tools.animation.BRAnimator;
-import com.ravencoin.tools.listeners.RecyclerItemClickListener;
 import com.ravencoin.tools.manager.BREventManager;
 import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.manager.InternetManager;
 import com.ravencoin.tools.manager.PromptManager;
+import com.ravencoin.tools.services.SyncService;
 import com.ravencoin.tools.sqlite.CurrencyDataSource;
 import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
+import com.ravencoin.wallet.wallets.raven.RvnWalletManager;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.platform.assets.AssetType.TRANSFER;
 import static com.ravencoin.presenter.activities.ManageAssetsActivity.IS_OWNED_ASSETS_VIEW_EXTRAS_KEY;
 
 /**
  * Home activity that will show a list of a user's wallets
  */
 
-public class HomeActivity extends BRActivity implements InternetManager.ConnectionReceiverListener {
+public class HomeActivity extends BRActivity implements InternetManager.ConnectionReceiverListener, AssetChangeListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
-    private RecyclerView mWalletRecycler;
-    private WalletListAdapter mAdapter;
+    //    private RecyclerView mWalletRecycler;
+//    private WalletListAdapter mAdapter;
     private BRText mFiatTotal;
     private RelativeLayout mAssetCreation;
     private RelativeLayout mSettings;
@@ -84,19 +82,29 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
     private RelativeLayout mShowMoreLayout;
     private PromptManager.PromptItem mCurrentPrompt;
     public BRNotificationBar mNotificationBar;
-
+    private AssetsAdapter assetsAdapter;
     private BRText mPromptTitle;
     private BRText mPromptDescription;
     private BRButton mPromptContinue;
     private BRButton mPromptDismiss;
     private CardView mPromptCard;
-
+    private AssetsRepository repository;
     private ChartView mChart;
     private ChartModel chartModel;
+    private BRText mWalletName;
+    private BRText mTradePrice;
+    private BRText mWalletBalanceUSD;
+    private BRText mWalletBalanceCurrency;
+    private CardView mParent;
+    private RelativeLayout mWalletInfos;
+    private BRText mSyncingLabel;
+    private ProgressBar mSyncingProgressBar;
+    private BRText lblBitterex;
     private String chartType = ChartModel.ChartType.AreaSpline;
     String CHART_URL = "https://international.bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
 
     private static HomeActivity app;
+    private SyncNotificationBroadcastReceiver mSyncNotificationBroadcastReceiver = new SyncNotificationBroadcastReceiver();
 
     // Assets
     private TextView mAssetsLabel;
@@ -108,8 +116,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         return app;
     }
 
-    //  String CHART_URL = "https://international.bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,11 +123,11 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
 
         WalletsMaster.getInstance(this).initWallets(this);
 
-        ArrayList<BaseWalletManager> walletList = new ArrayList<>();
+//        ArrayList<BaseWalletManager> walletList = new ArrayList<>();
 
-        walletList.addAll(WalletsMaster.getInstance(this).getAllWallets());
+//        walletList.addAll(WalletsMaster.getInstance(this).getAllWallets());
 
-        mWalletRecycler = findViewById(R.id.rv_wallet_list);
+//        mWalletRecycler = findViewById(R.id.rv_wallet_list);
         mFiatTotal = findViewById(R.id.total_assets_usd);
 
         mAssetCreation = findViewById(R.id.create_asset);
@@ -137,22 +143,33 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         mPromptDescription = findViewById(R.id.prompt_description);
         mPromptContinue = findViewById(R.id.continue_button);
         mPromptDismiss = findViewById(R.id.dismiss_button);
-
         mShowMoreLayout = findViewById(R.id.show_more_layout);
-
         mAssetsLabel = findViewById(R.id.assets_label);
         mAssetsRecycler = findViewById(R.id.asset_list);
 
-        mAdapter = new WalletListAdapter(this, walletList);
+        mWalletName = findViewById(R.id.wallet_name);
+        mTradePrice = findViewById(R.id.wallet_trade_price);
+        mWalletBalanceUSD = findViewById(R.id.wallet_balance_usd);
+        mWalletBalanceCurrency = findViewById(R.id.wallet_balance_currency);
+        mParent = findViewById(R.id.layout_wallet);
+        mWalletInfos = findViewById(R.id.layout_wallet_info);
+        mSyncingLabel = findViewById(R.id.syncing_label);
+        mSyncingProgressBar = findViewById(R.id.sync_progress);
+        lblBitterex = findViewById(R.id.lbl_bitterex);
+        mChart = findViewById(R.id.chart_view);
+//        mAdapter = new WalletListAdapter(this, walletList);
+//        mWalletRecycler.setLayoutManager(new LinearLayoutManager(this));
+//        mWalletRecycler.setAdapter(mAdapter);
 
-        mWalletRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mWalletRecycler.setAdapter(mAdapter);
+        assetsAdapter = new AssetsAdapter(this, new ArrayList<Asset>());
+        mAssetsRecycler.setAdapter(assetsAdapter);
+
 
 //        mWalletRecycler.addOnItemTouchListener(new RecyclerItemClickListener(this, mWalletRecycler, new RecyclerItemClickListener.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position, float x, float y) {
 //                if (position >= mAdapter.getItemCount() || position < 0) return;
-//                BRSharedPrefs.putCurrentWalletIso(HomeActivity.this, mAdapter.getItemAt(position).getIso(HomeActivity.this));
+//                BRSharedPrefassetsAdapters.putCurrentWalletIso(HomeActivity.this, mAdapter.getItemAt(position).getIso(HomeActivity.this));
 ////                Log.d("HomeActivity", "Saving current wallet ISO as " + mAdapter.getItemAt(position).getIso(HomeActivity.this));
 //
 //                Intent newIntent = new Intent(HomeActivity.this, WalletActivity.class);
@@ -212,34 +229,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             }
         });
 
-        onConnectionChanged(InternetManager.getInstance().isConnected(this));
-
-
-//        if (!BRSharedPrefs.wasBchDialogShown(this)) {
-//            BRDialog.showHelpDialog(this, getString(R.string.Dialog_welcomeBchTitle), getString(R.string.Dialog_welcomeBchMessage), getString(R.string.Dialog_Home), getString(R.string.Dialog_Dismiss), new BRDialogView.BROnClickListener() {
-//                @Override
-//                public void onClick(BRDialogView brDialogView) {
-//                    brDialogView.dismissWithAnimation();
-//                }
-//            }, new BRDialogView.BROnClickListener() {
-//
-//                @Override
-//                public void onClick(BRDialogView brDialogView) {
-//                    getFragmentManager().popBackStack();
-//                }
-//            }, new BRDialogView.BROnClickListener() {
-//                @Override
-//                public void onClick(BRDialogView brDialogView) {
-//                    Log.d(TAG, "help clicked!");
-//                    brDialogView.dismissWithAnimation();
-//                    BRAnimator.showSupportFragment(HomeActivity.this, BRConstants.bchFaq);
-//
-//                }
-//            });
-//
-//            BRSharedPrefs.putBchDialogShown(HomeActivity.this, true);
-//        }
-
         mPromptDismiss.setColor(Color.parseColor("#5667a5"));
         mPromptDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,11 +248,52 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
                     Log.e(TAG, "Continue :" + info.title + " (FAILED)");
             }
         });
-        //TODO comment
-        //addDummyAssetsDataIfDatabaseEmpty();
+        BaseWalletManager wallet = RvnWalletManager.getInstance(this);
+        setWalletFields(true, null);
+        Drawable drawable = getResources().getDrawable(R.drawable.crypto_card_shape, null);
+        ((GradientDrawable) drawable).setColor(Color.parseColor(wallet.getUiConfiguration().colorHex));
+        mParent.setBackground(drawable);
+        mChart.setBackgroundColor(getColor(R.color.primaryColor));
+        mChart.setBackground(drawable);
+        mChart.setLayerType(WebView.LAYER_TYPE_NONE, null);
+        getRVNValueHistory();
+        mWalletInfos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                BRSharedPrefs.putCurrentWalletIso(HomeActivity.this, iso);
+                Intent newIntent = new Intent(HomeActivity.this, WalletActivity.class);
+                startActivity(newIntent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+        });
 
-        mChart = findViewById(R.id.chart_view);
-        // getRVNValueHistory();
+    }
+
+    private void setWalletFields(boolean mShowSyncing, String labelSync) {
+        BaseWalletManager wallet = RvnWalletManager.getInstance(this);
+        if (wallet == null) return;
+        String name = wallet.getName(this);
+        String exchangeRate = CurrencyUtils.getFormattedAmount(this,
+                BRSharedPrefs.getPreferredFiatIso(this), wallet.getFiatExchangeRate(this));
+        String fiatBalance = CurrencyUtils.getFormattedAmount(this,
+                BRSharedPrefs.getPreferredFiatIso(this), wallet.getFiatBalance(this));
+        String cryptoBalance = CurrencyUtils.getFormattedAmount(this, wallet.getIso(this),
+                new BigDecimal(wallet.getCachedBalance(this)));
+
+        final String iso = wallet.getIso(this);
+
+        // Set wallet fields
+        mWalletName.setText(name);
+        mTradePrice.setText(exchangeRate);
+//        if (position == 0)
+//            mTradePrice.setText("$0.0356254");
+        mWalletBalanceUSD.setText(fiatBalance);
+        mWalletBalanceCurrency.setText(cryptoBalance);
+        mSyncingProgressBar.setVisibility(mShowSyncing ? View.VISIBLE : View.INVISIBLE);
+        mSyncingProgressBar.setProgress(mShowSyncing ? View.VISIBLE : View.INVISIBLE);
+        mSyncingLabel.setVisibility(mShowSyncing ? View.VISIBLE : View.INVISIBLE);
+        mSyncingLabel.setText(labelSync);
+        mWalletBalanceCurrency.setVisibility(!mShowSyncing ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void getRVNValueHistory() {
@@ -311,16 +341,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         mChart.aa_drawChartWithChartModel(chartModel);
     }
 
-    private void addDummyAssetsDataIfDatabaseEmpty() {
-        AssetsRepository repository = AssetsRepository.getInstance(this);
-        if (repository.getAllAssets().size() == 0) {
-            repository.insertAsset(new Asset("ROSHII", "TRANSFER", "250fed98bcfb81e7f2073c11340caae202bdfc327e776ab79c31eb1bf22bc74e", 1.00000000, 8, 0, 1, "QmTqu3Lk3gmTsQVtjU7rYYM37EAW4xNmbuEAp2Mjr4AV7E", 1, repository.getAssetCount(), 1));
-            repository.insertAsset(new Asset("OSTK", "TRANSFER", "250fed98bcfb81e7f2 073c11340caae202bdfc327e776ab79c31eb1bf22bc74e", 100000.00000000, 3, 1, 1, "QmTqu3Lk3gmTsQVtjU7rYYM37EAW4xNmbuEAp2Mjr4AV7E", 1, repository.getAssetCount(), 1));
-            repository.insertAsset(new Asset("TRONCOIN", "TRANSFER", "250fed98bcfb81e7f2073c11340caae202bdfc327e776ab79c31eb1bf22bc74e", 62.00000000, 6, 0, 0, "", 1, repository.getAssetCount(), 1));
-            repository.insertAsset(new Asset("SALLY", "TRANSFER", "250fed98bcfb81e7f2073c11340caae202bdfc327e776ab79c31eb1bf22bc74e", 995658.00000000, 0, 1, 0, "", 0, repository.getAssetCount(), 1));
-        }
-    }
-
     private void setAssets() {
         List<Asset> assets = getAssetList();
         int assetsSize = assets.size();
@@ -333,16 +353,14 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             mAssetsRecycler.setVisibility(View.VISIBLE);
             if (assetsSize <= MAX_ASSETS_NUMBER_TO_SHOW) {
                 // Creating then setting the adapter
-                AssetsAdapter assetsAdapter = new AssetsAdapter(this, assets);
-                mAssetsRecycler.setAdapter(assetsAdapter);
+                assetsAdapter.setAssets(assets);
                 ViewCompat.setNestedScrollingEnabled(mAssetsRecycler, false);
 
                 // Hiding the Show More layout
                 mShowMoreLayout.setVisibility(View.GONE);
             } else {
                 // Creating then setting the adapter with only the first three items
-                AssetsAdapter assetsAdapter = new AssetsAdapter(this, assets.subList(0, 3));
-                mAssetsRecycler.setAdapter(assetsAdapter);
+                assetsAdapter.setAssets(assets.subList(0, 3));
                 ViewCompat.setNestedScrollingEnabled(mAssetsRecycler, false);
 
                 // Showing the Show More layout
@@ -352,7 +370,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
     }
 
     private List<Asset> getAssetList() {
-        AssetsRepository repository = AssetsRepository.getInstance(this);
         return repository.getVisibleAssets();
     }
 
@@ -385,48 +402,32 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    protected void changeStatusBarColor() {
-        Window window = app.getWindow();
-
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-        // change the color
-        window.setStatusBarColor(ContextCompat.getColor(app, R.color.extra_light_blue_background));
-
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         app = this;
 
         ActivityUTILS.changeStatusBarColor(app, R.color.extra_light_blue_background);
-
         showNextPromptIfNeeded();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.startObserving();
-            }
-        }, 500);
         InternetManager.registerConnectionReceiver(this, this);
+        SyncService.registerSyncNotificationBroadcastReceiver(this, mSyncNotificationBroadcastReceiver);
 
-        InternetManager.addConnectionListener(new InternetManager.ConnectionReceiverListener() {
-            @Override
-            public void onConnectionChanged(boolean isConnected) {
-                Log.e(TAG, "onConnectionChanged: " + isConnected);
-                if (isConnected) {
-                    mAdapter.startObserving();
-                }
-            }
-        });
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mAdapter.startObserving();
+//            }
+//        }, 500);
+
+//        InternetManager.addConnectionListener(new InternetManager.ConnectionReceiverListener() {
+//            @Override
+//            public void onConnectionChanged(boolean isConnected) {
+//                Log.e(TAG, "onConnectionChanged: " + isConnected);
+//                if (isConnected) {
+//                    mAdapter.startObserving();
+//                }
+//            }
+//        });
 
         updateUi();
         CurrencyDataSource.getInstance(this).addOnDataChangedListener(new CurrencyDataSource.OnDataChanged() {
@@ -441,7 +442,8 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
 
             }
         });
-
+        repository = AssetsRepository.getInstance(this);
+        repository.addListener(this);
         // Set the Assets view
         setAssets();
     }
@@ -450,7 +452,9 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
     protected void onPause() {
         super.onPause();
         InternetManager.unregisterConnectionReceiver(this, this);
-        mAdapter.stopObserving();
+        SyncService.unregisterSyncNotificationBroadcastReceiver(this,
+                mSyncNotificationBroadcastReceiver);
+        repository.removeListener(this);
     }
 
     private void updateUi() {
@@ -460,7 +464,6 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             return;
         }
         mFiatTotal.setText(CurrencyUtils.getFormattedAmount(this, BRSharedPrefs.getPreferredFiatIso(this), fiatTotalAmount));
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -470,9 +473,7 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             if (mNotificationBar != null) {
                 mNotificationBar.setVisibility(View.GONE);
             }
-            if (mAdapter != null) {
-                mAdapter.startObserving();
-            }
+            startObserving();
         } else {
             if (mNotificationBar != null) {
                 mNotificationBar.setVisibility(View.VISIBLE);
@@ -491,5 +492,40 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         intent.putExtra(IS_OWNED_ASSETS_VIEW_EXTRAS_KEY, true);
         startActivity(intent);
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+    }
+
+    @Override
+    public void onChange() {
+        setAssets();
+    }
+
+    private class SyncNotificationBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SyncService.ACTION_SYNC_PROGRESS_UPDATE.equals(intent.getAction())) {
+                String intentWalletIso = intent.getStringExtra(SyncService.EXTRA_WALLET_CURRENCY_CODE);
+                double progress = intent.getDoubleExtra(SyncService.EXTRA_PROGRESS, SyncService.PROGRESS_NOT_DEFINED);
+                updateUi(progress);
+            }
+        }
+    }
+
+    public void updateUi(double syncProgress) {
+
+        String label = null;
+        boolean syncing = false;
+        if (syncProgress > SyncService.PROGRESS_START && syncProgress < SyncService.PROGRESS_FINISH) {
+            StringBuffer labelText = new StringBuffer(getString(R.string.SyncingView_syncing));
+            labelText.append(' ')
+                    .append(NumberFormat.getPercentInstance().format(syncProgress));
+            label = labelText.toString();
+            syncing = true;
+        }
+        setWalletFields(syncing, label);
+
+    }
+
+    public void startObserving() {
+        SyncService.startService(HomeActivity.this, RvnWalletManager.getInstance(this).getIso(this));
     }
 }

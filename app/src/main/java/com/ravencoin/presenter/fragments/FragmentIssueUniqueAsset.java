@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -43,7 +42,6 @@ import com.ravencoin.presenter.interfaces.WalletManagerListener;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.animation.SlideDetector;
 import com.ravencoin.tools.manager.BRSharedPrefs;
-import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.util.BRConstants;
 import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.tools.util.Utils;
@@ -101,6 +99,7 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
     private TextView balanceText, feeText, uniqueAssetFeeText;
     private BRText feeDescription;
     private BRText warningText;
+    private BRText rootAssetName;
     private BREdit assetName;
     private ImageView imgValid;
     private CheckBox ipfsHashCheckBox;
@@ -140,6 +139,7 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
         ipfsHashCheckBox = rootView.findViewById(R.id.ipfs_hash_checkbox);
         pasteIPFSHashButton = rootView.findViewById(R.id.paste_ipfs_hash_button);
         scanIPFSHashButton = rootView.findViewById(R.id.scan_ipfs_hash_button);
+        rootAssetName = rootView.findViewById(R.id.root_asset_name);
         assetName = rootView.findViewById(R.id.asset_name);
         imgValid = rootView.findViewById(R.id.img_valid);
         checkNameAvailableButton = rootView.findViewById(R.id.check_name_available_button);
@@ -147,16 +147,16 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
 
         if (getArguments() != null) {
             mAsset = getArguments().getParcelable("asset");
-            assetName.setText(mAsset.getName() + UNIQUE_SUFFIX);
+            rootAssetName.setText(mAsset.getName() + UNIQUE_SUFFIX);
         }
 
         boolean isExpertMode = BRSharedPrefs.getExpertMode(getActivity());
         addressLayout.setVisibility(isExpertMode ? View.VISIBLE : View.GONE);
         setListeners(rootView);
-
+        setButton(true);
         signalLayout.setOnTouchListener(new SlideDetector(getContext(), signalLayout));
-
-        assetName.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(MAX_ASSET_NAME_LENGTH)});
+            int maxLength = MAX_ASSET_NAME_LENGTH - rootAssetName.getText().toString().length();
+        assetName.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(maxLength)});
         setBalanceAndTransactionFee();
         return rootView;
     }
@@ -219,25 +219,26 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
             public void afterTextChanged(Editable s) {
                 imgValid.setVisibility(View.GONE);
                 assetName.setTextColor(getResources().getColor(R.color.black, getActivity().getTheme()));
-                if (!assetName.getText().toString().startsWith(mAsset.getName() + UNIQUE_SUFFIX)) {
-                    assetName.setText(mAsset.getName() + UNIQUE_SUFFIX);
-                    assetName.append("");
-                }
+//                if (!assetName.getText().toString().startsWith(mAsset.getName() + UNIQUE_SUFFIX)) {
+//                    assetName.setText(mAsset.getName() + UNIQUE_SUFFIX);
+//                    assetName.append("");
+//                }
             }
         });
         // check name available button click
         checkNameAvailableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = assetName.getText().toString();
-                FragmentCreateAsset.NameStatus nameStatus = isNameValid(name);
+
+                String fullName = rootAssetName.getText().toString() + assetName.getText().toString();
+                FragmentCreateAsset.NameStatus nameStatus = isNameValid(fullName);
                 switch (nameStatus) {
                     case INVALID:
                         sayCustomMessage("Name invalid");
                         break;
                     case VALID:
                         checkingButton = checkNameAvailableButton;
-                        isNameAvailable(name);
+                        isNameAvailable(fullName);
                 }
             }
         });
@@ -316,22 +317,23 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
         createUniqueAssetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String fullName = rootAssetName.getText().toString() + assetName.getText().toString();
                 switch (mNameStatus) {
                     case INVALID:
                         sayCustomMessage("Name invalid");
                         break;
                     case UNCHECKED:
-                        FragmentCreateAsset.NameStatus nameStatus = isNameValid(assetName.getText().toString());
+                        FragmentCreateAsset.NameStatus nameStatus = isNameValid(fullName);
                         if (nameStatus == FragmentCreateAsset.NameStatus.INVALID) {
                             sayCustomMessage("Name invalid");
                         } else {
                             checkingButton = createUniqueAssetButton;
-                            isNameAvailable(assetName.getText().toString());
+                            isNameAvailable(fullName);
                         }
                         break;
                     case VALID:
                         checkingButton = createUniqueAssetButton;
-                        isNameAvailable(assetName.getText().toString());
+                        isNameAvailable(fullName);
                         break;
                     case AVAILABLE:
                         createUniqueAsset();
@@ -421,9 +423,9 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
 
         BRCoreTransactionAsset asset = new BRCoreTransactionAsset();
         asset.setType(NEW_ASSET.getIndex());
-        String name = assetName.getText().toString();
-        asset.setName(name);
-        asset.setNamelen(name.length());
+        String fullName = rootAssetName.getText().toString() + assetName.getText().toString();
+        asset.setName(fullName);
+        asset.setNamelen(fullName.length());
         asset.setAmount((long) SATOSHIS);
         asset.setReissuable(0);
         asset.setHasIPFS(ipfsHashCheckBox.isChecked() ? 1 : 0);
@@ -434,7 +436,7 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
 
     private void onValidateName(FragmentCreateAsset.NameStatus nameStatus) {
         mNameStatus = nameStatus;
-        checkNameAvailableButton.setText("Check availability");
+        checkNameAvailableButton.setText(getString(R.string.txt_checking_availability));
 
         switch (nameStatus) {
             case UNAVAILABLE:
@@ -449,7 +451,7 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
                         imgValid.setImageResource(R.drawable.ic_name_valid);
                         imgValid.setVisibility(View.VISIBLE);
                     } else if (checkingButton == createUniqueAssetButton) {
-                        createUniqueAssetButton.setText("Create asset");
+                        createUniqueAssetButton.setText(getString(R.string.txt_btn_create_asset));
                         createUniqueAsset();
                     }
                 }
@@ -463,7 +465,7 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
         final BRCoreAddress BrAddress = new BRCoreAddress(address);
         final RvnWalletManager walletManager = RvnWalletManager.getInstance(app);
         walletManager.requestConfirmation(app, UNIQUE, asset, mAsset.getCoreAsset(), address,
-                false,FragmentIssueUniqueAsset.this);
+                false, FragmentIssueUniqueAsset.this);
     }
 
     private void closeMe() {
@@ -500,6 +502,7 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
     }
 
     public void setAddress(String address) {
+        addressEditText.setText(address);
     }
 
     private void setButton(boolean isRegular) {
@@ -509,13 +512,13 @@ public class FragmentIssueUniqueAsset extends BaseAddressAndIpfsHashValidation i
             BRSharedPrefs.putFavorStandardFee(getActivity(), iso, true);
             regular.setTextColor(getContext().getColor(R.color.white));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue));
-            economy.setTextColor(getContext().getColor(R.color.dark_blue));
+            economy.setTextColor(getContext().getColor(R.color.primaryColor));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue_stroke));
             feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver), getString(R.string.FeeSelector_regularTime)));
             warningText.getLayoutParams().height = 0;
         } else {
             BRSharedPrefs.putFavorStandardFee(getActivity(), iso, false);
-            regular.setTextColor(getContext().getColor(R.color.dark_blue));
+            regular.setTextColor(getContext().getColor(R.color.primaryColor));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue_stroke));
             economy.setTextColor(getContext().getColor(R.color.white));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue));

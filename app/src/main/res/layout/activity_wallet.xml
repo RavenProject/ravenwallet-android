@@ -51,26 +51,13 @@
                     android:clipChildren="false"
                     android:clipToPadding="false">
 
-
-                    <com.ravencoin.presenter.customviews.BRText
-                        android:id="@+id/currency_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/CurrencyBitcoin"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/header"
-                        android:visibility="gone" />
-
                     <ImageView
                         android:id="@+id/currency_image"
-                        android:layout_width="@dimen/width_ic_raven_white"
-                        android:layout_height="26dp"
+                        android:layout_width="262dp"
+                        android:layout_height="29dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
                         android:background="@drawable/ic_raven_coin_title_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -256,11 +243,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:id="@+id/tx_list"
             android:layout_below="@+id/progress_layout"
             android:visibility="visible"
             tools:visibility="gone"
+            android:fadingEdge="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false" />
@@ -291,12 +279,12 @@
         android:background="@color/extra_light_blue_background"
         android:elevation="0dp"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="2">
 
 
         <com.ravencoin.presenter.customviews.BRButton
             android:id="@+id/send_button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
@@ -304,7 +292,6 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:background="@color/currency_buttons_color"
             android:text="@string/CurrencySend"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -316,34 +303,14 @@
 
         <com.ravencoin.presenter.customviews.BRButton
             android:id="@+id/receive_button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="22dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:background="@color/currency_buttons_color"
             android:text="@string/CurrencyReceive"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:buttonType="4"
-            app:customTFont="CircularPro-Bold.otf"
-            app:hasShadow="false"
-            app:isBreadButton="true" />
-
-        <com.ravencoin.presenter.customviews.BRButton
-            android:id="@+id/buy_button"
-            android:layout_width="0dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="22dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:background="@color/currency_buttons_color"
-            android:paddingTop="3dp"
-            android:text="@string/CurrencyBuy"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:buttonType="4"

@@ -3,8 +3,6 @@ package com.ravencoin.presenter.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.ravencoin.R;
 import com.ravencoin.tools.animation.BRAnimator;
-import com.ravencoin.tools.manager.BRSharedPrefs;
 import com.ravencoin.tools.security.BRKeyStore;
 import com.ravencoin.tools.util.Utils;
 
@@ -89,11 +86,11 @@ public class FragmentManage extends Fragment {
 //            }
 //        });
 
-        long time = (long) BRKeyStore.getWalletCreationTime(getContext()) * 1000;
+//        long time = (long) BRKeyStore.getWalletCreationTime(getContext()) * 1000;
         // multiply by 1000, make it millis, since the Wallet creation time is seconds.
-        String creationDate = Utils.formatTimeStamp(time, "MMM. dd, yyyy  ha");
+//        String creationDate = Utils.formatTimeStamp(time, "MMM. dd, yyyy  ha");
 
-        creationTimeText.setText(String.format(getString(R.string.ManageWallet_creationDatePrefix) + " %s", creationDate));
+//        creationTimeText.setText(String.format(getString(R.string.ManageWallet_creationDatePrefix) + " %s", creationDate));
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override

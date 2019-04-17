@@ -162,8 +162,7 @@
     <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">您在 %1$s 建立了電子錢包</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -364,13 +363,11 @@
   <string name="Send.noAddress">請輸入收受者的地址。</string>
   <!-- Emtpy amount alert message -->
     <!-- Paste button label -->
-  <string name="Send.pasteLabel">貼上</string>
-  <!-- Could not publish transaction alert title -->
+    <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">無法載入付款要求</string>
   <!-- Scan button label -->
-  <string name="Send.scanLabel">掃描</string>
-  <!-- Send button label (the action, "press here to send") -->
+    <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">寄送</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">寄送</string>

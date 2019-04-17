@@ -180,19 +180,26 @@
                 android:textColor="#788f9e"
                 android:visibility="gone" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_wallet_list"
+            <include
+                android:id="@+id/layout_wallet"
+                layout="@layout/wallet_list_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/portfolio_label"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+                android:layout_margin="@dimen/activity_horizontal_margin" />
+            <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/rv_wallet_list"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/portfolio_label"-->
+            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_horizontal_margin" />-->
 
             <RelativeLayout
                 android:id="@+id/chart_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rv_wallet_list"
+                android:layout_below="@id/layout_wallet"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="-10dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -485,12 +492,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:clickable="false"
                     android:layout_marginStart="22dp"
-                    android:gravity="center"
+                    android:clickable="false"
                     android:drawableStart="@drawable/ic_baseline_play_arrow_24px"
                     android:drawablePadding="8dp"
                     android:focusable="false"
+                    android:gravity="center"
                     android:paddingBottom="4dp"
                     android:text="@string/MenuButton.tutorial"
                     android:textSize="16sp"

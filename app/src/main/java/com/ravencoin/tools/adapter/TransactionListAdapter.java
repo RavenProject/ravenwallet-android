@@ -2,6 +2,7 @@ package com.ravencoin.tools.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -11,7 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -30,11 +35,11 @@ import com.ravencoin.tools.util.CurrencyUtils;
 import com.ravencoin.tools.util.Utils;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
-import com.platform.tools.KVStoreManager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static com.platform.assets.BurnType.GLOBAL_BURN;
 import static com.platform.assets.BurnType.ISSUE_ASSET;
@@ -53,7 +58,6 @@ import static com.ravencoin.tools.util.BRConstants.STR_REISSUE_SUB_ASSET_BURN_AD
 import static com.ravencoin.tools.util.BRConstants.STR_UNIQUE_ASSET_BURN_ADDESSES;
 import static com.ravencoin.tools.util.BRConstants.SUB_FEE;
 import static com.ravencoin.tools.util.BRConstants.UNIQUE_FEE;
-import static com.ravencoin.tools.util.BRConstants.receive;
 
 
 /**
@@ -81,7 +85,7 @@ import static com.ravencoin.tools.util.BRConstants.receive;
  * THE SOFTWARE.
  */
 
-public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TransactionListAdapter extends ArrayAdapter<TxUiHolder> implements Filterable {
     public static final String TAG = TransactionListAdapter.class.getName();
 
     private final Context mContext;
@@ -95,30 +99,41 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final int promptType = 1;
     private boolean updatingReverseTxHash;
     private boolean updatingData;
-
+    private String query = "";
+    private boolean[] switches;
 //    private boolean updatingMetadata;
 
     public TransactionListAdapter(Context mContext, List<TxUiHolder> items) {
+        super(mContext, R.layout.tx_item);
         this.txResId = R.layout.tx_item;
         this.promptResId = R.layout.prompt_item;
         this.mContext = mContext;
         items = new ArrayList<>();
-        init(items);
+        this.itemFeed = items;
+        this.backUpFeed = items;
 //        updateMetadata();
     }
 
-    public void setItems(List<TxUiHolder> items) {
+    public void setItems(List<TxUiHolder> items, boolean firstInit) {
         //this.backUpFeed = items!= null?items:new ArrayList<TxUiHolder>();
-        init(items);
+        init(items, firstInit);
     }
 
-    private void init(List<TxUiHolder> items) {
+    @Override
+    public int getCount() {
+        if(itemFeed!= null)
+        return itemFeed.size();
+        else return 0;
+    }
+
+    private void init(List<TxUiHolder> items, boolean firstInit) {
         if (items == null) items = new ArrayList<>();
         if (itemFeed == null) itemFeed = new ArrayList<>();
         if (backUpFeed == null) backUpFeed = new ArrayList<>();
-        //if (itemFeed.isEmpty())
-            this.itemFeed = items;
+        this.itemFeed = items;
         this.backUpFeed = items;
+        if (!firstInit)
+            filterBy(query, switches);
     }
 
     public void updateData() {
@@ -127,14 +142,14 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             @Override
             public void run() {
                 long s = System.currentTimeMillis();
-                List<TxUiHolder> newItems = new ArrayList<>(itemFeed);
+                List<TxUiHolder> newItems = new ArrayList<>(backUpFeed);
                 TxUiHolder item;
                 for (int i = 0; i < newItems.size(); i++) {
                     item = newItems.get(i);
-                    item.metaData = KVStoreManager.getInstance().getTxMetaData(mContext, item.getTxHash());
+//                    item.metaData = KVStoreManager.getInstance().getTxMetaData(mContext, item.getTxHash());
                     item.txReversed = Utils.reverseHex(Utils.bytesToHex(item.getTxHash()));
                 }
-                backUpFeed = newItems;
+                //      backUpFeed = newItems;
                 String log = String.format("newItems: %d, took: %d", newItems.size(), (System.currentTimeMillis() - s));
                 Log.e(TAG, "updateData: " + log);
                 updatingData = false;
@@ -148,25 +163,22 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return itemFeed;
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // inflate the layout
-        LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-        return new TxHolder(inflater.inflate(txResId, parent, false));
-    }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()) {
-            case txType:
-                holder.setIsRecyclable(false);
-                setTexts((TxHolder) holder, position);
-                break;
-            case promptType:
-                //setPrompt((PromptHolder) holder);
-                break;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        TxHolder holder;
+        LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.tx_item, null,false
+            );
+            holder = new TxHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (TxHolder) convertView.getTag();
         }
+        setTexts(holder, position);
 
+        return convertView;
     }
 
     @Override
@@ -174,15 +186,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return txType;
     }
 
-    @Override
-    public int getItemCount() {
-        return itemFeed.size();
-    }
 
     private void setTexts(final TxHolder convertView, int position) {
         BaseWalletManager wallet = WalletsMaster.getInstance(mContext).getCurrentWallet(mContext);
         TxUiHolder item = itemFeed.get(position);
-        item.metaData = KVStoreManager.getInstance().getTxMetaData(mContext, item.getTxHash());
+//        item.metaData = KVStoreManager.getInstance().getTxMetaData(mContext, item.getTxHash());
 
         String commentString = "";
         if (item.metaData != null) {
@@ -195,10 +203,10 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         if (received) {
             convertView.transactionAmount.setTextColor(mContext.getResources().getColor(R.color.transaction_amount_received_color, null));
-            convertView.transactionAction.setText("Received");
+//            convertView.transactionAction.setText("Received");
         } else {
             convertView.transactionAmount.setTextColor(mContext.getResources().getColor(R.color.viewfinder_laser, null));
-            convertView.transactionAction.setText("Sent");
+//            convertView.transactionAction.setText("Sent");
         }
 
         // If this transaction failed, show the "FAILED" indicator in the cell
@@ -222,7 +230,12 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         int level = 0;
         if (confirms <= 0) {
-            long relayCount = wallet.getPeerManager().getRelayCount(item.getTxHash());
+            long relayCount = 0;
+            try {
+                relayCount = wallet.getPeerManager().getRelayCount(item.getTxHash());
+            } catch (Exception e) {
+                e.getLocalizedMessage();
+            }
             if (relayCount <= 0)
                 level = 0;
             else if (relayCount == 1)
@@ -268,6 +281,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             String status = isInProgress ? "receiving via " : "received via ";
             convertView.transactionDetail.setText(!commentString.isEmpty() ?
                     commentString : status + wallet.decorateAddress(mContext, toAddress));
+            convertView.transactionDetail.setTextColor(mContext.getResources().getColor(R.color.settings_chevron_right, null));
         } else {
             String[] addresses = item.getTo();
             long amount = item.getAmount();
@@ -300,6 +314,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             convertView.transactionDetail.setText(txDetails);
             if (isBurn) {
                 convertView.transactionDetail.setTextColor(mContext.getResources().getColor(R.color.viewfinder_laser, null));
+            }else {
+                convertView.transactionDetail.setTextColor(mContext.getResources().getColor(R.color.settings_chevron_right, null));
             }
         }
 
@@ -311,6 +327,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         convertView.transactionDate.setText(shortDate);
 
+    }
+
+    @Override
+    public TxUiHolder getItem(int position) {
+        return itemFeed.get(position);
     }
 
     @Nullable
@@ -385,7 +406,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             detailParams.setMargins(Utils.getPixelsFromDps(mContext, 16), Utils.getPixelsFromDps(mContext, 36), 0, 0);
             holder.transactionDetail.setLayoutParams(detailParams);
 
-            holder.transactionAction.setText("In Progress ...");
+//            holder.transactionAction.setText("In Progress ...");
         } else {
             holder.transactionProgress.setVisibility(View.INVISIBLE);
             holder.transactionDate.setVisibility(View.VISIBLE);
@@ -394,9 +415,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             startingParams.addRule(RelativeLayout.CENTER_VERTICAL);
             startingParams.setMargins(Utils.getPixelsFromDps(mContext, 16), 0, 0, 0);
             holder.transactionDetail.setLayoutParams(startingParams);
-            holder.setIsRecyclable(true);
-
-            holder.transactionAction.setText("Received");
+//            holder.setIsRecyclable(true);
+//            holder.transactionAction.setText("Received");
         }
     }
 
@@ -416,12 +436,16 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public void filterBy(String query, boolean[] switches) {
-        filter(query, switches);
+        this.query = query;
+        this.switches = switches;
+        getFilter().filter(query);
     }
 
     public void resetFilter() {
-        itemFeed = backUpFeed;
-        notifyDataSetChanged();
+//        itemFeed = backUpFeed;
+        this.query = "";
+        this.switches = null;
+        getFilter().filter("");
     }
 
     private void filter(final String query, final boolean[] switches) {
@@ -430,8 +454,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
        /* if (Utils.isNullOrEmpty(lowerQuery) && !switches[0] && !switches[1] && !switches[2] && !switches[3])
            return;*/
         int switchesON = 0;
-        for (boolean i : switches) if (i) switchesON++;
-
+        if (switches != null)
+            for (boolean i : switches) if (i) switchesON++;
         final List<TxUiHolder> filteredList = new ArrayList<>();
         TxUiHolder item;
         for (int i = 0; i < backUpFeed.size(); i++) {
@@ -482,7 +506,83 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         Log.e(TAG, "filter: " + query + " took: " + (System.currentTimeMillis() - start));
     }
 
-    private class TxHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                String lowerQuery = charString.toLowerCase().trim();
+
+                int switchesON = 0;
+                if (switches != null)
+                    for (boolean i : switches) if (i) switchesON++;
+
+                List<TxUiHolder> filteredList = new ArrayList<>();
+                for (TxUiHolder item : backUpFeed) {
+                    boolean matchesHash = item.getTxHashHexReversed() != null && item.getTxHashHexReversed().contains(lowerQuery);
+                    boolean matchesAddress = (item.getFrom() != null && item.getFrom().length > 0 && item.getFrom()[0].contains(lowerQuery))
+                            || (item.getTo() != null && item.getTo().length > 0 && item.getTo()[0].contains(lowerQuery));
+                    boolean matchesMemo = item.metaData != null && item.metaData.comment != null && item.metaData.comment.toLowerCase().contains(lowerQuery);
+                    boolean matchesAssetName = item.getAsset() != null && item.getAsset().getName() != null && item.getAsset().getName().toLowerCase().contains(lowerQuery);
+                    if (matchesHash || matchesAddress || matchesMemo || matchesAssetName) {
+                        if (switchesON == 0) {
+                            filteredList.add(item);
+                        } else {
+                            boolean willAdd = true;
+                            BaseWalletManager wallet = WalletsMaster.getInstance(mContext).getCurrentWallet(mContext);
+
+                            int confirms = item.getBlockHeight() ==
+                                    Integer.MAX_VALUE ? 0
+                                    : BRSharedPrefs.getLastBlockHeight(mContext, wallet.getIso(mContext)) - item.getBlockHeight() + 1;
+                            //pending
+                            if (switches[2] && confirms >= CONFIRMS_COUNT) {
+                                willAdd = false;
+                            }
+
+                            //complete
+                            if (switches[3] && confirms < CONFIRMS_COUNT) {
+                                willAdd = false;
+                            }
+
+                            boolean received = item.getSent() == 0;
+                            //filter by sent and this is received
+                            if (switches[0] && received) {
+                                willAdd = false;
+                            }
+                            //filter by received and this is sent
+                            if (switches[1] && !received) {
+                                willAdd = false;
+                            }
+
+                            if (willAdd) filteredList.add(item);
+                        }
+                    }
+                }
+
+                itemFeed = filteredList;
+
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = itemFeed;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                itemFeed = (ArrayList<TxUiHolder>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void clearData() {
+        itemFeed = new ArrayList<>();
+        backUpFeed = new ArrayList<>();
+        notifyDataSetChanged();
+    }
+
+    private class TxHolder /*extends RecyclerView.ViewHolder*/ {
         public RelativeLayout mainLayout;
         public ConstraintLayout constraintLayout;
         public TextView sentReceived;
@@ -498,19 +598,18 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public BRText transactionAmount;
         public BRText transactionDetail;
         public Button transactionFailed;
-        public BRText transactionAction;
+        //        public BRText transactionAction;
         public ProgressBar transactionProgress;
 
 
         public TxHolder(View view) {
-            super(view);
 
             transactionDate = view.findViewById(R.id.tx_date);
             transactionAmount = view.findViewById(R.id.tx_amount);
             transactionDetail = view.findViewById(R.id.tx_description);
             transactionFailed = view.findViewById(R.id.tx_failed_button);
             transactionProgress = view.findViewById(R.id.tx_progress);
-            transactionAction = view.findViewById(R.id.tx_action);
+//            transactionAction = view.findViewById(R.id.tx_action);
 
         }
     }

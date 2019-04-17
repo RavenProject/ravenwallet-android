@@ -11,22 +11,23 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
+
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions"/>
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
-    <uses-feature
-        android:name="android.hardware.location.gps"
-        android:required="false"/>
-    <uses-feature
-        android:name="android.hardware.location.network"
-        android:required="false"/>
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.location.gps"-->
+        <!--android:required="false"/>-->
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.location.network"-->
+        <!--android:required="false"/>-->
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false"/>
@@ -125,11 +126,6 @@
             android:name=".presenter.activities.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
         </activity>
 
         <activity
@@ -272,7 +268,10 @@
             android:label="SyncReceiver"/>
 
         <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
-        <meta-data android:name="io.fabric.ApiKey" android:value="dbf6fef7bb2fb1c0c7ce1def9fb3db9e942fedf2" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="dbf6fef7bb2fb1c0c7ce1def9fb3db9e942fedf2"
+            />
     </application>
 
 </manifest>

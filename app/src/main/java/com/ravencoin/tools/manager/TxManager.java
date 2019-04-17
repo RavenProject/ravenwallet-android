@@ -6,10 +6,13 @@ import android.os.Looper;
 import android.support.annotation.WorkerThread;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.ravencoin.R;
 import com.ravencoin.presenter.activities.WalletActivity;
@@ -18,6 +21,7 @@ import com.ravencoin.presenter.entities.TxUiHolder;
 import com.ravencoin.tools.adapter.TransactionListAdapter;
 import com.ravencoin.tools.animation.BRAnimator;
 import com.ravencoin.tools.listeners.RecyclerItemClickListener;
+import com.ravencoin.tools.threads.executor.BRExecutor;
 import com.ravencoin.wallet.WalletsMaster;
 import com.ravencoin.wallet.abstracts.BaseWalletManager;
 
@@ -52,7 +56,7 @@ public class TxManager {
 
     private static final String TAG = TxManager.class.getName();
     private static TxManager instance;
-    private RecyclerView txList;
+    private ListView txList;
     private ImageView emptyView;
     public TransactionListAdapter adapter;
 
@@ -64,21 +68,14 @@ public class TxManager {
     public void init(final WalletActivity app) {
         txList = app.findViewById(R.id.tx_list);
         emptyView = app.findViewById(R.id.empty_list);
-        txList.setLayoutManager(new CustomLinearLayoutManager(app));
-        txList.addOnItemTouchListener(new RecyclerItemClickListener(app,
-                txList, new RecyclerItemClickListener.OnItemClickListener() {
+//        txList.setLayoutManager(new CustomLinearLayoutManager(app));
+        txList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position, float x, float y) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TxUiHolder item = adapter.getItems().get(position);
                 BRAnimator.showTransactionDetails(app, item, position);
             }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
+        });
         if (adapter == null)
             adapter = new TransactionListAdapter(app, null);
         txList.setAdapter(adapter);
@@ -91,26 +88,27 @@ public class TxManager {
 
     public void onResume(final Activity app) {
         crashIfNotMain();
+        updateTxList(app,true);
     }
 
     @WorkerThread
-    public synchronized void updateTxList(final Context app) {
+    public synchronized void updateTxList(final Context app, final boolean firstInit) {
         long start = System.currentTimeMillis();
         BaseWalletManager wallet = WalletsMaster.getInstance(app).getCurrentWallet(app);
         if (wallet == null) {
             Log.e(TAG, "updateTxList: wallet is null");
             return;
         }
+        if (TxManager.getInstance().adapter != null) {
+            TxManager.getInstance().adapter.updateData();
+        }
         final List<TxUiHolder> items = wallet.getTxUiHolders();
-        long took = (System.currentTimeMillis() - start);
-        if (took > 500)
-            Log.e(TAG, "updateTxList: took: " + took);
         if (adapter != null) {
-            ((Activity) app).runOnUiThread(new Runnable() {
+            BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                 @Override
                 public void run() {
                     if (items != null && !items.isEmpty()) {
-                        adapter.setItems(items);
+                        adapter.setItems(items, firstInit);
                         //txList.setAdapter(adapter);
                         txList.setVisibility(View.VISIBLE);
                         emptyView.setVisibility(View.GONE);
@@ -122,6 +120,11 @@ public class TxManager {
                 }
             });
         }
+    }
+
+    public void onPause() {
+        if(adapter!=null)
+        adapter.clearData();
     }
 
     private class CustomLinearLayoutManager extends LinearLayoutManager {

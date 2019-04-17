@@ -62,7 +62,7 @@ import com.ravencoin.wallet.abstracts.BaseWalletManager;
 
 import java.math.BigDecimal;
 
-import static com.platform.HTTPServer.URL_SUPPORT;
+//import static com.platform.HTTPServer.URL_SUPPORT;
 import static com.ravencoin.presenter.activities.AddressBookActivity.PICK_ADDRESS_VIEW_EXTRAS_KEY;
 
 
@@ -135,6 +135,8 @@ public class FragmentSend extends BaseAddressValidation {
     private final static String ADDRESS_BOOK_EXTRA_KEY = "address.book.extra.key";
 
     private boolean isFromAddressBook;
+
+    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
 
     public static FragmentSend newInstance(boolean isFromAddressBook, AddressBookItem address) {
         FragmentSend fragment = new FragmentSend();

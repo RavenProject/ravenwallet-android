@@ -38,7 +38,7 @@ import com.ravencoin.wallet.wallets.util.CryptoUriParser;
 
 import java.math.BigDecimal;
 
-import static com.platform.HTTPServer.URL_SUPPORT;
+//import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**
@@ -94,6 +94,7 @@ public class FragmentRequestAmount extends Fragment {
     //    private int currListIndex;
     private ImageButton close;
     private BaseWalletManager mWallet;
+    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

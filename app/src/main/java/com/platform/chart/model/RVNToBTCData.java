@@ -57,7 +57,6 @@ public class RVNToBTCData {
         Object[] finalData = new Object[arraySize];
 
         for (int i = arraySize - 1; i >= 0; i--) {
-            // finalData[i] = new Object[2];
             int j = 190 - i - 1;
             Object[] dataTime = new Object[2];
             dataTime[1] = (float) result.get(i).getData();

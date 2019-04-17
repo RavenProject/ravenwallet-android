@@ -22,7 +22,6 @@ public class RecoverActivity extends BRActivity {
     private Button nextButton;
     public static boolean appVisible = false;
     private static RecoverActivity app;
-
     public static RecoverActivity getApp() {
         return app;
     }

@@ -12,7 +12,7 @@ extern "C" {
  * Method:    getAddress
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCorePeer_getAddress
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCorePeer_getAddress
   (JNIEnv *, jobject);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCorePeer_getAddress
  * Method:    getPort
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCorePeer_getPort
+JNIEXPORT jint JNICALL Java_com_ravenwallet_core_BRCorePeer_getPort
   (JNIEnv *, jobject);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCorePeer_getPort
  * Method:    getTimestamp
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getTimestamp
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_getTimestamp
   (JNIEnv *, jobject);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getTimestamp
  * Method:    setEarliestKeyTime
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_setEarliestKeyTime
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeer_setEarliestKeyTime
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_setEarliestKeyTime
  * Method:    setCurrentBlockHeight
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_setCurrentBlockHeight
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeer_setCurrentBlockHeight
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_setCurrentBlockHeight
  * Method:    getConnectStatusValue
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCorePeer_getConnectStatusValue
+JNIEXPORT jint JNICALL Java_com_ravenwallet_core_BRCorePeer_getConnectStatusValue
   (JNIEnv *, jobject);
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCorePeer_getConnectStatusValue
  * Method:    connect
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_connect
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeer_connect
   (JNIEnv *, jobject);
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_connect
  * Method:    disconnect
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_disconnect
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeer_disconnect
   (JNIEnv *, jobject);
 
 /*
@@ -76,7 +76,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_disconnect
  * Method:    scheduleDisconnect
  * Signature: (D)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_scheduleDisconnect
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeer_scheduleDisconnect
   (JNIEnv *, jobject, jdouble);
 
 /*
@@ -84,7 +84,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_scheduleDisconnect
  * Method:    setNeedsFilterUpdate
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_setNeedsFilterUpdate
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeer_setNeedsFilterUpdate
   (JNIEnv *, jobject, jboolean);
 
 /*
@@ -92,7 +92,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeer_setNeedsFilterUpdate
  * Method:    getHost
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCorePeer_getHost
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCorePeer_getHost
   (JNIEnv *, jobject);
 
 /*
@@ -100,7 +100,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCorePeer_getHost
  * Method:    getVersion
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getVersion
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_getVersion
   (JNIEnv *, jobject);
 
 /*
@@ -108,7 +108,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getVersion
  * Method:    getUserAgent
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCorePeer_getUserAgent
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCorePeer_getUserAgent
   (JNIEnv *, jobject);
 
 /*
@@ -116,7 +116,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCorePeer_getUserAgent
  * Method:    getLastBlock
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getLastBlock
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_getLastBlock
   (JNIEnv *, jobject);
 
 /*
@@ -124,7 +124,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getLastBlock
  * Method:    getFeePerKb
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getFeePerKb
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_getFeePerKb
   (JNIEnv *, jobject);
 
 /*
@@ -132,7 +132,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_getFeePerKb
  * Method:    getPingTime
  * Signature: ()D
  */
-JNIEXPORT jdouble JNICALL Java_com_ravencoin_core_BRCorePeer_getPingTime
+JNIEXPORT jdouble JNICALL Java_com_ravenwallet_core_BRCorePeer_getPingTime
   (JNIEnv *, jobject);
 
 /*
@@ -140,7 +140,7 @@ JNIEXPORT jdouble JNICALL Java_com_ravencoin_core_BRCorePeer_getPingTime
  * Method:    createJniCorePeerNatural
  * Signature: ([BIJ)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_createJniCorePeerNatural
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_createJniCorePeerNatural
   (JNIEnv *, jclass, jbyteArray, jint, jlong);
 
 /*
@@ -148,7 +148,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_createJniCorePeerNatu
  * Method:    createJniCorePeer
  * Signature: ([B[B[B)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_createJniCorePeer
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_createJniCorePeer
   (JNIEnv *, jclass, jbyteArray, jbyteArray, jbyteArray);
 
 /*
@@ -156,7 +156,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_createJniCorePeer
  * Method:    createJniCorePeerMagic
  * Signature: (J)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCorePeer_createJniCorePeerMagic
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCorePeer_createJniCorePeerMagic
   (JNIEnv *, jclass, jlong);
 
 #ifdef __cplusplus

@@ -32,8 +32,8 @@ add_library( # The name of the library.
              src/main/jni/core/BRArray.h
              src/main/jni/core/BRBase58.c
              src/main/jni/core/BRBase58.h
-             src/main/jni/core/BRBIP32Sequence.c
-             src/main/jni/core/BRBIP32Sequence.h
+             src/main/jni/core/BRBIP44Sequence.c
+             src/main/jni/core/BRBIP44Sequence.h
              src/main/jni/core/BRBIP38Key.c
              src/main/jni/core/BRBIP38Key.h
              src/main/jni/core/BRBIP39Mnemonic.c

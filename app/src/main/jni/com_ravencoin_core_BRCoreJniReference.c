@@ -1,5 +1,5 @@
 //  Created by Ed Gamble on 1/23/2018
-//  Copyright (c) 2018 ravencoin LLC.
+//  Copyright (c) 2018 ravenwallet LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,7 @@ extern void *getJNIReference (
  * Method:    disposeNative
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreJniReference_disposeNative
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreJniReference_disposeNative
         (JNIEnv *env, jobject thisObject) {
     void *reference = getJNIReference(env, thisObject);
 

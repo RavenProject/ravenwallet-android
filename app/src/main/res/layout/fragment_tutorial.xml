@@ -7,7 +7,7 @@
     android:background="@color/tutorial_background_color"
     android:orientation="vertical">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/tutorial_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_gravity="center_vertical"
         tools:src="@drawable/ic_tutorial_first_screen" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/tutorial_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

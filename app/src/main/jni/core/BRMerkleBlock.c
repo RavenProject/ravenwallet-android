@@ -344,13 +344,15 @@ int BRMerkleBlockVerifyDifficulty(const BRMerkleBlock *block, const BRMerkleBloc
     // TODO: implement regtest difficulty rule check
     return r; // don't worry about difficulty on regtest for now
 #endif
+return 1;
                 if (block->height == 338778) r = block->target == 0x1b07cf3a ? 1 : 0;
             } else {
                 r = (abs(diff) < 2) ? 1 : 0;
             }
             pastCount++;
         }
-    }
+    } else return 1;
+
     return r;
 }
 

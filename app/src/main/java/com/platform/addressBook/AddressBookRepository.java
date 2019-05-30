@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.platform.sqlite.PlatformSqliteHelper;
-import com.ravencoin.tools.util.BRConstants;
+import com.ravenwallet.tools.util.BRConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +106,14 @@ public class AddressBookRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void deleteAll() {
+        try (SQLiteDatabase db = getWritable()) {
+            int count = db.delete(PlatformSqliteHelper.AddressBook.TABLE_NAME, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

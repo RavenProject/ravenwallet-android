@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/extra_light_blue_background"
-    tools:context="com.ravencoin.presenter.activities.SetPinActivity">
+    tools:context="com.ravenwallet.presenter.activities.SetPinActivity">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_marginRight="16dp"
         app:layout_constraintHorizontal_bias="0.0"/>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         />
 
-    <com.ravencoin.presenter.customviews.BRKeyboard
+    <com.ravenwallet.presenter.customviews.BRKeyboard
         android:id="@+id/brkeyboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:showAlphabet="true"
         />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

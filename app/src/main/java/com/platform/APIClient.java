@@ -2,66 +2,32 @@ package com.platform;
 
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.net.Uri;
-import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
-import com.ravencoin.RavenApp;
-import com.ravencoin.core.BRCoreKey;
-import com.ravencoin.presenter.activities.util.ActivityUTILS;
-import com.ravencoin.tools.crypto.Base58;
-import com.ravencoin.tools.manager.BRApiManager;
-import com.ravencoin.tools.manager.BRReportsManager;
-import com.ravencoin.tools.manager.BRSharedPrefs;
-import com.ravencoin.tools.crypto.CryptoHelper;
-import com.ravencoin.tools.security.BRKeyStore;
-import com.ravencoin.tools.threads.executor.BRExecutor;
-import com.ravencoin.tools.util.Utils;
+import com.ravenwallet.RavenApp;
+import com.ravenwallet.presenter.activities.util.ActivityUTILS;
+import com.ravenwallet.tools.util.Utils;
 //import com.platform.kvstore.RemoteKVStore;
 //import com.platform.kvstore.ReplicatedKVStore;
 
-import org.apache.commons.compress.archivers.ArchiveStreamFactory;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.compress.compressors.CompressorException;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import io.sigpipe.jbsdiff.InvalidHeaderException;
-import io.sigpipe.jbsdiff.ui.FileUI;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okio.Buffer;
-import okio.BufferedSink;
 
-import static com.ravencoin.tools.util.BRCompressor.gZipExtract;
+import static com.ravenwallet.tools.util.BRCompressor.gZipExtract;
 
 
 /**

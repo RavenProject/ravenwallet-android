@@ -5,10 +5,11 @@ public class AssetsValidation {
     private final static int MAX_NAME_LENGTH = 30;
     public final int MAX_IPFSHASH_LENGTH = 46;
 
-    private final static String ROOT_NAME_CHARACTERS = "^[A-Z0-9._]{3,}$";
+    public final static String ROOT_NAME_CHARACTERS = "^[A-Z0-9._]{3,}$";
     private final static String SUB_NAME_CHARACTERS = "^[A-Z0-9._]+$";
     //private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\]{}<>_.;?\\\\:]+$";
-    private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\[\\]{}<>_.;?\\\\:]+$";
+//    private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\[\\]{}<>_.;?\\\\:]+$";
+    private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\\\{}_.?:]+$";
     //private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()[\\]{}<>_.;?\\\\:]+$";
     private final static String CHANNEL_TAG_CHARACTERS = "^[A-Z0-9._]+$";
 
@@ -53,7 +54,7 @@ public class AssetsValidation {
     }
 
     private static boolean isNameValidBeforeTag(final String name) {
-        String[] parts = name.split(SUB_NAME_DELIMITER);
+        String[] parts = name.split(SUB_NAME_DELIMITER,-1);
         if (parts.length > 0 && !isRootNameValid(parts[0])) {
             return false;
         }
@@ -68,7 +69,7 @@ public class AssetsValidation {
     }
 
     private static boolean isAssetNameASubasset(final String name) {
-        String[] parts = name.split(SUB_NAME_DELIMITER);
+        String[] parts = name.split(SUB_NAME_DELIMITER,-1);
         if (parts.length > 0 && !isRootNameValid(parts[0])) {
             return false;
         }
@@ -81,7 +82,7 @@ public class AssetsValidation {
             if (name.length() > MAX_NAME_LENGTH) {
                 return false;
             }
-            String[] parts = name.split(UNIQUE_TAG_DELIMITER);
+            String[] parts = name.split(UNIQUE_TAG_DELIMITER,-1);
 
             if (parts.length > 0) {
                 int lastItemIndex = parts.length - 1;
@@ -98,7 +99,7 @@ public class AssetsValidation {
                 return false;
             }
 
-            String[] parts = name.split(CHANNEL_TAG_DELIMITER);
+            String[] parts = name.split(CHANNEL_TAG_DELIMITER,-1);
 
             if (parts.length > 0) {
                 int lastItemIndex = parts.length - 1;

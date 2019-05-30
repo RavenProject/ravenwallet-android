@@ -8,7 +8,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/address_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         app:customTFont="CircularPro-Bold.otf"
         tools:text="John Doe" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/address_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

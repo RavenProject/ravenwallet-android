@@ -44,7 +44,7 @@ extern "C" {
 #define MAX_SCRIPT_LENGTH       0x100 // scripts over this size will not be parsed for an address
 #define NONE_ASSETS_SCRIPT      0x37
 
-// ravencoin address prefixes
+// ravenwallet address prefixes
 #define RAVENCOIN_PUBKEY_ADDRESS          60
 #define RAVENCOIN_SCRIPT_ADDRESS          122
 
@@ -92,7 +92,7 @@ typedef struct {
 
 #define ADDRESS_NONE ((const BRAddress) { "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" })
 
-// writes the ravencoin address for a scriptPubKey to addr
+// writes the ravenwallet address for a scriptPubKey to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen);
 
@@ -104,7 +104,7 @@ size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script,
 // returns the number of bytes written, or scriptLen needed if script is NULL
 size_t BRAddressScriptPubKey(uint8_t *script, size_t scriptLen, const char *addr);
 
-// returns true if addr is a valid ravencoin address
+// returns true if addr is a valid ravenwallet address
 int BRAddressIsValid(const char *addr);
 
 // writes the 20 byte hash160 of addr to md20 and returns true on success

@@ -12,7 +12,7 @@ extern "C" {
  * Method:    createTransactionInput
  * Signature: ([BJJ[B[BJ)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_createTransactionInput
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_createTransactionInput
   (JNIEnv *, jclass, jbyteArray, jlong, jlong, jbyteArray, jbyteArray, jlong);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_createTra
  * Method:    getAddress
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getAddress
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getAddress
   (JNIEnv *, jobject);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getAddr
  * Method:    setAddress
  * Signature: (Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_setAddress
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_setAddress
   (JNIEnv *, jobject, jstring);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_setAddress
  * Method:    getHash
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getHash
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getHash
   (JNIEnv *, jobject);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getH
  * Method:    getIndex
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getIndex
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getIndex
   (JNIEnv *, jobject);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getIndex
  * Method:    getAmount
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getAmount
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getAmount
   (JNIEnv *, jobject);
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getAmount
  * Method:    getScript
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getScript
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getScript
   (JNIEnv *, jobject);
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getS
  * Method:    getSignature
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getSignature
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getSignature
   (JNIEnv *, jobject);
 
 /*
@@ -76,7 +76,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getS
  * Method:    getSequence
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionInput_getSequence
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreTransactionInput_getSequence
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

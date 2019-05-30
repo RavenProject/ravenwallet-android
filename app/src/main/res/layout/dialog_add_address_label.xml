@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.ravencoin.presenter.customviews.BREdit
+    <com.ravenwallet.presenter.customviews.BREdit
         android:id="@+id/address_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:background="@android:color/transparent"
         android:hint="@string/address_label_hint"
         android:inputType="textCapWords"
-        android:maxLength="50"
+        android:maxLength="30"
         android:textSize="@dimen/sub_header" />
 
 </LinearLayout>

@@ -14,30 +14,30 @@ import android.widget.TextView;
 
 import com.platform.assets.Asset;
 import com.platform.assets.Utils;
-import com.ravencoin.R;
-import com.ravencoin.presenter.fragments.FragmentIssueUniqueAsset;
-import com.ravencoin.tools.animation.BRAnimator;
-import com.ravencoin.tools.util.BRConstants;
-import com.ravencoin.wallet.WalletsMaster;
-import com.ravencoin.wallet.abstracts.BaseWalletManager;
+import com.ravenwallet.R;
+import com.ravenwallet.tools.animation.BRAnimator;
+import com.ravenwallet.wallet.RvnWalletManager;
+import com.ravenwallet.wallet.WalletsMaster;
+import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static com.platform.assets.AssetsValidation.SUB_NAME_DELIMITER;
 import static com.platform.assets.AssetsValidation.UNIQUE_TAG_DELIMITER;
+import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
 
 
 public class AssetsAdapter extends RecyclerView.Adapter<AssetsAdapter.ViewHolder> {
 
     private Context context;
     private List<Asset> assets;
-    private BaseWalletManager wallet;
+    private RvnWalletManager wallet;
 
     public AssetsAdapter(Context context, List<Asset> assets) {
         this.context = context;
         this.assets = assets;
-        this.wallet = WalletsMaster.getInstance(context).getCurrentWallet(context);
+        this.wallet = RvnWalletManager.getInstance(context);
     }
 
     public void setAssets(List<Asset> assets) {
@@ -75,7 +75,7 @@ public class AssetsAdapter extends RecyclerView.Adapter<AssetsAdapter.ViewHolder
                 holder.rootAssetName.setText(rootName);
             }
         }
-        double assetAmount = wallet.getCryptoForSmallestCrypto(context, new BigDecimal(asset.getAmount())).doubleValue();
+        double assetAmount = new BigDecimal(asset.getAmount() / SATOSHIS).doubleValue();
         holder.assetAmount.setText(Utils.formatAssetAmount(assetAmount, asset.getUnits()));
 
         if (asset.getOwnership() == 1) {

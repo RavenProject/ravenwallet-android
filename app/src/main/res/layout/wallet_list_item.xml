@@ -18,7 +18,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/wallet_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             app:customTFont="CircularPro-Bold.otf"
             tools:text="Ravencoin" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/wallet_trade_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:textSize="16sp"
             app:customTFont="CircularPro-Book.otf" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/wallet_balance_usd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             app:customTFont="CircularPro-Bold.otf"
             tools:text="$12.00" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/syncing_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:progressDrawable="@drawable/wallet_sync_progress_bar"
             android:progressTint="#ffffff" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/wallet_balance_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
             android:layout_marginTop="16sp"
             android:src="@drawable/ic_arrow_right" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/lbl_bitterex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

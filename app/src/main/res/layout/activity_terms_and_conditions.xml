@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/recover_gradient"
     android:filterTouchesWhenObscured="true">
 
@@ -14,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/ic_close_white_with_padding" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +28,7 @@
         android:textSize="24sp"
         app:customTFont="CircularPro-Bold.otf" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +64,7 @@
             android:clickable="false"
             android:focusable="false" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -96,7 +97,7 @@
             android:focusable="false"
             android:textColor="@color/white" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -107,7 +108,24 @@
 
     </LinearLayout>
 
+    <com.ravenwallet.presenter.customviews.BRText
+        app:customTFont="CircularPro-Book.otf"
+        android:id="@+id/policy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:layout_above="@+id/layout_agree"
+        android:layout_centerHorizontal="true"
+        android:text="@string/About.privacy"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="30dp"/>
+
     <RelativeLayout
+        android:id="@+id/layout_agree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -130,21 +148,23 @@
                 android:button="@drawable/bg_cbx_blue"
                 android:checked="false"
                 android:clickable="false"
+                android:enabled="false"
                 android:layout_gravity="center_vertical"
                 android:focusable="false" />
 
-            <com.ravencoin.presenter.customviews.BRText
+            <com.ravenwallet.presenter.customviews.BRText
                 android:id="@+id/understood_terms_of_use_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:enabled="false"
                 android:layout_toEndOf="@id/cbx_understood_terms_of_use"
                 android:text="@string/read_and_understand_terms_of_use_text"
                 android:textSize="16sp"
                 app:customTFont="CircularPro-Book.otf" />
         </LinearLayout>
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/confirm_button"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -155,7 +175,8 @@
             android:text="@string/confirm_and_finish"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:buttonType="2"
+            app:buttonType="5"
+            android:enabled="false"
             app:isBreadButton="true" />
 
     </RelativeLayout>

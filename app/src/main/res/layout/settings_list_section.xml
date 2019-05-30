@@ -8,7 +8,7 @@
                 android:orientation="horizontal"
     >
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         app:customTFont="CircularPro-Book.otf"
         android:id="@+id/item_title"
         android:layout_width="wrap_content"

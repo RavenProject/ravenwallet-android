@@ -1,5 +1,5 @@
 //  Created by Ed Gamble on 1/23/2018
-//  Copyright (c) 2018 ravencoin LLC.
+//  Copyright (c) 2018 ravenwallet LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@
  * Signature: ([BI)J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreMerkleBlock
+Java_com_ravenwallet_core_BRCoreMerkleBlock_createJniCoreMerkleBlock
         (JNIEnv *env, jclass thisClass,
          jbyteArray blockArray,
          jint blockHeight) {
@@ -53,7 +53,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreMerkleBlock
  * Method:    createJniCoreMerkleBlockEmpty
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreMerkleBlockEmpty
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_createJniCoreMerkleBlockEmpty
         (JNIEnv *env, jclass thisClass) {
     // Test only
     BRMerkleBlock *block = BRMerkleBlockNew();
@@ -68,7 +68,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreM
  * Signature: ()[B
  */
 JNIEXPORT jbyteArray JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getBlockHash
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getBlockHash
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
 
@@ -85,7 +85,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getBlockHash
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getVersion
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getVersion
         (JNIEnv *env, jobject thisObject)  {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jlong) block->version;
@@ -97,7 +97,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getVersion
  * Signature: ()[B
  */
 JNIEXPORT jbyteArray JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getPrevBlockHash
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getPrevBlockHash
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
 
@@ -114,7 +114,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getPrevBlockHash
  * Signature: ()[B
  */
 JNIEXPORT jbyteArray JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getRootBlockHash
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getRootBlockHash
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
 
@@ -131,7 +131,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getRootBlockHash
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getTimestamp
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getTimestamp
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jlong) block->timestamp;
@@ -143,7 +143,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getTimestamp
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getTarget
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getTarget
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jlong) block->target;
@@ -155,7 +155,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getTarget
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getNonce
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getNonce
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jlong) block->nonce;
@@ -167,7 +167,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getNonce
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getTransactionCount
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getTransactionCount
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jlong) block->totalTx;
@@ -179,7 +179,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getTransactionCount
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_getHeight
+Java_com_ravenwallet_core_BRCoreMerkleBlock_getHeight
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jlong) block->height;
@@ -190,7 +190,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_getHeight
  * Method:    serialize
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_serialize
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_serialize
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
 
@@ -213,7 +213,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_serialize
  * Signature: (J)Z
  */
 JNIEXPORT jboolean JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_isValid
+Java_com_ravenwallet_core_BRCoreMerkleBlock_isValid
         (JNIEnv *env, jobject thisObject, jlong currentTime) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     return (jboolean) BRMerkleBlockIsValid (block, (uint32_t) currentTime);
@@ -225,7 +225,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_isValid
  * Signature: ([B)Z
  */
 JNIEXPORT jboolean JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_containsTransactionHash
+Java_com_ravenwallet_core_BRCoreMerkleBlock_containsTransactionHash
         (JNIEnv *env, jobject thisObject, jbyteArray hashByteArray) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
 
@@ -239,7 +239,7 @@ Java_com_ravencoin_core_BRCoreMerkleBlock_containsTransactionHash
  * Signature: ()V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreMerkleBlock_disposeNative
+Java_com_ravenwallet_core_BRCoreMerkleBlock_disposeNative
         (JNIEnv *env, jobject thisObject) {
     BRMerkleBlock *block = (BRMerkleBlock *) getJNIReference(env, thisObject);
     if (NULL != block) BRMerkleBlockFree(block);

@@ -42,7 +42,7 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="81dp" />
 
-            <com.ravencoin.presenter.customviews.BRText
+            <com.ravenwallet.presenter.customviews.BRText
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp">
 
-            <com.ravencoin.presenter.customviews.BREdit
+            <com.ravenwallet.presenter.customviews.BREdit
                 android:id="@+id/address_edit"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
@@ -84,7 +84,7 @@
                 android:singleLine="true"
                 android:textColor="@drawable/address_edit_text_selector" />
 
-            <com.ravencoin.presenter.customviews.PasteButton
+            <com.ravenwallet.presenter.customviews.PasteButton
                 android:id="@+id/paste_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                 app:buttonType="4"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.ScanButton
+            <com.ravenwallet.presenter.customviews.ScanButton
                 android:id="@+id/scan_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp">
 
-            <com.ravencoin.presenter.customviews.BREdit
+            <com.ravenwallet.presenter.customviews.BREdit
                 android:id="@+id/address_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
             android:layout_height="1dp"
             android:background="@color/extra_light_gray" />
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/add_button"
             android:layout_width="match_parent"
             android:layout_height="80dp"

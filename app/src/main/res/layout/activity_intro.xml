@@ -21,7 +21,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.ravencoin.presenter.customviews.BRButton
+    <com.ravenwallet.presenter.customviews.BRButton
         android:id="@+id/button_new_wallet"
         android:layout_width="0dp"
         android:layout_height="75dp"
@@ -38,7 +38,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <com.ravencoin.presenter.customviews.BRButton
+    <com.ravenwallet.presenter.customviews.BRButton
         android:id="@+id/button_recover_wallet"
         android:layout_width="0dp"
         android:layout_height="75.0dp"
@@ -56,7 +56,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"

@@ -1,5 +1,5 @@
 //  Created by Ed Gamble on 1/23/2018
-//  Copyright (c) 2018 ravencoin LLC.
+//  Copyright (c) 2018 ravenwallet LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,7 @@ static jmethodID peerConstructor;
  * Signature: ()I
  */
 JNIEXPORT jint
-JNICALL Java_com_ravencoin_core_BRCorePeerManager_getConnectStatusValue
+JNICALL Java_com_ravenwallet_core_BRCorePeerManager_getConnectStatusValue
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return BRPeerManagerConnectStatus(peerManager);
@@ -81,7 +81,7 @@ JNICALL Java_com_ravencoin_core_BRCorePeerManager_getConnectStatusValue
  * Signature: ()V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_connect
+Java_com_ravenwallet_core_BRCorePeerManager_connect
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     BRPeerManagerConnect(peerManager);
@@ -92,7 +92,7 @@ Java_com_ravencoin_core_BRCorePeerManager_connect
  * Method:    jniUseFixedPeer
  * Signature: (Ljava/lang/String;I)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCorePeerManager_jniUseFixedPeer
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCorePeerManager_jniUseFixedPeer
         (JNIEnv *env, jobject thisObject,
          jstring nodeString,
          jint port) {
@@ -124,7 +124,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCorePeerManager_jniUseFixed
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_getCurrentPeerName
+Java_com_ravenwallet_core_BRCorePeerManager_getCurrentPeerName
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return (*env)->NewStringUTF (env, BRPeerManagerDownloadPeerName(peerManager));
@@ -136,7 +136,7 @@ Java_com_ravencoin_core_BRCorePeerManager_getCurrentPeerName
  * Signature: ()V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_disconnect
+Java_com_ravenwallet_core_BRCorePeerManager_disconnect
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     BRPeerManagerDisconnect (peerManager);
@@ -148,19 +148,40 @@ Java_com_ravencoin_core_BRCorePeerManager_disconnect
  * Signature: ()V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_rescan
+Java_com_ravenwallet_core_BRCorePeerManager_rescan
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     BRPeerManagerRescan (peerManager);
 }
 
 /*
+ * Class:     com_breadwallet_core_BRCorePeerManager
+ * Method:    rescanFromBlock
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeerManager_rescanFromBlock
+        (JNIEnv *env, jobject thisObject, jlong blockNumber) {
+    BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
+    BRPeerManagerRescanFromBlockNumber(peerManager, blockNumber);
+}
+
+/*
+ * Class:     com_breadwallet_core_BRCorePeerManager
+ * Method:    rescanFromCheckPoint
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeerManager_rescanFromCheckPoint
+        (JNIEnv *env, jobject thisObject) {
+    BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
+    BRPeerManagerRescanFromLastHardcodedCheckpoint(peerManager);
+}
+/*
  * Class:     com_ravencoin_core_BRCorePeerManager
  * Method:    getEstimatedBlockHeight
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_getEstimatedBlockHeight
+Java_com_ravenwallet_core_BRCorePeerManager_getEstimatedBlockHeight
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return BRPeerManagerEstimatedBlockHeight (peerManager);
@@ -172,7 +193,7 @@ Java_com_ravencoin_core_BRCorePeerManager_getEstimatedBlockHeight
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_getLastBlockHeight
+Java_com_ravenwallet_core_BRCorePeerManager_getLastBlockHeight
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return BRPeerManagerLastBlockHeight (peerManager);
@@ -184,7 +205,7 @@ Java_com_ravencoin_core_BRCorePeerManager_getLastBlockHeight
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_getLastBlockTimestamp
+Java_com_ravenwallet_core_BRCorePeerManager_getLastBlockTimestamp
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return BRPeerManagerLastBlockTimestamp (peerManager);
@@ -196,7 +217,7 @@ Java_com_ravencoin_core_BRCorePeerManager_getLastBlockTimestamp
  * Signature: (J)D
  */
 JNIEXPORT jdouble
-JNICALL Java_com_ravencoin_core_BRCorePeerManager_getSyncProgress
+JNICALL Java_com_ravenwallet_core_BRCorePeerManager_getSyncProgress
         (JNIEnv *env, jobject thisObject, jlong startHeight) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return BRPeerManagerSyncProgress(peerManager, (uint32_t) startHeight);
@@ -208,7 +229,7 @@ JNICALL Java_com_ravencoin_core_BRCorePeerManager_getSyncProgress
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL
-        Java_com_ravencoin_core_BRCorePeerManager_getPeerCount
+        Java_com_ravenwallet_core_BRCorePeerManager_getPeerCount
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     return BRPeerManagerPeerCount (peerManager);
@@ -220,7 +241,7 @@ JNIEXPORT jint JNICALL
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_getDownloadPeerName
+Java_com_ravenwallet_core_BRCorePeerManager_getDownloadPeerName
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
 
@@ -231,10 +252,10 @@ Java_com_ravencoin_core_BRCorePeerManager_getDownloadPeerName
 /*
  * Class:     com_ravencoin_core_BRCorePeerManager
  * Method:    publishTransaction
- * Signature: (Lcom/ravencoin/core/BRCoreTransaction;)V
+ * Signature: (Lcom/ravenwallet/core/BRCoreTransaction;)V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_publishTransactionWithListener
+Java_com_ravenwallet_core_BRCorePeerManager_publishTransactionWithListener
         (JNIEnv *env, jobject thisObject, jobject transitionObject, jobject listenerObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
     BRTransaction *transaction = (BRTransaction *) getJNIReference(env, transitionObject);
@@ -257,7 +278,7 @@ Java_com_ravencoin_core_BRCorePeerManager_publishTransactionWithListener
  * Signature: ([B)J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_getRelayCount
+Java_com_ravenwallet_core_BRCorePeerManager_getRelayCount
         (JNIEnv *env, jobject thisObject, jbyteArray hashByteArray) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
 
@@ -270,9 +291,9 @@ Java_com_ravencoin_core_BRCorePeerManager_getRelayCount
 /*
  * Class:     com_ravencoin_core_BRCorePeerManager
  * Method:    testSaveBlocksCallback
- * Signature: (Z[Lcom/ravencoin/core/BRCoreMerkleBlock;)V
+ * Signature: (Z[Lcom/ravenwallet/core/BRCoreMerkleBlock;)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeerManager_testSaveBlocksCallback
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeerManager_testSaveBlocksCallback
         (JNIEnv *env, jobject thisObject, jboolean replace, jobjectArray blockObjectArray) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
 
@@ -300,10 +321,10 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeerManager_testSaveBlocksC
 /*
  * Class:     com_ravencoin_core_BRCorePeerManager
  * Method:    testSavePeersCallback
- * Signature: (Z[Lcom/ravencoin/core/BRCorePeer;)V
+ * Signature: (Z[Lcom/ravenwallet/core/BRCorePeer;)V
  */
 JNIEXPORT void JNICALL 
-Java_com_ravencoin_core_BRCorePeerManager_testSavePeersCallback
+Java_com_ravenwallet_core_BRCorePeerManager_testSavePeersCallback
         (JNIEnv *env, jobject thisObject, jboolean replace, jobjectArray peerObjectArray) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
 
@@ -331,10 +352,10 @@ Java_com_ravencoin_core_BRCorePeerManager_testSavePeersCallback
 /*
  * Class:     com_ravencoin_core_BRCorePeerManager
  * Method:    jniCreateCorePeerManager
- * Signature: (Lcom/ravencoin/core/BRCoreChainParams;Lcom/ravencoin/core/BRCoreWallet;D[Lcom/ravencoin/core/BRCoreMerkleBlock;[Lcom/ravencoin/core/BRCorePeer;Lcom/ravencoin/core/BRCorePeerManager/Listener;)J
+ * Signature: (Lcom/ravenwallet/core/BRCoreChainParams;Lcom/ravenwallet/core/BRCoreWallet;D[Lcom/ravenwallet/core/BRCoreMerkleBlock;[Lcom/ravenwallet/core/BRCorePeer;Lcom/ravenwallet/core/BRCorePeerManager/Listener;)J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_createCorePeerManager
+Java_com_ravenwallet_core_BRCorePeerManager_createCorePeerManager
         (JNIEnv *env, jclass thisClass,
          jobject objParams,
          jobject objWallet,
@@ -391,10 +412,10 @@ Java_com_ravencoin_core_BRCorePeerManager_createCorePeerManager
 /*
  * Class:     com_ravencoin_core_BRCorePeerManager
  * Method:    installListener
- * Signature: (Lcom/ravencoin/core/BRCorePeerManager/Listener;)V
+ * Signature: (Lcom/ravenwallet/core/BRCorePeerManager/Listener;)V
  */
 JNIEXPORT void
-JNICALL Java_com_ravencoin_core_BRCorePeerManager_installListener
+JNICALL Java_com_ravenwallet_core_BRCorePeerManager_installListener
         (JNIEnv *env, jobject thisObject, jobject listenerObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
 
@@ -419,7 +440,7 @@ JNICALL Java_com_ravencoin_core_BRCorePeerManager_installListener
  * Signature: ()V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCorePeerManager_disposeNative
+Java_com_ravenwallet_core_BRCorePeerManager_disposeNative
         (JNIEnv *env, jobject thisObject) {
     BRPeerManager *peerManager = (BRPeerManager *) getJNIReference(env, thisObject);
 
@@ -435,16 +456,16 @@ Java_com_ravencoin_core_BRCorePeerManager_disposeNative
  * Method:    initializeNative
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCorePeerManager_initializeNative
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCorePeerManager_initializeNative
         (JNIEnv *env, jclass thisClass) {
-    blockClass = (*env)->FindClass(env, "com/ravencoin/core/BRCoreMerkleBlock");
+    blockClass = (*env)->FindClass(env, "com/ravenwallet/core/BRCoreMerkleBlock");
     assert (NULL != blockClass);
     blockClass = (*env)->NewGlobalRef (env, blockClass);
 
     blockConstructor = (*env)->GetMethodID(env, blockClass, "<init>", "(J)V");
     assert (NULL != blockConstructor);
 
-    peerClass = (*env)->FindClass(env, "com/ravencoin/core/BRCorePeer");
+    peerClass = (*env)->FindClass(env, "com/ravenwallet/core/BRCorePeer");
     assert (NULL != peerClass);
     peerClass = (*env)->NewGlobalRef (env, peerClass);
 
@@ -528,7 +549,7 @@ saveBlocks(void *info, int replace, BRMerkleBlock *blocks[], size_t blockCount) 
     jmethodID listenerMethod =
             lookupListenerMethod(env, listener,
                                  "saveBlocks",
-                                 "(Z[Lcom/ravencoin/core/BRCoreMerkleBlock;)V");
+                                 "(Z[Lcom/ravenwallet/core/BRCoreMerkleBlock;)V");
     assert (NULL != listenerMethod);
 
     // Create the Java BRCoreMerkleBlock array
@@ -560,7 +581,7 @@ savePeers(void *info, int replace, const BRPeer peers[], size_t count) {
     jmethodID listenerMethod =
             lookupListenerMethod(env, listener,
                                  "savePeers",
-                                 "(Z[Lcom/ravencoin/core/BRCorePeer;)V");
+                                 "(Z[Lcom/ravenwallet/core/BRCorePeer;)V");
     assert (NULL != listenerMethod);
 
     jobjectArray peerArray = (*env)->NewObjectArray(env, count, peerClass, 0);

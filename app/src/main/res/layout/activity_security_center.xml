@@ -1,4 +1,4 @@
-<com.ravencoin.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ravenwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_margin="@dimen/bread_margin"
                 android:background="@drawable/ic_close_white_24dp" />
 
-            <com.ravencoin.presenter.customviews.BRText
+            <com.ravenwallet.presenter.customviews.BRText
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
 
     </LinearLayout>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,4 +86,4 @@
 
     </ListView>
 
-</com.ravencoin.presenter.customviews.BRRelativeLayout>
+</com.ravenwallet.presenter.customviews.BRRelativeLayout>

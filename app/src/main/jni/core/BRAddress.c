@@ -218,7 +218,7 @@ size_t BRScriptPushData(uint8_t *script, size_t scriptLen, const uint8_t *data, 
 // we are unable to correctly sign later, then the entire wallet balance after that point would become stuck with the
 // current coin selection code
 
-// writes the ravencoin address for a scriptPubKey to addr
+// writes the ravenwallet address for a scriptPubKey to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen)
 {
@@ -267,7 +267,7 @@ size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *scri
     return (d) ? BRBase58CheckEncode(addr, addrLen, data, sizeof(data)) : 0;
 }
 
-// writes the ravencoin address for a scriptSig to addr
+// writes the ravenwallet address for a scriptSig to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen)
 {
@@ -355,7 +355,7 @@ size_t BRAddressScriptPubKey(uint8_t *script, size_t scriptLen, const char *addr
     return r;
 }
 
-// returns true if addr is a valid ravencoin address
+// returns true if addr is a valid ravenwallet address
 int BRAddressIsValid(const char *addr)
 {
     uint8_t data[21];

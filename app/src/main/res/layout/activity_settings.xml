@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/extra_light_blue_background"
     android:layout_height="match_parent"
-    tools:context="com.ravencoin.presenter.activities.SetPinActivity">
+    tools:context="com.ravenwallet.presenter.activities.SetPinActivity">
 
 
     <android.support.v7.widget.Toolbar
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.ravencoin.presenter.customviews.BRText
+            <com.ravenwallet.presenter.customviews.BRText
                 android:text="Home"
                 app:customTFont="CircularPro-Bold.otf"
                 android:textSize="16sp"
@@ -45,7 +45,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         app:customTFont="CircularPro-Bold.otf"
         android:id="@+id/title"
         android:layout_width="wrap_content"

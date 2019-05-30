@@ -5,10 +5,9 @@
     android:id="@+id/view_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
     android:background="@android:color/white"
     android:orientation="vertical">
-
-
 
     <LinearLayout
         android:layout_toEndOf="@id/asset_ownership_image"
@@ -20,7 +19,7 @@
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/root_asset_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +31,7 @@
             app:customTFont="CircularPro-Bold.otf"
             tools:text="Troncoin" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/asset_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +43,7 @@
 
     </LinearLayout>
 
-    <com.ravencoin.presenter.customviews.BRButton
+    <com.ravenwallet.presenter.customviews.BRButton
         android:id="@+id/item_visibility_action"
         android:layout_width="80dp"
         android:layout_height="wrap_content"

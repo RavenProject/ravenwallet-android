@@ -8,7 +8,7 @@
 #include "BRBase58.h"
 #include "BRBIP39Mnemonic.h"
 #include "BRBIP39WordsEn.h"
-#include "BRBIP32Sequence.h"
+#include "BRBIP44Sequence.h"
 #include "BRPeer.h"
 #include "BRPeerManager.h"
 #include "BRPaymentProtocol.h"
@@ -25,6 +25,7 @@
 #include <arpa/inet.h>
 #include "BRAssets.h"
 #include "BRScript.h"
+#include "BRBIP44Sequence.h"
 
 
 #define SKIP_BIP38 1
@@ -1463,7 +1464,7 @@ int BIP32SequenceTests() {
     if (! UInt256Eq(key.secret, u256_hex_decode("00136c1ad038f9a00871895322a487ed14f1cdc4d22ad351cfa1a0d235975dd7")))
         r = 0, fprintf(stderr, "***FAILED*** %s: BIP32PrivKey() test 2\n", __func__);
     
-    BRMasterPubKey mpk = BRBIP32MasterPubKey(&seed, sizeof(seed));
+    BRMasterPubKey mpk = BRBIP44MasterPubKey(&seed, sizeof(seed),175,0,0);
     
 //    printf("000102030405060708090a0b0c0d0e0f/0H fp:%08x chain:%s pubkey:%02x%s\n", be32(mpk.fingerPrint),
 //           u256_hex_encode(mpk.chainCode), mpk.pubKey[0], u256_hex_encode(*(UInt256 *)&mpk.pubKey[1]));
@@ -1623,7 +1624,7 @@ static void walletTxDeleted(void *info, UInt256 txHash, int notifyUser, int reco
 
 int WalletTests() {
     int r = 1;
-    BRMasterPubKey mpk = BRBIP32MasterPubKey("", 1);
+    BRMasterPubKey mpk = BRBIP44MasterPubKey("", 1,175,0,0);
     BRWallet *w = BRWalletNew(NULL, 0, mpk);
     UInt256 secret = u256_hex_decode("0000000000000000000000000000000000000000000000000000000000000001"),
             inHash = u256_hex_decode("0000000000000000000000000000000000000000000000000000000000000001");
@@ -2474,7 +2475,7 @@ int scriptCreationTest() {
 
     int r = 0;
 
-    BRMasterPubKey mpk = BRBIP32MasterPubKey("", 1);
+    BRMasterPubKey mpk = BRBIP44MasterPubKey("", 1,175,0,0);
     BRWallet *w = BRWalletNew(NULL, 0, mpk);
     BRAddress addr = BRWalletReceiveAddress(w);
     uint8_t outScript[BRAddressScriptPubKey(NULL, 0, addr.s)];
@@ -2606,7 +2607,7 @@ int main(int argc, const char *argv[])  {
 
     BRBIP39DeriveKey(seed.u8, "throw detail divorce logic typical monkey armor infant purchase ocean lecture novel",
                      NULL);
-    mpk = BRBIP32MasterPubKey(&seed, sizeof(seed));
+    mpk = BRBIP44MasterPubKey(&seed, sizeof(seed),175,0,0);
 //    mpk = BIP44MasterPubKey(&seed, sizeof(seed), 0 | BIP32_HARD, 0 | BIP32_HARD);
 //    mpk = BIP44MasterPubKey(&seed, sizeof(seed), 0, 175);
 

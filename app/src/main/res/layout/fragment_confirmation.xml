@@ -11,7 +11,7 @@
     android:paddingTop="5dp"
     android:paddingEnd="10dp">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/lbl_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             app:customTFont="CircularPro-Book.otf"
             tools:text="Create" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_asset_name_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,14 +61,14 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             app:customTFont="CircularPro-Book.otf"
             android:text="To" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             tools:text="mzifslkdugfgfdhgjkfgksudfkglsudgiuslugfilui" />
     </LinearLayout>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/note_process_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
         android:layout_below="@+id/note_process_time"
         android:layout_marginTop="10dp">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/lbl_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:textSize="15.0sp"
             app:customTFont="CircularPro-Book.otf" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
         android:layout_below="@+id/layout_amount"
         android:layout_marginTop="2dp">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Network Fee:"
@@ -137,7 +137,7 @@
             android:textSize="15.0sp"
             app:customTFont="CircularPro-Book.otf" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_net_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
         android:layout_below="@+id/layout_net_fee"
         android:layout_marginTop="2dp">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/lbl_tx_type_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
             android:textSize="15.0sp"
             app:customTFont="CircularPro-Book.otf" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_tx_type_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
         android:layout_below="@+id/layout_tx_type_fee"
         android:layout_marginTop="2dp">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Cost:"
@@ -193,7 +193,7 @@
             android:textStyle="bold"
             app:customTFont="CircularPro-Book.otf" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/tv_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
         android:weightSum="2"
         android:orientation="horizontal">
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/cancel_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
             app:buttonType="1"
             app:isBreadButton="true" />
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/send_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

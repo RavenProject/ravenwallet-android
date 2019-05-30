@@ -13,7 +13,7 @@ extern "C" {
  * Signature: (J[B)J
  */
 JNIEXPORT jobject JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_getType
+Java_com_ravenwallet_core_BRCoreTransactionAsset_getType
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -22,7 +22,7 @@ Java_com_ravencoin_core_BRCoreTransactionAsset_getType
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_setType
+Java_com_ravenwallet_core_BRCoreTransactionAsset_setType
         (JNIEnv *env, jobject thisObject, jobject typeObject);
 
 /*
@@ -31,7 +31,7 @@ Java_com_ravencoin_core_BRCoreTransactionAsset_setType
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getName
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getName
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -40,28 +40,28 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getName
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_setName
+Java_com_ravenwallet_core_BRCoreTransactionOutput_setName
         (JNIEnv *env, jobject thisObject, jstring nameObject);
 
 
 JNIEXPORT jstring JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_getName(JNIEnv *env, jobject instance);
+Java_com_ravenwallet_core_BRCoreTransactionAsset_getName(JNIEnv *env, jobject instance);
 
 
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_setName(JNIEnv *env, jobject thisObject,
+Java_com_ravenwallet_core_BRCoreTransactionAsset_setName(JNIEnv *env, jobject thisObject,
                                                        jstring nameObject);
 
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_setNamelen(JNIEnv *env, jobject instance,
+Java_com_ravenwallet_core_BRCoreTransactionAsset_setNamelen(JNIEnv *env, jobject instance,
                                                           jint namelen);
 
 JNIEXPORT jint JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_getNameLen(JNIEnv *env, jobject instance);
+Java_com_ravenwallet_core_BRCoreTransactionAsset_getNameLen(JNIEnv *env, jobject instance);
 
 
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionAsset_setNamelen(JNIEnv *env, jobject instance,
+Java_com_ravenwallet_core_BRCoreTransactionAsset_setNamelen(JNIEnv *env, jobject instance,
                                                           jint namelen);
 
 /*
@@ -70,7 +70,7 @@ Java_com_ravencoin_core_BRCoreTransactionAsset_setNamelen(JNIEnv *env, jobject i
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getAmount
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getAmount
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -78,7 +78,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getAmount
  * Method:    setAmount
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAmount
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setAmount
         (JNIEnv *env, jobject thisObject, jlong amount);
 
 /*
@@ -87,7 +87,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAmount
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getUnit
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getUnit
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -95,7 +95,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getUnit
  * Method:    setUnit
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setUnit
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setUnit
         (JNIEnv *env, jobject thisObject, jlong unit);
 
 /*
@@ -104,7 +104,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setUnit
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getReissuable
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getReissuable
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -112,7 +112,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getReissuable
  * Method:    setReissuable
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setReissuable
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setReissuable
         (JNIEnv *env, jobject thisObject, jlong reissuable);
 
 /*
@@ -121,7 +121,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setReissu
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getHasIPFS
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getHasIPFS
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -129,7 +129,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getHasIPFS
  * Method:    setHasIPFS
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setHasIPFS
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setHasIPFS
         (JNIEnv *env, jobject thisObject, jlong hasIPFS);
 
 /*
@@ -138,7 +138,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setHasIPF
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getIPFSHash
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getIPFSHash
         (JNIEnv *env, jobject thisObject);
 
 /*
@@ -147,7 +147,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getIPFSHash
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_setIPFSHash
+Java_com_ravenwallet_core_BRCoreTransactionOutput_setIPFSHash
         (JNIEnv *env, jobject thisObject, jstring IPFSHashObject);
 
 #ifdef __cplusplus

@@ -22,7 +22,7 @@
             android:layout_marginStart="8dp"
             android:background="@drawable/ic_close_white_with_padding" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:overScrollMode="never"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/no_data_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

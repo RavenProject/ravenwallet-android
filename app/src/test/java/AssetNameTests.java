@@ -73,4 +73,45 @@ public class AssetNameTests {
         assertThat(AssetsValidation.isAssetNameValid("BLACK_RAVENS"), is(true));
         assertThat(AssetsValidation.isAssetNameValid("SERVNOT"), is(true));
     }
+
+    @Test
+    public void testAssetNameValid() {
+        assertThat(AssetsValidation.isAssetNameValid("Asset".toUpperCase()), is(true));
+    }
+
+    @Test
+    public void testAssetNameEmpty() {
+        assertThat(AssetsValidation.isAssetNameValid(""), is(false));
+    }
+
+    @Test
+    public void testAssetNameInValid() {
+        assertThat(AssetsValidation.isAssetNameValid("Asset"), is(false));
+    }
+
+    @Test
+    public void testSubAssetNameValid() {
+        assertThat(AssetsValidation.isAssetNameValid("Asset/sub".toUpperCase()), is(true));
+    }
+
+    @Test
+    public void testSubAssetNameEmpty() {
+        assertThat(AssetsValidation.isAssetNameValid("Asset/".toUpperCase()), is(false));
+    }
+
+    @Test
+    public void testSubAssetNameInvalid() {
+        assertThat(AssetsValidation.isAssetNameValid("ASSET/sub"), is(false));
+    }
+
+    @Test
+    public void testUniqueAssetNameValid() {
+        assertThat(AssetsValidation.isAssetNameValid("Asset#unique".toUpperCase()), is(true));
+    }
+
+    @Test
+    public void testUniqueAssetNameEmpty() {
+        assertThat(AssetsValidation.isAssetNameValid("Asset#".toUpperCase()), is(false));
+    }
+
 }

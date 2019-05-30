@@ -49,6 +49,8 @@
     <string name="Alerts.sendSuccess">Send Confirmation</string>
     <!-- Send success alert subheader label (e.g. the money was sent) -->
     <string name="Alerts.sendSuccessSubheader">Money Sent!</string>
+    <string name="Alerts.sendSuccessAsset">Asset Sent!</string>
+    <string name="Alerts.sendSuccessBurn">Asset Burnt!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Fingerprint recognized</string>
     <!-- JSON Serialization error message -->
@@ -189,7 +191,7 @@
     <!-- Node is connected label -->
     <string name="NodeSelector.connected">Connected</string>
     <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">Enter Node IP address and port (optional)</string>
+    <string name="NodeSelector.enterBody">Enter Node IP address</string>
     <!-- Enter Node ip address view title -->
     <string name="NodeSelector.enterTitle">Enter Node</string>
     <!-- Switch to manual mode button label -->
@@ -360,7 +362,8 @@
     <string name="Send.fee">Network Fee: %1$s</string>
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
-    <string name="Send.invalidAddressMessage">The destination address is not address.</string>
+    <string name="Send.invalidAddressMessage">The destination address is not a valid address.</string>
+    <string name="Send.emptyAddressMessage">Address required in Expert Mode</string>
     <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
     <string name="Send.invalidAddressTitle">Invalid Address</string>
@@ -394,7 +397,7 @@
     <string name="Settings.currency">Display Currency</string>
     <string name="Settings.currencySettings">Currency Settings</string>
     <string name="Settings.rescan.blockchain">Sync Blockchain</string>
-    <string name="Settings.redeem.private.key">Redeem Private Key</string>
+    <string name="Settings.redeem.private.key">Redeem Wallet / Private Key</string>
     <string name="Settings.other">Other</string>
     <string name="Settings.aboutRaven">About</string>
     <!-- Join Early access label -->
@@ -521,7 +524,7 @@
     <!-- Wallet unlocked message -->
     <string name="UnlockScreen.unlocked">Wallet Unlocked</string>
     <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">Remember this PIN. If you forget it, you won\'t be able to access your bitcoin.</string>
+    <string name="UpdatePin.caption">Remember this PIN. If you forget it, you won\'t be able to access your rvn.</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">Your PIN will be used to unlock your Ravencoin Wallet and send money.</string>
     <!-- Update PIN title -->
@@ -671,6 +674,7 @@
     <string name="used_address">Used Addresses</string>
     <string name="reset_title">Reset</string>
     <string name="expert_mode">Expert Mode</string>
+    <string name="show_address_input">Show Destination Address Input</string>
     <string name="burn_asset_warning">Are you sure you want to burn the asset? Once burned there is no way you can get it back.</string>
     <string name="txt_btn_check_availability">Check Availability</string>
 

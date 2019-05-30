@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.platform.addressBook.AddressBookItem;
 import com.platform.addressBook.event.OnAddressClickedListener;
-import com.ravencoin.R;
+import com.ravenwallet.R;
 
 import java.util.List;
 

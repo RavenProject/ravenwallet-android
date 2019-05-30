@@ -1,7 +1,6 @@
 import android.util.Log;
 
-import com.ravencoin.tools.util.Bip39Reader;
-import com.ravencoin.wallet.WalletsMaster;
+import com.ravenwallet.tools.util.Bip39Reader;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;

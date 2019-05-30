@@ -1,7 +1,6 @@
 package com.platform.assets;
 
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,14 +12,10 @@ import android.util.Log;
 
 import com.platform.sqlite.PlatformSqliteHelper;
 import com.platform.sqlite.PlatformSqliteHelper.OwnedAsset;
-import com.ravencoin.R;
-import com.ravencoin.presenter.AssetChangeListener;
-import com.ravencoin.presenter.activities.HomeActivity;
-import com.ravencoin.presenter.interfaces.BROnSignalCompletion;
-import com.ravencoin.tools.animation.BRAnimator;
-import com.ravencoin.tools.threads.executor.BRExecutor;
-import com.ravencoin.tools.util.BRConstants;
-import com.ravencoin.tools.util.Utils;
+import com.ravenwallet.core.BRCoreTransactionAsset;
+import com.ravenwallet.presenter.AssetChangeListener;
+import com.ravenwallet.tools.threads.executor.BRExecutor;
+import com.ravenwallet.tools.util.BRConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -313,7 +308,7 @@ public class AssetsRepository {
 
     public void deleteAllAssets() {
         try (SQLiteDatabase db = getWritable()) {
-            int count = db.delete(OwnedAsset.TABLE_NAME, "1", null);
+            int count = db.delete(OwnedAsset.TABLE_NAME, null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -322,5 +317,14 @@ public class AssetsRepository {
     public void removeListener(AssetChangeListener listener) {
         if (listeners != null && listener != null)
             listeners.remove(listener);
+    }
+
+    public void updateAssetData(BRCoreTransactionAsset asset) {
+        ContentValues values = new ContentValues();
+        values.put(OwnedAsset.COLUMN_HAS_IPFS, asset.getHasIPFS());
+        values.put(OwnedAsset.COLUMN_IPFS_HASH, asset.getIPFSHash());
+        values.put(OwnedAsset.COLUMN_REISSUABLE, asset.getReissuable());
+        values.put(OwnedAsset.COLUMN_UNITS, asset.getUnit());
+        updateAssetByName(values, asset.getName());
     }
 }

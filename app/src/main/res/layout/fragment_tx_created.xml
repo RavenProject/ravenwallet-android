@@ -13,7 +13,7 @@
     android:paddingTop="15dp"
     android:paddingEnd="10dp">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/lbl_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_marginBottom="10dp"
         tools:src="@drawable/ic_check_mark_grey" />
 
-    <com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret
+    <com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret
         android:id="@+id/copied_layout"
         android:layout_width="match_parent"
         android:layout_below="@+id/qr_image"
@@ -50,7 +50,7 @@
         app:backgroundColor="@color/primaryColor"
         app:withStroke="false">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -60,9 +60,9 @@
             android:text="@string/Receive.copied"
             android:textColor="@color/white"
             android:textSize="@dimen/paragraph" />
-    </com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret>
+    </com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/lbl_tx_hash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         android:textSize="18sp"
         app:customTFont="CircularPro-Book.otf" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/tx_hash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
         app:customTFont="CircularPro-Book.otf"
         tools:text="kuhkjdfjsdfd545dsfsd6fsqg65sd8g38sfgfdqg68q3g68dsfg368" />
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/lbl_after_confirmation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

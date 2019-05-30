@@ -42,7 +42,7 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="81dp" />
 
-            <com.ravencoin.presenter.customviews.BRText
+            <com.ravenwallet.presenter.customviews.BRText
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/reissue_asset_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 app:buttonType="5"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/issue_sub_asset_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 app:buttonType="5"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/issue_unique_asset_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                 app:buttonType="5"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/browse_ipfs_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                 app:buttonType="5"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/transfer_asset_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                 app:buttonType="5"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/burn_asset_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                 app:buttonType="5"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/get_data_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

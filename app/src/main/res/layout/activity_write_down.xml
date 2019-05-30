@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/extra_light_blue_background"
-    tools:context="com.ravencoin.presenter.activities.intro.WriteDownActivity">
+    tools:context="com.ravenwallet.presenter.activities.intro.WriteDownActivity">
 
     <FrameLayout
         android:id="@+id/gradient_layout"
@@ -14,7 +14,7 @@
         android:layout_height="200dp"
         android:background="@drawable/gradient_blue">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
     </FrameLayout>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/gradient_layout"
@@ -73,7 +73,7 @@
         android:textColor="@color/almost_black"
         android:textSize="18sp"/>
 
-    <com.ravencoin.presenter.customviews.BRButton
+    <com.ravenwallet.presenter.customviews.BRButton
         android:id="@+id/button_write_down"
         android:layout_width="match_parent"
         android:layout_height="@dimen/big_button_height"

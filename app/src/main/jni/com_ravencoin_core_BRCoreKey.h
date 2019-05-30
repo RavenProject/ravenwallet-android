@@ -12,7 +12,7 @@ extern "C" {
  * Method:    getSecret
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getSecret
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_getSecret
   (JNIEnv *, jobject);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getSecret
  * Method:    getPubKey
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getPubKey
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_getPubKey
   (JNIEnv *, jobject);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getPubKey
  * Method:    getCompressed
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCoreKey_getCompressed
+JNIEXPORT jint JNICALL Java_com_ravenwallet_core_BRCoreKey_getCompressed
   (JNIEnv *, jobject);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCoreKey_getCompressed
  * Method:    getPrivKey
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_getPrivKey
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreKey_getPrivKey
   (JNIEnv *, jobject);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_getPrivKey
  * Method:    getSeedFromPhrase
  * Signature: ([B)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getSeedFromPhrase
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_getSeedFromPhrase
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getSeedFromPhrase
  * Method:    getAuthPrivKeyForAPI
  * Signature: ([B)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getAuthPrivKeyForAPI
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_getAuthPrivKeyForAPI
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_getAuthPrivKeyFor
  * Method:    getAuthPublicKeyForAPI
  * Signature: ([B)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_getAuthPublicKeyForAPI
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreKey_getAuthPublicKeyForAPI
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_getAuthPublicKeyForA
  * Method:    decryptBip38Key
  * Signature: (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_decryptBip38Key
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreKey_decryptBip38Key
   (JNIEnv *, jclass, jstring, jstring);
 
 /*
@@ -76,7 +76,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_decryptBip38Key
  * Method:    createJniCoreKey
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreKey_createJniCoreKey
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreKey_createJniCoreKey
   (JNIEnv *, jclass);
 
 /*
@@ -84,7 +84,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreKey_createJniCoreKey
  * Method:    createCoreKeyForBIP32
  * Signature: ([BJJ)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreKey_createCoreKeyForBIP32
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreKey_createCoreKeyForBIP32
   (JNIEnv *, jclass, jbyteArray, jlong, jlong);
 
 /*
@@ -92,7 +92,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreKey_createCoreKeyForBIP32
  * Method:    setPrivKey
  * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_setPrivKey
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreKey_setPrivKey
   (JNIEnv *, jobject, jstring);
 
 /*
@@ -100,7 +100,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_setPrivKey
  * Method:    setSecret
  * Signature: ([BZ)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_setSecret
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreKey_setSecret
   (JNIEnv *, jobject, jbyteArray, jboolean);
 
 /*
@@ -108,7 +108,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_setSecret
  * Method:    compactSign
  * Signature: ([B)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_compactSign
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_compactSign
   (JNIEnv *, jobject, jbyteArray);
 
 /*
@@ -116,7 +116,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_compactSign
  * Method:    encryptNative
  * Signature: ([B[B)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_encryptNative
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_encryptNative
   (JNIEnv *, jobject, jbyteArray, jbyteArray);
 
 /*
@@ -124,7 +124,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_encryptNative
  * Method:    decryptNative
  * Signature: ([B[B)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_decryptNative
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_decryptNative
   (JNIEnv *, jobject, jbyteArray, jbyteArray);
 
 /*
@@ -132,7 +132,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_decryptNative
  * Method:    address
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_address
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreKey_address
   (JNIEnv *, jobject);
 
 /*
@@ -140,7 +140,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreKey_address
  * Method:    isValidBitcoinPrivateKey
  * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_isValidBitcoinPrivateKey
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreKey_isValidBitcoinPrivateKey
   (JNIEnv *, jclass, jstring);
 
 /*
@@ -148,7 +148,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_isValidBitcoinPriva
  * Method:    isValidBitcoinBIP38Key
  * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_isValidBitcoinBIP38Key
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreKey_isValidBitcoinBIP38Key
   (JNIEnv *, jclass, jstring);
 
 /*
@@ -156,7 +156,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_isValidBitcoinBIP38
  * Method:    encodeSHA256
  * Signature: (Ljava/lang/String;)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_encodeSHA256
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_encodeSHA256
   (JNIEnv *, jclass, jstring);
 
 /*
@@ -164,7 +164,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_encodeSHA256
  * Method:    sign
  * Signature: ([B)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_sign
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreKey_sign
   (JNIEnv *, jobject, jbyteArray);
 
 /*
@@ -172,7 +172,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreKey_sign
  * Method:    verify
  * Signature: ([B[B)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreKey_verify
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreKey_verify
   (JNIEnv *, jobject, jbyteArray, jbyteArray);
 
 #ifdef __cplusplus

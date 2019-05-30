@@ -1,5 +1,5 @@
 //  Created by Ed Gamble on 1/31/2018
-//  Copyright (c) 2018 ravencoin LLC.
+//  Copyright (c) 2018 ravenwallet LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
  * Signature: (J[B)J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_createTransactionOutput
+Java_com_ravenwallet_core_BRCoreTransactionOutput_createTransactionOutput
         (JNIEnv *env, jclass thisClass,
          jlong amount,
          jbyteArray scriptByteArray) {
@@ -59,7 +59,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_createTransactionOutput
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getAddress
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getAddress
         (JNIEnv *env, jobject thisObject) {
     BRTxOutput *output = (BRTxOutput *) getJNIReference (env, thisObject);
 
@@ -77,7 +77,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getAddress
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_setAddress
+Java_com_ravenwallet_core_BRCoreTransactionOutput_setAddress
         (JNIEnv *env, jobject thisObject, jstring addressObject) {
     BRTxOutput *output = (BRTxOutput *) getJNIReference (env, thisObject);
 
@@ -98,7 +98,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_setAddress
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreTransactionOutput_getAmount
+Java_com_ravenwallet_core_BRCoreTransactionOutput_getAmount
         (JNIEnv *env, jobject thisObject) {
     BRTxOutput *output = (BRTxOutput *) getJNIReference (env, thisObject);
     return (jlong) output->amount;
@@ -109,7 +109,7 @@ Java_com_ravencoin_core_BRCoreTransactionOutput_getAmount
  * Method:    setAmount
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAmount
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setAmount
         (JNIEnv *env, jobject thisObject, jlong amount) {
     BRTxOutput *output = (BRTxOutput *) getJNIReference (env, thisObject);
     output->amount = (uint64_t) amount;
@@ -120,7 +120,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAmount
  * Method:    getScript
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_getScript
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_getScript
         (JNIEnv *env, jobject thisObject) {
     BRTxOutput *output = (BRTxOutput *) getJNIReference (env, thisObject);
 

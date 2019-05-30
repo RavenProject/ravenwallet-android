@@ -12,7 +12,7 @@
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.ravencoin.presenter.activities.WalletActivity">
+    tools:context="com.ravenwallet.presenter.activities.WalletActivity">
 
     <LinearLayout
         android:id="@+id/toolbar_layout"
@@ -28,7 +28,7 @@
             android:id="@+id/tool_bar_flipper"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            tools:context="com.ravencoin.presenter.activities.CurrencyActivity">
+            tools:context="com.ravenwallet.presenter.activities.CurrencyActivity">
 
 
             <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -73,7 +73,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.ravencoin.presenter.customviews.BRText
+                    <com.ravenwallet.presenter.customviews.BRText
                         android:id="@+id/currency_usd_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                         app:layout_constraintTop_toBottomOf="@id/currency_image" />
 
 
-                    <com.ravencoin.presenter.customviews.BRText
+                    <com.ravenwallet.presenter.customviews.BRText
                         android:id="@+id/balance_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintRight_toRightOf="parent" />
 
-              <!--      <com.ravencoin.presenter.customviews.BRText
+              <!--      <ravenwalletet.presenter.customviews.BRText
                         android:id="@+id/syncing_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -134,13 +134,13 @@
                         app:layout_constraintEnd_toEndOf="parent" />
 -->
 
-                    <com.ravencoin.presenter.customviews.BRText
+                    <com.ravenwallet.presenter.customviews.BRText
                         android:id="@+id/balance_primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:paddingBottom="16dp"
-                        android:text="$26,495.69"
+                        tools:text="$26,495.69"
                         android:textColor="@color/white"
                         android:textSize="28sp"
                         app:customTFont="CircularPro-Bold.otf"
@@ -161,7 +161,7 @@
                         app:layout_constraintRight_toLeftOf="@id/balance_primary"
                         app:layout_constraintVertical_bias="0.492" />
 
-                    <com.ravencoin.presenter.customviews.BRText
+                    <com.ravenwallet.presenter.customviews.BRText
                         android:id="@+id/balance_secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                         android:layout_marginEnd="8dp"
                         android:paddingTop="18dp"
                         android:paddingBottom="20dp"
-                        android:text="1.56739 BTC"
+                        tools:text="1.56739 BTC"
                         android:textColor="@color/trans_white"
                         android:textSize="16sp"
                         app:customTFont="CircularPro-Book.otf"
@@ -199,7 +199,7 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <com.ravencoin.presenter.customviews.BRSearchBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.ravenwallet.presenter.customviews.BRSearchBar xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
@@ -209,7 +209,7 @@
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp" />
 
-            <com.ravencoin.presenter.customviews.BRNotificationBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.ravenwallet.presenter.customviews.BRNotificationBar xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/notification_bar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
@@ -282,7 +282,7 @@
         android:weightSum="2">
 
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/send_button"
             android:layout_width="match_parent"
             android:layout_height="65dp"
@@ -301,7 +301,7 @@
             app:isBreadButton="true" />
 
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/receive_button"
             android:layout_width="match_parent"
             android:layout_height="65dp"

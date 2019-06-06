@@ -12,7 +12,7 @@ extern "C" {
  * Method:    getJniMagicNumber
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCoreChainParams_getJniMagicNumber
+JNIEXPORT jint JNICALL Java_com_ravenwallet_core_BRCoreChainParams_getJniMagicNumber
   (JNIEnv *, jobject);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jint JNICALL Java_com_ravencoin_core_BRCoreChainParams_getJniMagicNumb
  * Method:    createJniMainnetChainParams
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreChainParams_createJniMainnetChainParams
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreChainParams_createJniMainnetChainParams
   (JNIEnv *, jclass);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreChainParams_createJniMainn
  * Method:    createJniTestnetChainParams
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreChainParams_createJniTestnetChainParams
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreChainParams_createJniTestnetChainParams
   (JNIEnv *, jclass);
 
 

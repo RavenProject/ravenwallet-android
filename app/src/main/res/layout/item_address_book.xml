@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/total_assets_usd_color"
+        android:textSize="17sp"
+        app:customTFont="CircularPro-Bold.otf"
+        tools:text="John Doe" />
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/address_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/total_assets_label_color"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:textSize="15sp"
+        app:customTFont="CircularPro-Book.otf"
+        tools:text="RTRffAifbthDP3o9d85scJ1jKTWAYmTf46" />
+
+</LinearLayout>

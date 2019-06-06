@@ -1,7 +1,7 @@
 package com.platform.entities;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 6/22/17.
  * Copyright (c) 2017 breadwallet LLC

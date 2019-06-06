@@ -16,5 +16,4 @@
 <resources>
     //The QR
     <!-- Messages IDs -->
-    <item name="keyboard_back_button" type="id" />
 </resources>

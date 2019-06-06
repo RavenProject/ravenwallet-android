@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ravencoin">
+    package="com.ravenwallet">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -11,26 +11,23 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.BIND_JOB_SERVICE"/>
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
+
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions"/>
 
-    <!-- Allows unlocking your device and activating its screen so UI tests can succeed -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-    <!-- Allows changing locales -->
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
 
-    <uses-feature
-        android:name="android.hardware.location.gps"
-        android:required="false"/>
-    <uses-feature
-        android:name="android.hardware.location.network"
-        android:required="false"/>
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.location.gps"-->
+        <!--android:required="false"/>-->
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.location.network"-->
+        <!--android:required="false"/>-->
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false"/>
@@ -42,7 +39,7 @@
         android:required="false"/>
 
     <application
-        android:name=".BreadApp"
+        android:name="com.ravenwallet.RavenApp"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -55,7 +52,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.ravencoin"
+            android:authorities="com.ravenwallet"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -77,16 +74,14 @@
         <activity
             android:name=".presenter.activities.WalletActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-
                 <data android:scheme="raven"/>
                 <data android:scheme="bread"/>
             </intent-filter>
@@ -99,151 +94,182 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".presenter.activities.SetPinActivity"
+            android:name="com.ravenwallet.presenter.activities.SetPinActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presenter.activities.intro.RecoverActivity"
+            android:name="com.ravenwallet.presenter.activities.intro.RecoverActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.UnlinkActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.UnlinkActivity"
             android:launchMode="singleTask"
 
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.ImportActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.ImportActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presenter.activities.ReEnterPinActivity"
+            android:name="com.ravenwallet.presenter.activities.ReEnterPinActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.UpdatePinActivity"
+            android:name="com.ravenwallet.presenter.activities.UpdatePinActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.LoginActivity"
+            android:name="com.ravenwallet.presenter.activities.LoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
-            android:name=".presenter.activities.settings.SettingsActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.SettingsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".presenter.activities.settings.NotificationActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.NotificationActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.SyncBlockchainActivity"
-            android:launchMode="singleTask"
-
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".presenter.activities.settings.DisplayCurrencyActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.SyncBlockchainActivity"
             android:launchMode="singleTask"
 
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.AboutActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.DisplayCurrencyActivity"
             android:launchMode="singleTask"
 
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.SecurityCenterActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.AboutActivity"
             android:launchMode="singleTask"
 
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.ShareDataActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.SecurityCenterActivity"
+            android:launchMode="singleTask"
+
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ravenwallet.presenter.activities.AddressBookActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ravenwallet.presenter.activities.settings.UserAddressesActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ravenwallet.presenter.activities.settings.ShareDataActivity"
             android:launchMode="singleTask"
 
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presenter.activities.intro.WriteDownActivity"
+            android:name="com.ravenwallet.presenter.activities.intro.WriteDownActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.PaperKeyActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".presenter.activities.settings.SpendLimitActivity"
+            android:name="com.ravenwallet.presenter.activities.PaperKeyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presenter.activities.PaperKeyProveActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.SpendLimitActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.ravenwallet.presenter.activities.PaperKeyProveActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.InputWordsActivity"
+            android:name="com.ravenwallet.presenter.activities.InputWordsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.camera.ScanQRActivity"
+            android:name="com.ravenwallet.presenter.activities.camera.ScanQRActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <!--Use launchMode="standard for WebViewActivity in order to be able to have multiple instances"-->
         <activity
-            android:name=".presenter.activities.settings.WebViewActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.WebViewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".presenter.activities.DisabledActivity"
+            android:name="com.ravenwallet.presenter.activities.DisabledActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.FingerprintActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.FingerprintActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.AdvancedActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.AdvancedActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.NodesActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.NodesActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.camera.CameraActivity"
+            android:name="com.ravenwallet.presenter.activities.camera.CameraActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.activities.settings.TestActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".presenter.activities.HomeActivity"
+            android:name="com.ravenwallet.presenter.activities.settings.TestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presenter.activities.CurrencySettingsActivity"
+            android:name="com.ravenwallet.presenter.activities.HomeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
 
-        </activity>
-        <activity android:name=".presenter.activities.settings.SupportWebViewActivity" />
+        <activity
+            android:name="com.ravenwallet.presenter.activities.CurrencySettingsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
+        <activity android:name="com.ravenwallet.presenter.activities.settings.SupportWebViewActivity" />
+
+        <activity
+            android:name="com.ravenwallet.presenter.activities.ManageAssetsActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.ravenwallet.presenter.activities.TermsAndConditionsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" />
+
+        <activity android:name="com.ravenwallet.presenter.newTutorial.TutorialActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" />
         <service
-            android:name=".tools.listeners.SyncReceiver"
+            android:name="com.ravenwallet.tools.services.SyncService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="com.ravenwallet.tools.listeners.SyncReceiver"
             android:enabled="true"
             android:exported="false"
             android:label="SyncReceiver"/>
 
         <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="dbf6fef7bb2fb1c0c7ce1def9fb3db9e942fedf2"
+            />
     </application>
 
 </manifest>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/receive_layout"
+    android:minWidth="500dp"
+    android:id="@+id/signal_layout"
+    android:minHeight="330dp"
+    android:orientation="vertical"
+    android:paddingStart="10dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="10dp">
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="Create Confirmation"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:customTFont="CircularPro-Bold.otf" />
+
+    <ImageView
+        android:id="@+id/qr_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_title"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        tools:src="@drawable/ic_check_mark_grey" />
+
+    <com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret
+        android:id="@+id/copied_layout"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/qr_image"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:backgroundColor="@color/primaryColor"
+        app:withStroke="false">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/Receive.copied"
+            android:textColor="@color/white"
+            android:textSize="@dimen/paragraph" />
+    </com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret>
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/lbl_tx_hash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/copied_layout"
+        android:text="Transaction asset sent to network :"
+        android:textSize="18sp"
+        app:customTFont="CircularPro-Book.otf" />
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/tx_hash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_tx_hash"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        app:customTFont="CircularPro-Book.otf"
+        tools:text="kuhkjdfjsdfd545dsfsd6fsqg65sd8g38sfgfdqg68q3g68dsfg368" />
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/lbl_after_confirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tx_hash"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Asset will appear after one confirmation."
+        android:textSize="18sp"
+        app:customTFont="CircularPro-Book.otf" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/layout_buttons"
+        android:background="@color/light_gray" />
+
+    <LinearLayout
+        android:id="@+id/layout_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_after_confirmation"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/copy_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="Copy"
+            android:textColor="@color/blue" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_gray" />
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="Ok"
+            android:textColor="@color/blue" />
+    </LinearLayout>
+
+</RelativeLayout>

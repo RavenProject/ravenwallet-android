@@ -1,7 +1,6 @@
 import android.util.Log;
 
-import com.ravencoin.tools.util.Bip39Reader;
-import com.ravencoin.wallet.WalletsMaster;
+import com.ravenwallet.tools.util.Bip39Reader;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
@@ -17,7 +16,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * BreadWallet
+ * RavenWallet
  * <p/>
  * Created by Mihail Gutan on <mihail@breadwallet.com> 11/3/17.
  * Copyright (c) 2017 breadwallet LLC
@@ -104,9 +103,9 @@ public class PaperKeyTests {
         return cleanList;
     }
 
-    private boolean isValid(String phrase, List<String> words) {
+    /*private boolean isValid(String phrase, List<String> words) {
 
         return WalletsMaster.getInstance().validateRecoveryPhrase((String[]) words.toArray(), phrase);
-    }
+    }*/
 
 }

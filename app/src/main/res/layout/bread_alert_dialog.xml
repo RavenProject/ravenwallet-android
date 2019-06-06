@@ -1,118 +1,117 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="@drawable/bread_dialog_rounded"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:filterTouchesWhenObscured="true"
     android:orientation="vertical">
 
-
     <RelativeLayout
-        android:id="@+id/dialog_header"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/gradient_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/bread_dialog_rounded"
+        android:filterTouchesWhenObscured="true"
         android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/dialog_header"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/gradient_blue"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <ImageButton
+                android:layout_width="120.0dp"
+                android:layout_height="40.0dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/brd_logo_white" />
+
+        </RelativeLayout>
 
         <ImageButton
-            android:id="@+id/brd_logo"
-            android:background="@drawable/brd_logo_white"
-            android:layout_centerInParent="true"
+            android:id="@+id/help_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_help_circle"
+            android:visibility="visible"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_header" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:filterTouchesWhenObscured="true"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="20sp"
+            tools:visibility="gone"
+            app:customTFont="CircularPro-Bold.otf"
+            android:text="Raven alert title" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/dialog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:layout_below="@+id/dialog_title"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_width="120.0dp"
-            android:layout_height="40.0dp" />
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            tools:text="Raven alert Content" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dialog_text"
+            android:filterTouchesWhenObscured="true"
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="4dp">
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp" />
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/neg_button"
+                style="?android:attr/buttonBarNegativeButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:filterTouchesWhenObscured="true"
+                tools:text="@string/Button.cancel" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/pos_button"
+                style="?android:attr/buttonBarPositiveButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:filterTouchesWhenObscured="true"
+                android:visibility="visible"
+                tools:text="@string/Button.ok" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/help_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/ic_help_circle"
-        android:visibility="visible"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_header" />
-
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/dialog_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_margin="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:paddingTop="26dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:customTFont="CircularPro-Bold.otf"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_header" />
-
-
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/dialog_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:weightSum="2.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_text">
-
-        <com.ravencoin.presenter.customviews.BRButton
-            android:id="@+id/neg_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1.0"
-            android:background="@android:color/transparent"
-            app:buttonType="4"
-            app:customTFont="CircularPro-Bold.otf"
-            app:hasShadow="false"
-            app:isBreadButton="true" />
-
-        <com.ravencoin.presenter.customviews.BRButton
-            android:id="@+id/pos_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1.0"
-            android:background="@android:color/transparent"
-            android:textColor="@color/white"
-            app:buttonType="1"
-            app:customTFont="CircularPro-Bold.otf"
-            app:hasShadow="false"
-            app:isBreadButton="true" />
-
-    </LinearLayout>
-
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

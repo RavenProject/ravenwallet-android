@@ -1,10 +1,9 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="24dp"
-        android:height="24dp"
-        android:viewportHeight="24.0"
-        android:viewportWidth="24.0">
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16.0"
+    android:viewportHeight="16.0">
     <path
-        android:fillColor="#f6872f"
-        android:pathData="M12,12m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"/>
-    <!--android:pathData="M0,0 L0,24 L20,36 L36,0 L0,0 Z"/>-->
+        android:fillColor="@color/wallet_orange"
+        android:pathData="M 0,0 L 100,0 0,100 z" />
 </vector>

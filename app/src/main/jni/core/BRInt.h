@@ -1,5 +1,5 @@
 //
-//  BRInt.h
+//  Int.h
 //
 //  Created by Aaron Voisine on 8/16/15.
 //  Copyright (c) 2015 breadwallet LLC.
@@ -22,8 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#ifndef BRInt_h
-#define BRInt_h
+#ifndef Int_h
+#define Int_h
 
 #include <inttypes.h>
 #include <assert.h>
@@ -77,6 +77,12 @@ inline static int UInt256Eq(UInt256 a, UInt256 b)
     return (a.u64[0] == b.u64[0] && a.u64[1] == b.u64[1] && a.u64[2] == b.u64[2] && a.u64[3] == b.u64[3]);
 }
 
+inline static int UInt256SupEq(UInt256 a, UInt256 b)
+{
+    return (a.u64[3] > b.u64[3]) || ((a.u64[3] == b.u64[3]) && ((a.u64[2] > b.u64[2]) ||
+                                                                ((a.u64[2] == b.u64[2]) && ((a.u64[1] > b.u64[1]) || ((a.u64[1] == b.u64[1]) && (a.u64[0] >= b.u64[0]))))));
+}
+
 inline static int UInt512Eq(UInt512 a, UInt512 b)
 {
     return (a.u64[0] == b.u64[0] && a.u64[1] == b.u64[1] && a.u64[2] == b.u64[2] && a.u64[3] == b.u64[3] &&
@@ -114,6 +120,7 @@ inline static UInt256 UInt256Reverse(UInt256 u)
 #define UINT128_ZERO ((UInt128) { .u64 = { 0, 0 } })
 #define UINT160_ZERO ((UInt160) { .u32 = { 0, 0, 0, 0, 0 } })
 #define UINT256_ZERO ((UInt256) { .u64 = { 0, 0, 0, 0 } })
+#define UINT256_MAX ((UInt256) { .u64 = { 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF } })
 #define UINT512_ZERO ((UInt512) { .u64 = { 0, 0, 0, 0, 0, 0, 0, 0 } })
 
 // hex encoding/decoding
@@ -291,12 +298,6 @@ inline static UInt256 UInt256Get(const void *b32)
         ((const uint8_t *)b32)[24], ((const uint8_t *)b32)[25], ((const uint8_t *)b32)[26], ((const uint8_t *)b32)[27],
         ((const uint8_t *)b32)[28], ((const uint8_t *)b32)[29], ((const uint8_t *)b32)[30], ((const uint8_t *)b32)[31]
     } };
-}
-
-inline static int UInt256SupEq(UInt256 a, UInt256 b)
-{
-    return (a.u64[3] > b.u64[3]) || ((a.u64[3] == b.u64[3]) && ((a.u64[2] > b.u64[2]) ||
-                                                                ((a.u64[2] == b.u64[2]) && ((a.u64[1] > b.u64[1]) || ((a.u64[1] == b.u64[1]) && (a.u64[0] >= b.u64[0]))))));
 }
 
 //UInt256 functions

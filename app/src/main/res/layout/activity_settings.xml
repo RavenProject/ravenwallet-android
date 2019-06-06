@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
     android:background="@color/extra_light_blue_background"
     android:layout_height="match_parent"
-    tools:context="com.ravencoin.presenter.activities.SetPinActivity">
+    tools:context="com.ravenwallet.presenter.activities.SetPinActivity">
 
 
     <android.support.v7.widget.Toolbar
@@ -18,17 +17,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/back_button"
-                android:background="@drawable/ic_chevron_left"
+                android:src="@drawable/ic_chevron_left"
+                android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
+                android:padding="5dp"
                 android:layout_height="wrap_content" />
 
 
-            <com.ravencoin.presenter.customviews.BRText
-                android:id="@+id/nav_label"
+            <com.ravenwallet.presenter.customviews.BRText
                 android:text="Home"
                 app:customTFont="CircularPro-Bold.otf"
                 android:textSize="16sp"
@@ -44,7 +45,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         app:customTFont="CircularPro-Bold.otf"
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -64,8 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:layout_below="@id/title"
-
-        />
+        android:layout_below="@id/title" />
 
 </RelativeLayout>

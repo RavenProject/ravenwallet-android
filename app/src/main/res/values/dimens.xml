@@ -3,18 +3,13 @@
     <!--<dimen name="activity_horizontal_margin">16dp</dimen>-->
     <!--<dimen name="activity_vertical_margin">16dp</dimen>-->
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="transaction_item_margin">10dp</dimen>
-    <dimen name="pager_indicator_shadow_padding">2dp</dimen>
-    <dimen name="separator_height">1px</dimen>
-    <dimen name="text_size">18sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="pin_par_text_size">32sp</dimen>
     <dimen name="big_button_height">80dp</dimen>
     <dimen name="bread_margin">16dp</dimen>
     <dimen name="faq_dimen">24dp</dimen>
-    <dimen name="close_dimen">24dp</dimen>
-    <dimen name="radius">0dp</dimen>
+    <dimen name="radius">5dp</dimen>
     <dimen name="paragraph">14sp</dimen>
     <dimen name="header">18sp</dimen>
     <dimen name="sub_header">16sp</dimen>
@@ -22,13 +17,6 @@
     <dimen name="appIntroBottomBarHeight">64dp</dimen>
     <dimen name="appIntro2BottomBarHeight">80dp</dimen>
 
-    <dimen name="appIntroDefaultPaddingTop">40dp</dimen>
-    <dimen name="appIntroDefaultPaddingLeft">16dp</dimen>
-    <dimen name="appIntroDefaultPaddingRight">16dp</dimen>
-    <dimen name="appIntroDefaultPaddingBottom">16dp</dimen>
-
-    <dimen name="appIntroDefaultPaddingBottomIntro1">80dp</dimen>
-    <dimen name="appIntroDefaultPaddingBottomIntro2">96dp</dimen>
-
-    <dimen name="appIntroHeadingTextSize">28dp</dimen>
+    <dimen name="margin_btn_asset_menu">10dp</dimen>
+    <dimen name="height_tuto_image">250dp</dimen>
 </resources>

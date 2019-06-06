@@ -1,5 +1,5 @@
 //  Created by Ed Gamble on 1/23/2018
-//  Copyright (c) 2018 ravencoin LLC.
+//  Copyright (c) 2018 ravenwallet LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,11 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
-#include <BRBIP32Sequence.h>
+#include <BRBIP44Sequence.h>
 #include <assert.h>
+#include <core/BRBIP44Sequence.h>
 #include "BRBIP39Mnemonic.h"
-#include "BRBIP32Sequence.h"
+#include "BRBIP44Sequence.h"
 #include "BRCoreJni.h"
 #include "com_ravencoin_core_BRCoreMasterPubKey.h"
 
@@ -34,7 +35,7 @@
  * Method:    serialize
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_serialize
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_serialize
         (JNIEnv *env, jobject thisObject) {
     BRMasterPubKey *key = (BRMasterPubKey *) getJNIReference (env, thisObject);
 
@@ -50,7 +51,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_serializ
  * Method:    getPubKey
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_getPubKey
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_getPubKey
         (JNIEnv *env, jobject thisObject) {
     BRMasterPubKey *key = (BRMasterPubKey *) getJNIReference (env, thisObject);
 
@@ -67,7 +68,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_getPubKe
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMasterPubKey_createPubKey
+Java_com_ravenwallet_core_BRCoreMasterPubKey_createPubKey
         (JNIEnv *env, jobject thisObject) {
     BRMasterPubKey *mpk = (BRMasterPubKey *) getJNIReference (env, thisObject);
 
@@ -83,7 +84,7 @@ Java_com_ravencoin_core_BRCoreMasterPubKey_createPubKey
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromPhrase
+Java_com_ravenwallet_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromPhrase
         (JNIEnv *env, jclass thisClass,
          jbyteArray phrase) {
 
@@ -132,7 +133,7 @@ Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromPhrase
     UInt512 seed = UINT512_ZERO;
     BRBIP39DeriveKey(seed.u8, phraseString, NULL);
 
-    BRMasterPubKey pubKey = BRBIP32MasterPubKey(&seed, sizeof(seed));
+    BRMasterPubKey pubKey = BRBIP44MasterPubKey(&seed, sizeof(seed),175,0,0);
 
     // Allocate, then fill, our BRMasterPubKey result with the computed pubKey
     BRMasterPubKey *resKey = (BRMasterPubKey *) calloc (1, sizeof (BRMasterPubKey));
@@ -147,7 +148,7 @@ Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromPhrase
  * Signature: ([B)J
  */
 JNIEXPORT jlong JNICALL
-Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromSerialization
+Java_com_ravenwallet_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromSerialization
         (JNIEnv *env, jclass thisClass,
          jbyteArray serialization) {
     jsize serializationLength = (*env)->GetArrayLength (env, serialization);
@@ -166,7 +167,7 @@ Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromSerializ
  * Signature: ([BILjava/lang/String;)[B
  */
 JNIEXPORT jbyteArray JNICALL
-Java_com_ravencoin_core_BRCoreMasterPubKey_bip32BitIDKey
+Java_com_ravenwallet_core_BRCoreMasterPubKey_bip32BitIDKey
         (JNIEnv *env, jclass thisClass, jbyteArray seed, jint index, jstring strUri) {
     int seedLength = (*env)->GetArrayLength(env, seed);
     const char *uri = (*env)->GetStringUTFChars(env, strUri, NULL);
@@ -191,7 +192,7 @@ Java_com_ravencoin_core_BRCoreMasterPubKey_bip32BitIDKey
  * Signature: ([Ljava/lang/String;Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL
-Java_com_ravencoin_core_BRCoreMasterPubKey_validateRecoveryPhrase
+Java_com_ravenwallet_core_BRCoreMasterPubKey_validateRecoveryPhrase
         (JNIEnv *env, jclass thisClass, jobjectArray stringArray, jstring jPhrase) {
     int wordsCount = (*env)->GetArrayLength(env, stringArray);
     char *wordList[wordsCount];
@@ -220,7 +221,7 @@ Java_com_ravencoin_core_BRCoreMasterPubKey_validateRecoveryPhrase
  * Signature: ([B[Ljava/lang/String;)[B
  */
 JNIEXPORT jbyteArray JNICALL
-Java_com_ravencoin_core_BRCoreMasterPubKey_generatePaperKey
+Java_com_ravenwallet_core_BRCoreMasterPubKey_generatePaperKey
         (JNIEnv *env, jclass thisClass, jbyteArray seed, jobjectArray stringArray) {
 
     int wordsCount = (*env)->GetArrayLength(env, stringArray);

@@ -12,7 +12,7 @@ extern "C" {
  * Method:    serialize
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_serialize
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_serialize
   (JNIEnv *, jobject);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_serializ
  * Method:    getPubKey
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_getPubKey
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_getPubKey
   (JNIEnv *, jobject);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_getPubKe
  * Method:    createPubKey
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_createPubKey
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_createPubKey
   (JNIEnv *, jobject);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_createPubKey
  * Method:    createJniCoreMasterPubKeyFromPhrase
  * Signature: ([B)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromPhrase
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromPhrase
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCore
  * Method:    createJniCoreMasterPubKeyFromSerialization
  * Signature: ([B)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromSerialization
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_createJniCoreMasterPubKeyFromSerialization
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_createJniCore
  * Method:    bip32BitIDKey
  * Signature: ([BILjava/lang/String;)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_bip32BitIDKey
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_bip32BitIDKey
   (JNIEnv *, jclass, jbyteArray, jint, jstring);
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_bip32Bit
  * Method:    validateRecoveryPhrase
  * Signature: ([Ljava/lang/String;Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_validateRecoveryPhrase
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_validateRecoveryPhrase
   (JNIEnv *, jclass, jobjectArray, jstring);
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_validateRe
  * Method:    generatePaperKey
  * Signature: ([B[Ljava/lang/String;)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMasterPubKey_generatePaperKey
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_generatePaperKey
   (JNIEnv *, jclass, jbyteArray, jobjectArray);
 
 #ifdef __cplusplus

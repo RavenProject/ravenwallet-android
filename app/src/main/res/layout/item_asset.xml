@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:minHeight="55dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="0dp"
+    tools:background="@drawable/shape_owned_asset"
+    tools:ignore="RtlSymmetry">
+
+    <ImageView
+        android:id="@+id/asset_ownership_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_ownership_sign" />
+
+    <LinearLayout
+        android:layout_toEndOf="@id/asset_ownership_image"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/root_asset_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/asset_ownership_image"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            tools:visibility="visible"
+            android:visibility="gone"
+            app:customTFont="CircularPro-Black.otf"
+            tools:text="Troncoin" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/asset_name"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/root_asset_name"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/asset_ownership_image"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:customTFont="CircularPro-Black.otf"
+            tools:text="HelloWorld" />
+
+    </LinearLayout>
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/asset_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/ic_arrow"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="5dp"
+        android:singleLine="true"
+        android:textColor="@color/currency_subheading_color"
+        android:textSize="16sp"
+        app:customTFont="CircularPro-Book.otf"
+        tools:text="1256145.00" />
+
+    <ImageView
+        android:id="@+id/ic_arrow"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_arrow_right" />
+
+</RelativeLayout>

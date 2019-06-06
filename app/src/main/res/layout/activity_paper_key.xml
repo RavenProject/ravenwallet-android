@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_write_down"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.ravencoin.presenter.activities.intro.WriteDownActivity">
+    tools:context="com.ravenwallet.presenter.activities.intro.WriteDownActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/gradient_layout"
@@ -16,7 +15,7 @@
         android:background="@drawable/gradient_blue"
         android:orientation="vertical">
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +50,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title"/>
 
-        <com.ravencoin.presenter.customviews.BRText
+        <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -92,7 +91,7 @@
         android:layout_marginBottom="32dp"
         android:weightSum="2.0">
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/button_previous"
             android:layout_width="0dp"
             android:layout_height="72dp"
@@ -113,7 +112,7 @@
             app:isBreadButton="true"
             />
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/send_button"
             android:layout_width="0dp"
             android:background="@android:color/transparent"
@@ -134,7 +133,7 @@
 
     </LinearLayout>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/item_index_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

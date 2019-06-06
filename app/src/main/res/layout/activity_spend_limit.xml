@@ -3,32 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/extra_light_blue_background"
-    tools:context="com.ravencoin.presenter.activities.SetPinActivity">
+    tools:context="com.ravenwallet.presenter.activities.SetPinActivity">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginStart="16dp"
+        android:padding="15dp"
+        android:gravity="center"
         android:text="@string/TouchIdSpendingLimit.title.android"
         android:textColor="@color/almost_black"
         android:textSize="@dimen/header"
         app:customTFont="CircularPro-Bold.otf"
-        app:layout_constraintEnd_toStartOf="@+id/faq_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/description"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:padding="16dp"
         android:layout_marginTop="8dp"
         android:lineSpacingMultiplier="1.2"
         android:textSize="@dimen/sub_header"
@@ -49,6 +49,7 @@
         />
 
     <ImageButton
+        android:visibility="gone"
         android:id="@+id/faq_button"
         android:layout_width="@dimen/faq_dimen"
         android:layout_height="@dimen/faq_dimen"

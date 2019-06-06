@@ -1330,7 +1330,7 @@ rotate_Xs
 ;; arg 1 : pointer to input data
 ;; arg 2 : pointer to digest
 ;; arg 3 : Num blocks
-section .address
+section .text
 global sha256_sse4
 align 32
 sha256_sse4:

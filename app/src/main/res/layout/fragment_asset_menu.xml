@@ -1,0 +1,188 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:animateLayoutChanges="true"
+    android:background="@color/black_trans"
+    android:filterTouchesWhenObscured="true"
+    android:isScrollContainer="false">
+
+    <LinearLayout
+        android:id="@+id/signal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/receive_layout"
+        android:clickable="true"
+        android:isScrollContainer="false"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="81dp">
+
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/bread_margin"
+                android:layout_marginRight="@dimen/bread_margin"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/ic_close_black_24dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <com.ravenwallet.presenter.customviews.BRText
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/bread_margin"
+                android:textColor="@color/almost_black"
+                android:textSize="@dimen/header"
+                app:customTFont="CircularPro-Bold.otf"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="81dp"
+                tools:text="OSTK" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/extra_light_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/reissue_asset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:layout_marginTop="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/reissue_asset"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/issue_sub_asset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/issue_sub_asset"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/issue_unique_asset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/issue_unique_asset"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/browse_ipfs_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/browse_ipfs"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/transfer_asset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/transfer_asset"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/burn_asset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/holo_red_dark"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/burn_asset"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+
+            <com.ravenwallet.presenter.customviews.BRButton
+                android:id="@+id/get_data_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:layout_marginEnd="@dimen/margin_btn_asset_menu"
+                android:layout_marginStart="@dimen/margin_btn_asset_menu"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/get_data"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:buttonType="5"
+                app:isBreadButton="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

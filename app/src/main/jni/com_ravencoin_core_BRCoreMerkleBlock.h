@@ -12,7 +12,7 @@ extern "C" {
  * Method:    createJniCoreMerkleBlock
  * Signature: ([BI)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreMerkleBlock
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_createJniCoreMerkleBlock
   (JNIEnv *, jclass, jbyteArray, jint);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreM
  * Method:    createJniCoreMerkleBlockEmpty
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreMerkleBlockEmpty
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_createJniCoreMerkleBlockEmpty
   (JNIEnv *, jclass);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_createJniCoreM
  * Method:    getBlockHash
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getBlockHash
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getBlockHash
   (JNIEnv *, jobject);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getBlockH
  * Method:    getVersion
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getVersion
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getVersion
   (JNIEnv *, jobject);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getVersion
  * Method:    getPrevBlockHash
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getPrevBlockHash
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getPrevBlockHash
   (JNIEnv *, jobject);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getPrevBl
  * Method:    getRootBlockHash
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getRootBlockHash
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getRootBlockHash
   (JNIEnv *, jobject);
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getRootBl
  * Method:    getTimestamp
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getTimestamp
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getTimestamp
   (JNIEnv *, jobject);
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getTimestamp
  * Method:    getTarget
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getTarget
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getTarget
   (JNIEnv *, jobject);
 
 /*
@@ -76,7 +76,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getTarget
  * Method:    getNonce
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getNonce
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getNonce
   (JNIEnv *, jobject);
 
 /*
@@ -84,7 +84,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getNonce
  * Method:    getTransactionCount
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getTransactionCount
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getTransactionCount
   (JNIEnv *, jobject);
 
 /*
@@ -92,7 +92,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getTransaction
  * Method:    getHeight
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getHeight
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_getHeight
   (JNIEnv *, jobject);
 
 /*
@@ -100,7 +100,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_getHeight
  * Method:    serialize
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_serialize
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_serialize
   (JNIEnv *, jobject);
 
 /*
@@ -108,7 +108,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_serialize
  * Method:    isValid
  * Signature: (J)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_isValid
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_isValid
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -116,7 +116,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_isValid
  * Method:    containsTransactionHash
  * Signature: ([B)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_containsTransactionHash
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_containsTransactionHash
   (JNIEnv *, jobject, jbyteArray);
 
 /*
@@ -124,7 +124,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_containsTra
  * Method:    disposeNative
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreMerkleBlock_disposeNative
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreMerkleBlock_disposeNative
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

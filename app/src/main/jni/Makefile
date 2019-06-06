@@ -17,6 +17,7 @@ JNI_SRCS=com_ravencoin_core_BRCoreAddress.c \
 	com_ravencoin_core_BRCoreTransaction.c \
 	com_ravencoin_core_BRCoreTransactionInput.c \
 	com_ravencoin_core_BRCoreTransactionOutput.c \
+	com_ravencoin_core_BRCoreTransactionAsset.c \
 	com_ravencoin_core_BRCoreWallet.c \
 	BRCoreJni.c
 
@@ -42,6 +43,8 @@ JAVA_SRCS=root/com/ravencoin/core/BRCoreAddress.java \
 	root/com/ravencoin/core/BRCoreTransaction.java \
 	root/com/ravencoin/core/BRCoreTransactionInput.java \
 	root/com/ravencoin/core/BRCoreTransactionOutput.java \
+	root/com/ravencoin/core/BRCoreTransactionAsset.java \
+	root/com/ravencoin/core/MyTransactionAsset.java \
 	root/com/ravencoin/core/BRCoreWallet.java \
 	root/com/ravencoin/core/BRCoreWalletManager.java \
 	root/com/ravencoin/core/test/BRWalletManager.java
@@ -79,12 +82,12 @@ compile: $(JNI_LIB) java_comp
 
 test: $(JNI_LIB) java_comp
 	java -Xss1m -Dwallet.test -classpath build -Djava.library.path=. \
-		 com.ravencoin.core.test.BRWalletManager $(ARGS) # -D.
+		 ravenwallet.core.test.BRWalletManager $(ARGS) # -D.
 
 debug: $(JNI_LIB) java_comp
 	java -Xss1m -Xdebug -Xrunjdwp:transport=dt_socket,address=8008,server=y,suspend=n \
 		 -Dwallet.test -classpath build -Djava.library.path=. \
-		 com.ravencoin.core.test.BRWalletManager $(ARGS) # -D.
+		 ravenwallet.core.test.BRWalletManager $(ARGS) # -D.
 
 $(JNI_LIB): $(JNI_OBJS) $(CORE_OBJS)
 	cc -dynamiclib -o $(JNI_LIB) $(JNI_OBJS) $(CORE_OBJS)
@@ -96,7 +99,7 @@ java_comp:	FORCE
 jni_hdr: java_comp
 	@(cd build/com/ravencoin/core; \
 	  for class in BRCore*.class; do \
-	      javah -jni -d $(DIR) -classpath $(DIR)/build com.ravencoin.core.$${class%%.class}; \
+	      javah -jni -d $(DIR) -classpath $(DIR)/build ravenwallet.core.$${class%%.class}; \
 	  done)
 	@rm -f com_ravencoin_core_BRCoreWalletManager.h com_ravencoin_core_BRCore*_*.h .h
 
@@ -126,6 +129,6 @@ FORCE:
 # (cd ${APP}/app/build/intermediates/classes/debug/com/ravencoin/core; for class in BRCore*.class; do \
 #     javah -jni -d ${APP}/app/src/main/cpp/ravencoin-core/Java/ \
 #	-classpath ${APP}/app/build/intermediates/classes/debug/ \
-#	com.ravencoin.core.${class%%.class}; \
+#	ravenwallet.core.${class%%.class}; \
 #	done)
 # 15RBcXQMTfebbAfUFeBbcDfs1fVvPayWdU

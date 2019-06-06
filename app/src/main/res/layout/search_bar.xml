@@ -16,11 +16,10 @@
     tools:layout_constraintTop_creator="1">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/search_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.ravencoin.presenter.customviews.BREdit
+        <com.ravenwallet.presenter.customviews.BREdit
             android:id="@+id/search_edit"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -58,7 +57,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/sent_filter"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
@@ -75,7 +74,7 @@
                 app:customBFont="CircularPro-Book.otf"
                 app:isBreadButton="true"/>
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/received_filter"
                 android:layout_width="85dp"
                 android:layout_height="50dp"
@@ -92,7 +91,7 @@
                 app:customBFont="CircularPro-Book.otf"
                 app:isBreadButton="true"/>
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/pending_filter"
                 android:layout_width="85dp"
                 android:layout_height="50dp"
@@ -109,7 +108,7 @@
                 app:customBFont="CircularPro-Book.otf"
                 app:isBreadButton="true"/>
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/complete_filter"
                 android:layout_width="85dp"
                 android:layout_height="50dp"
@@ -128,7 +127,7 @@
 
         </LinearLayout>
 
-        <com.ravencoin.presenter.customviews.BRButton
+        <com.ravenwallet.presenter.customviews.BRButton
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

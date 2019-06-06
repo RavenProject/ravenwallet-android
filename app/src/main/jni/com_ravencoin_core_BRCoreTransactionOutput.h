@@ -12,7 +12,7 @@ extern "C" {
  * Method:    createTransactionOutput
  * Signature: (J[B)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_createTransactionOutput
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_createTransactionOutput
   (JNIEnv *, jclass, jlong, jbyteArray);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_createTr
  * Method:    getAddress
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_getAddress
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_getAddress
   (JNIEnv *, jobject);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_getAdd
  * Method:    setAddress
  * Signature: (Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAddress
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setAddress
   (JNIEnv *, jobject, jstring);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAddres
  * Method:    getAmount
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_getAmount
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_getAmount
   (JNIEnv *, jobject);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_getAmoun
  * Method:    setAmount
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAmount
+JNIEXPORT void JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_setAmount
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_setAmount
  * Method:    getScript
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreTransactionOutput_getScript
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreTransactionOutput_getScript
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

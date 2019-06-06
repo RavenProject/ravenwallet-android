@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/extra_light_blue_background"
-    tools:context="com.ravencoin.presenter.activities.SetPinActivity">
+    tools:context="com.ravenwallet.presenter.activities.SetPinActivity">
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,7 +25,7 @@
         android:layout_marginRight="16dp"
         app:layout_constraintHorizontal_bias="0.0"/>
 
-    <com.ravencoin.presenter.customviews.BRText
+    <com.ravenwallet.presenter.customviews.BRText
         android:id="@+id/description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         />
 
-    <com.ravencoin.presenter.customviews.BRKeyboard
+    <com.ravenwallet.presenter.customviews.BRKeyboard
         android:id="@+id/brkeyboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,8 +54,7 @@
         app:showAlphabet="true"
         />
 
-    <com.ravencoin.presenter.customviews.BRText
-        android:id="@+id/textView5"
+    <com.ravenwallet.presenter.customviews.BRText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -100,38 +98,32 @@
 
         <View
             android:id="@+id/dot1"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_gray"/>
 
         <View
             android:id="@+id/dot2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_gray"/>
 
         <View
             android:id="@+id/dot3"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_gray"/>
 
         <View
             android:id="@+id/dot4"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_gray"/>
 
         <View
             android:id="@+id/dot5"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_gray"/>
 
         <View
             android:id="@+id/dot6"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/ViewPinStyle"
             android:background="@drawable/ic_pin_dot_gray"/>
     </LinearLayout>
 

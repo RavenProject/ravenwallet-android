@@ -1,5 +1,5 @@
 //  Created by Ed Gamble on 1/23/2018
-//  Copyright (c) 2018 ravencoin LLC.
+//  Copyright (c) 2018 ravenwallet LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -57,5 +57,9 @@ transactionInputCopy(BRTxInput *target,
 extern void
 transactionOutputCopy (BRTxOutput *target,
                        const BRTxOutput *source);
+
+extern void
+transactionAssetCopy (BRAsset *target,
+                       const BRAsset *source);
 
 #endif //COREJNI_BRCOREJVM_H

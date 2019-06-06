@@ -12,7 +12,7 @@ extern "C" {
  * Method:    createCoreAddress
  * Signature: (Ljava/lang/String;)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreAddress_createCoreAddress
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreAddress_createCoreAddress
   (JNIEnv *, jclass, jstring);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreAddress_createCoreAddress
  * Method:    createCoreAddressFromScriptPubKey
  * Signature: ([B)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreAddress_createCoreAddressFromScriptPubKey
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreAddress_createCoreAddressFromScriptPubKey
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreAddress_createCoreAddressF
  * Method:    createCoreAddressFromScriptSignature
  * Signature: ([B)J
  */
-JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreAddress_createCoreAddressFromScriptSignature
+JNIEXPORT jlong JNICALL Java_com_ravenwallet_core_BRCoreAddress_createCoreAddressFromScriptSignature
   (JNIEnv *, jclass, jbyteArray);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT jlong JNICALL Java_com_ravencoin_core_BRCoreAddress_createCoreAddressF
  * Method:    stringify
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreAddress_stringify
+JNIEXPORT jstring JNICALL Java_com_ravenwallet_core_BRCoreAddress_stringify
   (JNIEnv *, jobject);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jstring JNICALL Java_com_ravencoin_core_BRCoreAddress_stringify
  * Method:    isValid
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreAddress_isValid
+JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreAddress_isValid
   (JNIEnv *, jobject);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT jboolean JNICALL Java_com_ravencoin_core_BRCoreAddress_isValid
  * Method:    getPubKeyScript
  * Signature: ()[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_ravencoin_core_BRCoreAddress_getPubKeyScript
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreAddress_getPubKeyScript
   (JNIEnv *, jobject);
 
 

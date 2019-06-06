@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/background_layout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/black_trans"
-              android:filterTouchesWhenObscured="true"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_trans"
+    android:filterTouchesWhenObscured="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.ravencoin.presenter.customviews.BRText
+                <com.ravenwallet.presenter.customviews.BRText
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                 android:visibility="gone"
                 >
 
-                <com.ravencoin.presenter.customviews.BRText
+                <com.ravenwallet.presenter.customviews.BRText
                     android:id="@+id/iso_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                     android:textSize="28sp"
                     />
 
-                <com.ravencoin.presenter.customviews.BREdit
+                <com.ravenwallet.presenter.customviews.BREdit
                     android:id="@+id/amount_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                     android:textIsSelectable="false"
                     android:textSize="24sp" />
 
-                <com.ravencoin.presenter.customviews.BRButton
+                <com.ravenwallet.presenter.customviews.BRButton
                     android:id="@+id/iso_button"
                     android:layout_width="70dp"
                     android:layout_height="50dp"
@@ -135,7 +135,6 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/cur_spinner_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -148,7 +147,6 @@
                     android:background="@color/extra_light_gray" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/cur_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
@@ -169,7 +167,7 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <com.ravencoin.presenter.customviews.BRKeyboard
+                <com.ravenwallet.presenter.customviews.BRKeyboard
                     android:id="@+id/keyboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -177,7 +175,6 @@
                     />
 
                 <View
-                    android:id="@+id/separator3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/extra_light_gray"
@@ -194,7 +191,7 @@
                 android:src="@drawable/ic_check_mark_grey"
                 />
 
-            <com.ravencoin.presenter.customviews.BRText
+            <com.ravenwallet.presenter.customviews.BRText
                 android:id="@+id/address_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,12 +200,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:singleLine="true"
+                android:ellipsize="middle"
                 android:layout_marginStart="8dp"
-                android:text="----------------------------------"
+                tools:text="----------------------------------"
                 android:textColor="@color/light_gray"
                 android:textSize="16sp" />
 
-            <com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret
+            <com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret
                 android:id="@+id/copied_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -216,8 +215,7 @@
                 app:backgroundColor="@color/primaryColor"
                 app:withStroke="false">
 
-                <com.ravencoin.presenter.customviews.BRText
-                    android:id="@+id/copied_view"
+                <com.ravenwallet.presenter.customviews.BRText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -227,9 +225,9 @@
                     android:textSize="@dimen/paragraph"
                     android:text="@string/Receive.copied"
                     android:textColor="@color/white"/>
-            </com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret>
+            </com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret>
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/share_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,7 +245,7 @@
                 app:buttonType="1"
                 app:isBreadButton="true" />
 
-            <com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret
+            <com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/share_buttons_layout"
                 android:layout_width="match_parent"
@@ -258,7 +256,7 @@
                 app:strokeColor="@color/extra_light_gray"
                 app:withStroke="true">
 
-                <com.ravencoin.presenter.customviews.BRButton
+                <com.ravenwallet.presenter.customviews.BRButton
                     android:id="@+id/share_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -275,7 +273,7 @@
                     app:buttonType="1"
                     app:isBreadButton="true" />
 
-                <com.ravencoin.presenter.customviews.BRButton
+                <com.ravenwallet.presenter.customviews.BRButton
                     android:id="@+id/share_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -292,7 +290,7 @@
                     app:buttonType="1"
                     app:isBreadButton="true" />
 
-            </com.ravencoin.presenter.customviews.BRLinearLayoutWithCaret>
+            </com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret>
 
             <View
                 android:id="@+id/separator"
@@ -300,7 +298,7 @@
                 android:layout_height="1dp"
                 android:background="@color/separator_gray"/>
 
-            <com.ravencoin.presenter.customviews.BRButton
+            <com.ravenwallet.presenter.customviews.BRButton
                 android:id="@+id/request_button"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/big_button_height"

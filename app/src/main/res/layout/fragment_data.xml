@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/receive_layout"
+    android:minWidth="500dp"
+    android:orientation="vertical"
+    android:paddingStart="10dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="10dp">
+
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="Get Data Confirmation"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        app:customTFont="CircularPro-Bold.otf" />
+
+    <LinearLayout
+        android:id="@+id/layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_title"
+        android:layout_marginTop="15dp">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/lbl_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_title"
+            android:text="Name:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/tx_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_title"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/lbl_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf"
+            tools:text="TOKIKJSUHOL" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_name"
+        android:layout_marginTop="5dp">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/lbl_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_name"
+            android:text="total amount:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/tx_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx_name"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/lbl_amount"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf"
+            tools:text="5.02" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_units"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_amount"
+        android:layout_marginTop="5dp">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/lbl_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_amount"
+            android:text="units:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/tx_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx_amount"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/lbl_units"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf"
+            tools:text="8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyaout_reissuable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_units"
+        android:layout_marginTop="5dp">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/lbl_reissuable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_units"
+            android:text="is-reissuable:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/tx_reissuable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx_units"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/lbl_reissuable"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf"
+            tools:text="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyaout_ipfs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lyaout_reissuable"
+        android:layout_marginTop="5dp">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/lbl_ipfs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_reissuable"
+            android:text="has-ipfs:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/tx_hasIpfs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_reissuable"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/lbl_ipfs"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf"
+            tools:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_ipfs_hash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lyaout_ipfs"
+        android:layout_marginTop="5dp">
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/lbl_ipfsHash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx_hasIpfs"
+            android:text="ipfs Hash:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf" />
+
+        <com.ravenwallet.presenter.customviews.BRText
+            android:id="@+id/tx_ipfsHash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx_hasIpfs"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/lbl_ipfsHash"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:customTFont="CircularPro-Book.otf"
+            tools:text="IKIHJTTSP" />
+
+    </LinearLayout>
+
+    <!--<ravenwalletet.presenter.customviews.BRButton-->
+    <!--android:id="@+id/ok_button"-->
+    <!--style="?android:attr/buttonBarPositiveButtonStyle"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/layout_ipfs_hash"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:filterTouchesWhenObscured="true"-->
+    <!--android:visibility="visible"-->
+    <!--tools:text="@string/Button.ok" />-->
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_ipfs_hash"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:text="@string/Button.ok"
+        android:textColor="@color/blue" />
+
+</RelativeLayout>

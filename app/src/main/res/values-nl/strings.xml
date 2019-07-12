@@ -250,6 +250,8 @@
   <string name="Receive.share">Delen</string>
   <!-- Share via text message (SMS) -->
   <string name="Receive.textButton">Bericht</string>
+  <!-- Share via CoinRequest -->
+  <string name="Receive.crButton">Deel via CoinRequest</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Ontvangen</string>
   <!-- Done button text -->

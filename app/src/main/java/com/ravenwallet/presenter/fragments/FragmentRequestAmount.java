@@ -81,6 +81,7 @@ public class FragmentRequestAmount extends Fragment {
     private BRButton shareButton;
     private Button shareEmail;
     private Button shareTextMessage;
+    private Button shareCoinRequest;
     private boolean shareButtonsShown = true;
     private String selectedIso;
     private Button isoButton;
@@ -124,6 +125,7 @@ public class FragmentRequestAmount extends Fragment {
         shareButton = (BRButton) rootView.findViewById(R.id.share_button);
         shareEmail = (Button) rootView.findViewById(R.id.share_email);
         shareTextMessage = (Button) rootView.findViewById(R.id.share_text);
+        shareCoinRequest = (Button) rootView.findViewById(R.id.share_cr);
         shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.share_buttons_layout);
         close = (ImageButton) rootView.findViewById(R.id.close_button);
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout);
@@ -231,6 +233,21 @@ public class FragmentRequestAmount extends Fragment {
 
                 Uri bitcoinUri = CryptoUriParser.createCryptoUrl(getActivity(), wm, wm.decorateAddress(getActivity(), mReceiveAddress), amount, null, null, null);
                 QRUtils.share("sms:", getActivity(), bitcoinUri.toString());
+            }
+        });
+        shareCoinRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeCurrencySelector();
+                if (!BRAnimator.isClickAllowed()) return;
+                showKeyboard(false);
+
+                long satoshiAmount = getAmount();
+                BigDecimal amount = new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000));
+
+                String coinRequestUrl = "https://coinrequest.io/create?coin=ravencoin&address=" + mReceiveAddress + "&amount=" + amount.toString();
+                QRUtils.share("https:", getActivity(), coinRequestUrl);
+
             }
         });
         shareButton.setOnClickListener(new View.OnClickListener() {

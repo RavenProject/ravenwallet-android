@@ -167,7 +167,15 @@ public class QRUtils {
             intent.putExtra("exit_on_sent", true);
             app.startActivity(intent);
 
-        } else {
+        }
+        else if(via.equalsIgnoreCase("https:")){
+            if(bitcoinUri.startsWith("https://")){
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(bitcoinUri));
+                app.startActivity(intent);
+            }
+        }
+        else {
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("image/*");
             intent.putExtra(Intent.EXTRA_SUBJECT, WalletsMaster.getInstance(app).getCurrentWallet(app).getName(app) + " Address");

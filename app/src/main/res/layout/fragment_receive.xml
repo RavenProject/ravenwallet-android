@@ -250,45 +250,75 @@
                 android:id="@+id/share_buttons_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="2.0"
                 app:backgroundColor="@color/extra_light_blue_background"
                 app:strokeColor="@color/extra_light_gray"
                 app:withStroke="true">
 
-                <com.ravenwallet.presenter.customviews.BRButton
-                    android:id="@+id/share_email"
+                <LinearLayout
+                    android:id="@+id/share_buttons_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_weight="1.0"
-                    android:paddingBottom="12dp"
-                    android:paddingTop="12dp"
-                    android:text="@string/Receive.emailButton"
-                    android:textColor="@color/light_gray"
-                    android:textSize="14sp"
-                    app:buttonType="1"
-                    app:isBreadButton="true" />
+                    android:orientation="horizontal">
 
-                <com.ravenwallet.presenter.customviews.BRButton
-                    android:id="@+id/share_text"
+                    <com.ravenwallet.presenter.customviews.BRButton
+                        android:id="@+id/share_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1.0"
+                        android:paddingBottom="12dp"
+                        android:paddingTop="12dp"
+                        android:text="@string/Receive.emailButton"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14sp"
+                        app:buttonType="1"
+                        app:isBreadButton="true" />
+
+                    <com.ravenwallet.presenter.customviews.BRButton
+                        android:id="@+id/share_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1.0"
+                        android:paddingBottom="12dp"
+                        android:paddingTop="12dp"
+                        android:text="@string/Receive.textButton"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14sp"
+                        app:buttonType="1"
+                        app:isBreadButton="true" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/cr_button_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_weight="1.0"
-                    android:paddingBottom="12dp"
-                    android:paddingTop="12dp"
-                    android:text="@string/Receive.textButton"
-                    android:textColor="@color/light_gray"
-                    android:textSize="14sp"
-                    app:buttonType="1"
-                    app:isBreadButton="true" />
+                    android:orientation="horizontal">
+
+                    <com.ravenwallet.presenter.customviews.BRButton
+                        android:id="@+id/share_cr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1.0"
+                        android:paddingBottom="12dp"
+                        android:paddingTop="12dp"
+                        android:text="@string/Receive.crButton"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14sp"
+                        app:buttonType="1"
+                        app:isBreadButton="true" />
+                </LinearLayout>
 
             </com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret>
 

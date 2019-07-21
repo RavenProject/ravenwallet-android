@@ -335,8 +335,7 @@
   <string name="Send.containsAddress">여러분의 주소를 입력해 주세요. 본인에게 전송할 수 없습니다.</string>
   <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">메모</string>
-  <!-- Emtpy pasteboard error message -->
+    <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">클립보드가 비어 있습니다</string>
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">네트워크 비용: %1$s</string>
@@ -527,10 +526,8 @@
     <!-- Updating webview message -->
   <string name="Webview.updating">업데이트 중...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Breadwallet이 이름을 RVN로 바꾸고 새롭게 단장하였으며 새로운 기능도 갖췄습니다.\n\n도움이 필요하시면 대부분 화면에서 우측 상단에 있는 (?)을(를) 클릭하십시오.</string>
-  <!-- Top title of welcome screen -->
-  <string name="Welcome.title">RVN에 환영합니다!</string>
-  <!-- Wipe wallet alert message -->
+    <!-- Top title of welcome screen -->
+    <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">정말 이 월렛을 삭제할까요?</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">월렛을 초기화할까요?</string>

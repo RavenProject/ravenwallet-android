@@ -38,6 +38,8 @@ import com.ravenwallet.wallet.util.CryptoUriParser;
 
 import java.math.BigDecimal;
 
+import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
+
 //import static com.platform.HTTPServer.URL_SUPPORT;
 
 
@@ -243,9 +245,13 @@ public class FragmentRequestAmount extends Fragment {
                 showKeyboard(false);
 
                 long satoshiAmount = getAmount();
-                BigDecimal amount = new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000));
 
-                String coinRequestUrl = "https://coinrequest.io/create?coin=ravencoin&address=" + mReceiveAddress + "&amount=" + amount.toString();
+                BigDecimal amount = new BigDecimal(satoshiAmount);
+                if(satoshiAmount > 0){
+                    amount = amount.divide(new BigDecimal(SATOSHIS), 8, BRConstants.ROUNDING_MODE);
+                }
+
+                String coinRequestUrl = "https://coinrequest.io/create?coin=ravencoin&address=" + mReceiveAddress + "&amount=" + amount.toString() + "&wallet=ravenwallet";
                 QRUtils.share("https:", getActivity(), coinRequestUrl);
 
             }

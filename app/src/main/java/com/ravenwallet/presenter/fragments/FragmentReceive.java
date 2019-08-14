@@ -81,6 +81,7 @@ public class FragmentReceive extends Fragment {
     private BRButton shareButton;
     private Button shareEmail;
     private Button shareTextMessage;
+    private Button shareCoinRequest;
     private Button requestButton;
     private BRLinearLayoutWithCaret shareButtonsLayout;
     private BRLinearLayoutWithCaret copiedLayout;
@@ -108,6 +109,7 @@ public class FragmentReceive extends Fragment {
         shareButton = rootView.findViewById(R.id.share_button);
         shareEmail = rootView.findViewById(R.id.share_email);
         shareTextMessage = rootView.findViewById(R.id.share_text);
+        shareCoinRequest = rootView.findViewById(R.id.share_cr);
         shareButtonsLayout = rootView.findViewById(R.id.share_buttons_layout);
         copiedLayout = rootView.findViewById(R.id.copied_layout);
         requestButton = rootView.findViewById(R.id.request_button);
@@ -173,6 +175,14 @@ public class FragmentReceive extends Fragment {
                 BaseWalletManager walletManager = WalletsMaster.getInstance(getActivity()).getCurrentWallet(getActivity());
                 Uri cryptoUri = CryptoUriParser.createCryptoUrl(getActivity(), walletManager, walletManager.decorateAddress(getActivity(), mReceiveAddress), 0, null, null, null);
                 QRUtils.share("sms:", getActivity(), cryptoUri.toString());
+            }
+        });
+        shareCoinRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!BRAnimator.isClickAllowed()) return;
+                String coinRequestUrl = "https://coinrequest.io/create?coin=ravencoin&address=" + mReceiveAddress + "&amount=0&wallet=ravenwallet";
+                QRUtils.share("https:", getActivity(), coinRequestUrl);
             }
         });
         shareButton.setOnClickListener(new View.OnClickListener() {

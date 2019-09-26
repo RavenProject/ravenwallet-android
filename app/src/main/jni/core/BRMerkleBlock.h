@@ -38,15 +38,19 @@ extern "C" {
 #define DGW_BLOCK_DIFFICULTY_INTERVAL       1       // number of blocks between difficulty target adjustments after DGW3
 #define BLOCK_UNKNOWN_HEIGHT                INT32_MAX
 #define BLOCK_MAX_TIME_DRIFT                (2*60*60) // the furthest in the future a block is allowed to be timestamped
-
 #define DGW_PAST_BLOCKS                     180
 
 #ifdef TESTNET
 #define DGW_START_BLOCK         6048
+#define X16RV2ActivationTime 1567533600 //Tue Sep 03 2019 18:00:00 UTC
 #elif REGTEST
 #define DGW_START_BLOCK         0
+#define X16RV2ActivationTime    0 //Change once we have a value
 #else
 #define DGW_START_BLOCK         338778
+#define X16RV2ActivationTime    1569945600 //Tue Oct 01 2019 16:00:00 UTC
+
+
 #endif
 
 typedef struct {

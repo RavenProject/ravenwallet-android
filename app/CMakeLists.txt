@@ -99,9 +99,11 @@ add_library( # The name of the library.
 			src/main/jni/core/crypto/sph_shavite.h
 			src/main/jni/core/crypto/sph_simd.h
 			src/main/jni/core/crypto/sph_skein.h
+			src/main/jni/core/crypto/sph_tiger.h
 			src/main/jni/core/crypto/sph_types.h
 			src/main/jni/core/crypto/sph_whirlpool.c
 			src/main/jni/core/crypto/sph_whirlpool.h
+			src/main/jni/core/crypto/tiger.c
 
              # Core JNI files
              src/main/jni/BRCoreJni.h

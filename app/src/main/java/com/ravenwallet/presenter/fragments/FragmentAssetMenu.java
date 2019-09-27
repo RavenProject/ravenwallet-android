@@ -50,7 +50,7 @@ public class FragmentAssetMenu extends Fragment implements BurnFragmentListener,
     private BRButton getDataButton;
     private Asset mAsset;
     private final static String EXTRAS_ASSET_KEY = "extras.asset.key";
-    private String BASE_IPFS_URL = "http://cloudflare-ipfs.com/ipfs/";
+    private String BASE_IPFS_URL = "http://ipfs.io/ipfs/";
 
     public static FragmentAssetMenu newInstance(Asset asset) {
         FragmentAssetMenu fragment = new FragmentAssetMenu();

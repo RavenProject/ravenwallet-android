@@ -357,7 +357,6 @@
     <string name="Send.containsAddress">The destination is your own address. You cannot send to yourself.</string>
     <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">Memo</string>
     <!-- Emtpy pasteboard error message -->
     <string name="Send.emptyPasteboard">Pasteboard is empty</string>
     <!-- Network Fee: $0.01 -->
@@ -560,9 +559,7 @@
     <!-- Updating webview message -->
     <string name="Webview.updating">Updating...</string>
     <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-    <string name="Welcome.body">Ravencoin Wallet has changed its name to RVN, with a brand new look and some new features.\n\nIf you need help, look for the (?) in the top right of most screens.</string>
     <!-- Top title of welcome screen -->
-    <string name="Welcome.title">Welcome to Ravencoin Wallet!</string>
     <!-- Wipe wallet alert message -->
     <string name="WipeWallet.alertMessage">Are you sure you want to delete this wallet?</string>
     <!-- Wipe wallet alert title -->
@@ -587,9 +584,7 @@
     <!-- 1 of 3 -->
     <string name="WritePaperPhrase.step">%1$d of %2$d</string>
     <!-- Currency labels -->
-    <string name="CurrencyBitcoin">Bitcoin</string>
     <string name="CurrencyBalance">Balance</string>
-    <string name="CurrencyBuy">Buy</string>
     <string name="CurrencySend">Send</string>
     <string name="CurrencyReceive">Receive</string>
     <string name="TotalAssets">Total Assets</string>

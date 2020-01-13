@@ -106,7 +106,7 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
     public static String ISO = "RVN";
 
     private static final String mName = "Ravencoin";
-    public static final String RVN_SCHEME = "Raven";
+    public static final String RVN_SCHEME = "raven";
     public static final long MAX_RVN = 21000000 * 1000L;
 
     private static RvnWalletManager instance;

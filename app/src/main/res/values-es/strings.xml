@@ -345,8 +345,7 @@
   <string name="Send.containsAddress">El destino es tu propia dirección. No puedes hacerte un envío a ti mismo.</string>
   <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">Memo</string>
-  <!-- Emtpy pasteboard error message -->
+    <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">Pasteboard está vacío</string>
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">Tarifa de red: %1$s</string>
@@ -537,10 +536,8 @@
     <!-- Updating webview message -->
   <string name="Webview.updating">Actualizando...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Breadwallet ha cambiado su nombre por el de Bread, con un nuevo aspecto y algunas características nuevas.\n\nSi necesitas ayuda, busca el (?) en la parte superior derecha de la mayoría de las pantallas.</string>
-  <!-- Top title of welcome screen -->
-  <string name="Welcome.title">¡Bienvenido a Bread!</string>
-  <!-- Wipe wallet alert message -->
+    <!-- Top title of welcome screen -->
+    <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">¿Seguro que quieres eliminar esta cartera?</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">¿Borrar cartera?</string>

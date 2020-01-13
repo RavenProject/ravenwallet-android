@@ -345,8 +345,7 @@
   <string name="Send.containsAddress">La destinazione corrisponde al tuo indirizzo. Non puoi inviare a te stesso.</string>
   <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">Promemoria</string>
-  <!-- Emtpy pasteboard error message -->
+    <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">Il cartone è vuoto</string>
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">Spese network: %1$s</string>
@@ -537,10 +536,8 @@
     <!-- Updating webview message -->
   <string name="Webview.updating">In aggiornamento…</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Breadwallet ha cambiato il suo nome in RVN e ha un look nuovissimo nonché alcune nuove funzionalità.\n\nSe hai bisogno di aiuto, cerca il (?) a destra in alto sulla maggior parte delle schermate.</string>
-  <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Ti diamo il benvenuto su RVN!</string>
-  <!-- Wipe wallet alert message -->
+    <!-- Top title of welcome screen -->
+    <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">Sicuro di voler eliminare questo portafogli?</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">Ripulisci portafogli?</string>

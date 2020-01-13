@@ -345,8 +345,7 @@
   <string name="Send.containsAddress">目的地為您自己的地址。您不能寄送給自己。</string>
   <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">備註</string>
-  <!-- Emtpy pasteboard error message -->
+    <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">剪貼板是空的</string>
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">網路費：%1$s</string>
@@ -537,10 +536,8 @@
     <!-- Updating webview message -->
   <string name="Webview.updating">正在更新……</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Breadwallet 已經改名爲 RVN，有嶄新的面貌和一些新功能。\n\n如果需要協助，就在大部分畫面的右上角尋找(?)。</string>
-  <!-- Top title of welcome screen -->
-  <string name="Welcome.title">歡迎使用 RVN！</string>
-  <!-- Wipe wallet alert message -->
+    <!-- Top title of welcome screen -->
+    <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">確定要刪除此錢包嗎？</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">抹除錢包？</string>

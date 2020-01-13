@@ -1,7 +1,7 @@
 ![ƀ](/images/header.png) RVN Wallet for Android
 ----------------------------------
 
-[![Get it on Google Play](/images/icon-google-play.png)](https://play.google.com/store/apps/details?id=com.ravencoin)
+[![Get it on Google Play](/images/icon-google-play.png)](https://play.google.com/store/apps/details?id=raven)
 
 ### a completely standalone Ravencoin wallet
 

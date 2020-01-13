@@ -546,7 +546,7 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
         }
         double rate = ent.rate;
         //convert c to $.
-        return amount.divide(new BigDecimal(rate), 8, ROUNDING_MODE).multiply(new BigDecimal("100 000 000"));
+        return amount.divide(new BigDecimal(rate), 8, ROUNDING_MODE).multiply(new BigDecimal("100000000"));
     }
 
     @Override

@@ -1,3 +1,7 @@
 [submodule "secp"]
 	path = app/src/main/secp/secp256k1
 	url = https://github.com/bitcoin-core/secp256k1.git
+
+[submodule "core"]
+	path = app/src/main/jni
+	url = https://github.com/RavenProject/core-mobile-assets.git

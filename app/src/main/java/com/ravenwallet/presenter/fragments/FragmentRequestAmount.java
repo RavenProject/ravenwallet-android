@@ -38,6 +38,8 @@ import com.ravenwallet.wallet.util.CryptoUriParser;
 
 import java.math.BigDecimal;
 
+import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
+
 //import static com.platform.HTTPServer.URL_SUPPORT;
 
 
@@ -81,6 +83,7 @@ public class FragmentRequestAmount extends Fragment {
     private BRButton shareButton;
     private Button shareEmail;
     private Button shareTextMessage;
+    private Button shareCoinRequest;
     private boolean shareButtonsShown = true;
     private String selectedIso;
     private Button isoButton;
@@ -124,6 +127,7 @@ public class FragmentRequestAmount extends Fragment {
         shareButton = (BRButton) rootView.findViewById(R.id.share_button);
         shareEmail = (Button) rootView.findViewById(R.id.share_email);
         shareTextMessage = (Button) rootView.findViewById(R.id.share_text);
+        shareCoinRequest = (Button) rootView.findViewById(R.id.share_cr);
         shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.share_buttons_layout);
         close = (ImageButton) rootView.findViewById(R.id.close_button);
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout);
@@ -231,6 +235,25 @@ public class FragmentRequestAmount extends Fragment {
 
                 Uri bitcoinUri = CryptoUriParser.createCryptoUrl(getActivity(), wm, wm.decorateAddress(getActivity(), mReceiveAddress), amount, null, null, null);
                 QRUtils.share("sms:", getActivity(), bitcoinUri.toString());
+            }
+        });
+        shareCoinRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeCurrencySelector();
+                if (!BRAnimator.isClickAllowed()) return;
+                showKeyboard(false);
+
+                long satoshiAmount = getAmount();
+
+                BigDecimal amount = new BigDecimal(satoshiAmount);
+                if(satoshiAmount > 0){
+                    amount = amount.divide(new BigDecimal(SATOSHIS), 8, BRConstants.ROUNDING_MODE);
+                }
+
+                String coinRequestUrl = "https://coinrequest.io/create?coin=ravencoin&address=" + mReceiveAddress + "&amount=" + amount.toString() + "&wallet=ravenwallet";
+                QRUtils.share("https:", getActivity(), coinRequestUrl);
+
             }
         });
         shareButton.setOnClickListener(new View.OnClickListener() {

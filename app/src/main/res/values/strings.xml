@@ -268,6 +268,8 @@
     <string name="Receive.share">Share</string>
     <!-- Share via text message (SMS) -->
     <string name="Receive.textButton">Text Message</string>
+    <!-- Share via CoinRequest -->
+    <string name="Receive.crButton">Share via CoinRequest</string>
     <!-- Receive modal title -->
     <string name="Receive.title">Receive</string>
     <!-- Done button text -->

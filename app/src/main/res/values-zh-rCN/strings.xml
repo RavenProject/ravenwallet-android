@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <!-- App name -->
-    <!-- About screen blog label -->
+  <!-- About screen blog label -->
   <string name="About.blog">博客</string>
   <!-- About screen footer -->
   <string name="About.footer">由全球 RVN 团队制作。版本%1$s</string>
@@ -10,16 +10,24 @@
   <!-- About screen reddit label -->
   <string name="About.reddit">Reddit</string>
   <!-- Terms of Use button label -->
-    <!-- About screen title -->
+  <string name="About.wiki">Wiki</string>
+  <!-- About screen title -->
   <string name="About.title">关于</string>
   <!-- About screen twitter label -->
   <string name="About.twitter">Twitter</string>
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">关闭</string>
+
+  <string name="Simplex.allowFileSystemAccess">请允许RVN钱包读写文件 \"Settings\" &gt; \"Apps\" &gt; \"Ravencoin Wallet\" &gt; \"Permissions\"</string>
+
+  <string name="About.site">Ravencoin Website</string>
+
+  <string name="Import.warning2">资产无法从地址恢复，如果您在这个地址里有资产，请保存好私匙</string>
+  <!-- Wrong password alert message -->
   <!-- Support center accessibiliy label -->
-    <!-- Loading Wallet Message -->
-    <!-- Default wallet name -->
-    <!-- Third party keyboard warning -->
+  <!-- Loading Wallet Message -->
+  <!-- Default wallet name -->
+  <!-- Third party keyboard warning -->
   <string name="Alert.customKeyboard.android">看起来您正在使用第三方键盘，它可以记录您键入的内容并窃取您的密钥（Paper Key）。请切换到默认的安卓键盘以便获得额外保护。</string>
   <!-- Error alert title -->
   <string name="Alert.error">错误</string>
@@ -30,10 +38,10 @@
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">安卓系统密钥库错误</string>
   <!-- No internet alert message -->
-    <!-- Warning alert title -->
-    <!-- 'the addresses were copied'' Alert title -->
-    <!-- Addresses Copied Alert sub header -->
-    <!-- Alert Header Label (the paper key was set) -->
+  <!-- Warning alert title -->
+  <!-- 'the addresses were copied'' Alert title -->
+  <!-- Addresses Copied Alert sub header -->
+  <!-- Alert Header Label (the paper key was set) -->
   <string name="Alerts.paperKeySet">纸上密钥已设置</string>
   <!-- Alert Subheader label (playfully positive) -->
   <string name="Alerts.paperKeySetSubheader">太棒了！</string>
@@ -48,64 +56,64 @@
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">已识别指纹</string>
   <!-- JSON Serialization error message -->
-    <!-- Wallet not ready error message -->
-    <!-- API Token error message -->
-    <!-- Send BCH view body. -->
-    <!-- Confirm sending <$5.00> to <address>? -->
-    <!-- Confirmation alert title -->
-    <!-- Generic bch erorr message -->
-    <!-- Transaction ID copied message -->
-    <!-- No address error message -->
-    <!-- Attempted to scan unsupported qr code error message. -->
-    <!-- BCH successfully sent alert message -->
-    <!-- Widthdraw BCH view title -->
-    <!-- Tx Hash button header -->
-    <!-- Approve button label -->
-    <!-- <sitename> is requesting authentication using your bitcoin wallet -->
-    <!-- Deny button label -->
-    <!-- BitID error alert title -->
-    <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
-    <!-- BitID success alert title -->
-    <!-- BitID Authentication Request alert view title -->
-    <!-- Cancel button label -->
+  <!-- Wallet not ready error message -->
+  <!-- API Token error message -->
+  <!-- Send BCH view body. -->
+  <!-- Confirm sending <$5.00> to <address>? -->
+  <!-- Confirmation alert title -->
+  <!-- Generic bch erorr message -->
+  <!-- Transaction ID copied message -->
+  <!-- No address error message -->
+  <!-- Attempted to scan unsupported qr code error message. -->
+  <!-- BCH successfully sent alert message -->
+  <!-- Widthdraw BCH view title -->
+  <!-- Tx Hash button header -->
+  <!-- Approve button label -->
+  <!-- <sitename> is requesting authentication using your bitcoin wallet -->
+  <!-- Deny button label -->
+  <!-- BitID error alert title -->
+  <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
+  <!-- BitID success alert title -->
+  <!-- BitID Authentication Request alert view title -->
+  <!-- Cancel button label -->
   <string name="Button.cancel">取消</string>
   <!-- Ignore button label -->
-    <!-- menu button -->
-    <!-- No button -->
-    <!-- OK button label -->
+  <!-- menu button -->
+  <!-- No button -->
+  <!-- OK button label -->
   <string name="Button.ok">好</string>
   <!-- receive button -->
-    <!-- send button -->
-    <!-- Settings button label -->
-    <!-- Settings button label -->
+  <!-- send button -->
+  <!-- Settings button label -->
+  <!-- Settings button label -->
   <string name="Button.submit">提交</string>
   <!-- Yes button -->
-    <!-- Camera plugin instruction -->
-    <!-- Amount to Send: ($1.00) -->
+  <!-- Camera plugin instruction -->
+  <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">发送金额：</string>
   <!-- Network Fee: ($1.00) -->
   <string name="Confirmation.feeLabel">网络费：</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-    <!-- Label for "send" button on final confirmation screen -->
-    <!-- Confirmation Screen title -->
-    <!-- To: (address) -->
-    <!-- Total Cost: ($5.00) -->
+  <!-- Label for "send" button on final confirmation screen -->
+  <!-- Confirmation Screen title -->
+  <!-- To: (address) -->
+  <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">费用总计：</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">为确保一切均被正确地书写，请在您的纸键输入以下文字。</string>
+  <string name="ConfirmPaperPhrase.label">为确保一切均被正确地书写，请按照您的恢复词输入以下文字。</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">单词#%1$s</string>
   <!-- Bitcoin denomination picker label -->
-  <string name="DefaultCurrency.bitcoinLabel">比特币显示单位</string>
+  <string name="DefaultCurrency.bitcoinLabel">RVN显示单位</string>
   <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">汇率</string>
   <!-- Email unavailable alert title -->
-    <!-- Email unavailable alert title -->
-    <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
+  <!-- Email unavailable alert title -->
+  <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
   <string name="ErrorMessages.loopingLockScreen.android">由于您的 Android 版本错误，RVN 无法验证。[Please tap here for more information.]</string>
   <!-- Messaging unavailable alert title -->
-    <!-- Messaging unavailable alert title -->
-    <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
+  <!-- Messaging unavailable alert title -->
+  <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
   <string name="ErrorMessages.touchIdFailed.android">未识别出指纹。请再试一次。</string>
   <!-- Economy fee -->
   <string name="FeeSelector.economy">经济</string>
@@ -124,49 +132,50 @@
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">正在查看私人密钥余额...</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">从这个私人密钥中发送 %1$s 到您的钱包吗？比特币网络将收到 %2$s 费用。</string>
+  <string name="Import.confirm">从这个私人密钥中发送 %1$s 到您的钱包吗？RVN网络将收到 %2$s 费用。</string>
   <!-- Duplicate key error message -->
-    <!-- empty private key error message -->
+  <!-- empty private key error message -->
   <string name="Import.Error.empty">本私钥为空。</string>
   <!-- High fees error message -->
-    <!-- Not a valid private key error message -->
+  <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">并非有效私钥</string>
   <!-- Import signing error message -->
-    <!-- Import button label -->
-    <!-- Importing wallet progress view label -->
-    <!-- Caption for graphics -->
-    <!-- Import wallet intro screen message -->
+  <!-- Import button label -->
+  <!-- Importing wallet progress view label -->
+  <!-- Caption for graphics -->
+  <!-- Import wallet intro screen message -->
   <string name="Import.message">导入钱包，利用单笔交易将您其他钱包里的所有钱转移到您的 RVN  钱包。</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">本私钥受到密码保护。</string>
   <!-- password textfield placeholder -->
-    <!-- Caption for graphics -->
-    <!-- Scan Private key button label -->
+  <!-- Caption for graphics -->
+  <!-- Scan Private key button label -->
   <string name="Import.scan">扫描私钥</string>
   <!-- Import wallet success alert title -->
-    <!-- Successfully imported wallet message body -->
-    <!-- Import Wallet screen title -->
-    <!-- Unlocking Private key activity view message. -->
-    <!-- Import wallet intro warning message -->
+  <!-- Successfully imported wallet message body -->
+  <!-- Import Wallet screen title -->
+  <!-- Unlocking Private key activity view message. -->
+  <!-- Import wallet intro warning message -->
   <string name="Import.warning">导入钱包不包括交易记录或其他细节。</string>
   <!-- Wrong password alert message -->
-    <!-- Close app button -->
+  <!-- Close app button -->
   <string name="JailbreakWarnings.close">关闭</string>
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">忽略</string>
   <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <!-- Jailbreak warning message -->
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">警告</string>
   <!-- Wipe wallet button -->
-    <!-- Location services disabled error -->
-    <!-- No permissions for location services -->
-    <!-- Wallet creation date prefix -->
-    <!-- Manage wallet description text -->
-    <!-- Change Wallet name textfield label -->
-    <!-- Manage wallet modal title -->
-    <!-- Buy bitcoin title -->
-    <!-- Menu button title -->
+  <!-- Location services disabled error -->
+  <!-- No permissions for location services -->
+  <!-- Wallet creation date prefix -->
+  <string name="ManageWallet.creationDatePrefix">您在%1$s上创建了您的钱包</string>
+  <!-- Manage wallet description text -->
+  <!-- Change Wallet name textfield label -->
+  <!-- Manage wallet modal title -->
+  <!-- Buy bitcoin title -->
+  <!-- Menu button title -->
   <string name="MenuButton.lock">锁住钱包</string>
   <!-- Menu button title -->
   <string name="MenuButton.security">安全中心</string>
@@ -197,29 +206,29 @@
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">节点连接状态</string>
   <!-- Node Selector view title -->
-  <string name="RvnNodeSelector.title">比特币节点</string>
+
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">假的付款请求</string>
   <!-- Error opening payment protocol file message -->
   <string name="PaymentProtocol.Errors.corruptedDocument">不受支持或受损的文档</string>
   <!-- Missing certificate payment protocol error message -->
-    <!-- Request expired payment protocol error message -->
+  <!-- Request expired payment protocol error message -->
   <string name="PaymentProtocol.Errors.requestExpired">请求已过期</string>
   <!-- Payment too small alert title -->
-    <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">比特币支付不能小于%1$s。</string>
+  <!-- Amount too small error message -->
+  <string name="PaymentProtocol.Errors.smallPayment">RVN支付不能小于%1$s。</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">比特币交易输出不能小于 %1$s。</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">RVN交易输出不能小于 %1$s。</string>
   <!-- Unsupported signature type payment protocol error message -->
-    <!-- Untrusted certificate payment protocol error message -->
+  <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">不可信证书</string>
   <!-- No passcode set warning body -->
-    <!-- No Passcode set warning title -->
-    <!-- Instruction how to enable device encryption -->
+  <!-- No Passcode set warning title -->
+  <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">需要设备屏幕锁定才能保护您的钱包。在“设置”&gt;“安全”&gt;“屏幕锁定”中启用它以便继续。</string>
   <!-- Device encryption prompt title -->
-    <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">为了应对手机丢失或者更换， 请您务必写下你的纸键。点击此处继续。</string>
+  <!-- Warning about paper key. -->
+  <string name="Prompts.PaperKey.body">您还没有保存恢复词，为了应对手机丢失或者更换， 请您务必在纸上写下你的恢复词，并且安全保存。点击 Continue 继续。</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">需要采取的行动</string>
   <!-- Transaction rejected prompt body -->
@@ -231,10 +240,10 @@
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">分享匿名数据</string>
   <!-- Enable touch ID prompt body -->
-    <!-- Enable Fingerprint prompt body -->
+  <!-- Enable Fingerprint prompt body -->
   <string name="Prompts.TouchId.body.android">点击此处启用指纹认证</string>
   <!-- Enable touch ID prompt title -->
-    <!-- Enable Fingerprint prompt title -->
+  <!-- Enable Fingerprint prompt title -->
   <string name="Prompts.TouchId.title.android">启用指纹认证</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">密码</string>
@@ -247,8 +256,8 @@
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">推送通知</string>
   <!-- Push notifications are off label -->
-    <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
+  <!-- Push notifications are on label -->
+  <!-- Push notifications settings view title label -->
   <string name="PushNotifications.title">通知</string>
   <!-- Address copied message. -->
   <string name="Receive.copied">已复制到剪贴板。</string>
@@ -257,7 +266,7 @@
   <!-- Request button label -->
   <string name="Receive.request">申请金额</string>
   <!-- Share button label -->
-  <string name="Receive.share">分享</string>
+  <string name="Receive.share">分享(点地址可复制)</string>
   <!-- Share via text message (SMS) -->
   <string name="Receive.textButton">短信</string>
   <!-- Receive modal title -->
@@ -269,31 +278,31 @@
   <!-- Reset PIN with paper key: header -->
   <string name="RecoverWallet.header_reset_pin">复位 PIN</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">输入纸键</string>
+  <string name="RecoverWallet.instruction">输入恢复词</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">用您的纸键恢复您的 RVN。</string>
+  <string name="RecoverWallet.intro">用您的恢复词恢复您的 RVN。</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">您输入的纸键无效。请仔细检查每个单词并重试。</string>
+  <string name="RecoverWallet.invalid">您输入的恢复词无效。请仔细检查每个单词并重试。</string>
   <!-- Previous button accessibility label -->
-    <!-- Next button label -->
+  <!-- Next button label -->
   <string name="RecoverWallet.next">下一个</string>
   <!-- Reset PIN with paper key: more information button. -->
-    <!-- Next button accessibility label -->
-    <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">输入您想恢复的钱包的纸键。</string>
+  <!-- Next button accessibility label -->
+  <!-- Recover wallet sub-header -->
+  <string name="RecoverWallet.subheader">输入您想恢复的钱包的12位恢复词。</string>
   <!-- Reset PIN with paper key: sub-header -->
   <string name="RecoverWallet.subheader_reset_pin">要重置 PIN 码，请在下面的框中输入纸上密钥中的单词。</string>
   <!-- No amount entered error message. -->
-    <!-- Request a specific amount of bitcoin -->
-    <!-- Alert action button label -->
+  <!-- Request a specific amount of bitcoin -->
+  <!-- Alert action button label -->
   <string name="ReScan.alertAction">同步</string>
   <!-- Alert message body -->
-    <!-- Alert message title -->
+  <!-- Alert message title -->
   <string name="ReScan.alertTitle">与区块链同步？</string>
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 分钟</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">如果某次交易在比特币网络上显示为已完成，却不在您的 RVN 里。</string>
+  <string name="ReScan.body2">如果某次交易在RVN网络上显示为已完成，却不在您的 RVN 里。</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">你反复得到交易被拒绝的出错信息。</string>
   <!-- Start Sync button label -->
@@ -301,12 +310,12 @@
   <!-- Sync blockchain view footer -->
   <string name="ReScan.footer">您不能在与区块链同步的同时寄钱。</string>
   <!-- Sync Blockchain view header -->
-    <!-- Subheader label -->
+  <!-- Subheader label -->
   <string name="ReScan.subheader1">估计时间</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader2">何时同步？</string>
   <!-- Scan bitcoin address camera flash toggle -->
-    <!-- Complete filter label -->
+  <!-- Complete filter label -->
   <string name="Search.complete">完成</string>
   <!-- Pending filter label -->
   <string name="Search.pending">待定</string>
@@ -317,9 +326,9 @@
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">启用所有安全功能以获得最大保护。</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">若您丢失或升级您的手机，访问您的比特币的唯一方法。</string>
+  <string name="SecurityCenter.paperKeyDescription">若您丢失或升级您的手机，访问您的RVN的唯一方法。</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">纸键</string>
+  <string name="SecurityCenter.paperKeyTitle">恢复词</string>
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">保护您的 RVN 免遭未授权用户盗用。</string>
   <!-- PIN button title -->
@@ -329,77 +338,80 @@
   <!-- Touch ID button description -->
   <string name="SecurityCenter.touchIdDescription">方便地解锁 RVN，在设定限额下汇钱。</string>
   <!-- Touch ID button title -->
-    <!-- Security center fingerprint authentication button -->
+  <!-- Security center fingerprint authentication button -->
   <string name="SecurityCenter.touchIdTitle.android">指纹认证</string>
   <!-- Send money amount label -->
   <string name="Send.amountLabel">金额</string>
   <!-- Balance: $4.00 -->
-  <string name="Send.balance">余额：%1$s</string>
+  <string name="Send.balance">RVN余额：%1$s</string>
   <!-- Instructions how to allow the camera access for the app -->
   <string name="Send.cameraUnavailabeMessage.android">在“设置”&gt;“应用”&gt;“RVN”&gt;“权限”中允许访问相机</string>
   <!-- Permission required to access camera -->
   <string name="Send.cameraUnavailabeTitle.android">RVN 没有访问相机的权限</string>
   <!-- Camera not allowed message -->
-    <!-- Camera not allowed alert title -->
-    <!-- Warning when sending to self. -->
+  <!-- Camera not allowed alert title -->
+  <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">目标是您自己的地址。您不能发送给您自己。</string>
   <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <!-- Emtpy pasteboard error message -->
+  <!-- Description for sending money label -->
+  <string name="Send.descriptionLabel">备注</string>
+  <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">粘贴板为空</string>
   <!-- Network Fee: $0.01 -->
-  <string name="Send.fee">网络费：%1$s</string>
+  <string name="Send.fee">网络手续费：%1$s</string>
   <!-- Payee identity not certified alert title. -->
-    <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">目标地址不是有效的比特币地址。</string>
+  <!-- Invalid address alert message -->
+  <string name="Send.invalidAddressMessage">目标地址不是有效的RVN地址。</string>
   <!-- Invalid address on pasteboard message -->
-    <!-- Invalid address alert title -->
+  <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">无效地址</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">完全扫描期间发送功能已被禁用。</string>
   <!-- We are loading the request (now) -->
-    <!-- Empty address alert message -->
+  <!-- Empty address alert message -->
   <string name="Send.noAddress">请输入收件人地址。</string>
   <!-- Emtpy amount alert message -->
-    <!-- Paste button label -->
-    <!-- Could not publish transaction alert title -->
-    <!-- Could not load remote request error message -->
+  <!-- Paste button label -->
+  <string name="Send.pasteLabel">粘贴</string>
+  <!-- Could not publish transaction alert title -->
+  <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">无法加载支付请求</string>
   <!-- Scan button label -->
-    <!-- Send button label (the action, "press here to send") -->
+  <string name="Send.scanLabel">扫描</string>
+  <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">发送</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">发送</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">至</string>
+  <string name="Send.toLabel">地址</string>
   <!-- Adress already used alert message - first part -->
-    <!-- Adress already used alert message - second part -->
+  <!-- Adress already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">重复使用会削弱您和收件人的隐私，如果收件人不直接控制地址，可能会导致损失。</string>
   <!-- Adress already used alert title -->
-    <!-- About label -->
-    <!-- Advanced Settings title -->
+  <!-- About label -->
+  <!-- Advanced Settings title -->
   <string name="Settings.advancedTitle">高级设置</string>
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">显示币种</string>
   <!-- Join Early access label -->
-    <!-- Are you enjoying bread alert message body -->
-    <!-- Import wallet label -->
+  <!-- Are you enjoying bread alert message body -->
+  <!-- Import wallet label -->
   <string name="Settings.importTitle">导入钱包</string>
   <!-- Manage settings section header -->
-    <!-- Notifications label -->
-    <!-- Leave review button label -->
+  <!-- Notifications label -->
+  <!-- Leave review button label -->
   <string name="Settings.review">给我们评论</string>
   <!-- Share anonymous data label -->
   <string name="Settings.shareData">分享匿名数据</string>
   <!-- Sync blockchain label -->
   <string name="Settings.sync">同步区块链</string>
   <!-- Settings title -->
-    <!-- Touch ID spending limit label -->
-    <!-- The fingerprint spending limit -->
-    <!-- Wallet Settings section header -->
+  <!-- Touch ID spending limit label -->
+  <!-- The fingerprint spending limit -->
+  <!-- Wallet Settings section header -->
   <string name="Settings.wallet">钱包</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">开始/恢复另一钱包</string>
+  <string name="Settings.wipe">增加/恢复另一钱包</string>
   <!-- Share data view body -->
   <string name="ShareData.body">同我们分享您的匿名数据来帮助改善 RVN。这不包括任何财务信息。我们尊重您的财务隐私。</string>
   <!-- Share data header -->
@@ -407,23 +419,23 @@
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">共享匿名数据？</string>
   <!-- button label -->
-    <!-- Paper key explanation text. -->
+  <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">如果您的手机丢失、被盗、损坏或升级，纸上密钥是恢复 RVN 的唯一方法。\n\n\n我们将向您显示一张单词表，请将其写在纸上并保存在安全的地方。</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">写下纸键</string>
+  <string name="StartPaperPhrase.buttonTitle">写下恢复词</string>
   <!-- Argument is date -->
-    <!-- Start view message -->
-  <string name="StartViewController.message">使用比特币最安全且最可靠的方式。</string>
+  <!-- Start view message -->
+  <string name="StartViewController.message">这是使用RVN最安全、最可靠的钱包。</string>
   <!-- Syncing view connectiong state header text -->
-    <!-- Syncing view header text -->
-    <!-- Retry button label -->
-    <!-- Syncing view syncing state header text -->
-    <!-- 6 d (6 days) -->
-    <!-- 6 h (6 hours) -->
-    <!-- 6 m (6 minutes) -->
-    <!-- 6 s (6 seconds) -->
-    <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-    <!-- Fingerprint enabling description body -->
+  <!-- Syncing view header text -->
+  <!-- Retry button label -->
+  <!-- Syncing view syncing state header text -->
+  <!-- 6 d (6 days) -->
+  <!-- 6 h (6 hours) -->
+  <!-- 6 m (6 minutes) -->
+  <!-- 6 s (6 seconds) -->
+  <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
+  <!-- Fingerprint enabling description body -->
   <string name="TouchIdSettings.customizeText.android">您可以从“指纹授权支出限额”页面自定义指纹认证支出限额</string>
   <!-- Instruction for the fingerprint setup -->
   <string name="TouchIdSettings.disabledWarning.body.android">您尚未在此设备上启用指纹认证。前往“设置” -&gt;“安全”来设置指纹认证。</string>
@@ -432,58 +444,58 @@
   <!-- Touch Id screen label -->
   <string name="TouchIdSettings.label">请用指纹解锁 RVN 并在设定限额下汇钱。</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-    <!-- Spending Limit: b100,000 ($100) -->
+  <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">支出限制：%1$s (%2$s)</string>
   <!-- Touch id switch label. -->
-    <!-- Enable fingerprint for this wallet called RVN -->
+  <!-- Enable fingerprint for this wallet called RVN -->
   <string name="TouchIdSettings.switchLabel.android">指纹认证</string>
   <!-- Touch ID settings view title -->
-    <!-- Fingerprint authentication label -->
+  <!-- Fingerprint authentication label -->
   <string name="TouchIdSettings.title.android">指纹认证</string>
   <!-- Touch ID unavailable alert message -->
-    <!-- Touch ID unavailable alert title -->
-    <!-- Always require passcode option -->
+  <!-- Touch ID unavailable alert title -->
+  <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">始终需要密码</string>
   <!-- Touch ID spending limit screen body -->
   <string name="TouchIdSpendingLimit.body">如需发送超过您支出金额限制的任何交易，您将需要输入您的 6 位数 PIN 码。在您输入 6 位数 PIN 码后每 48 小时您都需要重新输入该 PIN 码。</string>
   <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
+  <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">指纹授权支出限额</string>
   <!-- Availability status text -->
-    <!-- Transaction complete label -->
-    <!-- eg. Ending balance: $50.00 -->
-    <!-- Exchange rate on date header -->
-    <!-- Exchange rate on date header -->
-    <!-- (b600 fee) -->
-    <!-- Invalid transaction -->
-    <!-- Timestamp label for event that just happened -->
-    <!-- Receive status text: 'In progress: 20%' -->
-    <!-- Send status text: 'In progress: 20%' -->
-    <!-- eg. Starting balance: $50.00 -->
-    <!-- Waiting to be confirmed string -->
-    <!-- e.g. I received money from an account. -->
-    <!-- Amount section header -->
-    <!-- Block height label -->
-    <!-- Memo section header -->
-    <!-- Empty transaction list message. -->
-    <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
-    <!-- More button title -->
-    <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-    <!-- Moved $5.00 -->
-    <!-- eg. Confirmed in Block: Not Confirmed -->
-    <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
+  <!-- Transaction complete label -->
+  <!-- eg. Ending balance: $50.00 -->
+  <!-- Exchange rate on date header -->
+  <!-- Exchange rate on date header -->
+  <!-- (b600 fee) -->
+  <!-- Invalid transaction -->
+  <!-- Timestamp label for event that just happened -->
+  <!-- Receive status text: 'In progress: 20%' -->
+  <!-- Send status text: 'In progress: 20%' -->
+  <!-- eg. Starting balance: $50.00 -->
+  <!-- Waiting to be confirmed string -->
+  <!-- e.g. I received money from an account. -->
+  <!-- Amount section header -->
+  <!-- Block height label -->
+  <!-- Memo section header -->
+  <!-- Empty transaction list message. -->
+  <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
+  <!-- More button title -->
+  <!-- Moved $5.00 (as in "I moved $5 to another location") -->
+  <!-- Moved $5.00 -->
+  <!-- eg. Confirmed in Block: Not Confirmed -->
+  <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">已接收 %1$s</string>
   <!-- Received $5.00 -->
-    <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
-    <!-- Sent $5.00 -->
-    <!-- Status section header -->
-    <!-- Transaction Details Title -->
-    <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
-    <!-- Transaction ID header -->
-    <!-- (this transaction was) Received at this address: -->
-    <!-- (this transaction was) Sent to this address: -->
-    <!-- Disabled until date -->
-    <!-- My Address button title -->
+  <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
+  <!-- Sent $5.00 -->
+  <!-- Status section header -->
+  <!-- Transaction Details Title -->
+  <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
+  <!-- Transaction ID header -->
+  <!-- (this transaction was) Received at this address: -->
+  <!-- (this transaction was) Sent to this address: -->
+  <!-- Disabled until date -->
+  <!-- My Address button title -->
   <string name="UnlockScreen.myAddress">我的地址</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">复位 PIN</string>
@@ -494,15 +506,15 @@
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">触控感应器</string>
   <!-- TouchID prompt text -->
-    <!-- Device authentication body -->
+  <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">请解锁您的安卓设备以便继续。</string>
   <!-- Unlock with TouchID accessibility label -->
-    <!-- Device authentication title -->
+  <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">需要身份认证</string>
   <!-- Wallet unlocked message -->
   <string name="UnlockScreen.unlocked">钱包已解锁</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">请牢记此 PIN 码。如果您忘记，您将无法访问您的比特币。</string>
+  <string name="UpdatePin.caption">请牢记此 PIN 码。如果您忘记，您将无法使用您的RVN。</string>
   <!-- PIN creation info. -->
   <string name="UpdatePin.createInstruction">您的 PIN 码将用于解锁您的 RVN 并发送款项。</string>
   <!-- Update PIN title -->
@@ -516,24 +528,24 @@
   <!-- Re-Enter new PIN instruction -->
   <string name="UpdatePin.reEnterNew">重新输入您的新 PIN 码。</string>
   <!-- Update PIN failure error message. -->
-    <!-- Update PIN failure alert view title -->
-    <!-- Update PIN title -->
+  <!-- Update PIN failure alert view title -->
+  <!-- Update PIN title -->
   <string name="UpdatePin.updateTitle">更新 PIN 码</string>
   <!-- Authorize to copy wallet addresses alert message -->
-    <!-- Authorize to copy wallet address PIN view prompt. -->
-    <!-- Authorize to copy wallet address alert title -->
-    <!-- Copy wallet addresses alert button label -->
-    <!-- Verify PIN for transaction view body -->
+  <!-- Authorize to copy wallet address PIN view prompt. -->
+  <!-- Authorize to copy wallet address alert title -->
+  <!-- Copy wallet addresses alert button label -->
+  <!-- Verify PIN for transaction view body -->
   <string name="VerifyPin.authorize">请输入您的个人识别码（PIN）以便授权此交易。</string>
   <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">请输入您的 PIN 码以继续。</string>
   <!-- Verify PIN view title -->
   <string name="VerifyPin.title">PIN 码为必填项</string>
   <!-- Authorize transaction with touch id message -->
-    <!-- 'No wallet' warning for watch app -->
-    <!-- Dismiss button label -->
-    <!-- Webview loading error message -->
-    <!-- Updating webview message -->
+  <!-- 'No wallet' warning for watch app -->
+  <!-- Dismiss button label -->
+  <!-- Webview loading error message -->
+  <!-- Updating webview message -->
   <string name="Webview.updating">正在更新...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
     <!-- Top title of welcome screen -->
@@ -542,23 +554,161 @@
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">擦除钱包吗？</string>
   <!-- Failed wipe wallet alert message -->
-    <!-- Failed wipe wallet alert title -->
-    <!-- Enter phrase to wipe wallet instruction. -->
+  <!-- Failed wipe wallet alert title -->
+  <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">输入此钱包的恢复短语以擦除并启动或恢复另一钱包。您的当前余额将保留。</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">开始或恢复另一个钱包能让你在这个设备上管理和使用不同的bread钱包</string>
+  <string name="WipeWallet.startMessage">开始或恢复另一个钱包能让你在这个设备上管理和使用不同的钱包</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">您无法再在这个设备上使用现在的RVN钱包。 现在的一切资金都留在纸键上。</string>
+  <string name="WipeWallet.startWarning">您无法再在这个设备上使用现在的RVN钱包。 现在的一切资金都留在恢复词上。</string>
   <!-- Wipe wallet navigation item title. -->
-    <!-- Wipe wallet button title -->
+  <!-- Wipe wallet button title -->
   <string name="WipeWallet.wipe">擦除</string>
   <!-- Wiping activity message -->
-    <!-- Paper key instructions. -->
+  <!-- Paper key instructions. -->
   <string name="WritePaperPhrase.instruction">按顺序写下每个词并保存到安全位置。</string>
   <!-- button label -->
-    <!-- button label -->
+  <!-- button label -->
   <string name="WritePaperPhrase.previous">上一步</string>
   <!-- 1 of 3 -->
   <string name="WritePaperPhrase.step">%1$d / %2$d</string>
-    <string name="Send.generateAddressLabel">Generate Address</string>
+  <string name="Send.generateAddressLabel">创建新地址</string>
+
+  <!-- Currency labels -->
+  <string name="CurrencyBitcoin">RVN</string>
+  <string name="CurrencyBalance">数量</string>
+  <string name="CurrencyBuy">买</string>
+  <string name="CurrencySend">发送</string>
+  <string name="CurrencyReceive">接收</string>
+  <string name="TotalAssets">持有资产数量</string>
+  <string name="Wallets">钱包</string>
+  <string name="assets">资产</string>
+  <string name="Admin">管理</string>
+
+  <string name="Dialog.screenAlteringTitle">"Screen Altering App Detected</string>
+  <string name="Dialog.screenAlteringMessage">"Ravencoin Wallet will not function properly unless screen altering apps(such as Twilight) are disabled. </string>
+  <string name="syncing">Syncing</string>
+
+  <string name="app_intro_skip_button">跳过</string>
+  <string name="app_intro_done_button">确认</string>
+
+  <!-- Address Book -->
+  <string name="no_addresses_saved">没有保存过地址</string>
+  <string name="add_to_address_book">加入地址本</string>
+  <string name="address_label_hint">地址</string>
+  <string name="add_new_address">增加新地址</string>
+  <string name="add">确认增加</string>
+  <string name="name_hint">地址名称</string>
+  <string name="invalid_address_name">无效名称</string>
+
+  <!-- Assets -->
+  <string name="show">显示</string>
+  <string name="hide">隐藏</string>
+  <string name="manage_assets">资产显示设置</string>
+  <string name="no_assets">无资产</string>
+  <string name="browse_ipfs">查看IPFS</string>
+  <string name="transfer_asset">转移资产</string>
+  <string name="transfer_ownership">转移资产所有权</string>
+  <string name="issue_sub_asset">创建子资产</string>
+  <string name="issue_unique_asset">创建唯一资产</string>
+  <string name="reissue_asset">修改资产</string>
+  <string name="burn_asset">销毁资产</string>
+  <string name="get_data">查看数据</string>
+  <string name="show_more">显示更多 …</string>
+  <string name="asset_balance">资产数量: %1$s</string>
+  <string name="new_asset">创建新资产</string>
+  <string name="create">创建</string>
+  <string name="quantity">数量</string>
+  <string name="units">位数</string>
+  <string name="reissuable">是否可修改。(对号为是，留空为否) </string>
+  <string name="ipfs_hash">IPFS地址</string>
+  <string name="asset_creation_fee">创建主资产费用: %1$s</string>
+  <string name="sub_asset_creation_fee">创建子资产手费用: %1$s</string>
+  <string name="unique_asset_creation_fee">创建唯一资产费用: %1$s</string>
+  <string name="manage_asset_title">管理 %1$s</string>
+  <string name="done">完成</string>
+  <string name="asset_manage_fee">修改费用 Fee: %1$s</string>
+  <string name="ipfs_hash_invalid">IPFS地址无效</string>
+
+  <!-- Terms & Conditions -->
+  <string name="terms_conditions_title">就要完成了。</string>
+  <string name="terms_conditions_sub_title">Ravencoin是点对点的数字资产系统 - 与传统的网站服务和银行服务不同。请您按圆圈确认了解使用方法。</string>
+  <string name="first_clause_text">我明白，资金能够在这个设备上安全的使用， 这个资金不在其它任何地方。</string>
+  <string name="second_clause_text">我明白，如果我丢失这个设备，或者升级设备，将无法使用资金。只有恢复词才能确保我安全的在网络中使用资金。</string>
+  <string name="read_and_understand_terms_of_use_text">我确认明白RVN使用方法。</string>
+  <string name="confirm_and_finish">完成</string>
+
+  <!-- Tutorial -->
+  <string name="tutorial_first_screen_title">欢迎使用Ravencoin钱包!</string>
+  <string name="tutorial_first_screen_text">您可以通过扫码即时安全收付款。</string>
+  <string name="tutorial_second_screen_title">十二个恢复词</string>
+  <string name="tutorial_second_screen_text">备份并存好恢复词确保资产永久安全。 </string>
+  <string name="tutorial_third_screen_title">多种货币价格显示</string>
+  <string name="tutorial_third_screen_text">可选择币种和交易对。</string>
+  <string name="tutorial_fourth_screen_title">每次使用自动创建新地址</string>
+  <string name="tutorial_fourth_screen_text">您也可以在设置里查看使用过的地址。</string>
+  <string name="tutorial_fifth_screen_title">RVN钱包没服务器存数据</string>
+  <string name="tutorial_fifth_screen_text">您的资产永远在线，请保存好恢复词。</string>
+  <string name="skip">跳过</string>
+  <string name="next">下一步</string>
+  <string name="finish">完成</string>
+
+  <!-- Advanced Settings -->
+  <string name="wipe_wallet">重置钱包</string>
+  <string name="wipe_wallet_warning_title">重置钱包</string>
+  <string name="wipe_wallet_warning_message">确认重置钱包吗? \n确定您已经备份了12个恢复词了吗？如果没有备份，重置将无法找回资产。</string>
+  <string name="cancel">取消</string>
+  <string name="wipe">重置</string>
+
+  <!-- Chart -->
+  <string name="chart_title">按这里接收或发送RVN</string>
+
+  <string name="used_address">使用过的地址</string>
+  <string name="reset_title">重置</string>
+  <string name="expert_mode">高级设置</string>
+  <string name="burn_asset_warning">您确定要销毁资产吗? 确认销毁将无法找回。</string>
+  <string name="txt_btn_check_availability">检查是否可用</string>
+
+  <!-- Syncing view connection state header text -->
+  <string name="SyncingView.connecting">开始同步</string>
+  <!-- The sync has failed (to complete) -->
+  <string name="SyncingView.failed">同步失败</string>
+  <!-- Syncing view header text -->
+  <string name="SyncingView.header">正在同步</string>
+  <!-- Retry button label -->
+  <string name="SyncingView.retry">重试</string>
+  <!-- "eg. Synced through <Jan 12, 2015> -->
+  <string name="SyncingView.syncedThrough">已同步 %1$s</string>
+  <!-- Syncing view syncing state header text -->
+  <string name="SyncingView.syncing">正在同步</string>
+  <string name="MenuButton.createAsset">创建资产</string>
+  <string name="MenuButton.addressBook">地址本</string>
+  <string name="MenuButton.tutorial">关于钱包</string>
+
+
+
+
+  <!-- i.e. the currency which will be displayed -->
+
+  <string name="Settings.currencySettings">资金设置</string>
+  <string name="Settings.rescan.blockchain">同步区块链</string>
+  <string name="Settings.redeem.private.key">导入私匙</string>
+  <string name="Settings.other">其它设置</string>
+  <string name="Settings.aboutRaven">关于</string>
+  <!-- Join Early access label -->
+  <!-- Are you enjoying bread alert message body -->
+  <!-- Import wallet label -->
+
+  <!-- Preferences settings section header -->
+  <string name="Settings.preferences">功能</string>
+  <string name="Settings.updatePin">更新PIN码</string>
+
+  <!-- Complete filter label -->
+
+  <string name="RvnNodeSelector.title">Ravencoin 节点</string>
+  <!-- Raven Node Selector view title -->
+  <string name="RavenNodeSelector.title">Ravencoin 节点</string>
+  <!-- Bad Payment request alert title -->
+
 </resources>
+

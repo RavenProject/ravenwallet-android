@@ -56,11 +56,11 @@ typedef struct {
 } ChainParams;
 
 static const char *MainNetDNSSeeds[] = {
-        "seed-raven.ravenwallet.com", "seed-raven.ravenwallet.org.", "seed-raven.bitactivate.com.", NULL
+        "seed-raven.ravencoin.com", "seed-raven.ravencoin.org.", "seed-raven.bitactivate.com.", NULL
 };
 
 static const char *TestNetDNSSeeds[] = {
-        "seed-testnet-raven.ravenwallet.com", "seed-testnet-raven.ravenwallet.org.", "seed-testnet-raven.bitactivate.com.",
+        "seed-testnet-raven.ravencoin.com", "seed-testnet-raven.ravencoin.org.", "seed-testnet-raven.bitactivate.com.",
         "52.37.117.13", "52.19.46.153", "34.248.252.173", "34.220.62.90", NULL
 };
 

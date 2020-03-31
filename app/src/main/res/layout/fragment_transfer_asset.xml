@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/address_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     android:textColor="@drawable/address_edit_text_selector"
                     android:textSize="16sp"
                     tools:text="RTRffAifbthDP3o9d85scJ1jKTWAYmTf46" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.ravenwallet.presenter.customviews.PasteButton
                 android:id="@+id/paste_button"
@@ -171,7 +171,7 @@
             android:orientation="vertical"
             android:paddingTop="16dp">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/quantity_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                     android:textIsSelectable="false"
                     android:textSize="16sp"
                     tools:text="78" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.ravenwallet.presenter.customviews.BRText
                 android:id="@+id/asset_balance_text"

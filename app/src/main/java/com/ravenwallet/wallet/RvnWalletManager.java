@@ -1,18 +1,16 @@
 package com.ravenwallet.wallet;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.support.annotation.NonNull;
-import android.support.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.annotation.NonNull;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -86,7 +84,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import static android.content.Context.ACTIVITY_SERVICE;
 import static com.platform.assets.AssetType.BURN;
 import static com.platform.assets.AssetType.NEW_ASSET;
 import static com.platform.assets.AssetType.REISSUE;

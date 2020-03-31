@@ -2,7 +2,7 @@ package com.ravenwallet.presenter.customviews;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -40,7 +40,7 @@ import com.ravenwallet.tools.threads.executor.BRExecutor;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class BRSearchBar extends android.support.v7.widget.Toolbar {
+public class BRSearchBar extends androidx.appcompat.widget.Toolbar {
 
     private static final String TAG = BRSearchBar.class.getName();
 

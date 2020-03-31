@@ -5,7 +5,7 @@
     android:background="@color/extra_light_blue_background"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,7 +34,7 @@
         </LinearLayout>
 
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <com.ravenwallet.presenter.customviews.BRText

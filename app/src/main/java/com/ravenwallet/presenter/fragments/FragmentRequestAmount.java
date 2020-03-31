@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,7 +97,7 @@ public class FragmentRequestAmount extends Fragment {
     //    private int currListIndex;
     private ImageButton close;
     private BaseWalletManager mWallet;
-    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
+    public static final String URL_SUPPORT = "https://ravencoin.org/mobilewallet/support";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -89,7 +89,7 @@
                     android:textSize="12sp"
                     tools:text="Root name" />
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/asset_name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                         android:textColor="@drawable/address_edit_text_selector"
                         android:textSize="16sp"
                         tools:text="" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -172,7 +172,7 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/address_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                     android:textColor="@drawable/address_edit_text_selector"
                     android:textSize="16sp"
                     tools:text="RTRffAifbthDP3o9d85scJ1jKTWAYmTf46" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -302,7 +302,7 @@
             android:layout_height="65dp"
             android:animateLayoutChanges="true">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ipfs_hash_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -329,7 +329,7 @@
                     android:textColor="@drawable/address_edit_text_selector"
                     android:textSize="16sp"
                     tools:text="HGK7868HHJJJJ42HHH6677TF44ETVO6==" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
                 android:id="@+id/ipfs_hash_checkbox"

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -51,8 +51,6 @@ import com.ravenwallet.tools.util.Utils;
 import com.ravenwallet.wallet.WalletsMaster;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 import com.ravenwallet.wallet.RvnWalletManager;
-
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 

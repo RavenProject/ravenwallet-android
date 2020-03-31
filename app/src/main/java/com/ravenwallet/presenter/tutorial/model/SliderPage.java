@@ -1,7 +1,7 @@
 package com.ravenwallet.presenter.tutorial.model;
 
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 
 /**
  * Created by tatianasolonets on 3/19/17.

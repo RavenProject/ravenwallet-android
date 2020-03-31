@@ -34,7 +34,7 @@
         android:textColor="@color/total_assets_label_color"
         />
 
-    <android.support.v7.widget.SwitchCompat
+    <androidx.appcompat.widget.SwitchCompat
         android:layout_alignParentRight="true"
         android:checked="false"
         android:id="@+id/toggle"

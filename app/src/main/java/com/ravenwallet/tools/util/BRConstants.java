@@ -1,6 +1,6 @@
 package com.ravenwallet.tools.util;
 
-import android.support.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 
 import com.ravenwallet.BuildConfig;
@@ -124,6 +124,7 @@ public class BRConstants {
     public static final String requestAmount = "send-receive/request-amount.html";
     public static final String walletDisabled = "wallet-disabled";
     public static final String resetPinWithPaperKey = "reset-pin-paper-key";
+
     public static final String setPin = "security/pin.html";
     public static final String importWallet = "Miscellaneous/import-paper.html";
     public static final String writePhrase = "security/down-paper-key.html";
@@ -133,7 +134,7 @@ public class BRConstants {
     public static final int SEQUENCE_EXTERNAL_CHAIN = 0;
     public static final int SEQUENCE_INTERNAL_CHAIN = 1;
     public static final String IP_REGEX = "^\\d{1,3}(\\.(\\d{1,3}(\\.(\\d{1,3}(\\.(\\d{1,3})?)?)?)?)?)?";
-    public static final String PRIVACY_URL = "http://ravenwallet.org/support/privacy.html";
+    public static final String PRIVACY_URL = "https://ravencoin.org/mobilewallet/support/privacy.html";
 
     public static final List<String> STR_ISSUE_ASSET_BURN_ADDESSES =
             Lists.newArrayList("RXissueAssetXXXXXXXXXXXXXXXXXhhZGt",

@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +53,7 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
     //   private SyncManager mSyncManager;
     private boolean mObserverIsStarting;
     private boolean chartLoaded;
-    private String CHART_URL = "https://international.bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
+    private String CHART_URL = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
 
 
     public WalletListAdapter(HomeActivity context, ArrayList<BaseWalletManager> walletList) {

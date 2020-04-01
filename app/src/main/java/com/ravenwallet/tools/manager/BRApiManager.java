@@ -11,13 +11,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.platform.APIClient;
 import com.ravenwallet.tools.api.ApiAddress;
 import com.ravenwallet.tools.api.ApiUTxo;
 import com.ravenwallet.tools.api.GsonRequest;
-import com.ravenwallet.tools.api.ListUtxo;
 import com.ravenwallet.RavenApp;
 import com.ravenwallet.presenter.activities.util.ActivityUTILS;
 import com.ravenwallet.presenter.entities.CurrencyEntity;
@@ -31,12 +29,12 @@ import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -105,7 +103,7 @@ public class BRApiManager {
         }
         Set<CurrencyEntity> set = new LinkedHashSet<>();
         try {
-            JSONArray arr = fetchRatesCoinMarketCap(context, walletManager);
+            JSONArray arr = fetchRates(context, walletManager);
             updateFeePerKb(context);
             if (arr != null) {
                 int length = arr.length();
@@ -119,8 +117,8 @@ public class BRApiManager {
                         String selectedISO = BRSharedPrefs.getPreferredFiatIso(context);
                         Log.e(TAG, "selectedISO: " + selectedISO);
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
-//                            Log.e(TAG, "theIso : " + theIso);
-//                                Log.e(TAG, "Putting the shit in the shared prefs");
+                            //Log.e(TAG, "theIso : " + theIso);
+                            //Log.e(TAG, "Putting in the shared prefs");
                             BRSharedPrefs.putPreferredFiatIso(context, tmp.code);
                         }
                         Log.e("TAG", tmp.toString());
@@ -130,7 +128,7 @@ public class BRApiManager {
                     set.add(tmp);
                 }
             } else {
-                Log.e(TAG, "getCurrencies: failed to get currencies, response string: " + arr);
+                Log.e(TAG, "getCurrencies: failed to get currencies -- arr is NULL!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,7 +175,7 @@ public class BRApiManager {
         timer.schedule(timerTask, 1000, 60000);
     }
 
-    public void stopTimerTask() {
+    private void stopTimerTask() {
         //stop the timer, if it's not already null
         if (timer != null) {
             timer.cancel();
@@ -185,31 +183,39 @@ public class BRApiManager {
         }
     }
 
-    public static JSONArray fetchRatesCoinMarketCap(Activity app, BaseWalletManager walletManager) {
+    private static JSONArray fetchRates(Activity app, BaseWalletManager walletManager) {
         JSONArray jsonArray = null;
 
         if ("RVN".equals(walletManager.getIso(app))) {
-            String rvn_url = "https://api.coinmarketcap.com/v1/ticker/ravencoin/";
-            String rvn_jsonString = urlGET(app, rvn_url);
+            String rvn_btc_MultiplierURL = "https://api.bittrex.com/v3/markets/RVN-BTC/ticker";
+            String rvn_btc_jsonString = urlGET(app, rvn_btc_MultiplierURL);
+            String rvn_usd_MultiplierURL = "https://api.bittrex.com/v3/markets/RVN-USD/ticker";
+            String rvn_usd_jsonString = urlGET(app, rvn_usd_MultiplierURL);
             try {
                 jsonArray = new JSONArray();
-                JSONObject rvnobj = new JSONObject();
+                JSONObject rvn_obj = new JSONObject();
 
-                Double btcRate;
-                if (rvn_jsonString != null) {
-                    JSONArray arr = new JSONArray(rvn_jsonString);
-                    JSONObject obj = arr.getJSONObject(0);
-                    String name = "US Dollar";//obj.getString("name");
-                    String code = "USD"; //obj.getString("symbol");
-                    Double rate = Double.parseDouble(obj.getString("price_usd"));
-                    btcRate = Double.parseDouble(obj.getString("price_btc"));
-                    rvnobj.put("code", code);
-                    rvnobj.put("name", name);
-                    rvnobj.put("rate", rate);
-                    jsonArray.put(rvnobj);
+                double usdRate;
+                double btcRate;
+
+                if (rvn_btc_jsonString != null || rvn_usd_jsonString != null) {
+                    JSONObject rvn_btc_obj = (JSONObject) new JSONTokener(rvn_btc_jsonString).nextValue();
+                    JSONObject rvn_usd_obj = (JSONObject) new JSONTokener(rvn_usd_jsonString).nextValue();
+                    String name = "US Dollar";
+                    String code = "USD";
+                    usdRate = Double.parseDouble(rvn_usd_obj.getString("lastTradeRate"));
+                    btcRate = Double.parseDouble(rvn_btc_obj.getString("lastTradeRate"));
+                    rvn_obj.put("code", code);
+                    rvn_obj.put("name", name);
+                    rvn_obj.put("rate", usdRate);
+                    jsonArray.put(rvn_obj);
+
+                    System.out.println("\nRVN-USD Rate: " + usdRate + "\n");
+                    System.out.println("\nRVN-BTC Rate: " + btcRate + "\n");
 
                     JSONArray multiFiatJson = multiFiatCurrency(app);
 
+                    assert multiFiatJson != null;
                     int length = multiFiatJson.length();
                     for (int i = 0; i < length; i++) {
                         try {
@@ -218,8 +224,6 @@ public class BRApiManager {
                             if (tmpObj.getString("code").equalsIgnoreCase("USD"))
                                 continue;
 
-//                            rvnobj.put("code", tmpObj.getString("code"));
-//                            rvnobj.put("name", tmpObj.getString("name"));
                             double rvnRate = (float) tmpObj.getDouble("rate") * btcRate;
                             tmpObj.remove("rate");
                             tmpObj.put("rate", rvnRate);
@@ -233,7 +237,7 @@ public class BRApiManager {
                     return jsonArray;
 
                 } else {
-                    Log.e(TAG, "getCurrencies: failed to get currencies, response string: " + rvn_jsonString);
+                    Log.e(TAG, "getCurrencies: failed to get currencies from URL -- String was NULL");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -242,10 +246,9 @@ public class BRApiManager {
         return jsonArray;
     }
 
-    public static JSONArray multiFiatCurrency(Activity app) {
+    private static JSONArray multiFiatCurrency(Activity app) {
 
         String jsonString = urlGET(app, "https://bitpay.com/rates");
-//        String jsonString = urlGET(app, "https://www.hidemyass-freeproxy.com/proxy/fr-fr/aHR0cHM6Ly9iaXRwYXkuY29tL2FwaS9yYXRlcw");
 
         JSONArray jsonArray = null;
         if (jsonString == null) return null;
@@ -259,7 +262,7 @@ public class BRApiManager {
         return jsonArray;
     }
 
-    public static void updateFeePerKb(Context app) {
+    private static void updateFeePerKb(Context app) {
         WalletsMaster wm = WalletsMaster.getInstance(app);
         for (BaseWalletManager wallet : wm.getAllWallets()) {
             wallet.updateFee(app);
@@ -294,6 +297,7 @@ public class BRApiManager {
                 Log.e(TAG, "urlGET: " + myURL + ", resp is null");
                 return null;
             }
+            assert resp.body() != null;
             response = resp.body().string();
             String strDate = resp.header("date");
             if (strDate == null) {
@@ -343,7 +347,8 @@ public class BRApiManager {
         try {
             JSONArray arrayUtxos = future.get(); // this will block
             Gson gson = new Gson();
-            Type listType = new TypeToken<List<ApiUTxo>>() {}.getType();
+            Type listType = new TypeToken<List<ApiUTxo>>() {
+            }.getType();
             return gson.fromJson(arrayUtxos.toString(), listType);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

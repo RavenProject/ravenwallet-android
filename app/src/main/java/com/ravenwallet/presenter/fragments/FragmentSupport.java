@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +70,7 @@ public class FragmentSupport extends Fragment {
     String theUrl;
     public static boolean appVisible = false;
     private String onCloseUrl;
-    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
+    public static final String URL_SUPPORT = "https://ravencoin.org/mobilewallet/support";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

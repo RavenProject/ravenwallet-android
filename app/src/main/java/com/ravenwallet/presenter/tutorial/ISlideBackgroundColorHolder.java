@@ -1,6 +1,6 @@
 package com.ravenwallet.presenter.tutorial;
 
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 public interface ISlideBackgroundColorHolder {
     /**

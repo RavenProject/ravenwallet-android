@@ -39,12 +39,12 @@
         android:layout_height="match_parent"
         android:background="@color/extra_light_blue_background">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/address_book_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <com.ravenwallet.presenter.customviews.BRText
             android:id="@+id/no_data_text"
@@ -57,7 +57,7 @@
             android:visibility="gone"
             app:customTFont="CircularPro-Book.otf" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_address_button"
             android:layout_width="60dp"
             android:layout_height="60dp"

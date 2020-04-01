@@ -14,8 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.support.v13.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.legacy.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -153,7 +153,7 @@ public class WebViewActivity extends BRActivity {
 
         theUrl = getIntent().getStringExtra("url");
         String json = getIntent().getStringExtra("json");
-        webView.loadUrl("https://ravenwallet.org/");
+        webView.loadUrl("https://ravencoin.org/");
 
 //        if (json == null) {
 //            if (!setupServerMode(theUrl)) {
@@ -564,7 +564,7 @@ public class WebViewActivity extends BRActivity {
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
-            if (android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale(app,
+            if (androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale(app,
                     Manifest.permission.CAMERA)) {
                 BRDialog.showCustomDialog(app, app.getString(R.string.Send_cameraUnavailabeTitle_android), app.getString(R.string.Send_cameraUnavailabeMessage_android), app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
                     @Override
@@ -574,7 +574,7 @@ public class WebViewActivity extends BRActivity {
                 }, null, null, 0);
             } else {
                 // No explanation needed, we can request the permission.
-                android.support.v4.app.ActivityCompat.requestPermissions(app,
+                androidx.core.app.ActivityCompat.requestPermissions(app,
                         new String[]{Manifest.permission.CAMERA},
                         REQUEST_CAMERA_PERMISSION);
             }
@@ -593,7 +593,7 @@ public class WebViewActivity extends BRActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-                if (android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale(app,
+                if (androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale(app,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     BRDialog.showCustomDialog(app, app.getString(R.string.Simplex_allowFileSystemAccess), app.getString(R.string.Simplex_allowFileSystemAccess), app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
                         @Override

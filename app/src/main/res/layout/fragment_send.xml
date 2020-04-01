@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="90dp">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/address_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                     android:inputType="textPersonName"
                     android:singleLine="true"
                     android:textColor="@drawable/address_edit_text_selector" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.ravenwallet.presenter.customviews.PasteButton
                 android:id="@+id/paste_button"
@@ -176,7 +176,7 @@
             android:layout_height="1dp"
             android:background="@color/extra_light_gray" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/amount_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -278,7 +278,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/fee_text"
                 app:layout_constraintLeft_toRightOf="@+id/fee_text" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/fee_buttons_layout"

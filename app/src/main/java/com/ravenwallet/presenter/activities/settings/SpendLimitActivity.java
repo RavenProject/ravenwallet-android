@@ -3,13 +3,12 @@ package com.ravenwallet.presenter.activities.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,15 +22,12 @@ import com.ravenwallet.tools.security.AuthManager;
 import com.ravenwallet.tools.security.BRKeyStore;
 import com.ravenwallet.tools.util.BRConstants;
 import com.ravenwallet.tools.util.CurrencyUtils;
-import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 import com.ravenwallet.wallet.RvnWalletManager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import androidx.annotation.Nullable;
 
 import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
 

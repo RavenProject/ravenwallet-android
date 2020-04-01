@@ -1,8 +1,8 @@
 package com.ravenwallet.presenter.tutorial;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 
 import com.ravenwallet.R;
 import com.ravenwallet.presenter.tutorial.model.SliderPage;

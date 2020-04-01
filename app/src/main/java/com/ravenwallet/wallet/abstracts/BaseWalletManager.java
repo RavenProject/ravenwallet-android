@@ -1,7 +1,7 @@
 package com.ravenwallet.wallet.abstracts;
 
 import android.content.Context;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.WorkerThread;
 
 import com.ravenwallet.core.BRCoreAddress;
 import com.ravenwallet.core.BRCoreMerkleBlock;

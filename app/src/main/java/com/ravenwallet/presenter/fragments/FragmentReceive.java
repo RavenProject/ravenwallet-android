@@ -6,7 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -93,7 +93,7 @@ public class FragmentReceive extends Fragment {
     private BRKeyboard keyboard;
     private View separator2;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 3;
-    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
+    public static final String URL_SUPPORT = "https://ravencoin.org/mobilewallet/support";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -3,14 +3,11 @@ package com.ravenwallet.presenter.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +47,7 @@ import com.ravenwallet.wallet.WalletsMaster;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 import com.ravenwallet.wallet.RvnWalletManager;
 
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 import static com.platform.assets.AssetType.TRANSFER;
 import static com.ravenwallet.presenter.activities.AddressBookActivity.PICK_ADDRESS_VIEW_EXTRAS_KEY;

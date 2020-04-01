@@ -9,7 +9,7 @@
                                                         android:orientation="vertical"
                                                         android:padding="0dp">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signal_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:padding="0dp">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -64,7 +64,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view"
@@ -91,6 +91,6 @@
 
         </ListView>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.ravenwallet.presenter.customviews.BRRelativeLayout>

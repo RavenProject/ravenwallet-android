@@ -2,9 +2,9 @@ package com.platform.assets.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,6 @@ import com.platform.assets.Utils;
 import com.ravenwallet.R;
 import com.ravenwallet.tools.animation.BRAnimator;
 import com.ravenwallet.wallet.RvnWalletManager;
-import com.ravenwallet.wallet.WalletsMaster;
-import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 
 import java.math.BigDecimal;
 import java.util.List;

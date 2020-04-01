@@ -3,12 +3,12 @@ package com.ravenwallet.tools.services;
 import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
-import android.arch.lifecycle.Lifecycle;
+import androidx.lifecycle.Lifecycle;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.ravenwallet.RavenApp;
@@ -16,7 +16,7 @@ import com.ravenwallet.tools.manager.BRSharedPrefs;
 import com.ravenwallet.tools.util.BRConstants;
 import com.ravenwallet.wallet.WalletsMaster;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
-import android.arch.lifecycle.ProcessLifecycleOwner;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import java.util.Objects;
 

@@ -11,12 +11,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.text.style.TtsSpan;
+
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -26,7 +26,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,10 +44,8 @@ import com.platform.chart.model.RVNToBTCData;
 import com.platform.chart.widget.ChartModel;
 import com.platform.chart.widget.ChartView;
 import com.platform.chart.widget.SeriesElement;
-import com.ravenwallet.BuildConfig;
 import com.ravenwallet.R;
 import com.ravenwallet.presenter.AssetChangeListener;
-import com.ravenwallet.presenter.activities.settings.ImportActivity;
 import com.ravenwallet.presenter.activities.settings.SecurityCenterActivity;
 import com.ravenwallet.presenter.activities.settings.SettingsActivity;
 import com.ravenwallet.presenter.activities.util.ActivityUTILS;
@@ -64,7 +61,6 @@ import com.ravenwallet.tools.manager.InternetManager;
 import com.ravenwallet.tools.manager.PromptManager;
 import com.ravenwallet.tools.services.SyncService;
 import com.ravenwallet.tools.sqlite.CurrencyDataSource;
-import com.ravenwallet.tools.threads.Import12WordsTask;
 import com.ravenwallet.tools.threads.executor.BRExecutor;
 import com.ravenwallet.tools.util.CurrencyUtils;
 import com.ravenwallet.wallet.WalletsMaster;
@@ -77,11 +73,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifImageView;
 
 import static com.ravenwallet.presenter.activities.ManageAssetsActivity.IS_OWNED_ASSETS_VIEW_EXTRAS_KEY;
-import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
 
 /**
  * Home activity that will show a list of a user's wallets
@@ -91,8 +85,8 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
-    //    private RecyclerView mWalletRecycler;
-//    private WalletListAdapter mAdapter;
+    //private RecyclerView mWalletRecycler;
+    //private WalletListAdapter mAdapter;
     private BRText mFiatTotal;
     private RelativeLayout mAssetCreation;
     private RelativeLayout mSettings;
@@ -125,7 +119,7 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
     private GifDrawable gifDrawable = null;
 
     private String chartType = ChartModel.ChartType.AreaSpline;
-    String CHART_URL = "https://international.bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
+    String CHART_URL = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-RVN&tickInterval=day";
 
     private static HomeActivity app;
     private SyncNotificationBroadcastReceiver mSyncNotificationBroadcastReceiver = new SyncNotificationBroadcastReceiver();
@@ -286,6 +280,7 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         BaseWalletManager wallet = RvnWalletManager.getInstance(this);
         setWalletFields(true, null);
         Drawable drawable = getResources().getDrawable(R.drawable.crypto_card_shape, null);
+        assert wallet != null;
         ((GradientDrawable) drawable).setColor(Color.parseColor(wallet.getUiConfiguration().colorHex));
         mParent.setBackground(drawable);
         mChart.setBackgroundColor(getColor(R.color.primaryColor));
@@ -534,10 +529,9 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         String label = null;
         boolean syncing = false;
         if (syncProgress > SyncService.PROGRESS_START && syncProgress < SyncService.PROGRESS_FINISH) {
-            StringBuffer labelText = new StringBuffer(getString(R.string.SyncingView_syncing));
-            labelText.append(' ')
-                    .append(NumberFormat.getPercentInstance().format(syncProgress));
-            label = labelText.toString();
+            String labelText = getString(R.string.SyncingView_syncing) + ' ' +
+                    NumberFormat.getPercentInstance().format(syncProgress);
+            label = labelText;
             syncing = true;
         }
         setWalletFields(syncing, label);
@@ -557,11 +551,10 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
             window.setStatusBarColor(activity.getResources().getColor(color, null));
             window.setNavigationBarColor(activity.getResources().getColor(color, null));
 
-//            final int lFlags = window.getDecorView().getSystemUiVisibility();
-            // update the SystemUiVisibility depending on whether we want a Light or Dark theme.
-//            window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
-
-//            window.setBackgroundDrawable(background);
+            //final int lFlags = window.getDecorView().getSystemUiVisibility();
+            //update the SystemUiVisibility depending on whether we want a Light or Dark theme.
+            //window.getDecorView().setSystemUiVisibility((lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
+            //window.setBackgroundDrawable(background);
         }
     }
 }

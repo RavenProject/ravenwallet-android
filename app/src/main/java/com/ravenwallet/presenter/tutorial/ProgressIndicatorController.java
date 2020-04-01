@@ -2,7 +2,7 @@ package com.ravenwallet.presenter.tutorial;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
 

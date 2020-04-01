@@ -4,29 +4,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.design.widget.TextInputLayout;
-import android.support.transition.AutoTransition;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.OvershootInterpolator;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -49,7 +45,6 @@ import com.ravenwallet.core.BRCoreTransaction;
 import com.ravenwallet.presenter.activities.AddressBookActivity;
 import com.ravenwallet.presenter.customviews.BRButton;
 import com.ravenwallet.presenter.customviews.BRDialogView;
-import com.ravenwallet.presenter.customviews.BRKeyboard;
 import com.ravenwallet.presenter.customviews.BRLinearLayoutWithCaret;
 import com.ravenwallet.presenter.customviews.BRText;
 import com.ravenwallet.presenter.customviews.ContactButton;
@@ -76,7 +71,6 @@ import java.math.BigDecimal;
 //import static com.platform.HTTPServer.URL_SUPPORT;
 import static com.ravenwallet.presenter.activities.AddressBookActivity.PICK_ADDRESS_VIEW_EXTRAS_KEY;
 import static com.ravenwallet.tools.util.BRConstants.MAX_ADDRESS_NAME_LENGTH;
-import static com.ravenwallet.tools.util.BRConstants.MAX_ASSET_QUANTITY;
 import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
 
 
@@ -149,7 +143,7 @@ public class FragmentSend extends BaseAddressValidation {
 
     private boolean isFromAddressBook;
 
-    public static final String URL_SUPPORT = "http://ravenwallet.org/support";
+    public static final String URL_SUPPORT = "https://ravencoin.org/mobilewallet/support";
 
     public static FragmentSend newInstance(boolean isFromAddressBook, AddressBookItem address) {
         FragmentSend fragment = new FragmentSend();
@@ -521,30 +515,30 @@ public class FragmentSend extends BaseAddressValidation {
 
             AutoTransition tr = new AutoTransition();
             tr.setInterpolator(new OvershootInterpolator());
-            tr.addListener(new android.support.transition.Transition.TransitionListener() {
+            tr.addListener(new androidx.transition.Transition.TransitionListener() {
                 @Override
-                public void onTransitionStart(@NonNull android.support.transition.Transition transition) {
+                public void onTransitionStart(@NonNull androidx.transition.Transition transition) {
 
                 }
 
                 @Override
-                public void onTransitionEnd(@NonNull android.support.transition.Transition transition) {
+                public void onTransitionEnd(@NonNull androidx.transition.Transition transition) {
                     amountEdit.animate().setDuration(100).scaleX(scaleX);
                     amountEdit.requestFocus();
                 }
 
                 @Override
-                public void onTransitionCancel(@NonNull android.support.transition.Transition transition) {
+                public void onTransitionCancel(@NonNull androidx.transition.Transition transition) {
 
                 }
 
                 @Override
-                public void onTransitionPause(@NonNull android.support.transition.Transition transition) {
+                public void onTransitionPause(@NonNull androidx.transition.Transition transition) {
 
                 }
 
                 @Override
-                public void onTransitionResume(@NonNull android.support.transition.Transition transition) {
+                public void onTransitionResume(@NonNull androidx.transition.Transition transition) {
 
                 }
             });

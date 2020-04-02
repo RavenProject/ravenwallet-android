@@ -654,7 +654,7 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 // Using the new header length, make way to the last header in the list and get the timestamp
                 // TODO - we might be able to make this faster by just going to the msg[msgLen-53] 53 should be the start of the timestamp
                 int new_count = 0;
-                while (timestamp_last > KAWPOW_ActivationTime) {
+                while (timestamp_last >= KAWPOW_ActivationTime) {
                     if (++next < count) {
                         timestamp_last = UInt32GetLE(
                                 &msg[startNewHeaderSize + 121 * new_count++ + 68]);
@@ -752,7 +752,7 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
 
                 // Free the allocated memory
                 free(hash_temp);
-            } else if (timestamp_first < KAWPOW_ActivationTime && timestamp_last > KAWPOW_ActivationTime) {
+            } else if (timestamp_first < KAWPOW_ActivationTime && timestamp_last >= KAWPOW_ActivationTime) {
                 if (timestamp_first >= X16RV2ActivationTime) {
                     X16Rv2(&locators[1], &msg[off], 80);
                 } else {

@@ -32,12 +32,15 @@ static const struct {
     uint32_t target;
 } checkpoint_array[] = {
         {      0, "000000ecfc5e6324a079542221d00e10362bdc894d56500c414060eea8a3ad5a", 1537466400, 0x1e00ffff },
-        {   2016, "00000020fa58add2a48e6c09f36eaf53a269469672ab0cb2af7f84ae63353237", 1537640786, 0x1e00c778 },
-        {   4032, "0000003d36307d1a7642b5e279ebd4b20ab9141e5bdf16d482468c5d3b667708", 1537763590, 0x1e010db7 },
-        {  20160, "00000101cabd49350adb830dc9acb7be3f0a00140c5b73f1104bdb762396cfe3", 1538903988, 0x1e0102a7 },
-        {  40320, "0000004cd1c1f6ba965e085ec0d223caae734353715a348b19614c7b5dced4cc", 1540403853, 0x1e0088a8 },
-        { 150000, "0000012fe1e1a624374d23c90d20004245647464df442a2fd5e9446a12b08a9d", 1547387344, 0x1e016d27 },
-        {160000, "000000ce693ba2f21eff6b38270b6eab8bf442adb25252b9e8d4a7ab43709b10", 1547998364, 0x1e01c59a},
+        { 200000, "00000193aa316faba95ed25accf8da2c1f3783881e7978ba8674bd4b0a409a05", 1583232224, 0x1e041a01 },
+        { 230000, "00000000ce30881250378687ea468bbcd5f2b599b07f31fce487b9192d00d36b", 1585030961, 0x1d0130d0 },
+        { 240000, "00000000217e2446d26c65e0f28ca721206253301d98b31b5122ed94bf21db74", 1585665582, 0x1c2f4b8d }
+//        {   2016, "00000020fa58add2a48e6c09f36eaf53a269469672ab0cb2af7f84ae63353237", 1537640786, 0x1e00c778 },
+//        {   4032, "0000003d36307d1a7642b5e279ebd4b20ab9141e5bdf16d482468c5d3b667708", 1537763590, 0x1e010db7 },
+//        {  20160, "00000101cabd49350adb830dc9acb7be3f0a00140c5b73f1104bdb762396cfe3", 1538903988, 0x1e0102a7 },
+//        {  40320, "0000004cd1c1f6ba965e085ec0d223caae734353715a348b19614c7b5dced4cc", 1540403853, 0x1e0088a8 },
+//        { 150000, "0000012fe1e1a624374d23c90d20004245647464df442a2fd5e9446a12b08a9d", 1547387344, 0x1e016d27 },
+//        {160000, "000000ce693ba2f21eff6b38270b6eab8bf442adb25252b9e8d4a7ab43709b10", 1547998364, 0x1e01c59a},
 //        {259397, "000000a482784b0aee50194bea15a6586d6cb5c727085b35dbbced677dce6d83", 1554414563, 0x1e018aeb}
 //        { 288680, "0000000142f75c185413618ba0239e069ebd8288ce8ef14ecec88d62c1bbf526", 1556268378, 0x1d07284c }
 }; // New testnet, port:18770 useragent:"/Ravencoin2.2.0/"
@@ -290,6 +293,7 @@ _PeerManagerBlockLocators(BRPeerManager *manager, UInt256 *locators, size_t loca
     // append 10 most recent block hashes, decending, then continue appending, doubling the step back each time,
     // finishing with the genesis block (top, -1, -2, -3, -4, -5, -6, -7, -8, -9, -11, -15, -23, -39, -71, -135, ..., 0)
     BRMerkleBlock *block = manager->lastBlock;
+
     int32_t step = 1, i = 0, j;
 
     while (block && block->height > 0) {
@@ -407,7 +411,7 @@ static void _updateFilterRerequestDone(void *info, int success) {
             UInt256 locators[_PeerManagerBlockLocators(manager, NULL, 0)];
             size_t count = _PeerManagerBlockLocators(manager, locators,
                                                      sizeof(locators) / sizeof(*locators));
-
+            peer_log(peer, "calling getblocks here 3");
             BRPeerSendGetblocks(peer, locators, count, UINT256_ZERO);
         }
 
@@ -847,6 +851,7 @@ static void _peerConnected(void *info) {
             // request just block headers up to a week before earliestKeyTime, and then merkleblocks after that
             // we do not reset connect failure count yet incase this request times out
             if (manager->lastBlock->timestamp + 7 * 24 * 60 * 60 >= manager->earliestKeyTime) {
+                peer_log(peer, "calling getblocks here 4");
                 BRPeerSendGetblocks(peer, locators, count, UINT256_ZERO);
             } else BRPeerSendGetheaders(peer, locators, count, UINT256_ZERO);
         } else { // we're already synced
@@ -1352,8 +1357,7 @@ static void _peerRelayedBlock(void *info, BRMerkleBlock *block) {
     } else if (BRSetContains(manager->blocks,
                              block)) { // we already have the block (or at least the header)
         if ((block->height % 500) == 0 || txCount > 0 || block->height >= BRPeerLastBlock(peer)) {
-            peer_log(peer, "relayed existing block #%"
-                    PRIu32, block->height);
+            peer_log(peer, "relayed existing block #%u",block->height);
         }
 
         b = manager->lastBlock;
@@ -1387,7 +1391,7 @@ static void _peerRelayedBlock(void *info, BRMerkleBlock *block) {
         peer_log(peer, "ignoring block on fork older than most recent checkpoint, block #%"
                 PRIu32
                 ", hash: %s",
-                 block->height, u256_hex_encode(block->blockHash));
+                 block->height, u256_hex_encode(UInt256Reverse(block->blockHash)));
         BRMerkleBlockFree(block);
         block = NULL;
     } else { // new block is on a fork

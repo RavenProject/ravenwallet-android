@@ -11,7 +11,8 @@ cmake_minimum_required(VERSION 3.4.1)
 # automatically packages shared libraries with your APK.
 
 # now build app's shared lib
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -DANDROID_STL=gnustl_static -DANDROID_TOOLCHAIN=clang")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -DANDROID_STL=gnustl_static -DANDROID_TOOLCHAIN=g++")
+set(CMAKE_CXX_STANDARD 14)
 
 # -Wimplicit-function-declaration
 # -Wno-missing-prototypes -Werror=return-type -Wdocumentation -Wunreachable-code-aggressive -Wno-missing-braces
@@ -105,6 +106,33 @@ add_library( # The name of the library.
 			src/main/jni/core/crypto/sph_whirlpool.h
 			src/main/jni/core/crypto/tiger.c
 
+			# KAWPOW files
+			src/main/jni/core/crypto/ethash/attributes.h
+			src/main/jni/core/crypto/ethash/bit_manipulation.h
+			src/main/jni/core/crypto/ethash/builtins.h
+			src/main/jni/core/crypto/ethash/endianness.hpp
+			src/main/jni/core/crypto/ethash/ethash.h
+			src/main/jni/core/crypto/ethash/ethash.hpp
+			src/main/jni/core/crypto/ethash/ethash-internal.hpp
+			src/main/jni/core/crypto/ethash/hash_types.h
+			src/main/jni/core/crypto/ethash/hash_types.hpp
+			src/main/jni/core/crypto/ethash/helpers.hpp
+			src/main/jni/core/crypto/ethash/keccak.c
+			src/main/jni/core/crypto/ethash/keccak.h
+			src/main/jni/core/crypto/ethash/keccak.hpp
+			src/main/jni/core/crypto/ethash/keccakf800.c
+			src/main/jni/core/crypto/ethash/keccakf1600.c
+			src/main/jni/core/crypto/ethash/kiss99.hpp
+			src/main/jni/core/crypto/ethash/managed.cpp
+			src/main/jni/core/crypto/ethash/primes.h
+			src/main/jni/core/crypto/ethash/primes.c
+			src/main/jni/core/crypto/ethash/progpow.hpp
+			src/main/jni/core/crypto/ethash/version.h
+			src/main/jni/core/crypto/ethash/progpow_test_vectors.hpp
+			src/main/jni/core/crypto/ethash/ethash.cpp
+			src/main/jni/core/crypto/ethash/progpow.cpp
+			src/main/jni/core/crypto/ethash/portable_endian.h
+
              # Core JNI files
              src/main/jni/BRCoreJni.h
              src/main/jni/BRCoreJni.c
@@ -148,6 +176,7 @@ include_directories(src/main/jni/core/)
 include_directories(src/main/jni/core/secp256k1/include)
 include_directories(src/main/jni/core/secp256k1/src)
 include_directories(src/main/jni/core/secp256k1)
+include_directories(src/main/jni/core/crypto/ethash)
 include_directories(/System/Library/Frameworks/JavaVM.framework/Headers)
 
 include_directories(src/main/secp/secp256k1/include/)

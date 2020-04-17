@@ -336,7 +336,7 @@ public class BRApiManager {
 
     public static List<ApiUTxo> fetchUTXOS(Context context, String address, boolean isAsset) {
         // for test
-//        String path = "https://vinx.mediciventures.com/api/addr/mqaak11jfP7LsJ2hH6gcNiQetMX7ZWmwXB/utxo";
+        // String path = "https://api.testnet.ravencoin.orgapi/addr/mqaak11jfP7LsJ2hH6gcNiQetMX7ZWmwXB/utxo";
         String path = isAsset ? String.format(BRConstants.fetchAssetUtxosPath(), address)
                 : String.format(BRConstants.fetchRvnUtxosPath(), address);
 

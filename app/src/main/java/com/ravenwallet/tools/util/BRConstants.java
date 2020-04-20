@@ -72,7 +72,7 @@ public class BRConstants {
     public static final String CANARY_STRING = "canary";
     public static final String LITTLE_CIRCLE = "\u2022";
     public static final String OWNER_SUFFIX = "!";
-    public static String SUPPORT_EMAIL = "support@ravenwallet.org";
+    public static String SUPPORT_EMAIL = "feedback@ravencoin.org";
 
     /**
      * Currency units
@@ -154,20 +154,19 @@ public class BRConstants {
 
     //fetch Utxos urls
     public static String fetchRvnUtxosPath() {
-        return BuildConfig.TESTNET ? "https://vinx.mediciventures.com/api/addr/%s/utxo" : "https://api.ravencoin.com/api/addr/%s/utxo";
-        //return E.isTestnet ? "https://testnet.ravencoin.network/api/addrs/utxo" : "https://ravencoin.network/api/addrs/utxo"
+        return BuildConfig.TESTNET ? "https://api.testnet.ravencoin.org/api/addr/%s/utxo" : "https://api.ravencoin.com/api/addr/%s/utxo";
     }
 
     public static String fetchAssetUtxosPath() {
-        return BuildConfig.TESTNET ? "https://vinx.mediciventures.com/api/addr/%s/asset/*/utxo" : "https://vinx.mediciventures.com/api/addr/%s/asset/*/utxo";
+        return BuildConfig.TESTNET ? "https://api.testnet.ravencoin.org/api/addr/%s/asset/*/utxo" : "https://api.ravencoin.com/api/addr/%s/asset/*/utxo";
     }
 
     public static String fetchTxsPath() {
-        return BuildConfig.TESTNET ? "https://vinx.mediciventures.com/api/addr/%s" : "https://api.ravencoin.com/api/addr/%s";
+        return BuildConfig.TESTNET ? "https://api.testnet.ravencoin.org/api/addr/%s" : "https://api.ravencoin.com/api/addr/%s";
     }
 
     public static String networkUrl() {
-        return BuildConfig.TESTNET ? "https://testnet.ravencoin.network/api/addr/%s/utxo" : "https://ravencoin.network/api/addr/%s/utxo";
+        return BuildConfig.TESTNET ? "https://api.testnet.ravencoin.org/api/addr/%s/utxo" : "https://api.ravencoin.com/api/addr/%s/utxo";
     }
 
     public static int getNodePort() {

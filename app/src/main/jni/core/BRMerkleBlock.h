@@ -43,7 +43,7 @@ extern "C" {
 #ifdef TESTNET
 #define DGW_START_BLOCK         6048
 #define X16RV2ActivationTime 1567533600 //Tue Sep 03 2019 18:00:00 UTC
-#define KAWPOW_ActivationTime   1585159200 // TODO UPDATE THIS to mainnet timestamp
+#define KAWPOW_ActivationTime   1585159200
 #elif REGTEST
 #define DGW_START_BLOCK         0
 #define X16RV2ActivationTime    0 //Change once we have a value
@@ -51,7 +51,7 @@ extern "C" {
 #else
 #define DGW_START_BLOCK         338778
 #define X16RV2ActivationTime    1569945600 //Tue Oct 01 2019 16:00:00 UTC
-#define KAWPOW_ActivationTime   3569945600 // TODO UPDATE THIS to mainnet timestamp
+#define KAWPOW_ActivationTime   1588788000
 
 
 #endif

@@ -536,7 +536,6 @@ static int _PeerAcceptInvMessage(BRPeer *peer, const uint8_t *msg, size_t msgLen
             // to improve chain download performance, if we received 500 block hashes, request the next 500 block hashes
             if (blockCount >= 500) {
                 UInt256 locators[] = {blockHashes[blockCount - 1], blockHashes[0]};
-                peer_log(peer, "calling getblocks here 1");
                 BRPeerSendGetblocks(peer, locators, 2, UINT256_ZERO);
             }
 
@@ -602,11 +601,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
     size_t off = 0, count = (size_t) BRVarInt(msg, msgLen, &off);
     int r = 1;
 
-
-    if (off + 81 * count < msgLen) {
-        peer_log(peer, "Size was different than msgLen, %d -> %d", off + 81 * count, msgLen);
-        peer_log(peer, "Size my new header size, %d -> %d", off + 121 * count, msgLen);
-    }
     if (off == 0 || off + 81 * count > msgLen) {
         peer_log(peer, "malformed headers message, length is %zu, should be %zu for %zu header(s)", msgLen,
                  BRVarIntSize(count) + 81 * count, count);
@@ -697,14 +691,9 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 // Get the mix_hash
                 mix_int = UInt256Get(&msg[msgLen - 33]);
                 memcpy(mix_hash.word32s, UInt256Reverse(mix_int).u8, 32);
-                peer_log(peer, "Got this mix hash as locator 0: %s", u256_hex_encode(UInt256Reverse(mix_int)));
 
                 uint64_t nonce = UInt64GetLE(&msg[msgLen-41]);
                 uint32_t height  = UInt32GetLE(&msg[msgLen-45]);
-
-                peer_log(peer, "Got this locator 0 header hash: %s", u256_hex_encode(UInt256Reverse(header_int)));
-                peer_log(peer, "Got this locator 0 nonce: 0x%llx", nonce);
-                peer_log(peer, "Got this locator 0 height: %d", height);
 
                 // Allocate space for the final block hash
                 uint8_t* hash_temp = malloc(32);
@@ -715,8 +704,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 // Get the final hash into a UInt256 object
                 UInt256 get_hash;
                 memcpy(get_hash.u8, hash_temp, 32);
-
-                peer_log(peer, "Got this locator 0 final hash: %s", u256_hex_encode(UInt256Reverse(get_hash)));
 
                 // Set the locator[0] to the get_hash
                 memcpy(&locators[0], UInt256Reverse(get_hash).u8, 32);
@@ -730,22 +717,15 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 // Get the mix_hash
                 mix_int = UInt256Get(&msg[off + 88]);
                 memcpy(mix_hash.word32s, UInt256Reverse(mix_int).u8, 32);
-                peer_log(peer, "Got this mix hash as locator 1: %s", u256_hex_encode(UInt256Reverse(mix_int)));
 
                 nonce = UInt64GetLE(&msg[off + 80]);
                 height  = UInt32GetLE(&msg[off + 76]);
-
-                peer_log(peer, "Got this locater 1 header hash: %s", u256_hex_encode(UInt256Reverse(header_int)));
-                peer_log(peer, "Got this locater 1 nonce: 0x%llx", nonce);
-                peer_log(peer, "Got this locater 1 height: %d", height);
 
                 // Get the final block hash
                 light_verify(header_hash, mix_hash, nonce, hash_temp);
 
                 // Get the final hash into a UInt256 object
                 memcpy(get_hash.u8, hash_temp, 32);
-
-                peer_log(peer, "Got this following final hash: %s", u256_hex_encode(UInt256Reverse(get_hash)));
 
                 // Set the locator[0] to the get_hash
                 memcpy(&locators[1], UInt256Reverse(get_hash).u8, 32);
@@ -767,7 +747,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 UInt256 header_int;
                 UInt256 mix_int;
 
-                peer_log(peer, "Getting the final timestamp");
                 // Get the header_hash
                 SHA256_2(&header_int, &msg[msgLen - 121], 80);
                 memcpy(header_hash.word32s, UInt256Reverse(header_int).u8, 32);
@@ -775,14 +754,9 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 // Get the mix_hash
                 mix_int = UInt256Get(&msg[msgLen - 33]);
                 memcpy(mix_hash.word32s, UInt256Reverse(mix_int).u8, 32);
-                peer_log(peer, "Got this mix hash as the last blocks mix: %s", u256_hex_encode(UInt256Reverse(mix_int)));
 
                 uint64_t nonce = UInt64GetLE(&msg[msgLen-41]);
                 uint32_t height  = UInt32GetLE(&msg[msgLen-45]);
-
-                peer_log(peer, "Got this following header hash: %s", u256_hex_encode(UInt256Reverse(header_int)));
-                peer_log(peer, "Got this following nonce: 0x%llx", nonce);
-                peer_log(peer, "Got this following height: %d", height);
 
                 // Allocate space for the final block hash
                 uint8_t* hash_temp = malloc(32);
@@ -793,8 +767,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 // Get the final hash into a UInt256 object
                 UInt256 get_hash;
                 memcpy(get_hash.u8, hash_temp, 32);
-
-                peer_log(peer, "Got this following final hash: %s", u256_hex_encode(UInt256Reverse(get_hash)));
 
                 // Set the locator[0] to the get_hash
                 memcpy(&locators[0], UInt256Reverse(get_hash).u8, 32);
@@ -834,7 +806,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                     UInt256 header_int;
                     UInt256 mix_int;
 
-                    peer_log(peer, "Getting the final timestamp");
                     // Get the header_hash
                     SHA256_2(&header_int, &msg[startNewHeaderSize + 121 * (last - startNewHeader)], 80);
                     memcpy(header_hash.word32s, UInt256Reverse(header_int).u8, 32);
@@ -842,14 +813,9 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                     // Get the mix_hash
                     mix_int = UInt256Get(&msg[startNewHeaderSize + 121 * (last - startNewHeader) + 88]);
                     memcpy(mix_hash.word32s, UInt256Reverse(mix_int).u8, 32);
-                    peer_log(peer, "Got this mix hash as the last blocks mix: %s", u256_hex_encode(UInt256Reverse(mix_int)));
 
                     uint64_t nonce = UInt64GetLE(&msg[startNewHeaderSize + 121 * (last - startNewHeader) + 80]);
                     uint32_t height  = UInt32GetLE(&msg[startNewHeaderSize + 121 * (last - startNewHeader) + 76]);
-
-                    peer_log(peer, "Got this following header hash: %s", u256_hex_encode(UInt256Reverse(header_int)));
-                    peer_log(peer, "Got this following nonce: 0x%llx", nonce);
-                    peer_log(peer, "Got this following height: %d", height);
 
                     // Allocate space for the final block hash
                     uint8_t* hash_temp = malloc(32);
@@ -861,8 +827,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                     UInt256 get_hash;
                     memcpy(get_hash.u8, hash_temp, 32);
 
-                    peer_log(peer, "Got this following final hash: %s", u256_hex_encode(UInt256Reverse(get_hash)));
-
                     // Set the locator[0] to the get_hash
                     memcpy(&locators[0], UInt256Reverse(get_hash).u8, 32);
 
@@ -870,14 +834,11 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                     free(hash_temp);
                 }
                 else if(timestamp >= X16RV2ActivationTime) {
-                    peer_log(peer, "Setting locator to to x16rv2");
                     X16Rv2(&locators[0], &msg[off + 81 * (last - 1)], 80);
                 }
                 else {
-                    peer_log(peer, "Setting locator to to x16r");
                     X16R(&locators[0], &msg[off + 81 * (last - 1)], 80);
                 }
-                peer_log(peer, "calling getblocks here ");
                 BRPeerSendGetblocks(peer, locators, 2, UINT256_ZERO);
             } else BRPeerSendGetheaders(peer, locators, 2, UINT256_ZERO);
 
@@ -901,10 +862,6 @@ static int _PeerAcceptHeadersMessage(BRPeer *peer, const uint8_t *msg, size_t ms
                 BRMerkleBlock *block = BRMerkleBlockParse(&msg[location], headerSize, &peer);
 
                 if (!BRMerkleBlockIsValid(block, (uint32_t) now)) {
-                    if (block->timestamp >= KAWPOW_ActivationTime) {
-                        peer_log(peer, "block height %d", block->height);
-                        peer_log(peer, "block mix_hash %s", u256_hex_encode(block->mix_hash));
-                    }
                     peer_log(peer, "invalid block header: %s", u256_hex_encode(block->blockHash));
                     BRMerkleBlockFree(block);
                     r = 0;

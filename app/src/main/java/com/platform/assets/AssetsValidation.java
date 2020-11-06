@@ -7,11 +7,8 @@ public class AssetsValidation {
 
     public final static String ROOT_NAME_CHARACTERS = "^[A-Z0-9._]{3,}$";
     private final static String SUB_NAME_CHARACTERS = "^[A-Z0-9._]+$";
-    //private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\]{}<>_.;?\\\\:]+$";
-//    private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\[\\]{}<>_.;?\\\\:]+$";
-    private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()\\\\{}_.?:]+$";
-    //private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()[\\]{}<>_.;?\\\\:]+$";
-    private final static String CHANNEL_TAG_CHARACTERS = "^[A-Z0-9._]+$";
+    private final static String UNIQUE_TAG_CHARACTERS = "^[-A-Za-z0-9@$%&*()[\\\\]{}_.?:]+$";
+    private final static String MSG_CHANNEL_TAG_CHARACTERS = "^[A-Za-z0-9_]+$";
 
     private final static String DOUBLE_PUNCTUATION = "^.*[._]{2,}.*$";
     private final static String LEADING_PUNCTUATION = "^[._].*$";
@@ -19,11 +16,11 @@ public class AssetsValidation {
 
     public final static String SUB_NAME_DELIMITER = "/";
     public final static String UNIQUE_TAG_DELIMITER = "#";
-    private final static String CHANNEL_TAG_DELIMITER = "~";
+    private final static String MSG_CHANNEL_TAG_DELIMITER = "~";
 
-    private final static String UNIQUE_INDICATOR = "^[^#]+#[^#]+$";
-    private final static String CHANNEL_INDICATOR = "^[^~]~[^~]$";
-    private final static String OWNER_INDICATOR = "^[^!]+!$";
+    private final static String UNIQUE_INDICATOR = "^[^^~#!]+#[^~#!\\/]+$";
+    private final static String MSG_CHANNEL_INDICATOR = "^[^^~#!]+~[^~#!\\/]+$";
+    private final static String OWNER_INDICATOR = "^[^^~#!]+!$";
 
     private final static String RAVEN_NAMES = "^RVN|^RAVEN|^RAVENCOIN|^RAVENC0IN|^RAVENCO1N|^RAVENC01N";
 
@@ -47,7 +44,7 @@ public class AssetsValidation {
     }
 
     private static boolean isChannelTagValid(final String tag) {
-        return tag.matches(CHANNEL_TAG_CHARACTERS) &&
+        return tag.matches(MSG_CHANNEL_TAG_CHARACTERS) &&
                 tag.matches(DOUBLE_PUNCTUATION) &&
                 tag.matches(LEADING_PUNCTUATION) &&
                 tag.matches(TRAILING_PUNCTUATION);
@@ -94,12 +91,12 @@ public class AssetsValidation {
             }
             assetType = AssetType.UNIQUE;
             return true;
-        } else if (name.matches(CHANNEL_INDICATOR)) {
+        } else if (name.matches(MSG_CHANNEL_INDICATOR)) {
             if (name.length() > MAX_NAME_LENGTH) {
                 return false;
             }
 
-            String[] parts = name.split(CHANNEL_TAG_DELIMITER,-1);
+            String[] parts = name.split(MSG_CHANNEL_TAG_DELIMITER,-1);
 
             if (parts.length > 0) {
                 int lastItemIndex = parts.length - 1;

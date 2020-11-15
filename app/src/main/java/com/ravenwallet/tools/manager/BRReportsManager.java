@@ -2,10 +2,7 @@ package com.ravenwallet.tools.manager;
 
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
-
-//import com.google.firebase.crash.FirebaseCrash;
-
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 /**
  * RavenWallet
@@ -38,8 +35,7 @@ public class BRReportsManager {
     public static void reportBug(RuntimeException er, boolean crash) {
         Log.e(TAG, "reportBug: ", er);
         try {
-//            FirebaseCrash.report(er);
-            Crashlytics.logException(er);
+            FirebaseCrashlytics.getInstance().recordException(er);
         } catch (Exception e) {
             Log.e(TAG, "reportBug: failed to report to FireBase: ", e);
         }
@@ -49,8 +45,7 @@ public class BRReportsManager {
     public static void reportBug(Exception er) {
         Log.e(TAG, "reportBug: ", er);
         try {
-//            FirebaseCrash.report(er);
-            Crashlytics.logException(er);
+            FirebaseCrashlytics.getInstance().recordException(er);
         } catch (Exception e) {
             Log.e(TAG, "reportBug: failed to report to FireBase: ", e);
         }

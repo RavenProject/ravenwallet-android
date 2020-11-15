@@ -31,8 +31,6 @@ import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-import io.fabric.sdk.android.services.common.SafeToast;
-
 import static com.ravenwallet.tools.util.BRConstants.SATOSHIS;
 
 

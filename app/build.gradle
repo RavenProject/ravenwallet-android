@@ -1,9 +1,11 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
+    // Add Google's Maven repository
+    google()
 }
 android {
     compileSdkVersion = 28
@@ -166,10 +168,15 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
-        transitive = true
-    }
+
+    // Per https://firebase.google.com/support/release-notes/android#java
+    // The Firebase Android library firebase-core is no longer needed.
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
+
+    // Add the Google Analytics SDK.
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation('androidx.work:work-runtime:2.0.1') {
         exclude group: 'com.google.guava', module: 'listenablefuture'

@@ -27,8 +27,7 @@ import com.ravenwallet.wallet.exceptions.FeeOutOfDate;
 import com.ravenwallet.wallet.exceptions.InsufficientFundsException;
 import com.ravenwallet.wallet.exceptions.SomethingWentWrong;
 import com.ravenwallet.wallet.exceptions.SpendingNotAllowed;
-import com.crashlytics.android.Crashlytics;
-//import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -104,8 +103,7 @@ public class SendManager {
                     if (!timedOut)
                         tryPay(app, payment, walletManager);
                     else
-//                        FirebaseCrash.report(new NullPointerException("did not send, timedOut!"));
-                        Crashlytics.logException(new NullPointerException("did not send, timedOut!"));
+                        FirebaseCrashlytics.getInstance().recordException(new NullPointerException("did not send, timedOut!"));
                     return; //return so no error is shown
                 } catch (InsufficientFundsException ignored) {
                     errTitle[0] = app.getString(R.string.Alerts_sendFailure);
@@ -135,8 +133,7 @@ public class SendManager {
                     return;
                 } catch (FeeOutOfDate ex) {
                     //Fee is out of date, show not connected error
-//                    FirebaseCrash.report(ex);
-                    Crashlytics.logException(ex);
+                    FirebaseCrashlytics.getInstance().recordException(ex);
                     BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -151,8 +148,7 @@ public class SendManager {
                     return;
                 } catch (SomethingWentWrong somethingWentWrong) {
                     somethingWentWrong.printStackTrace();
-//                    FirebaseCrash.report(somethingWentWrong);
-                    Crashlytics.logException(somethingWentWrong);
+                    FirebaseCrashlytics.getInstance().recordException(somethingWentWrong);
                     BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                         @Override
                         public void run() {

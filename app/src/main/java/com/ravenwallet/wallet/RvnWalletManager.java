@@ -16,7 +16,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.platform.addressBook.AddressBookRepository;
 import com.platform.assets.Asset;
 import com.platform.assets.AssetType;
@@ -222,17 +222,20 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
             fee = obj.getLong("fee_per_kb");
             economyFee = obj.getLong("fee_per_kb_economy");
 
+            FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
+
+
             if (fee != 0 && fee < getWallet().getMaxFeePerKb()) {
                 BRSharedPrefs.putFeePerKb(app, getIso(app), fee);
                 getWallet().setFeePerKb(BRSharedPrefs.getFavorStandardFee(app, getIso(app)) ? fee : economyFee);
                 BRSharedPrefs.putFeeTime(app, getIso(app), System.currentTimeMillis()); //store the time of the last successful fee fetch
             } else {
-                Crashlytics.logException(new NullPointerException("Fee is weird:" + fee));
+                crashlytics.recordException(new NullPointerException("Fee is weird:" + fee));
             }
             if (economyFee != 0 && economyFee < getWallet().getMaxFeePerKb()) {
                 BRSharedPrefs.putEconomyFeePerKb(app, getIso(app), economyFee);
             } else {
-                Crashlytics.logException(new NullPointerException("Economy fee is weird:" + economyFee));
+                crashlytics.recordException(new NullPointerException("Economy fee is weird:" + economyFee));
             }
         } catch (JSONException e) {
             Log.e(TAG, "updateFeePerKb: FAILED: " + jsonString, e);

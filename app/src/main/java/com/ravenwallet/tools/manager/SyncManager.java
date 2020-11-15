@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import com.ravenwallet.tools.listeners.SyncReceiver;
 import com.ravenwallet.tools.threads.executor.BRExecutor;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.concurrent.TimeUnit;
 
@@ -122,8 +122,9 @@ public class SyncManager {
                 }
             } catch (InterruptedException e) {
                 Log.e(TAG, "run: " + getName(), e);
-                Crashlytics.log("run: " + getName() + " " + e.getMessage());
-                Crashlytics.logException(e);
+                FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
+                crashlytics.log("run: " + getName() + " " + e.getMessage());
+                crashlytics.recordException(e);
                 final double syncProgress = mCurrentWallet.getPeerManager().getSyncProgress(BRSharedPrefs.getStartHeight(mApp, mCurrentWallet.getIso(mApp)));
                 BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                     @Override

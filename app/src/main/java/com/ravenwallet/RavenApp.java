@@ -17,8 +17,7 @@ import com.ravenwallet.presenter.activities.util.BRActivity;
 import com.ravenwallet.tools.listeners.SyncReceiver;
 import com.ravenwallet.tools.manager.InternetManager;
 import com.ravenwallet.tools.util.Utils;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class RavenApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Fabric.with(this, new Crashlytics());
+        FirebaseCrashlytics.getInstance();
 
         mContext = this;
 

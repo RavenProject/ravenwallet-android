@@ -230,11 +230,11 @@ public class Utils {
     }
 
     //Integer division will always effectively floor the results here
-    public static long getCurrentFastRestoreKey() {
-        return (getCurrentUnixTimestamp() - BRConstants.GENESIS_TIMESTAMP) / BRConstants.FAST_SYNC_INTERVAL_SECONDS;
+    public static int getCurrentFastRestoreKey() {
+        return (int)((getCurrentUnixTimestamp() - BRConstants.GENESIS_TIMESTAMP) / BRConstants.FAST_SYNC_INTERVAL_SECONDS);
     }
 
     public static long getSeedTimeFromFastRestoreKey(int fastRestoreKey) {
-        return (fastRestoreKey * BRConstants.FAST_SYNC_INTERVAL_SECONDS) + BRConstants.GENESIS_TIMESTAMP;
+        return (((long)fastRestoreKey) * BRConstants.FAST_SYNC_INTERVAL_SECONDS) + BRConstants.GENESIS_TIMESTAMP;
     }
 }

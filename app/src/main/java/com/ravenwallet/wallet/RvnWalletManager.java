@@ -135,6 +135,16 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
 //            long time = 1519190488;
 //            int time = (int) (System.currentTimeMillis() / DateUtils.SECOND_IN_MILLIS);
             long time = BRKeyStore.getWalletCreationTime(app);
+            if(time == 0 && BRSharedPrefs.getKnownSeedTime(app) > 0) {
+                //Not resuming from existing wallet
+                //Check if we have a know checkpoint we should use instead (based on known seed block height)
+                time = BRSharedPrefs.getKnownSeedTime(app);
+                Log.d(TAG, "getInstance: resuming from known block time: " + time);
+                long estimatedHeight = (time - 1514962800) / (60);
+                //1514962800 is the KAWPOW epoch, divide by 60 to get est. block height from time
+
+                BRSharedPrefs.putStartHeight(app, BRSharedPrefs.getCurrentWalletIso(app), estimatedHeight + 100);
+            }
 
             instance = new RvnWalletManager(app, pubKey, BuildConfig.TESTNET ? BRCoreChainParams.testnetChainParams : BRCoreChainParams.mainnetChainParams, time);
         }
@@ -162,13 +172,18 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
                 BREventManager.getInstance().pushEvent("wallet.didUseDefaultFeePerKB");
             }
             getWallet().setFeePerKb(BRSharedPrefs.getFavorStandardFee(app, getIso(app)) ? fee : economyFee);
-            if (BRSharedPrefs.getStartHeight(app, getIso(app)) == 0)
+            if (BRSharedPrefs.getStartHeight(app, getIso(app)) == 0) {
                 BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                     @Override
                     public void run() {
-                        BRSharedPrefs.putStartHeight(app, getIso(app), getPeerManager().getLastBlockHeight());
+                        long lastBlockHeight = getPeerManager().getLastBlockHeight();
+                        Log.d(TAG, "connectWallet: starting from last block height " + lastBlockHeight);
+                        BRSharedPrefs.putStartHeight(app, getIso(app), lastBlockHeight);
                     }
                 });
+            } else {
+                Log.d(TAG, "connectWallet: starting from block " + BRSharedPrefs.getStartHeight(app, getIso(app)));
+            }
 
             WalletsMaster.getInstance(app).updateFixedPeer(app, this);
 //        balanceListeners = new ArrayList<>();
@@ -802,7 +817,10 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
             BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(app, "SyncStopped " + getIso(app) + " err(" + error + ") ", Toast.LENGTH_LONG).show();
+                    if (Utils.isNullOrEmpty(error))
+                        Toast.makeText(app, "SyncStopped " + getIso(app), Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(app, "SyncStopped " + getIso(app) + " err(" + error + ") ", Toast.LENGTH_LONG).show();
                 }
             });
 

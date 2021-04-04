@@ -49,6 +49,7 @@ public class BRSharedPrefs {
     private static final String CURRENT_WALLET_CURRENCY_CODE = "currentWalletIso";
     private static final String LAST_RESCAN_MODE_USED = "lastRescanModeUsed_RVN";
     private static final String LAST_SEND_TRANSACTION_BLOCK_HEIGHT = "lastSendTransactionBlockheight_RVN";
+    private static final String KNOWN_SEED_TIME = "knownSeedTime_RVN";
     private static final String RESCAN_TIME = "rescanTime_RVN";
 
     public interface OnIsoChangedListener {
@@ -263,6 +264,18 @@ public class BRSharedPrefs {
         SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(LAST_SEND_TRANSACTION_BLOCK_HEIGHT, blockHeight);
+        editor.apply();
+    }
+
+    public static long getKnownSeedTime(Context activity) {
+        SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getLong(KNOWN_SEED_TIME, 0);
+    }
+
+    public static void putKnownSeedTime(Context activity, long seedTime) {
+        SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(KNOWN_SEED_TIME, seedTime);
         editor.apply();
     }
 

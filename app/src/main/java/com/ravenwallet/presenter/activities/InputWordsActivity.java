@@ -232,6 +232,8 @@ public class InputWordsActivity extends BRActivity {
                         m.wipeWalletButKeystore(app);
                         m.wipeKeyStore(app);
                         PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase);
+                        BRSharedPrefs.putKnownSeedTime(app, 1_615_000_000);  ////Calculate for realz: DEC 09 2020
+                        //BRSharedPrefs.putKnownSeedHeight(app, 1_500_000);
                         BRSharedPrefs.putAllowSpend(app, BRSharedPrefs.getCurrentWalletIso(app), false);
                         //if this screen is shown then we did not upgrade to the new app, we installed it
                         BRSharedPrefs.putGreetingsShown(app, true);

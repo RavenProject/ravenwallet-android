@@ -47,6 +47,7 @@ public class InputWordsActivity extends BRActivity {
     private EditText word10;
     private EditText word11;
     private EditText word12;
+    private EditText fastRestoreKey;
     private String debugPhrase;
 
     private TextView title;
@@ -88,7 +89,9 @@ public class InputWordsActivity extends BRActivity {
         word10 = (EditText) findViewById(R.id.word10);
         word11 = (EditText) findViewById(R.id.word11);
         word12 = (EditText) findViewById(R.id.word12);
+        fastRestoreKey = (EditText) findViewById(R.id.fast_restore_key);
         ImageButton faq = (ImageButton) findViewById(R.id.faq_button);
+        final ImageButton fast_restore_faq = (ImageButton) findViewById(R.id.fast_restore_faq);
 
         if (Utils.isUsingCustomInputMethod(this)) {
             BRDialog.showCustomDialog(this, getString(R.string.JailbreakWarnings_title), getString(R.string.Alert_customKeyboard_android),
@@ -112,6 +115,20 @@ public class InputWordsActivity extends BRActivity {
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
                 BRAnimator.showSupportFragment(app, BRConstants.paperKey);
+            }
+        });
+
+        fast_restore_faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!BRAnimator.isClickAllowed()) return;
+                BRDialog.showCustomDialog(app, app.getString(R.string.RecoverWallet_fastrestore_title), app.getString(R.string.RecoverWallet_fastrestore_explanation),
+                        app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+                            @Override
+                            public void onClick(BRDialogView brDialogView) {
+                                brDialogView.dismissWithAnimation();
+                            }
+                        }, null, null, 0);
             }
         });
 
@@ -163,10 +180,14 @@ public class InputWordsActivity extends BRActivity {
                 if (!BRAnimator.isClickAllowed()) return;
                 final Activity app = InputWordsActivity.this;
                 String phraseToCheck = getPhrase();
+                int fastRestoreKey = getFastRestoreKey();
                 if (Utils.isEmulatorOrDebug(app) && !Utils.isNullOrEmpty(debugPhrase)) {
                     phraseToCheck = debugPhrase;
                 }
                 if (phraseToCheck == null) {
+                    return;
+                }
+                if (fastRestoreKey == -1) {
                     return;
                 }
                 String cleanPhrase = SmartValidator.cleanPaperKey(app, phraseToCheck);
@@ -175,7 +196,6 @@ public class InputWordsActivity extends BRActivity {
                     return;
                 }
                 if (SmartValidator.isPaperKeyValid(app, cleanPhrase)) {
-
                     if (restore || resetPin) {
                         if (SmartValidator.isPaperKeyCorrect(cleanPhrase, app)) {
                             Utils.hideKeyboard(app);
@@ -232,8 +252,10 @@ public class InputWordsActivity extends BRActivity {
                         m.wipeWalletButKeystore(app);
                         m.wipeKeyStore(app);
                         PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase);
-                        BRSharedPrefs.putKnownSeedTime(app, 1_615_000_000);  ////Calculate for realz: DEC 09 2020
-                        //BRSharedPrefs.putKnownSeedHeight(app, 1_500_000);
+
+                        if(fastRestoreKey > 0) {
+                            BRSharedPrefs.putKnownSeedTime(app, Utils.getSeedTimeFromFastRestoreKey(fastRestoreKey));
+                        }
                         BRSharedPrefs.putAllowSpend(app, BRSharedPrefs.getCurrentWalletIso(app), false);
                         //if this screen is shown then we did not upgrade to the new app, we installed it
                         BRSharedPrefs.putGreetingsShown(app, true);
@@ -343,6 +365,33 @@ public class InputWordsActivity extends BRActivity {
         return w(w1) + " " + w(w2) + " " + w(w3) + " " + w(w4) + " " + w(w5) + " " + w(w6) + " " + w(w7) + " " + w(w8) + " " + w(w9) + " " + w(w10) + " " + w(w11) + " " + w(w12);
     }
 
+    private int getFastRestoreKey() {
+        boolean success = true;
+
+        String fastRestoreKeyText = fastRestoreKey.getText().toString().toLowerCase();
+        int fastRestoreKeyValue = 0;
+
+        //Optional field, so empty is just 0
+        if(Utils.isNullOrEmpty(fastRestoreKeyText)) {
+            success = true;
+        } else {
+            try {
+                fastRestoreKeyValue = Integer.parseInt(fastRestoreKeyText);
+                long nowFastRestoreKey = Utils.getCurrentFastRestoreKey();
+                if (fastRestoreKeyValue < 0 || fastRestoreKeyValue >= nowFastRestoreKey) {
+                    throw new RuntimeException("Invalid fast restore key");
+                }
+            } catch (Exception ex) {
+                SpringAnimator.failShakeAnimation(this, fastRestoreKey);
+                success = false;
+            }
+        }
+
+        if (!success) return -1;
+
+        return fastRestoreKeyValue;
+    }
+
     private String w(String word) {
         return word.replaceAll(" ", "");
     }
@@ -360,6 +409,7 @@ public class InputWordsActivity extends BRActivity {
         word10.setText("");
         word11.setText("");
         word12.setText("");
+        fastRestoreKey.setText("");
     }
 
     @Override

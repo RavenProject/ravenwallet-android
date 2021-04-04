@@ -224,4 +224,17 @@ public class Utils {
         }
         return null;
     }
+
+    public static long getCurrentUnixTimestamp() {
+        return System.currentTimeMillis() / 1000;
+    }
+
+    //Integer division will always effectively floor the results here
+    public static long getCurrentFastRestoreKey() {
+        return (getCurrentUnixTimestamp() - BRConstants.GENESIS_TIMESTAMP) / BRConstants.FAST_SYNC_INTERVAL_SECONDS;
+    }
+
+    public static long getSeedTimeFromFastRestoreKey(int fastRestoreKey) {
+        return (fastRestoreKey * BRConstants.FAST_SYNC_INTERVAL_SECONDS) + BRConstants.GENESIS_TIMESTAMP;
+    }
 }

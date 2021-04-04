@@ -280,6 +280,10 @@
     <string name="RecoverWallet.header_reset_pin">Reset PIN</string>
     <!-- Enter paper key instruction -->
     <string name="RecoverWallet.instruction">Enter Paper Key</string>
+    <!-- Fast restore key title -->
+    <string name="RecoverWallet.fastrestore_title">Fast-Restore Key (Optional)</string>
+    <!-- Fast restore key explanation -->
+    <string name="RecoverWallet.fastrestore_explanation">The Fast-Restore Key is an optional feature, used to speed up synchronization of newly installed clients for both new and restored wallets.\n\nUsing this will skip downloading blocks that happened before your wallet was created, rounded to the nearest hard-coded checkpoint (roughly monthly).\n\nIf you don\'t know your code, leave this blank and you will just download from the start.</string>
     <!-- Recover wallet intro -->
     <string name="RecoverWallet.intro">Recover your Ravencoin Wallet with your paper key.</string>
     <!-- Invalid paper key message -->

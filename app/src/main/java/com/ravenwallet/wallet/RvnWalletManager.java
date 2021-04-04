@@ -136,14 +136,22 @@ public class RvnWalletManager extends BRCoreWalletManager implements BaseWalletM
 //            int time = (int) (System.currentTimeMillis() / DateUtils.SECOND_IN_MILLIS);
             long time = BRKeyStore.getWalletCreationTime(app);
             if(time == 0 && BRSharedPrefs.getKnownSeedTime(app) > 0) {
-                //Not resuming from existing wallet
-                //Check if we have a know checkpoint we should use instead (based on known seed block height)
-                time = BRSharedPrefs.getKnownSeedTime(app);
-                Log.d(TAG, "getInstance: resuming from known block time: " + time);
-                long estimatedHeight = (time - 1514962800) / (60);
-                //1514962800 is the KAWPOW epoch, divide by 60 to get est. block height from time
+                //This case happens when we are a brand new restore and we have a know seed time.
+                //The seed time (based on week, so somewhat in-accurate) is converted to a rough block number
+                //The oldest checkpoint (every 4 block-months) before 'time' is used as a starting point
+                //The estimated height is used to determine the point at which to start downloading full blocks
+                long seedTime = BRSharedPrefs.getKnownSeedTime(app);
+                long currentTime = System.currentTimeMillis() / 1000;
 
-                BRSharedPrefs.putStartHeight(app, BRSharedPrefs.getCurrentWalletIso(app), estimatedHeight + 100);
+                if(seedTime > 0 && seedTime < currentTime){
+                    time = seedTime;
+                    Log.d(TAG, "getInstance: resuming from known block time: " + time);
+                    long estimatedHeight = (time - BRConstants.GENESIS_TIMESTAMP) / (60);
+                    BRSharedPrefs.putStartHeight(app, BRSharedPrefs.getCurrentWalletIso(app), estimatedHeight);
+                } else {
+                    //Invalid timestamp used. Ignore
+                    time = 0;
+                }
             }
 
             instance = new RvnWalletManager(app, pubKey, BuildConfig.TESTNET ? BRCoreChainParams.testnetChainParams : BRCoreChainParams.mainnetChainParams, time);

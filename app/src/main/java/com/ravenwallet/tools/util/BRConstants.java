@@ -136,6 +136,8 @@ public class BRConstants {
     public static final String IP_REGEX = "^\\d{1,3}(\\.(\\d{1,3}(\\.(\\d{1,3}(\\.(\\d{1,3})?)?)?)?)?)?";
     public static final String PRIVACY_URL = "https://ravencoin.org/mobilewallet/support/privacy.html";
 
+    public static final String IPFS_URL_FORMAT = "https://%s/ipfs/%s";
+
     public static final List<String> STR_ISSUE_ASSET_BURN_ADDESSES =
             Lists.newArrayList("RXissueAssetXXXXXXXXXXXXXXXXXhhZGt",
                     "n1issueAssetXXXXXXXXXXXXXXXXWdnemQ");

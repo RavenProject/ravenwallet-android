@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.ravenwallet.presenter.activities.intro.IntroActivity;
+import com.ravenwallet.tools.manager.BRSharedPrefs;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -223,5 +224,10 @@ public class Utils {
             return splitResult[1];
         }
         return null;
+    }
+
+    public static String getIpfsUrlFromHash(Context app, String hash) {
+        //TODO: Hash Validation?
+        return String.format(BRConstants.IPFS_URL_FORMAT, BRSharedPrefs.getPreferredIPFSGateway(app), hash);
     }
 }

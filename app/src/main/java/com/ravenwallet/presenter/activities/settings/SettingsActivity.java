@@ -205,6 +205,15 @@ public class SettingsActivity extends BRActivity {
             }
         }, false));
 
+        items.add(new BRSettingsItem(getString(R.string.Settings_ipfsgateway), BRSharedPrefs.getPreferredIPFSGateway(this), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, IPFSGatewayActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+        }, false));
+
         items.add(new BRSettingsItem(getString(R.string.Settings_currencySettings), "", null, true));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_redeem_private_key), "", new View.OnClickListener() {

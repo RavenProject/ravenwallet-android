@@ -71,11 +71,16 @@ public class PaperKeyTests {
     private List<String> getAllWords() {
         List<String> result = new ArrayList<>();
         List<String> names = new ArrayList<>();
+        names.add("cs-BIP39Words.txt");
         names.add("en-BIP39Words.txt");
         names.add("es-BIP39Words.txt");
         names.add("fr-BIP39Words.txt");
+        names.add("it-BIP39Words.txt");
         names.add("ja-BIP39Words.txt");
-        names.add("zh-BIP39Words.txt");
+        names.add("ko-BIP39Words.txt");
+        names.add("pt-BIP39Words.txt");
+        names.add("zh-CN-BIP39Words.txt");
+        names.add("zh-TW-BIP39Words.txt");
 
         for (String fileName : names) {
             InputStream in = null;

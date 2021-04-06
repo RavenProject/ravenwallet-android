@@ -97,7 +97,7 @@ public class BRSharedPrefs {
 
     public static String getPreferredIPFSGateway(Context context) {
         SharedPreferences settingsToGet = context.getSharedPreferences(PREFS_NAME, 0);
-        return settingsToGet.getString("ipfsGateway", null);
+        return settingsToGet.getString("ipfsGateway", BRConstants.IPFS_DEFAULT_HOST);
     }
 
     public static void putPreferredIPFSGateway(Context context, String gateway) {

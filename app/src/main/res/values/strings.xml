@@ -397,6 +397,8 @@
     <!-- i.e. the currency which will be displayed -->
     <string name="Settings.currency">Display Currency</string>
     <string name="Settings.currencySettings">Currency Settings</string>
+    <string name="Settings.ipfsgateway">IPFS Gateway</string>
+    <string name="Settings.ipfsgateway_faq">Attachments on assets, and other resources, are uploaded to the IPFS distributed network.\n\nThis option selects which centralized web-host the application should use, when displaying IPFS content.</string>
     <string name="Settings.rescan.blockchain">Sync Blockchain</string>
     <string name="Settings.redeem.private.key">Redeem Wallet / Private Key</string>
     <string name="Settings.other">Other</string>

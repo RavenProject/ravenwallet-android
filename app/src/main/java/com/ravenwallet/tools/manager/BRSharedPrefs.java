@@ -95,6 +95,18 @@ public class BRSharedPrefs {
 
     }
 
+    public static String getPreferredIPFSGateway(Context context) {
+        SharedPreferences settingsToGet = context.getSharedPreferences(PREFS_NAME, 0);
+        return settingsToGet.getString("ipfsGateway", BRConstants.IPFS_DEFAULT_HOST);
+    }
+
+    public static void putPreferredIPFSGateway(Context context, String gateway) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("ipfsGateway", gateway);
+        editor.apply();
+    }
+
     public static boolean getExpertMode(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean("expertMode", false);

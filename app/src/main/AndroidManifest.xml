@@ -147,6 +147,11 @@
 
             android:screenOrientation="portrait"/>
         <activity
+            android:name="com.ravenwallet.presenter.activities.settings.IPFSGatewayActivity"
+            android:launchMode="singleTask"
+
+            android:screenOrientation="portrait"/>
+        <activity
             android:name="com.ravenwallet.presenter.activities.settings.AboutActivity"
             android:launchMode="singleTask"
 

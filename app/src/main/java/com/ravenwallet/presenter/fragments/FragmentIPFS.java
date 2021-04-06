@@ -53,7 +53,6 @@ public class FragmentIPFS extends Fragment {
     public LinearLayout backgroundLayout;
     public CardView signalLayout;
     private WebView webView;
-    private String BASE_IPFS_URL = "http://ipfs.io/ipfs/";
 
     public static String IPFS_HASH_KEY_EXTRAS = "IPFS.hash.key.extras";
 
@@ -84,7 +83,7 @@ public class FragmentIPFS extends Fragment {
             getActivity().getFragmentManager().popBackStack();
             return null;
         } else {
-            String URL = BASE_IPFS_URL.concat(IPFSHash);
+            String URL = Utils.getIpfsUrlFromHash(getContext(), IPFSHash);
 
             WebSettings webSettings = webView.getSettings();
 

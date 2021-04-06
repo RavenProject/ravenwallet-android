@@ -77,11 +77,11 @@ public class IPFSGatewayActivity extends BRActivity {
         listView = findViewById(R.id.gateway_list_view);
         adapter = new GatewayListAdapter(this);
 
-        adapter.add(new IPFSGateway("Cloudflare A", "cf-ipfs.com"));
-        adapter.add(new IPFSGateway("Cloudflare B", "cloudflare-ipfs.com"));
-
         adapter.add(new IPFSGateway("ipfs.io A", "ipfs.io"));
         adapter.add(new IPFSGateway("ipfs.io B", "gateway.ipfs.io"));
+
+        adapter.add(new IPFSGateway("Cloudflare A", "cf-ipfs.com"));
+        adapter.add(new IPFSGateway("Cloudflare B", "cloudflare-ipfs.com"));
 
         adapter.add(new IPFSGateway("DWeb", "dweb.link"));
         adapter.add(new IPFSGateway("GreyH.at", "ipfs.greyh.at"));

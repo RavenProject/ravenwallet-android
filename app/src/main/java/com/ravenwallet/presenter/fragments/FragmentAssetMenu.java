@@ -27,6 +27,7 @@ import com.ravenwallet.presenter.interfaces.WalletManagerListener;
 import com.ravenwallet.tools.animation.BRAnimator;
 import com.ravenwallet.tools.animation.BRDialog;
 import com.ravenwallet.tools.manager.BRSharedPrefs;
+import com.ravenwallet.tools.util.Utils;
 import com.ravenwallet.wallet.WalletsMaster;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 import com.ravenwallet.wallet.RvnWalletManager;
@@ -50,7 +51,6 @@ public class FragmentAssetMenu extends Fragment implements BurnFragmentListener,
     private BRButton getDataButton;
     private Asset mAsset;
     private final static String EXTRAS_ASSET_KEY = "extras.asset.key";
-    private String BASE_IPFS_URL = "http://ipfs.io/ipfs/";
 
     public static FragmentAssetMenu newInstance(Asset asset) {
         FragmentAssetMenu fragment = new FragmentAssetMenu();
@@ -203,7 +203,7 @@ public class FragmentAssetMenu extends Fragment implements BurnFragmentListener,
                 String IPFSHash = mAsset.getIpfsHash();
                 if (!TextUtils.isEmpty(IPFSHash)) {
                     closeMe();
-                    String URL = BASE_IPFS_URL.concat(IPFSHash);
+                    String URL = Utils.getIpfsUrlFromHash(getContext(), IPFSHash);
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL)));
                     //BRAnimator.showIPFSFragment(getActivity(), IPFSHash);
                 }

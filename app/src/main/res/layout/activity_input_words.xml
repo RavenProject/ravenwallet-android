@@ -106,6 +106,7 @@
         app:customTFont="CircularPro-Bold.otf" />
 
     <GridLayout
+        android:id="@+id/wordgrid_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView9"
@@ -526,6 +527,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
+                    android:nextFocusForward="@+id/fast_restore_key"
                     android:textColor="@color/almost_black"
                     android:textColorHint="@color/extra_light_gray" />
 
@@ -543,12 +545,52 @@
 
     </GridLayout>
 
+    <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/fast_restore_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wordgrid_layout"
+        android:layout_marginTop="20dp"
+        android:text="@string/RecoverWallet.fastrestore_title"
+        android:textColor="@color/almost_black"
+        android:textSize="@dimen/sub_header"
+        app:customTFont="CircularPro-Bold.otf" />
+
+    <ImageButton
+        android:id="@+id/fast_restore_faq"
+        android:layout_width="@dimen/faq_dimen"
+        android:layout_height="@dimen/faq_dimen"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/fast_restore_header"
+        android:layout_below="@id/wordgrid_layout"
+        android:background="@drawable/faq_question_black" />
+
+    <com.ravenwallet.presenter.customviews.BREdit
+        android:id="@+id/fast_restore_key"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/wordgrid_layout"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/extra_light_gray"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="5"
+        android:textColor="@color/almost_black"
+        android:textColorHint="@color/extra_light_gray"
+        android:textCursorDrawable="@null"
+        app:customEFont="CircularPro-Medium.otf" />
+
     <com.ravenwallet.presenter.customviews.BRButton
         android:id="@+id/send_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/big_button_height"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/b_blue"
         android:elevation="8dp"
         android:padding="10dp"

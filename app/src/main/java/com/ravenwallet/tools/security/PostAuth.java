@@ -59,6 +59,9 @@ public class PostAuth {
         long start = System.currentTimeMillis();
         boolean success = WalletsMaster.getInstance(app).generateRandomSeed(app);
         if (success) {
+            //initWallets() will immediately begin sync, we must set known timestamp first
+            //a brand new wallet can always use the latest time, since it will start from a checkpoint anyway
+            BRSharedPrefs.putKnownSeedTime(app, Utils.getCurrentUnixTimestamp());
             WalletsMaster.getInstance(app).initWallets(app);
             Intent intent = new Intent(app, WriteDownActivity.class);
             app.startActivity(intent);

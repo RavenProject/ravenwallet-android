@@ -6,6 +6,10 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import androidx.legacy.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.UnderlineSpan;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.common.util.AndroidUtilsLight;
 import com.ravenwallet.R;
 import com.ravenwallet.presenter.activities.util.BRActivity;
 import com.ravenwallet.presenter.customviews.BRDialogView;
@@ -93,9 +98,24 @@ public class PaperKeyActivity extends BRActivity {
             @Override
             public void onClick(View v) {
                 updateWordView(false);
-
             }
         });
+        itemIndexText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!BRAnimator.isClickAllowed()) return;
+                //Only allow clicking on the final page which has the fast-restore key
+                if(wordViewPager.getCurrentItem() != 12) return;
+                BRDialog.showCustomDialog(app, app.getString(R.string.RecoverWallet_fastrestore_title), app.getString(R.string.SecurityCenter_fastrestoreExplanation),
+                        app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+                            @Override
+                            public void onClick(BRDialogView brDialogView) {
+                                brDialogView.dismissWithAnimation();
+                            }
+                        }, null, null, 0);
+            }
+        });
+
         String cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
         wordMap = new SparseArray<>();
 
@@ -120,6 +140,7 @@ public class PaperKeyActivity extends BRActivity {
             }
             WordPagerAdapter adapter = new WordPagerAdapter(getFragmentManager());
             adapter.setWords(wordArray);
+            adapter.setFastRestoreKey(Utils.getCurrentFastRestoreKey());
             wordViewPager.setAdapter(adapter);
             for (int i = 0; i < wordArray.length; i++) {
                 wordMap.append(i, wordArray[i]);
@@ -133,7 +154,7 @@ public class PaperKeyActivity extends BRActivity {
         int currentIndex = wordViewPager.getCurrentItem();
         if (isNext) {
             setButtonEnabled(true);
-            if (currentIndex >= 11) {
+            if (currentIndex >= wordMap.size()) {
                 PostAuth.getInstance().onPhraseProveAuth(this, false);
             } else {
                 wordViewPager.setCurrentItem(currentIndex + 1);
@@ -170,7 +191,14 @@ public class PaperKeyActivity extends BRActivity {
     }
 
     private void updateItemIndexText() {
-        String text = String.format(Locale.getDefault(), getString(R.string.WritePaperPhrase_step), wordViewPager.getCurrentItem() + 1, wordMap.size());
+        SpannableString text;
+        if(wordViewPager.getCurrentItem() == wordMap.size()){
+            //Last item: AKA the fast restore key, Underline it to show it is clickable
+            text = new SpannableString(String.format(Locale.getDefault(), getString(R.string.SecurityCenter_fastrestoreDetails)));
+            text.setSpan(new UnderlineSpan(), 0, text.length(), 0);
+        } else {
+            text = new SpannableString(String.format(Locale.getDefault(), getString(R.string.WritePaperPhrase_step), wordViewPager.getCurrentItem() + 1, wordMap.size()));
+        }
         itemIndexText.setText(text);
     }
 
@@ -184,6 +212,7 @@ public class PaperKeyActivity extends BRActivity {
     private class WordPagerAdapter extends FragmentPagerAdapter {
 
         private String[] words;
+        private int fastRestoreKey = -1;
 
         public WordPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -192,15 +221,22 @@ public class PaperKeyActivity extends BRActivity {
         public void setWords(String[] words) {
             this.words = words;
         }
+        public void setFastRestoreKey(int fastRestoreKey) { this.fastRestoreKey = fastRestoreKey; }
 
         @Override
         public Fragment getItem(int pos) {
-            return FragmentPhraseWord.newInstance(words[pos]);
+            if(pos < words.length)
+                return FragmentPhraseWord.newInstance(words[pos]);
+            else
+                return FragmentPhraseWord.newInstance(Integer.toString(fastRestoreKey));
         }
 
         @Override
         public int getCount() {
-            return words == null ? 0 : words.length;
+            if(words == null)
+                return 0;
+            else
+                return words.length + (fastRestoreKey == -1 ? 0 : 1);
         }
 
     }

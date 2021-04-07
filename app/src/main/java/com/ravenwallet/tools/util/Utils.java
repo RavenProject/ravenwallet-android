@@ -226,6 +226,19 @@ public class Utils {
         return null;
     }
 
+    public static long getCurrentUnixTimestamp() {
+        return System.currentTimeMillis() / 1000;
+    }
+
+    //Integer division will always effectively floor the results here
+    public static int getCurrentFastRestoreKey() {
+        return (int)((getCurrentUnixTimestamp() - BRConstants.GENESIS_TIMESTAMP) / BRConstants.FAST_SYNC_INTERVAL_SECONDS);
+    }
+
+    public static long getSeedTimeFromFastRestoreKey(int fastRestoreKey) {
+        return (((long)fastRestoreKey) * BRConstants.FAST_SYNC_INTERVAL_SECONDS) + BRConstants.GENESIS_TIMESTAMP;
+    }
+  
     public static String getIpfsUrlFromHash(Context app, String hash) {
         //TODO: Hash Validation?
         return String.format(BRConstants.IPFS_URL_FORMAT, BRSharedPrefs.getPreferredIPFSGateway(app), hash);

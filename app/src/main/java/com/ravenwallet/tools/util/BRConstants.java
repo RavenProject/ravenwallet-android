@@ -105,6 +105,10 @@ public class BRConstants {
     public static final long UNIQUE_FEE = 5L;
     public static final long CONFIRMS_COUNT = 5L;
 
+    //The Genesis time as specified by RIP-20
+    public static final long GENESIS_TIMESTAMP = 1514962800;
+    public static final long FAST_SYNC_INTERVAL_SECONDS = 60 * 60 * 24 * 7;
+
     /**
      * Support Center article ids.
      */

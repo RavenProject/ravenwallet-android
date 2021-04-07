@@ -7,7 +7,7 @@ import android.util.Log;
 import com.ravenwallet.core.BRCoreMasterPubKey;
 import com.ravenwallet.tools.manager.BRReportsManager;
 import com.ravenwallet.tools.manager.BRSharedPrefs;
-import com.ravenwallet.tools.util.Bip39Reader;
+import com.ravenwallet.tools.util.Bip39Wordlist;
 
 import java.text.Normalizer;
 import java.util.Arrays;
@@ -43,31 +43,21 @@ public class SmartValidator {
     private static final String TAG = SmartValidator.class.getName();
     private static List<String> list;
 
-    public static boolean isPaperKeyValid(Context ctx, String paperKey) {
-        String languageCode = Locale.getDefault().getLanguage();
-        if (!isValid(ctx, paperKey, languageCode)) {
-            //try all langs
-            for (String lang : Bip39Reader.LANGS) {
-                if (isValid(ctx, paperKey, lang)) {
-                    return true;
-                }
-            }
-        } else {
-            return true;
-        }
-
-        return false;
-
+    public static boolean isPhraseWordValid(Context ctx, String phraseWord) {
+        return Bip39Wordlist.isValidWord(ctx, phraseWord);
     }
 
-    private static boolean isValid(Context ctx, String paperKey, String lang) {
-        List<String> list = Bip39Reader.bip39List(ctx, lang);
-        String[] words = list.toArray(new String[list.size()]);
-        if (words.length % Bip39Reader.WORD_LIST_SIZE != 0) {
-            Log.e(TAG, "isPaperKeyValid: " + "The list size should divide by " + Bip39Reader.WORD_LIST_SIZE);
-            BRReportsManager.reportBug(new IllegalArgumentException("words.length is not dividable by " + Bip39Reader.WORD_LIST_SIZE), true);
+    public static boolean isPaperKeyValid(Context ctx, String paperKey) {
+        return isPaperKeyValid(ctx, paperKey, Locale.getDefault().getLanguage());
+    }
+
+    private static boolean isPaperKeyValid(Context ctx, String paperKey, String lang) {
+        Bip39Wordlist wordList = Bip39Wordlist.getWordlistForLanguage(lang);
+        if(wordList == null) {
+            Log.e(TAG, "No wordlist found for language: '" + lang + "'");
+            BRReportsManager.reportBug(new IllegalArgumentException("No wordlist found for language: '" + lang + "'"), true);
         }
-        return BRCoreMasterPubKey.validateRecoveryPhrase(words, paperKey);
+        return wordList.checkPhrase(ctx, paperKey);
     }
 
     public static boolean isPaperKeyCorrect(String insertedPhrase, Context activity) {
@@ -99,14 +89,5 @@ public class SmartValidator {
 
     public static String cleanPaperKey(Context activity, String phraseToCheck) {
         return Normalizer.normalize(phraseToCheck.replace("　", " ").replace("\n", " ").trim().replaceAll(" +", " "), Normalizer.Form.NFKD);
-    }
-
-    public static boolean isWordValid(Context ctx, String word) {
-        Log.e(TAG, "isWordValid: word:" + word + ":" + word.length());
-        if (list == null) list = Bip39Reader.bip39List(ctx, null);
-        String cleanWord = Bip39Reader.cleanWord(word);
-        Log.e(TAG, "isWordValid: cleanWord:" + cleanWord + ":" + cleanWord.length());
-        return list.contains(cleanWord);
-
     }
 }

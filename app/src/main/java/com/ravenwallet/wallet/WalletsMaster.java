@@ -22,13 +22,12 @@ import com.ravenwallet.tools.manager.BRSharedPrefs;
 import com.ravenwallet.tools.security.BRKeyStore;
 import com.ravenwallet.tools.threads.executor.BRExecutor;
 import com.ravenwallet.tools.util.BRConstants;
-import com.ravenwallet.tools.util.Bip39Reader;
+import com.ravenwallet.tools.util.Bip39Wordlist;
 import com.ravenwallet.tools.util.TrustedNode;
 import com.ravenwallet.tools.util.Utils;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
 
 import java.math.BigDecimal;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -79,30 +78,16 @@ public class WalletsMaster {
     }
 
     public synchronized boolean generateRandomSeed(final Context ctx) {
-        SecureRandom sr = new SecureRandom();
-        final String[] words;
-        List<String> list;
-        String languageCode = Locale.getDefault().getLanguage();
-        if (languageCode == null) languageCode = "en";
-        list = Bip39Reader.bip39List(ctx, languageCode);
-        words = list.toArray(new String[list.size()]);
-        final byte[] randomSeed = sr.generateSeed(16);
-        if (words.length != 2048) {
-            BRReportsManager.reportBug(new IllegalArgumentException("the list is wrong, size: " + words.length), true);
-            return false;
-        }
-        if (randomSeed.length != 16)
-            throw new NullPointerException("failed to create the seed, seed length is not 128: " + randomSeed.length);
-        byte[] paperKeyBytes = BRCoreMasterPubKey.generatePaperKey(randomSeed, words);
-        if (paperKeyBytes == null || paperKeyBytes.length == 0) {
-            BRReportsManager.reportBug(new NullPointerException("failed to encodeSeed"), true);
-            return false;
-        }
-        String[] splitPhrase = new String(paperKeyBytes).split(" ");
-        if (splitPhrase.length != 12) {
-            BRReportsManager.reportBug(new NullPointerException("phrase does not have 12 words:" + splitPhrase.length + ", lang: " + languageCode), true);
-            return false;
-        }
+        Bip39Wordlist bipWords = Bip39Wordlist.getWordlistForLocale();
+
+        //Generate a random seed to use
+        byte[] randomSeed = bipWords.generateRandomSeed();
+        //Generate a byte-array String of the paper key created
+        byte[] paperKeyBytes = bipWords.generatePaperKeyBytes(ctx, randomSeed);
+        //Split that byte[] into an array of each word
+        String[] splitPhrase = bipWords.splitPharse(paperKeyBytes);
+
+        //Attempt write paper key
         boolean success = false;
         try {
             success = BRKeyStore.putPhrase(paperKeyBytes, ctx, BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
@@ -110,21 +95,31 @@ public class WalletsMaster {
             return false;
         }
         if (!success) return false;
-        byte[] phrase;
+        //Attempt re-read and verify
+        byte[] verifyPaperKeyBytes;
         try {
-            phrase = BRKeyStore.getPhrase(ctx, 0);
+            verifyPaperKeyBytes = BRKeyStore.getPhrase(ctx, 0);
         } catch (UserNotAuthenticatedException e) {
-            throw new RuntimeException("Failed to retrieve the phrase even though at this point the system auth was asked for sure.");
+            throw new RuntimeException("Failed to retrieve the verifyPaperKeyBytes even though at this point the system auth was asked for sure.");
         }
-        if (Utils.isNullOrEmpty(phrase)) throw new NullPointerException("phrase is null!!");
-        if (phrase.length == 0) throw new RuntimeException("phrase is empty");
-        byte[] seed = BRCoreKey.getSeedFromPhrase(phrase);
-        if (seed == null || seed.length == 0) throw new RuntimeException("seed is null");
-        byte[] authKey = BRCoreKey.getAuthPrivKeyForAPI(seed);
-        if (authKey == null || authKey.length == 0) {
-            BRReportsManager.reportBug(new IllegalArgumentException("authKey is invalid"), true);
-        }
-//        BRKeyStore.putAuthKey(authKey, ctx);
+
+        if (Utils.isNullOrEmpty(verifyPaperKeyBytes))
+            throw new NullPointerException("verifyPaperKeyBytes is null!! - Unable to retrieve verifyPaperKeyBytes from BRKeyStore");
+        if (verifyPaperKeyBytes.length == 0)
+            throw new RuntimeException("verifyPaperKeyBytes is empty");
+
+        //Re-extract the seed from the newly created phrase for checking
+        byte[] verifyPaperKeySeed = bipWords.getSeedFromPhrase(verifyPaperKeyBytes);
+
+        //Create an api private key, this function will internally verify the results, and will raise if invalid
+        byte[] privateKeyBytes = bipWords.getPrivateKeyForAPI(randomSeed);
+
+        if(paperKeyBytes.length != verifyPaperKeyBytes.length)
+            throw new RuntimeException("paperKeyBytes and verifyPaperKeyBytes do not mach in length.");
+        for(int i=0;i<paperKeyBytes.length;i++)
+            if(paperKeyBytes[i] != verifyPaperKeyBytes[i])
+                throw new RuntimeException("paperKeyBytes and verifyPaperKeyBytes do not match. Aborting.");
+
         int walletCreationTime = (int) (System.currentTimeMillis() / DateUtils.SECOND_IN_MILLIS);
         BRKeyStore.putWalletCreationTime(walletCreationTime, ctx);
 //        final WalletInfo info = new WalletInfo();
@@ -137,7 +132,7 @@ public class WalletsMaster {
 //        });
 
         //store the serialized in the BRKeyStore
-        byte[] pubKey = new BRCoreMasterPubKey(paperKeyBytes, true).serialize();
+        byte[] pubKey = bipWords.getMasterPubKey(paperKeyBytes, true).serialize();
         BRKeyStore.putMasterPublicKey(pubKey, ctx);
 
         return true;

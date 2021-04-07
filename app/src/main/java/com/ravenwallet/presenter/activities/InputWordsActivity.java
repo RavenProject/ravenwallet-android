@@ -378,7 +378,8 @@ public class InputWordsActivity extends BRActivity {
 
     private void validateWord(EditText view) {
         String word = view.getText().toString();
-        boolean valid = SmartValidator.isWordValid(this, word);
+        //TODO: Validate against a known loaded wordlist instead of all lists every time?
+        boolean valid = SmartValidator.isPhraseWordValid(this, word);
         view.setTextColor(getColor(valid ? R.color.light_gray : R.color.red_text));
         if (!valid)
             SpringAnimator.failShakeAnimation(this, view);

@@ -81,11 +81,14 @@ public class WalletsMaster {
         Bip39Wordlist bipWords = Bip39Wordlist.getWordlistForLocale();
 
         //Generate a random seed to use
-        byte[] randomSeed = bipWords.generateRandomSeed();
+        final byte[] randomSeed = bipWords.generateRandomSeed();
         //Generate a byte-array String of the paper key created
         byte[] paperKeyBytes = bipWords.generatePaperKeyBytes(ctx, randomSeed);
         //Split that byte[] into an array of each word
         String[] splitPhrase = bipWords.splitPharse(paperKeyBytes);
+        if (splitPhrase.length != Bip39Wordlist.PHRASE_SZE) {
+            BRReportsManager.reportBug(new NullPointerException("phrase does not have 12 words:" + splitPhrase.length + ", lang: " + bipWords.getLanguageCode()), true);
+        }
 
         //Attempt write paper key
         boolean success = false;
@@ -109,7 +112,7 @@ public class WalletsMaster {
             throw new RuntimeException("verifyPaperKeyBytes is empty");
 
         //Re-extract the seed from the newly created phrase for checking
-        byte[] verifyPaperKeySeed = bipWords.getSeedFromPhrase(verifyPaperKeyBytes);
+        byte[] verifyRandomSeed = bipWords.getSeedFromPhrase(verifyPaperKeyBytes);
 
         //Create an api private key, this function will internally verify the results, and will raise if invalid
         byte[] privateKeyBytes = bipWords.getPrivateKeyForAPI(randomSeed);

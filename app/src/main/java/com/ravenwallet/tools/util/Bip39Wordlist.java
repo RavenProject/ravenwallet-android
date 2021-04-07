@@ -8,9 +8,11 @@ import com.ravenwallet.core.BRCoreMasterPubKey;
 import com.ravenwallet.tools.manager.BRReportsManager;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -21,10 +23,11 @@ public class Bip39Wordlist {
     private static final String TAG = Bip39Wordlist.class.getName();
 
     public static final int WORD_LIST_SIZE = 2048;
+    public static final int PHRASE_SZE = 12;
 
     String languageCode;
     String languageName;
-    String[] loadedWords;
+    final String[] loadedWords = new String[WORD_LIST_SIZE];
 
     public static Bip39Wordlist[] LANGS = {
             new Bip39Wordlist("cs","Czech"),
@@ -55,6 +58,15 @@ public class Bip39Wordlist {
         }
         return getWordlistForLocale();
     }
+    public static Bip39Wordlist identifyWordlist(Context app, byte[] paperKeyBytes) {
+        return identifyWordlist(app, paperKeyString(paperKeyBytes));
+    }
+    public static Bip39Wordlist identifyWordlist(Context app, String phrase) {
+        for(Bip39Wordlist list : LANGS)
+            if (list.checkPhrase(app, phrase))
+                return list;
+        return null;
+    }
     public static boolean isValidWord(Context app, String checkWord) {
         String cleanWord = cleanWord(checkWord);
         for(Bip39Wordlist list : LANGS)
@@ -68,6 +80,21 @@ public class Bip39Wordlist {
         return w;
     }
 
+    public static String paperKeyString(byte[] paperKeyBytes) {
+        return new String(paperKeyBytes);
+    }
+
+    public static String[] splitPharse(byte[] paperKeyBytes) {
+        return splitPharse(paperKeyString(paperKeyBytes));
+    }
+
+    public static String[] splitPharse(String phrase) {
+        return phrase
+                //Turn any non-breaking spaces into normal ones
+                .replaceAll("[ \\t\\xA0\\u1680\\u180e\\u2000-\\u200a\\u202f\\u205f\\u3000]+", " ")
+                .split("[\\s]+");
+    }
+
 
 
 
@@ -76,31 +103,46 @@ public class Bip39Wordlist {
         this.languageName = languageName;
     }
 
+    public String getLanguageCode() { return languageCode; }
+    public String getLanguageName() { return languageName; }
+    public String[] getWords() { return loadedWords; }
+
     public boolean hasWord(Context app, String checkWord) {
         loadWords(app);
+        if(checkWord == null) return false;
         for(String word : loadedWords) {
-            if (word.equals(checkWord))
+            if (checkWord.equals(word))
                 return true;
         }
         return false;
     }
+    public void loadWords() {
+        loadWords(null);
+    }
     public void loadWords(Context app) {
-        if(loadedWords != null) return;
+        if(loadedWords[0] != null) return;
 
-        loadedWords = new String[WORD_LIST_SIZE];
         String fileName = "words/" + this.languageCode + "-BIP39Words.txt";
         BufferedReader reader = null;
         int lineIndex = 0;
         try {
-            AssetManager assetManager = app.getResources().getAssets();
-            InputStream inputStream = assetManager.open(fileName);
-            reader = new BufferedReader(new InputStreamReader(inputStream));
+            InputStream inputStream;
+            if (app == null) { //Null when passed in for tests
+                inputStream = getClass().getResourceAsStream(fileName);
+            } else {
+                AssetManager assetManager = app.getResources().getAssets();
+                inputStream = assetManager.open(fileName);
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             String line;
             while ((line = reader.readLine()) != null) {
-                if(lineIndex < WORD_LIST_SIZE)
+                if (lineIndex < WORD_LIST_SIZE)
                     loadedWords[lineIndex] = cleanWord(line);
                 lineIndex++;
             }
+        } catch (FileNotFoundException fnfex) {
+            BRReportsManager.reportBug(new IllegalArgumentException("Wordlist '" + fileName + "' does not exist."), true);
+            fnfex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -113,17 +155,26 @@ public class Bip39Wordlist {
         }
 
         if(lineIndex != WORD_LIST_SIZE) {
-            BRReportsManager.reportBug(new IllegalArgumentException("Wordlis '" + fileName + "' has unexpected size."), true);
+            BRReportsManager.reportBug(new IllegalArgumentException("Wordlist '" + fileName + "' has unexpected size. Expected " + WORD_LIST_SIZE + " Got: " + lineIndex), true);
+            throw new RuntimeException("Invalid wordlist");
         }
     }
 
     public boolean checkPhrase(Context app, String phrase) {
         loadWords(app);
-        return BRCoreMasterPubKey.validateRecoveryPhrase(loadedWords, phrase);
+        //This currently fails with UnsatisfiedLinkError, something with the JNI class. Implementing manually
+        //return BRCoreMasterPubKey.validateRecoveryPhrase(loadedWords, phrase);
+        String[] parts = splitPharse(phrase);
+        for(String part : parts) {
+            if (!this.hasWord(app, cleanWord(part)))
+                return false;
+        }
+        return true;
     }
 
-    public byte[] generatePaperKeyBytes(Context app, byte[] seed) {
+    public synchronized byte[] generatePaperKeyBytes(Context app, final byte[] seed) {
         loadWords(app);
+        System.out.println("Seed: " + (seed == null ? 0 : seed.length));
         byte[] paperKeyBytes = BRCoreMasterPubKey.generatePaperKey(seed, loadedWords);
         if (paperKeyBytes == null || paperKeyBytes.length == 0) {
             BRReportsManager.reportBug(new NullPointerException("failed to encodeSeed"), true);
@@ -132,28 +183,11 @@ public class Bip39Wordlist {
         return paperKeyBytes;
     }
 
-    public String paperKeyString(byte[] paperKeyBytes) {
-        return new String(paperKeyBytes);
-    }
-
     public byte[] generateRandomSeed() {
         final byte[] randomSeed = new SecureRandom().generateSeed(16);
         if (randomSeed.length != 16)
             throw new NullPointerException("failed to create the seed, seed length is not 128: " + randomSeed.length);
         return randomSeed;
-    }
-
-    public String[] splitPharse(byte[] paperKeyBytes) {
-        return splitPharse(paperKeyString(paperKeyBytes));
-    }
-
-    public String[] splitPharse(String phrase) {
-        String[] parts = phrase.split(" ");
-        if (parts.length != 12) {
-            BRReportsManager.reportBug(new NullPointerException("phrase does not have 12 words:" + parts.length + ", lang: " + languageCode), true);
-            return null;
-        }
-        return parts;
     }
 
     public byte[] getSeedFromPhrase(byte[] paperKeyBytes) {

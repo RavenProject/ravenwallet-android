@@ -268,3 +268,43 @@ Java_com_ravenwallet_core_BRCoreMasterPubKey_generatePaperKey
 
     return bytePhrase;
 }
+
+/*
+ * Class:     com_ravencoin_core_BRCoreMasterPubKey
+ * Method:    generatePaperKey
+ * Signature: ([B[Ljava/lang/String;)[B
+ */
+JNIEXPORT jbyteArray JNICALL
+Java_com_ravenwallet_core_BRCoreMasterPubKey_decodePaperKey
+        (JNIEnv *env, jclass thisClass, jstring jPhrase, jobjectArray stringArray) {
+    int wordsCount = (*env)->GetArrayLength(env, stringArray);
+    char *wordList[wordsCount];
+
+    for (int i = 0; i < wordsCount; i++) {
+        jstring string = (jstring) (*env)->GetObjectArrayElement(env, stringArray, i);
+        const char *rawString = (*env)->GetStringUTFChars(env, string, 0);
+
+        wordList[i] = malloc(strlen(rawString) + 1);
+        strcpy(wordList[i], rawString);
+        (*env)->ReleaseStringUTFChars(env, string, rawString);
+        (*env)->DeleteLocalRef(env, string);
+    }
+
+    const char *phraseString = (*env)->GetStringUTFChars(env, jPhrase, NULL);
+    int result = BRBIP39PhraseIsValid((const char **) wordList, phraseString);
+
+    UInt128 entropy = UINT128_ZERO;
+    BRBIP39Decode(entropy.u8, sizeof(entropy), wordList, phraseString);
+
+    (*env)->ReleaseStringUTFChars(env, jPhrase, phraseString);
+
+    if(result == JNI_FALSE) {
+        return NULL;
+    }
+
+
+    jbyteArray bytePhrase = (*env)->NewByteArray(env, sizeof(entropy));
+    (*env)->SetByteArrayRegion(env, bytePhrase, 0, sizeof(entropy), entropy.u8);
+
+    return bytePhrase;
+}

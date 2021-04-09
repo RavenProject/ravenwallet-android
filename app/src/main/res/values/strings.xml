@@ -434,6 +434,8 @@
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Your paper key is the only way to restore your Ravencoin Wallet if your phone is lost, stolen, broken, or upgraded.\n\nWe will show you a list of words to write down on a piece of paper and keep safe.</string>
+    <!-- Paper key explanation text. -->
+    <string name="StartPaperPhrase.phrase_language">Paper Key Language</string>
     <!-- button label -->
     <string name="StartPaperPhrase.buttonTitle">Write Down Paper Key</string>
     <!-- Argument is date -->

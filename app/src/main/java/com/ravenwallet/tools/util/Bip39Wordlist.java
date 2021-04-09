@@ -15,8 +15,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class Bip39Wordlist {
@@ -52,11 +50,12 @@ public class Bip39Wordlist {
         return getWordlistForLanguage(languageCode);
     }
     public static Bip39Wordlist getWordlistForLanguage(String languageCode) {
+        if(languageCode == null) return null;
         for(Bip39Wordlist lang : LANGS) {
             if (lang.languageCode.equals(languageCode))
                 return lang;
         }
-        return getWordlistForLocale();
+        return null;
     }
     public static Bip39Wordlist identifyWordlist(Context app, byte[] paperKeyBytes) {
         return identifyWordlist(app, paperKeyString(paperKeyBytes));
@@ -105,7 +104,10 @@ public class Bip39Wordlist {
 
     public String getLanguageCode() { return languageCode; }
     public String getLanguageName() { return languageName; }
-    public String[] getWords() { return loadedWords; }
+    public String[] getWords(Context app) {
+        loadWords(app);
+        return loadedWords;
+    }
 
     public boolean hasWord(Context app, String checkWord) {
         loadWords(app);
@@ -190,8 +192,15 @@ public class Bip39Wordlist {
         return randomSeed;
     }
 
-    public byte[] getSeedFromPhrase(byte[] paperKeyBytes) {
-        byte[] seed = BRCoreKey.getSeedFromPhrase(paperKeyBytes);
+    public byte[] getDerivedPhraseKey(byte[] paperKeyBytes) {
+        byte[] seed = BRCoreKey.getDerivedPhraseKey(paperKeyBytes);
+        if (seed == null || seed.length == 0)
+            throw new RuntimeException("seed is null");
+        return seed;
+    }
+
+    public byte[] decodePaperKeyPhrase(Context app, String phrase) {
+        byte[] seed = BRCoreMasterPubKey.decodePaperKey(phrase, getWords(app));
         if (seed == null || seed.length == 0)
             throw new RuntimeException("seed is null");
         return seed;

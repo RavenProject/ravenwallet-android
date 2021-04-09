@@ -125,11 +125,11 @@ Java_com_ravenwallet_core_BRCoreKey_getBase58EncodedPublicKey
 
 /*
  * Class:     com_ravencoin_core_BRCoreKey
- * Method:    getSeedFromPhrase
+ * Method:    getDerivedPhraseKey
  * Signature: ([B)[B
  */
 JNIEXPORT jbyteArray JNICALL
-Java_com_ravenwallet_core_BRCoreKey_getSeedFromPhrase
+Java_com_ravenwallet_core_BRCoreKey_getDerivedPhraseKey
         (JNIEnv *env, jclass thisClass, jbyteArray phrase) {
 
     jbyte *bytePhrase = (*env)->GetByteArrayElements(env, phrase, 0);

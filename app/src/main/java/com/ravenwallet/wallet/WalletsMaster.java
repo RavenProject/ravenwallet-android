@@ -111,8 +111,10 @@ public class WalletsMaster {
         if (verifyPaperKeyBytes.length == 0)
             throw new RuntimeException("verifyPaperKeyBytes is empty");
 
+        //Not-sure what these two are used for...They were generated and unused in the old code
+
         //Re-extract the seed from the newly created phrase for checking
-        byte[] verifyRandomSeed = bipWords.getSeedFromPhrase(verifyPaperKeyBytes);
+        byte[] derivedPhraseKey = bipWords.getDerivedPhraseKey(verifyPaperKeyBytes);
 
         //Create an api private key, this function will internally verify the results, and will raise if invalid
         byte[] privateKeyBytes = bipWords.getPrivateKeyForAPI(randomSeed);

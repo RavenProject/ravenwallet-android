@@ -109,4 +109,13 @@ public class BRCoreMasterPubKey extends BRCoreJniReference {
      * @return
      */
     public static native byte[] generatePaperKey (byte[] seed, String[] words);
+
+    /**
+     * Generate seed from a 'paper key' and an array of words[2048].
+     *
+     * @param phrase  The phrase to decode
+     * @param words Valid words.
+     * @return
+     */
+    public static native byte[] decodePaperKey (String phrase, String[] words);
 }

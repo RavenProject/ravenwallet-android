@@ -22,6 +22,7 @@ import com.ravenwallet.tools.animation.BRAnimator;
 import com.ravenwallet.tools.animation.BRDialog;
 import com.ravenwallet.tools.manager.BRReportsManager;
 import com.ravenwallet.tools.security.PostAuth;
+import com.ravenwallet.tools.util.Bip39Wordlist;
 import com.ravenwallet.tools.util.Utils;
 
 import java.util.Locale;
@@ -96,7 +97,11 @@ public class PaperKeyActivity extends BRActivity {
 
             }
         });
+
         String cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
+        String phraseLanguage = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phraseLanguage");
+        phraseLanguage = phraseLanguage == null ? Bip39Wordlist.DEFAULT_WORDLIST.getLanguageCode() : phraseLanguage;
+
         wordMap = new SparseArray<>();
 
         if (Utils.isNullOrEmpty(cleanPhrase)) {

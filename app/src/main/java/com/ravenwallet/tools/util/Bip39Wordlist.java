@@ -2,6 +2,8 @@ package com.ravenwallet.tools.util;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build;
+import android.os.LocaleList;
 
 import com.ravenwallet.core.BRCoreKey;
 import com.ravenwallet.core.BRCoreMasterPubKey;
@@ -36,23 +38,41 @@ public class Bip39Wordlist {
             new Bip39Wordlist("ja","Japanese"),
             new Bip39Wordlist("ko","Korean"),
             new Bip39Wordlist("pt","Portuguese"),
-            new Bip39Wordlist("zh-CN","Chinese (Simplified)"),
-            new Bip39Wordlist("zh-TW","Chinese (Traditional)")
+            new Bip39Wordlist("zh-.*?CN","Chinese (Simplified)"),
+            new Bip39Wordlist("zh-.*?TW","Chinese (Traditional)")
     };
     public static Bip39Wordlist DEFAULT_WORDLIST = LANGS[1]; //en
 
     public static Bip39Wordlist getWordlistForCurrentLocale() {
-        return getWordlistForCurrentLocale(Utils.getCurrentLocale());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            LocaleList localeList = LocaleList.getDefault();
+            //Search each selected locale, in order, to find the first available wordlist
+            for(int i = 0; i < localeList.size(); i++) {
+                Locale testLocale = localeList.get(i);
+                Bip39Wordlist testWordlist = getWordlistForLocale(testLocale);
+                if(testWordlist != DEFAULT_WORDLIST || testLocale.getLanguage().equals(DEFAULT_WORDLIST.languageCode))
+                    return testWordlist;
+            }
+            return DEFAULT_WORDLIST; //Fallback
+        } else{
+            return getWordlistForLocale(Utils.getCurrentLocale());
+        }
     }
-    public static Bip39Wordlist getWordlistForCurrentLocale(Locale locale) {
-        String languageCode = locale != null ? locale.getLanguage() : null;
-        if (languageCode == null) return DEFAULT_WORDLIST;
-        return getWordlistForLanguage(languageCode);
+    public static Bip39Wordlist getWordlistForLocale(Locale locale) {
+        if(locale == null) return DEFAULT_WORDLIST;
+        return getWordlistForLanguage(locale.getLanguage(), locale.toLanguageTag());
     }
     public static Bip39Wordlist getWordlistForLanguage(String languageCode) {
+        return getWordlistForLanguage(languageCode, null);
+    }
+    public static Bip39Wordlist getWordlistForLanguage(String languageCode, String languageTag) {
         if(languageCode == null) return null;
         for(Bip39Wordlist lang : LANGS) {
             if (lang.languageCode.equals(languageCode))
+                return lang;
+
+            //NOTE: when looking by language tag, we use .matches() to allow the use of regex
+            if(!Utils.isNullOrEmpty(languageTag) && languageTag.matches(lang.languageCode))
                 return lang;
         }
         return DEFAULT_WORDLIST;

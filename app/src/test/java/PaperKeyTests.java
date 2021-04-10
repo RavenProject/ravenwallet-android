@@ -75,7 +75,7 @@ public class PaperKeyTests {
         for(Bip39Wordlist wordlist : Bip39Wordlist.LANGS) {
             //This will raise an exception if the wordlist is invalid
             wordlist.loadWords(null);
-            assertEquals("Wordlist is expected size", wordlist.getWords().length, Bip39Wordlist.WORD_LIST_SIZE);
+            assertEquals("Wordlist is expected size", wordlist.getWords(null).length, Bip39Wordlist.WORD_LIST_SIZE);
         }
     }
 

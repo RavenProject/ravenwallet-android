@@ -278,15 +278,13 @@ JNIEXPORT jbyteArray JNICALL
 Java_com_ravenwallet_core_BRCoreMasterPubKey_decodePaperKey
         (JNIEnv *env, jclass thisClass, jstring jPhrase, jobjectArray stringArray) {
     int wordsCount = (*env)->GetArrayLength(env, stringArray);
-    char *wordList[wordsCount];
+    const char **wordList = (const char **) calloc (wordsCount, sizeof (char*));
 
     for (int i = 0; i < wordsCount; i++) {
         jstring string = (jstring) (*env)->GetObjectArrayElement(env, stringArray, i);
         const char *rawString = (*env)->GetStringUTFChars(env, string, 0);
 
-        wordList[i] = malloc(strlen(rawString) + 1);
-        strcpy(wordList[i], rawString);
-        (*env)->ReleaseStringUTFChars(env, string, rawString);
+        wordList[i] = rawString;
         (*env)->DeleteLocalRef(env, string);
     }
 
@@ -304,7 +302,7 @@ Java_com_ravenwallet_core_BRCoreMasterPubKey_decodePaperKey
 
 
     jbyteArray bytePhrase = (*env)->NewByteArray(env, sizeof(entropy));
-    (*env)->SetByteArrayRegion(env, bytePhrase, 0, sizeof(entropy), entropy.u8);
+    (*env)->SetByteArrayRegion(env, bytePhrase, 0, sizeof(entropy), (jbyte *) entropy.u8);
 
     return bytePhrase;
 }

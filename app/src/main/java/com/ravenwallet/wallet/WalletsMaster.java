@@ -78,7 +78,7 @@ public class WalletsMaster {
     }
 
     public synchronized boolean generateRandomSeed(final Context ctx) {
-        Bip39Wordlist bipWords = Bip39Wordlist.getWordlistForLocale();
+        Bip39Wordlist bipWords = Bip39Wordlist.getWordlistForCurrentLocale();
 
         //Generate a random seed to use
         final byte[] randomSeed = bipWords.generateRandomSeed();

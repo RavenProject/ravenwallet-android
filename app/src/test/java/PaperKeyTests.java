@@ -158,7 +158,7 @@ public class PaperKeyTests {
         Assert.assertNotNull("Valid phrase", Bip39Wordlist.identifyWordlist(null, paperKeyBytes));
 
         //Re-extract the seed from the newly created phrase for checking
-        byte[] verifyRandomSeed = bipWords.getSeedFromPhrase(paperKeyBytes);
+        byte[] verifyRandomSeed = bipWords.decodePaperKeyPhrase(null, new String(paperKeyBytes));
 
         //Create an api private key, this function will internally verify the results, and will raise if invalid
         byte[] privateKeyBytes = bipWords.getPrivateKeyForAPI(randomSeed);

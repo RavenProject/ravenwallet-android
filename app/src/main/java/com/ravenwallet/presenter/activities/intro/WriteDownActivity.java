@@ -50,12 +50,8 @@ public class WriteDownActivity extends BRActivity {
     private static final String TAG = WriteDownActivity.class.getName();
     private Button writeButton;
     private ImageButton close;
-    private ListView languageList;
     public static boolean appVisible = false;
     private static WriteDownActivity app;
-
-    private MnemonicLanguageListAdapter languageOptions;
-    private Bip39Wordlist selectedLanguage;
 
     public static WriteDownActivity getApp() {
         return app;
@@ -65,8 +61,6 @@ public class WriteDownActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_down);
-
-        selectedLanguage = Bip39Wordlist.getWordlistForLocale();
 
         writeButton = findViewById(R.id.button_write_down);
         close = findViewById(R.id.close_button);
@@ -84,17 +78,6 @@ public class WriteDownActivity extends BRActivity {
                 BRAnimator.showSupportFragment(app, BRConstants.paperKey);
             }
         });
-        languageList = findViewById(R.id.language_list);
-        languageOptions = new MnemonicLanguageListAdapter(this, R.layout.gateway_list_item);
-        languageList.setAdapter(languageOptions);
-        languageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bip39Wordlist newLanguage = languageOptions.getItem(i);
-                languageOptions.setSelectedLanguage(newLanguage);
-                languageOptions.notifyDataSetChanged();
-            }
-        });
 
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +86,7 @@ public class WriteDownActivity extends BRActivity {
                 AuthManager.getInstance().authPrompt(WriteDownActivity.this, null, getString(R.string.VerifyPin_continueBody), true, false, new BRAuthCompletion() {
                     @Override
                     public void onComplete() {
-                        PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this, false, languageOptions.selectedLanguage.getLanguageCode());
+                        PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this, false);
                     }
 
                     @Override
@@ -163,63 +146,5 @@ public class WriteDownActivity extends BRActivity {
        overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         if (!isDestroyed())
             finish();
-    }
-
-
-    public class MnemonicLanguageListAdapter extends ArrayAdapter<Bip39Wordlist> {
-
-        private Context mContext;
-        int layoutResourceId;
-
-        Bip39Wordlist selectedLanguage;
-
-        public MnemonicLanguageListAdapter(@NonNull Context context, @LayoutRes int resource) {
-            super(context, resource);
-            this.selectedLanguage = Bip39Wordlist.getWordlistForLocale();
-            this.mContext = context;
-            this.layoutResourceId = resource;
-            this.addAll(Bip39Wordlist.LANGS);
-        }
-
-        public Bip39Wordlist getSelectedLanguage() {
-            return selectedLanguage;
-        }
-
-        public void setSelectedLanguage(Bip39Wordlist selectedLanguage) {
-            this.selectedLanguage = selectedLanguage;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Bip39Wordlist wordlist = getItem(position);
-
-            if (convertView == null) {
-                LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-                convertView = inflater.inflate(layoutResourceId, parent, false);
-            }
-            TextView textViewItem = convertView.findViewById(R.id.gateway_item_name);
-            FontManager.overrideFonts(textViewItem);
-            textViewItem.setText(String.format("%s [%s]", wordlist.getLanguageName(), wordlist.getLanguageCode()));
-            ImageView checkMark = convertView.findViewById(R.id.gateway_checkmark);
-
-            if (wordlist.getLanguageCode().equals(selectedLanguage.getLanguageCode())) {
-                checkMark.setVisibility(View.VISIBLE);
-            } else {
-                checkMark.setVisibility(View.GONE);
-            }
-
-            return convertView;
-        }
-
-        @Override
-        public int getCount() {
-            return super.getCount();
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return super.getItemViewType(position);
-        }
     }
 }

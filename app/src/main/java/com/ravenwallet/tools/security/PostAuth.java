@@ -74,10 +74,6 @@ public class PostAuth {
     }
 
     public void onPhraseCheckAuth(Activity app, boolean authAsked) {
-        onPhraseCheckAuth(app, authAsked, Bip39Wordlist.DEFAULT_WORDLIST.getLanguageCode());
-    }
-
-    public void onPhraseCheckAuth(Activity app, boolean authAsked, String phraseLanguage) {
         String cleanPhrase;
         try {
             byte[] raw = BRKeyStore.getPhrase(app, BRConstants.SHOW_PHRASE_REQUEST_CODE);
@@ -86,12 +82,6 @@ public class PostAuth {
                 return;
             }
             cleanPhrase = new String(raw);
-            //TODO: Need to handle this better, by storing the phrase as direct seed bytes (encoded if needed) and not english text phrase
-            if(!phraseLanguage.equals(Bip39Wordlist.DEFAULT_WORDLIST.getLanguageCode())) {
-                byte[] phraseSeed = Bip39Wordlist.DEFAULT_WORDLIST.decodePaperKeyPhrase(app, cleanPhrase);
-                byte[] translatedPhrase = Bip39Wordlist.getWordlistForLanguage(phraseLanguage).generatePaperKeyBytes(app, phraseSeed);
-                cleanPhrase = new String(translatedPhrase);
-            }
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
                 Log.e(TAG, "onPhraseCheckAuth: WARNING!!!! LOOP");
@@ -101,7 +91,6 @@ public class PostAuth {
         }
         Intent intent = new Intent(app, PaperKeyActivity.class);
         intent.putExtra("phrase", cleanPhrase);
-        intent.putExtra("phraseLanguage", phraseLanguage);
         app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
     }

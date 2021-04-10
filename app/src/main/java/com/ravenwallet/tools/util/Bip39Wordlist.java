@@ -41,10 +41,10 @@ public class Bip39Wordlist {
     };
     public static Bip39Wordlist DEFAULT_WORDLIST = LANGS[1]; //en
 
-    public static Bip39Wordlist getWordlistForLocale() {
-        return getWordlistForLocale(Locale.getDefault());
+    public static Bip39Wordlist getWordlistForCurrentLocale() {
+        return getWordlistForCurrentLocale(Utils.getCurrentLocale());
     }
-    public static Bip39Wordlist getWordlistForLocale(Locale locale) {
+    public static Bip39Wordlist getWordlistForCurrentLocale(Locale locale) {
         String languageCode = locale != null ? locale.getLanguage() : null;
         if (languageCode == null) return DEFAULT_WORDLIST;
         return getWordlistForLanguage(languageCode);
@@ -55,7 +55,7 @@ public class Bip39Wordlist {
             if (lang.languageCode.equals(languageCode))
                 return lang;
         }
-        return null;
+        return DEFAULT_WORDLIST;
     }
     public static Bip39Wordlist identifyWordlist(Context app, byte[] paperKeyBytes) {
         return identifyWordlist(app, paperKeyString(paperKeyBytes));
@@ -65,6 +65,9 @@ public class Bip39Wordlist {
             if (list.checkPhrase(app, phrase))
                 return list;
         return null;
+    }
+    public static boolean isValidPhrase(Context app, String phrase) {
+        return identifyWordlist(app, phrase) != null;
     }
     public static boolean isValidWord(Context app, String checkWord) {
         String cleanWord = cleanWord(checkWord);

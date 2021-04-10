@@ -99,8 +99,10 @@ public class PaperKeyActivity extends BRActivity {
         });
 
         String cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
-        String phraseLanguage = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phraseLanguage");
-        phraseLanguage = phraseLanguage == null ? Bip39Wordlist.DEFAULT_WORDLIST.getLanguageCode() : phraseLanguage;
+
+        if(!Bip39Wordlist.isValidPhrase(PaperKeyActivity.this, cleanPhrase)) {
+            BRReportsManager.reportBug(new IllegalArgumentException("Paper key phrase is invalid"), true);
+        }
 
         wordMap = new SparseArray<>();
 

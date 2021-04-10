@@ -74,29 +74,6 @@
         android:textColor="@color/almost_black"
         android:textSize="18sp"/>
 
-
-    <com.ravenwallet.presenter.customviews.BRText
-        android:id="@+id/phrase_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/paper_instructions"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/default_gap"
-        android:text="@string/StartPaperPhrase.phrase_language"
-        android:textColor="@color/almost_black"
-        android:textSize="18sp"/>
-
-    <ListView
-        android:id="@+id/language_list"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:background="@color/extra_light_blue_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_below="@id/phrase_language"
-        android:layout_above="@id/button_write_down"/>
-
     <com.ravenwallet.presenter.customviews.BRButton
         android:id="@+id/button_write_down"
         android:layout_width="match_parent"

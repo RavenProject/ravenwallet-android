@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * RavenWallet
@@ -42,7 +43,7 @@ public class Bip39Reader {
 
     private static final String TAG = Bip39Reader.class.getName();
     public static final int WORD_LIST_SIZE = 2048;
-    public static String[] LANGS = {"en", "es", "fr", "ja", "zh"};
+    public static String[] LANGS = {"en", "es", "fr", "it", "ja", "zh", "zh_tw"};
 
     //if lang is null then all the lists
     public static List<String> bip39List(Context context, String lang) {
@@ -52,7 +53,7 @@ public class Bip39Reader {
             langs = LANGS; //return all the words for all langs
         else {
             boolean exists = false;
-            for (String s : LANGS) if (s.equalsIgnoreCase(lang)) exists = true;
+            for (String s : LANGS) if (new Locale(s).getLanguage().equals(lang)) exists = true; // create a new locale from the wordlist lang, as codes can change
             if (exists)
                 langs = new String[]{lang};//if lang is one of the language we support for paper key creation, then use it
             else

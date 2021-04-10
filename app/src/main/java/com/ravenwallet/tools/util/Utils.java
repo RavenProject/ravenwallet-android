@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
+import android.os.LocaleList;
 import android.provider.Settings;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -230,4 +231,13 @@ public class Utils {
         //TODO: Hash Validation?
         return String.format(BRConstants.IPFS_URL_FORMAT, BRSharedPrefs.getPreferredIPFSGateway(app), hash);
     }
+
+    public static Locale getCurrentLocale() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return LocaleList.getDefault().get(0);
+        } else{
+            return Locale.getDefault();
+        }
+    }
+  
 }

@@ -71,6 +71,14 @@ JNIEXPORT jboolean JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_validate
 JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_generatePaperKey
   (JNIEnv *, jclass, jbyteArray, jobjectArray);
 
+/*
+ * Class:     com_ravencoin_core_BRCoreMasterPubKey
+ * Method:    decodePaperKey
+ * Signature: (Ljava/lang/String;[Ljava/lang/String;)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_ravenwallet_core_BRCoreMasterPubKey_decodePaperKey
+        (JNIEnv *env, jclass thisClass, jstring jPhrase, jobjectArray stringArray);
+
 #ifdef __cplusplus
 }
 #endif

@@ -109,7 +109,7 @@ public class BRCoreKey extends BRCoreJniReference {
     //
     //
     //
-    public static native byte[] getSeedFromPhrase (byte[] phrase);
+    public static native byte[] getDerivedPhraseKey(byte[] phrase);
 
     public static native byte[] getAuthPrivKeyForAPI (byte[] seed);
 

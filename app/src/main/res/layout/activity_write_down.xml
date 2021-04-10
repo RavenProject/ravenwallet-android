@@ -62,6 +62,7 @@
     </FrameLayout>
 
     <com.ravenwallet.presenter.customviews.BRText
+        android:id="@+id/paper_instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/gradient_layout"

@@ -24,6 +24,7 @@ import com.ravenwallet.tools.manager.BRSharedPrefs;
 import com.ravenwallet.tools.sqlite.CurrencyDataSource;
 import com.ravenwallet.tools.threads.executor.BRExecutor;
 import com.ravenwallet.tools.util.BRConstants;
+import com.ravenwallet.tools.util.Bip39Wordlist;
 import com.ravenwallet.tools.util.Utils;
 import com.ravenwallet.wallet.WalletsMaster;
 import com.ravenwallet.wallet.abstracts.BaseWalletManager;
@@ -140,7 +141,7 @@ public class PostAuth {
             } else {
                 if (phraseForKeyStore.length() != 0) {
                     BRSharedPrefs.putPhraseWroteDown(app, true);
-                    byte[] seed = BRCoreKey.getSeedFromPhrase(phraseForKeyStore.getBytes());
+                    byte[] phraseKey = BRCoreKey.getDerivedPhraseKey(phraseForKeyStore.getBytes());
 //                    byte[] authKey = BRCoreKey.getAuthPrivKeyForAPI(seed);
 //                    BRKeyStore.putAuthKey(authKey, app);
                     BRCoreMasterPubKey mpk = new BRCoreMasterPubKey(phraseForKeyStore.getBytes(), true);

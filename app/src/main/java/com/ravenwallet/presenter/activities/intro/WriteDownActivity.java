@@ -2,25 +2,49 @@ package com.ravenwallet.presenter.activities.intro;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ravenwallet.R;
 import com.ravenwallet.presenter.activities.HomeActivity;
 import com.ravenwallet.presenter.activities.util.BRActivity;
+import com.ravenwallet.presenter.entities.BRSettingsItem;
+import com.ravenwallet.presenter.entities.IPFSGateway;
 import com.ravenwallet.presenter.interfaces.BRAuthCompletion;
 import com.ravenwallet.tools.animation.BRAnimator;
+import com.ravenwallet.tools.manager.BRSharedPrefs;
+import com.ravenwallet.tools.manager.FontManager;
 import com.ravenwallet.tools.security.AuthManager;
 import com.ravenwallet.tools.security.PostAuth;
 import com.ravenwallet.tools.util.BRConstants;
+import com.ravenwallet.tools.util.Bip39Wordlist;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import static com.ravenwallet.R.layout.settings_list_item;
+import static com.ravenwallet.R.layout.settings_list_section;
 
 public class WriteDownActivity extends BRActivity {
     private static final String TAG = WriteDownActivity.class.getName();
@@ -54,6 +78,7 @@ public class WriteDownActivity extends BRActivity {
                 BRAnimator.showSupportFragment(app, BRConstants.paperKey);
             }
         });
+
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

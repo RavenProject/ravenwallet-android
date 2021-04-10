@@ -42,6 +42,13 @@ public class PaperKeyAndroidTests {
         assertThat(isCorrect, is(true));
     }
 
+    public void testFirstWord(String word) {
+        Context app = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
+        List<String> words = Bip39Reader.bip39List(app, Locale.getDefault().getLanguage());
+        assertThat(words.get(0), is(word));
+    }
+
     @Test
     public void testEnglishPaperKey() {
         Locale.setDefault(Locale.ENGLISH);
@@ -64,6 +71,24 @@ public class PaperKeyAndroidTests {
     public void testChineseEnglishPaperKey() {
         Locale.setDefault(Locale.CHINESE);
         testPaperKey(PAPER_KEY_EN, ADDRESS_EN);
+    }
+
+    @Test
+    public void testLocales() {
+        Locale.setDefault(new Locale("en"));
+        testFirstWord("abandon");
+
+        Locale.setDefault(new Locale("es"));
+        testFirstWord("ábaco");
+
+        Locale.setDefault(new Locale("it"));
+        testFirstWord("abaco");
+
+        Locale.setDefault(new Locale("ja"));
+        testFirstWord("あいこくしん");
+
+        Locale.setDefault(new Locale("ko"));
+        testFirstWord("가격");
     }
 
     @Test

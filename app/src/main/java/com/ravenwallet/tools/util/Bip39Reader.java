@@ -43,7 +43,7 @@ public class Bip39Reader {
 
     private static final String TAG = Bip39Reader.class.getName();
     public static final int WORD_LIST_SIZE = 2048;
-    public static String[] LANGS = {"en", "es", "fr", "it", "ja", "zh", "zh_tw"};
+    public static String[] LANGS = {"en", "es", "fr", "it", "ja", "ko", "zh", "zh_tw"};
 
     //if lang is null then all the lists
     public static List<String> bip39List(Context context, String lang) {

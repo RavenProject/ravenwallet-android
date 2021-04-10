@@ -65,17 +65,14 @@ public class PaperKeyTests {
     @Test
     public void testPaperKeyValidation() {
         List<String> list = getAllWords();
-        assertThat(list.size(), is(10240));
+        assertThat(list.size(), is(Bip39Reader.WORD_LIST_SIZE * Bip39Reader.LANGS.length));
     }
 
     private List<String> getAllWords() {
         List<String> result = new ArrayList<>();
         List<String> names = new ArrayList<>();
-        names.add("en-BIP39Words.txt");
-        names.add("es-BIP39Words.txt");
-        names.add("fr-BIP39Words.txt");
-        names.add("ja-BIP39Words.txt");
-        names.add("zh-BIP39Words.txt");
+        for (String l : Bip39Reader.LANGS)
+            names.add(l + "-BIP39Words.txt");
 
         for (String fileName : names) {
             InputStream in = null;
@@ -99,7 +96,7 @@ public class PaperKeyTests {
             String cleanWord = Bip39Reader.cleanWord(s);
             cleanList.add(cleanWord);
         }
-        assertThat(cleanList.size(), is(10240));
+
         return cleanList;
     }
 

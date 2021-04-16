@@ -83,11 +83,10 @@ public class IPFSGatewayActivity extends BRActivity {
         adapter.add(new IPFSGateway("Cloudflare A", "cf-ipfs.com"));
         adapter.add(new IPFSGateway("Cloudflare B", "cloudflare-ipfs.com"));
 
+        adapter.add(new IPFSGateway("RavencoinIPFS", "ravencoinipfs-gateway.com"));
         adapter.add(new IPFSGateway("DWeb", "dweb.link"));
         adapter.add(new IPFSGateway("GreyH.at", "ipfs.greyh.at"));
         adapter.add(new IPFSGateway("infura.io", "ipfs.infura.io"));
-        //Really wanted this one to work, but it times out too much to be reliable :(
-        //adapter.add(new IPFSGateway("Ravenland", "gateway.ravenland.org"));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

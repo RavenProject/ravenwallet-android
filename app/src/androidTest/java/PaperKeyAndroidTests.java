@@ -45,30 +45,21 @@ public class PaperKeyAndroidTests {
     public void testFirstWord(String word) {
         Context app = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        List<String> words = Bip39Reader.bip39List(app, Locale.getDefault().getLanguage());
+        List<String> words = Bip39Reader.bip39List(app, Locale.getDefault());
         assertThat(words.get(0), is(word));
     }
 
     @Test
-    public void testEnglishPaperKey() {
+    public void testDetectedPaperKeys() {
         Locale.setDefault(Locale.ENGLISH);
         testPaperKey(PAPER_KEY_EN, ADDRESS_EN);
-    }
 
-    @Test
-    public void testChinesePaperKey() {
         Locale.setDefault(Locale.CHINESE);
         testPaperKey(PAPER_KEY_ZH, ADDRESS_ZH);
-    }
 
-    @Test
-    public void testEnglishChinesePaperKey() {
         Locale.setDefault(Locale.ENGLISH);
         testPaperKey(PAPER_KEY_ZH, ADDRESS_ZH);
-    }
 
-    @Test
-    public void testChineseEnglishPaperKey() {
         Locale.setDefault(Locale.CHINESE);
         testPaperKey(PAPER_KEY_EN, ADDRESS_EN);
     }
@@ -96,14 +87,12 @@ public class PaperKeyAndroidTests {
         Context app = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         // Index 9 is the first character that is different between simplified and traditional.
-        // TODO: actually detecting traditional may also require testing the country or other fields;
-        //   for example, Locale.TRADITIONAL_CHINESE will evaluate to "zh" as the language.
-        Locale.setDefault(new Locale("zh_tw"));
-        List<String> trad = Bip39Reader.bip39List(app, Locale.getDefault().getLanguage());
+        Locale.setDefault(Locale.TRADITIONAL_CHINESE);
+        List<String> trad = Bip39Reader.bip39List(app, Locale.getDefault());
         assertThat(trad.get(9), is("這"));
 
         Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
-        List<String> simp = Bip39Reader.bip39List(app, Locale.getDefault().getLanguage());
+        List<String> simp = Bip39Reader.bip39List(app, Locale.getDefault());
         assertThat(simp.get(9), is("这"));
     }
 }

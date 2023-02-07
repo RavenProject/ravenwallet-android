@@ -327,7 +327,7 @@
     <!-- Security Center Info -->
     <string name="SecurityCenter.info">Enable all security features for maximum protection.</string>
     <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">The only way to access your bitcoin if you lose or upgrade your phone.</string>
+    <string name="SecurityCenter.paperKeyDescription">The only way to access your ravencoin if you lose or upgrade your phone.</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Paper Key</string>
     <!-- PIN button description -->
